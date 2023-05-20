@@ -1,0 +1,3 @@
+[submodule "dist/cmake_collections"]
+	path = dist/cmake_collections
+	url = https://codeup.aliyun.com/646607f7b60a10415c320130/DevOps/cmake_collections.git

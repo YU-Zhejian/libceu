@@ -1,0 +1,12 @@
+/build/
+.idea/
+.vscode/
+/cmake-*/
+/out/
+/.vs/
+
+*.a
+*.so
+*.dll
+*.lib
+/cmake_vars.cmake

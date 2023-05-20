@@ -1,0 +1,9 @@
+set(CEU_CHECK_LIBRARY_SHARED ceu_check_shared)
+set(CEU_CHECK_LIBRARY_STATIC ceu_check_static)
+set(CEU_CHECK_LIBRARY "${CEU_CHECK_LIBRARY_SHARED}")
+
+set(CEU_CPPUTILS_LIBRARY_SHARED ceu_cpputils_shared)
+set(CEU_CPPUTILS_LIBRARY_STATIC ceu_cpputils_static)
+set(CEU_CPPUTILS_LIBRARY "${CEU_CPPUTILS_LIBRARY_SHARED}")
+
+include_directories(${CMAKE_CURRENT_LIST_DIR}/../include)
