@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.17)
+project(CPPTETGS_DIST_CMAKE VERSION 0.2.1 LANGUAGES C CXX Fortran)
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_FORTRAN_STANDARD 90)
+set(CPPTETGS_DIST_CMAKE_TEST 1)
+
+file(GLOB CPPTETGS_DIST_CMAKE_TEST_FILES "${CMAKE_CURRENT_LIST_DIR}/test_*.cmake")
+
+foreach (fiename ${CPPTETGS_DIST_CMAKE_TEST_FILES})
+    include(${fiename})
+endforeach ()

@@ -10,3 +10,4 @@
 *.dll
 *.lib
 /cmake_vars.cmake
+/doxygen.out.d/
