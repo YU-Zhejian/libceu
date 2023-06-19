@@ -40,14 +40,14 @@ extern "C"
  * @param patchlevel The third digit of corresponding version number.
  * Not used when CEU_COMPILER_IS_MSVC, CEU_COMPILER_IS_BORLAND, CEU_COMPILER_IS_TINYCC, CEU_COMPILER_IS_ICC and CEU_COMPILER_IS_UNKNOWN.
  */
-static inline bool check_compiler_version(int major, int minor, int patchlevel);
+bool check_compiler_version(int major, int minor, int patchlevel);
 
 /*!
  * @brief Get a string describing compiler version.
  *
  * @return Returned buffer, should be freed manually. Would be NULL on error.
  */
-static inline char* interpret_compiler_version_number();
+char* interpret_compiler_version_number(void);
 
 // TODO: __PGIC__
 #include "cc/ceu_cc_nvhpc.h"
@@ -64,56 +64,14 @@ static inline char* interpret_compiler_version_number();
  *
  * @return Returned buffer, should be freed manually. Would be NULL on error.
  */
-static inline char* interpret_compilation_date_time()
-{
-	int retv;
-	char* buff = (char*)ceu_scalloc(sizeof(char), 256);
-#if defined(__DATE__) && defined(__TIME__)
-	retv = snprintf(buff, 256, "%s, %s", __DATE__, __TIME__);
-#elif defined(__DATE__)
-	retv = snprintf(buff, 256, "%s, unknown time", __DATE__);
-#else
-	retv = snprintf(buff, 256, "unknown date & time");
-#endif
-	if (retv < 0)
-	{
-		free(buff);
-		return NULL;
-	}
-	return buff;
-}
+char* interpret_compilation_date_time(void);
 
 /*!
  * @brief Get compiler information.
  *
  * @param Returned buffer, should be freed manually.
 */
-static inline char* get_compiler_info()
-{
-	char* buff = (char*)ceu_scalloc(sizeof(char), 1024);
-	int retv;
-	char* date_time_buff = interpret_compilation_date_time();
-	if (date_time_buff == NULL)
-	{
-		return NULL;
-	}
-	char* compiler_version_buff = interpret_compiler_version_number();
-	if (compiler_version_buff == NULL)
-	{
-		free(date_time_buff);
-		return NULL;
-	}
-
-	retv = snprintf(buff, 1024, "Compiled at %s with compiler '%s' ver. '%s'", date_time_buff, CEU_COMPILER_NAME,
-			compiler_version_buff);
-	free(date_time_buff);
-	free(compiler_version_buff);
-	if (retv < 0)
-	{
-		return NULL;
-	}
-	return buff;
-}
+char* get_compiler_info(void);
 
 #ifdef __cplusplus
 }

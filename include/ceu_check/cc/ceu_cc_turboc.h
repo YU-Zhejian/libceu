@@ -21,23 +21,4 @@
 #else
 #define CEU_COMPILER_NAME "Borland with Clang support"
 #endif
-
-static inline bool check_compiler_version(int major, int minor, int patchlevel)
-{
-   return major * 256 + minor / 10 * 16 + minor % 10 < CEU_COMPILER_VERSION;
-}
-static inline char *interpret_compiler_version_number()
-{
-   char *buff = (char *)scalloc(sizeof(char), 256);
-   int retv;
-   int major = __BORLANDC__ / 256;
-   int revision = (__BORLANDC__ - 256 * major) / 16 + __BORLANDC__ % 16;
-   retv = snprintf(buff, 256, "%d.%d", major, revision);
-   if (retv < 0)
-   {
-		free(buff);
-		return NULL;
-   }
-   return buff;
-}
 #endif

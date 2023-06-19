@@ -1,8 +1,6 @@
 /**
  * Microsoft MSVC. That is, what is bundled in Visual Studio.
  */
-#include <string.h>
-
 #if defined(_MSC_VER) && !defined(CEU_COMPILER_NAME)
 #define CEU_COMPILER_IS_MSVC
 #define CEU_COMPILER_NAME "MSVC"
@@ -84,23 +82,4 @@
 #else
 #define VISUAL_STUDIO_VER "unknown"
 #endif
-
-static inline char *interpret_compiler_version_number()
-{
-	char *buff = (char *)ceu_scalloc(sizeof(char), 256);
-	int retv;
-	int msv_major_version = CEU_COMPILER_VERSION / 100;
-	int msc_minor_version = CEU_COMPILER_VERSION % 100;
-#ifdef _MSC_FULL_VER
-	retv = snprintf(buff, 256, "%d.%d, with Visual Studio ver. %s (_MSC_VER=%d, _MSC_FULL_VER=%d)", msv_major_version, msc_minor_version, VISUAL_STUDIO_VER, _MSC_VER, _MSC_FULL_VER);
-#else
-	retv = snprintf(buff, 256, "%d.%d, with Visual Studio ver. %s (_MSC_VER=%d, _MSC_FULL_VER=UNKNOWN)", msv_major_version, msc_minor_version, VISUAL_STUDIO_VER, _MSC_VER);
-#endif
-	if (retv < 0)
-	{
-		free(buff);
-		return NULL;
-	}
-	return buff;
-}
 #endif

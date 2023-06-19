@@ -1,8 +1,6 @@
 /*!
  * @brief Get compile-time C standard.
  */
-#include "ceu_check/ceu_c_utils.h"
-
 #ifndef CEU_CHECK_C_STD_H
 #define CEU_CHECK_C_STD_H
 
@@ -31,42 +29,13 @@
 /**
  * Get compile-time C standard version number.
  */
-static inline char* interpret_c_version()
-{
-	char* buff = (char*)ceu_scalloc(sizeof(char), 256);
-	int retv;
-	retv = snprintf(buff, 256, "%s (%ld)", CEU_C_STD, CEU_C_STD_MACRO);
-	if (retv < 0)
-	{
-		free(buff);
-		return NULL;
-	}
-	return buff;
-}
+char* interpret_c_version(void);
 
 /*!
  * @brief Get a nicely formatted compile-time C++ standard version number.
  * @param buff Buffer to write to. This should be at least 1024 bytes long.
  */
-static inline char* get_c_info()
-{
-	char* buff = (char*)ceu_scalloc(sizeof(char), 512);
-	int retv;
-	char* c_std_version_buff = interpret_c_version();
-	if (c_std_version_buff == NULL)
-	{
-		return NULL;
-	}
-
-	retv = snprintf(buff, 512, "Compile-time C std.: ver. %s", c_std_version_buff);
-	free(c_std_version_buff);
-	if (retv < 0)
-	{
-		free(buff);
-		return NULL;
-	}
-	return buff;
-}
+char* get_c_info(void);
 
 
 #endif //CEU_CHECK_C_STD_H

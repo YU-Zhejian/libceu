@@ -1,21 +1,31 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "ceu_check/ceu_c_utils.h"
+#include "ceu_check/ceu_check_os.h"
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #ifdef CEU_ON_CYGWIN_LIKE
 
 #include <cygwin/version.h>
 
-static inline char* get_compile_time_cygwin_version()
+char* get_compile_time_cygwin_version(void)
 {
 	int retv;
 	char* buff = (char*)ceu_scalloc(sizeof(char), 256);
 	retv = snprintf(
-			buff,
-			256,
-			"CYGWIN API ver. %d.%d\n\tCYGWIN DLL (%s) ver. %d.%d",
-			CYGWIN_VERSION_API_MAJOR,
-			CYGWIN_VERSION_API_MINOR,
-			CYGWIN_VERSION_DLL_IDENTIFIER,
-			CYGWIN_VERSION_DLL_MAJOR,
-			CYGWIN_VERSION_DLL_MINOR
+		buff,
+		256,
+		"CYGWIN API ver. %d.%d\n\tCYGWIN DLL (%s) ver. %d.%d",
+		CYGWIN_VERSION_API_MAJOR,
+		CYGWIN_VERSION_API_MINOR,
+		CYGWIN_VERSION_DLL_IDENTIFIER,
+		CYGWIN_VERSION_DLL_MAJOR,
+		CYGWIN_VERSION_DLL_MINOR
 	);
 	if (retv < 0)
 	{
@@ -26,7 +36,12 @@ static inline char* get_compile_time_cygwin_version()
 }
 
 #else
-static inline char* get_compile_time_cygwin_version(){return NULL;}
+
+char* get_compile_time_cygwin_version(void)
+{
+	return NULL;
+}
+
 #endif
 
 #ifdef CEU_ON_WINDOWS
@@ -34,7 +49,7 @@ static inline char* get_compile_time_cygwin_version(){return NULL;}
 #include <Windows.h>
 #include <VersionHelpers.h>
 
-static inline char* get_run_time_windows_version()
+char* get_run_time_windows_version()
 {
 	int retv;
 	char* version;
@@ -106,15 +121,20 @@ static inline char* get_run_time_windows_version()
 }
 
 #else
-static inline char* get_run_time_windows_version() { return NULL; };
+
+char* get_run_time_windows_version(void)
+{
+	return NULL;
+}
+
 #endif
 
 #ifdef CEU_ON_POSIX
 
+#include <unistd.h> // Should NOT be removed
 #include <sys/utsname.h>
-#include <unistd.h>
 
-static inline char* get_run_time_posix_uts_info()
+char* get_run_time_posix_uts_info(void)
 {
 	int retv;
 	struct utsname ceu_utsname;
@@ -138,7 +158,7 @@ static inline char* get_run_time_posix_uts_info()
 	return buff;
 }
 
-static inline char* get_compile_time_posix_standard()
+char* get_compile_time_posix_standard(void)
 {
 	char* ct_posix1_buff = (char*)ceu_scalloc(sizeof(char), 256);
 #ifdef _POSIX_VERSION
@@ -167,7 +187,52 @@ static inline char* get_compile_time_posix_standard()
 }
 
 #else
-static inline char* get_compile_time_posix_standard(){return NULL;}
-static inline char* get_run_time_posix_uts_info(){return NULL;}
+char* get_compile_time_posix_standard() { return NULL; }
+char* get_run_time_posix_uts_info() { return NULL; }
 #endif
 
+char* get_compile_time_os_info(void)
+{
+	int retv;
+	char* os_name_buff = (char*)ceu_scalloc(sizeof(char), 256);
+	retv = snprintf(os_name_buff, 256, "Compile-time OS info: '%s'", CEU_PRIMARY_OS_TYPE);
+
+	if (retv < 0)
+	{
+		free(os_name_buff);
+		return NULL;
+	}
+	char* cygwin_version_buff = get_compile_time_cygwin_version();
+	char* posix_version_buff = get_compile_time_posix_standard();
+	char* final_buff = ceu_str_join_with_sep("\n\t", CEU_STR_JOIN_SKIP, 3, os_name_buff, cygwin_version_buff,
+			posix_version_buff);
+	ceu_free_non_null(cygwin_version_buff);
+	ceu_free_non_null(os_name_buff);
+	ceu_free_non_null(posix_version_buff);
+	return final_buff;
+}
+
+char* get_run_time_os_info(void)
+{
+	int retv;
+	char* os_name_buff = (char*)ceu_scalloc(sizeof(char), 256);
+	retv = snprintf(os_name_buff, 256, "Run-time OS info: '%s'", CEU_PRIMARY_OS_TYPE);
+
+	if (retv < 0)
+	{
+		free(os_name_buff);
+		return NULL;
+	}
+	char* windows_version_buff = get_run_time_windows_version();
+	char* posix_uts_buff = get_run_time_posix_uts_info();
+	char* final_buff = ceu_str_join_with_sep("\n\t", CEU_STR_JOIN_SKIP, 3, os_name_buff, windows_version_buff,
+			posix_uts_buff);
+	ceu_free_non_null(windows_version_buff);
+	ceu_free_non_null(os_name_buff);
+	ceu_free_non_null(posix_uts_buff);
+	return final_buff;
+}
+
+#ifdef __cplusplus
+}
+#endif

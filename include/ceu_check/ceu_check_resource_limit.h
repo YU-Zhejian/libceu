@@ -19,7 +19,7 @@ extern "C" {
 #include <sys/resource.h>
 
 
-static inline void _ceu_format_posix_rlimit_return(
+inline void _ceu_format_posix_rlimit_return(
 		char* buff,
 		int rlimit_macro,
 		const char* rlimit_name,
@@ -40,7 +40,7 @@ static inline void _ceu_format_posix_rlimit_return(
 	);
 }
 
-static inline void _ceu_format_posix_sysconf_return(
+inline void _ceu_format_posix_sysconf_return(
 		char* buff,
 		int posix_limit_macro,
 		const char* posix_limit_name,
@@ -59,7 +59,7 @@ static inline void _ceu_format_posix_sysconf_return(
 
 #endif
 
-static inline void get_rlimit_info(char* buff)
+inline void get_rlimit_info(char* buff)
 {
 #ifdef CEU_ON_POSIX
 	append_sprintf(
@@ -99,10 +99,10 @@ static inline void get_rlimit_info(char* buff)
 	);
 #ifdef RLIMIT_NPROC
 	_ceu_format_posix_rlimit_return(
-		buff,
-		RLIMIT_NPROC,
-		"RLIMIT_NPROC",
-		"The maximum number of processes (or, more precisely on Linux, threads) that can be created for the real user ID of the calling process."
+			buff,
+			RLIMIT_NPROC,
+			"RLIMIT_NPROC",
+			"The maximum number of processes (or, more precisely on Linux, threads) that can be created for the real user ID of the calling process."
 	);
 #endif
 	_ceu_format_posix_rlimit_return(
@@ -120,7 +120,7 @@ static inline void get_rlimit_info(char* buff)
 #endif
 }
 
-static inline void get_runtime_posix_sysconf_limit_info(char* buff)
+inline void get_runtime_posix_sysconf_limit_info(char* buff)
 {
 #ifdef CEU_ON_POSIX
 	append_sprintf(buff, "%sRun-time POSIX sysconf(3) resource limits:\n", buff);

@@ -9,7 +9,20 @@ endif ()
 
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/enable_debug.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c_helloworld.cmake")
-include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_cxx_helloworld.cmake")
+
+if (${HAVE_WORKING_C_HELLOWORLD_RUN_SHARED} EQUAL 0)
+    set(LIBCEU_BUILD_SHARED TRUE)
+    message(STATUS "LIBCEU: Will build shared libceu")
+else ()
+    message(FATAL_ERROR "LIBCEU: Will NOT build shared libceu!")
+endif ()
+
+if (${HAVE_WORKING_C_HELLOWORLD_RUN_STATIC} EQUAL 0)
+    set(LIBCEU_BUILD_STATIC TRUE)
+    message(STATUS "LIBCEU: Will build static libceu")
+else ()
+    message(STATUS "LIBCEU: Will NOT build static libceu")
+endif ()
 
 include("${CMAKE_CURRENT_LIST_DIR}/cmake/libceu.cmake")
-
+add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/lib/")
