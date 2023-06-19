@@ -53,7 +53,7 @@ char* interpret_cxx_version(void)
 	int retv;
 	if (CEU_CXX_STD == 0)
 	{
-		retv = snprintf(buff, 256, "before 98 (%ld)", CEU_CXX_STD_VERSION_MACRO);
+		retv = snprintf(buff, 256, "before 98 (%ld)", (unsigned long)CEU_CXX_STD_VERSION_MACRO);
 	}
 	else if (CEU_CXX_STD == -2)
 	{
@@ -61,7 +61,7 @@ char* interpret_cxx_version(void)
 	}
 	else
 	{
-		retv = snprintf(buff, 256, "%d (%ld)", CEU_CXX_STD, CEU_CXX_STD_VERSION_MACRO);
+		retv = snprintf(buff, 256, "%d (%ld)", CEU_CXX_STD, (unsigned long)CEU_CXX_STD_VERSION_MACRO);
 	}
 	if (retv < 0)
 	{

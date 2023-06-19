@@ -43,7 +43,7 @@ char* get_compiler_info(void)
 		return NULL;
 	}
 
-	retv = snprintf(buff, 1024, "Compiled at %s with compiler '%s' ver. '%s'", date_time_buff, CEU_COMPILER_NAME,
+	retv = snprintf(buff, 1024, "Compiled at %s with compiler '%s'\n\t%s", date_time_buff, CEU_COMPILER_NAME,
 			compiler_version_buff);
 	free(date_time_buff);
 	free(compiler_version_buff);
@@ -54,23 +54,16 @@ char* get_compiler_info(void)
 	return buff;
 }
 
-#if defined(CEU_COMPILER_IS_CLANG)
-bool check_compiler_version(int major, int minor, int patchlevel)
+#if defined(CEU_COMPILER_IS_ICC)
+char *interpret_icc_compiler_version_number()
 {
-	return CEU_COMPILER_VERSION >= major * 10000 + minor * 100 + patchlevel;
-}
-char *interpret_compiler_version_number()
-{
+	char *buff = (char *)ceu_scalloc(sizeof(char), 256);
 	int retv;
-	char *buff = (char *)scalloc(sizeof(char), 256);
-	if (CEU_COMPILER_VERSION != 0)
-	{
-		retv = snprintf(buff, 256, "%d.%d.%d", __clang_major__, __clang_minor__, __clang_patchlevel__);
-	}
-	else
-	{
-		retv = snprintf(buff, 256, "unknown");
-	}
+#ifdef __INTEL_COMPILER_UPDATE
+	retv = snprintf(buff, 256, "ICC compatible version number: %d.%d", __ICC, __INTEL_COMPILER_UPDATE);
+#else
+	retv = snprintf(buff, 256, "ICC compatible version number: %d", __ICC);
+#endif
 	if (retv < 0)
 	{
 		free(buff);
@@ -78,19 +71,142 @@ char *interpret_compiler_version_number()
 	}
 	return buff;
 }
-#elif defined(CEU_COMPILER_IS_GCC)
+#else
 
-bool check_compiler_version(int major, int minor, int patchlevel)
+char* interpret_icc_compiler_version_number()
 {
-	return CEU_COMPILER_VERSION >= major * 10000 + minor * 100 + patchlevel;
+	return NULL;
 }
 
-char* interpret_compiler_version_number(void)
+#endif
+#if defined(CEU_COMPILER_IS_MSVC)
+char *interpret_msvc_compiler_version_number()
+{
+	char *buff = (char *)ceu_scalloc(sizeof(char), 256);
+	int retv;
+	int msv_major_version = CEU_COMPILER_VERSION / 100;
+	int msc_minor_version = CEU_COMPILER_VERSION % 100;
+#ifdef _MSC_FULL_VER
+	retv = snprintf(buff, 256, "MSVC compatible version number: %d.%d\n\t\twith Visual Studio ver. %s (_MSC_VER=%d, _MSC_FULL_VER=%d)", msv_major_version, msc_minor_version, VISUAL_STUDIO_VER, _MSC_VER, _MSC_FULL_VER);
+#else
+	retv = snprintf(buff, 256, "MSVC compatible version number: %d.%d\n\t\twith Visual Studio ver. %s (_MSC_VER=%d, _MSC_FULL_VER=UNKNOWN)", msv_major_version, msc_minor_version, VISUAL_STUDIO_VER, _MSC_VER);
+#endif
+	if (retv < 0)
+	{
+		free(buff);
+		return NULL;
+	}
+	return buff;
+}
+#else
+
+char* interpret_msvc_compiler_version_number()
+{
+	return NULL;
+}
+
+#endif
+#if defined(CEU_COMPILER_IS_NVHPC)
+char *interpret_nvhpc_compiler_version_number()
+{
+	char *buff = (char *)ceu_scalloc(sizeof(char), 256);
+	int retv;
+	retv = snprintf(buff, 256, "NVHPC compatible version number: %d.%d.%d", __NVCOMPILER_MAJOR__, __NVCOMPILER_MINOR__, __NVCOMPILER_PATCHLEVEL__);
+	if (retv < 0)
+	{
+		free(buff);
+		return NULL;
+	}
+	return buff;
+}
+#else
+
+char* interpret_nvhpc_compiler_version_number()
+{
+	return NULL;
+}
+
+#endif
+#if defined(CEU_COMPILER_IS_TINYCC)
+char *interpret_tcc_compiler_version_number()
+{
+	char *buff = (char *)ceu_scalloc(sizeof(char), 256);
+	int retv;
+	int major = __TINYC__ / 10000;
+	int minor = (__TINYC__ - major * 10000) / 100;
+	int patchlevel = __TINYC__ % 100;
+	retv = snprintf(buff, 256, "TCC compatible version number: %d.%d.%d", major, minor, patchlevel);
+	if (retv < 0)
+	{
+		free(buff);
+		return NULL;
+	}
+	return buff;
+}
+#else
+
+char* interpret_tcc_compiler_version_number()
+{
+	return NULL;
+}
+
+#endif
+
+#if defined(CEU_COMPILER_IS_BORLAND)
+char *interpret_broadland_compiler_version_number()
+{
+   char *buff = (char *)ceu_scalloc(sizeof(char), 256);
+   int retv;
+   int major = __BORLANDC__ / 256;
+   int revision = (__BORLANDC__ - 256 * major) / 16 + __BORLANDC__ % 16;
+   retv = snprintf(buff, 256, "Broadland compatible version number: %d.%d", major, revision);
+   if (retv < 0)
+   {
+		free(buff);
+		return NULL;
+   }
+   return buff;
+}
+#else
+
+char* interpret_broadland_compiler_version_number()
+{
+	return NULL;
+}
+
+#endif
+#if defined(CEU_COMPILER_IS_CLANG)
+
+char* interpret_clang_compiler_version_number()
+{
+	int retv;
+	char* buff = (char*)ceu_scalloc(sizeof(char), 256);
+#ifdef __clang_major__
+	retv = snprintf(buff, 256, "Clang compatible version number: %d.%d.%d", __clang_major__, __clang_minor__,
+			__clang_patchlevel__);
+#else
+	retv = snprintf(buff, 256, "Clang compatible version number: unknown");
+#endif
+	if (retv < 0)
+	{
+		free(buff);
+		return NULL;
+	}
+	return buff;
+}
+
+#else
+char *interpret_clang_compiler_version_number(){return NULL;}
+#endif
+#if defined(CEU_COMPILER_IS_GCC)
+
+char* interpret_gcc_compiler_version_number(void)
 {
 	char* buff = (char*)ceu_scalloc(sizeof(char), 256);
 	int retv;
 #ifdef __GNUC_PATCHLEVEL__
-	retv = snprintf(buff, 256, "%d.%d.%d", __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__);
+	retv = snprintf(buff, 256, "GCC compatible version number: %d.%d.%d", __GNUC__, __GNUC_MINOR__,
+			__GNUC_PATCHLEVEL__);
 #else
 	retv = snprintf(buff, 256, "%d.%d", __GNUC__, __GNUC_MINOR__);
 #endif
@@ -102,120 +218,31 @@ char* interpret_compiler_version_number(void)
 	return buff;
 }
 
-#elif defined(CEU_COMPILER_IS_ICC)
-bool check_compiler_version(int major, int minor, int patchlevel)
-{
-	return major * 100 + minor < CEU_COMPILER_VERSION;
-}
-char *interpret_compiler_version_number()
-{
-	char *buff = (char *)scalloc(sizeof(char), 256);
-	int retv;
-#ifdef __INTEL_COMPILER_UPDATE
-	retv = snprintf(buff, 256, "%d.%d", __ICC, __INTEL_COMPILER_UPDATE);
 #else
-	retv = snprintf(buff, 256, "%d", __ICC);
+char* interpret_gcc_compiler_version_number(void){return NULL;}
 #endif
-	if (retv < 0)
-	{
-		free(buff);
-		return NULL;
-	}
-	return buff;
-}
-#elif defined(CEU_COMPILER_IS_MSVC)
-char *interpret_compiler_version_number()
+
+char* interpret_compiler_version_number()
 {
-	char *buff = (char *)ceu_scalloc(sizeof(char), 256);
-	int retv;
-	int msv_major_version = CEU_COMPILER_VERSION / 100;
-	int msc_minor_version = CEU_COMPILER_VERSION % 100;
-#ifdef _MSC_FULL_VER
-	retv = snprintf(buff, 256, "%d.%d, with Visual Studio ver. %s (_MSC_VER=%d, _MSC_FULL_VER=%d)", msv_major_version, msc_minor_version, VISUAL_STUDIO_VER, _MSC_VER, _MSC_FULL_VER);
-#else
-	retv = snprintf(buff, 256, "%d.%d, with Visual Studio ver. %s (_MSC_VER=%d, _MSC_FULL_VER=UNKNOWN)", msv_major_version, msc_minor_version, VISUAL_STUDIO_VER, _MSC_VER);
-#endif
-	if (retv < 0)
-	{
-		free(buff);
-		return NULL;
-	}
-	return buff;
+	char* tcc_comp_version = interpret_tcc_compiler_version_number();
+	char* gcc_comp_version = interpret_gcc_compiler_version_number();
+	char* icc_comp_version = interpret_icc_compiler_version_number();
+	char* clang_comp_version = interpret_clang_compiler_version_number();
+	char* msvc_comp_version = interpret_msvc_compiler_version_number();
+	char* nvhpc_comp_version = interpret_nvhpc_compiler_version_number();
+	char* broadland_comp_version = interpret_broadland_compiler_version_number();
+	char* final_buff = ceu_str_join_with_sep("\n\t", CEU_STR_JOIN_SKIP, 7, tcc_comp_version, gcc_comp_version,
+			icc_comp_version, clang_comp_version, msvc_comp_version, nvhpc_comp_version, broadland_comp_version);
+	ceu_free_non_null(tcc_comp_version);
+	ceu_free_non_null(gcc_comp_version);
+	ceu_free_non_null(icc_comp_version);
+	ceu_free_non_null(clang_comp_version);
+	ceu_free_non_null(msvc_comp_version);
+	ceu_free_non_null(nvhpc_comp_version);
+	ceu_free_non_null(broadland_comp_version);
+	return final_buff;
 }
-#elif defined(CEU_COMPILER_IS_NVHPC)
-bool check_compiler_version(int major, int minor, int patchlevel)
-{
-	return major * 10000 + minor * 100 + patchlevel < CEU_COMPILER_VERSION;
-}
-char *interpret_compiler_version_number()
-{
-	char *buff = (char *)scalloc(sizeof(char), 256);
-	int retv;
-	retv = snprintf(buff, 256, "%d.%d.%d", __NVCOMPILER_MAJOR__, __NVCOMPILER_MINOR__, __NVCOMPILER_PATCHLEVEL__);
-	if (retv < 0)
-	{
-		free(buff);
-		return NULL;
-	}
-	return buff;
-}
-#elif defined(CEU_COMPILER_IS_TINYCC)
-bool check_compiler_version(int major, int minor, int patchlevel)
-{
-	return major < CEU_COMPILER_VERSION;
-}
-char *interpret_compiler_version_number()
-{
-	char *buff = (char *)scalloc(sizeof(char), 256);
-	int retv;
-	int major = __TCC__ / 10000;
-	int minor = (__TCC__ - major * 10000) / 100;
-	int patchlevel = __TCC__ % 100;
-	retv = snprintf(buff, 256, "%d.%d.%d", major, minor, patchlevel);
-	if (retv < 0)
-	{
-		free(buff);
-		return NULL;
-	}
-	return buff;
-}
-#elif defined(CEU_COMPILER_IS_BORLAND)
-bool check_compiler_version(int major, int minor, int patchlevel)
-{
-   return major * 256 + minor / 10 * 16 + minor % 10 < CEU_COMPILER_VERSION;
-}
-char *interpret_compiler_version_number()
-{
-   char *buff = (char *)scalloc(sizeof(char), 256);
-   int retv;
-   int major = __BORLANDC__ / 256;
-   int revision = (__BORLANDC__ - 256 * major) / 16 + __BORLANDC__ % 16;
-   retv = snprintf(buff, 256, "%d.%d", major, revision);
-   if (retv < 0)
-   {
-		free(buff);
-		return NULL;
-   }
-   return buff;
-}
-#else
-bool check_compiler_version(int major, int minor, int patchlevel)
-{
-	return true;
-}
-char *interpret_compiler_version_number()
-{
-	char *buff = (char *)scalloc(sizeof(char), 256);
-	int retv;
-	retv = snprintf(buff, 256, "unknown");
-	if (retv < 0)
-	{
-		free(buff);
-		return NULL;
-	}
-	return buff;
-}
-#endif
+
 
 #ifdef __cplusplus
 }

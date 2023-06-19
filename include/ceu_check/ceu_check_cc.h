@@ -29,20 +29,6 @@ extern "C"
 #endif
 
 /*!
- * @brief whether compiler have version greater or equal than given version.
- *
- * @details Would check compiler version with target ones.
- *
- * @param major The first digit of corresponding version number.
- * Not used when CEU_COMPILER_IS_UNKNOWN.
- * @param minor The second digit of corresponding version number.
- * 	Not used when CEU_COMPILER_IS_TINYCC and CEU_COMPILER_IS_UNKNOWN
- * @param patchlevel The third digit of corresponding version number.
- * Not used when CEU_COMPILER_IS_MSVC, CEU_COMPILER_IS_BORLAND, CEU_COMPILER_IS_TINYCC, CEU_COMPILER_IS_ICC and CEU_COMPILER_IS_UNKNOWN.
- */
-bool check_compiler_version(int major, int minor, int patchlevel);
-
-/*!
  * @brief Get a string describing compiler version.
  *
  * @return Returned buffer, should be freed manually. Would be NULL on error.

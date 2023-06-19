@@ -11,14 +11,9 @@
 
 #if defined(__BORLANDC__) || defined(__CODEGEARC__) || defined(__BCPLUSPLUS__) || defined(__TCPLUSPLUS__) || defined(__TURBOC__)
 #define CEU_COMPILER_IS_BORLAND
-#if defined(__BORLANDC__)
-#define CEU_COMPILER_VERSION __BORLANDC__
-#else
-#define CEU_COMPILER_VERSION 0
-#endif
 #if defined(__clang__)
-#define CEU_COMPILER_NAME "Borland"
-#else
 #define CEU_COMPILER_NAME "Borland with Clang support"
+#else
+#define CEU_COMPILER_NAME "Borland"
 #endif
 #endif
