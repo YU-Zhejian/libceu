@@ -113,6 +113,10 @@ char *ceu_str_join_with_sep(char *sep, ceu_str_join_null_action_t nb, int count,
             else if (nb == CEU_STR_JOIN_SKIP) {
                 continue;
             }
+            else if (nb == CEU_STR_JOIN_WARN_SKIP) {
+                printf("WARNING: NULL encountered at token %d\n", i);
+                continue;
+            }
         }
         char *new_intem_buf = ceu_str_join(curr_buf, new_item);
         if (new_intem_buf == NULL) {

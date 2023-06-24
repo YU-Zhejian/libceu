@@ -49,7 +49,7 @@ char* get_compile_time_cygwin_version(void)
 #include <Windows.h>
 #include <VersionHelpers.h>
 
-char* get_run_time_windows_version()
+char* get_run_time_windows_version(void)
 {
 	int retv;
 	char* version;
@@ -187,8 +187,8 @@ char* get_compile_time_posix_standard(void)
 }
 
 #else
-char* get_compile_time_posix_standard() { return NULL; }
-char* get_run_time_posix_uts_info() { return NULL; }
+char* get_compile_time_posix_standard(void) { return NULL; }
+char* get_run_time_posix_uts_info(void) { return NULL; }
 #endif
 
 char* get_compile_time_os_info(void)

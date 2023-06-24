@@ -33,7 +33,7 @@ char* get_full_info(void)
 	char* retbuff = ceu_str_join_with_sep(
 			"\n",
 			CEU_STR_JOIN_SKIP,
-			5,
+			6,
 			libceu_version_buff,
 			compiler_info_buff,
 			c_cxx_info_buff,

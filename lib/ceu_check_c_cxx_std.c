@@ -8,7 +8,7 @@
 extern "C" {
 #endif
 
-char* interpret_c_version()
+char* interpret_c_version(void)
 {
 	char* buff = (char*)ceu_scalloc(sizeof(char), 256);
 	int retv;
@@ -21,7 +21,7 @@ char* interpret_c_version()
 	return buff;
 }
 
-char* get_c_info()
+char* get_c_info(void)
 {
 	char* buff = (char*)ceu_scalloc(sizeof(char), 512);
 	int retv;

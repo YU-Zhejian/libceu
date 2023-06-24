@@ -11,7 +11,8 @@ typedef enum
 {
 	CEU_STR_JOIN_RETURN_NULL = 0,
 	CEU_STR_JOIN_REGARD_AS_EMPTY_STR = 1,
-	CEU_STR_JOIN_SKIP = 2
+	CEU_STR_JOIN_SKIP = 2,
+	CEU_STR_JOIN_WARN_SKIP = 3
 } ceu_str_join_null_action_t;
 
 

@@ -73,14 +73,14 @@ char *interpret_icc_compiler_version_number()
 }
 #else
 
-char* interpret_icc_compiler_version_number()
+char* interpret_icc_compiler_version_number(void)
 {
 	return NULL;
 }
 
 #endif
 #if defined(CEU_COMPILER_IS_MSVC)
-char *interpret_msvc_compiler_version_number()
+char *interpret_msvc_compiler_version_number(void)
 {
 	char *buff = (char *)ceu_scalloc(sizeof(char), 256);
 	int retv;
@@ -121,14 +121,14 @@ char *interpret_nvhpc_compiler_version_number()
 }
 #else
 
-char* interpret_nvhpc_compiler_version_number()
+char* interpret_nvhpc_compiler_version_number(void)
 {
 	return NULL;
 }
 
 #endif
 #if defined(CEU_COMPILER_IS_TINYCC)
-char *interpret_tcc_compiler_version_number()
+char *interpret_tcc_compiler_version_number(void)
 {
 	char *buff = (char *)ceu_scalloc(sizeof(char), 256);
 	int retv;
@@ -145,7 +145,7 @@ char *interpret_tcc_compiler_version_number()
 }
 #else
 
-char* interpret_tcc_compiler_version_number()
+char* interpret_tcc_compiler_version_number(void)
 {
 	return NULL;
 }
@@ -153,7 +153,7 @@ char* interpret_tcc_compiler_version_number()
 #endif
 
 #if defined(CEU_COMPILER_IS_BORLAND)
-char *interpret_broadland_compiler_version_number()
+char *interpret_broadland_compiler_version_number(void)
 {
    char *buff = (char *)ceu_scalloc(sizeof(char), 256);
    int retv;
@@ -169,7 +169,7 @@ char *interpret_broadland_compiler_version_number()
 }
 #else
 
-char* interpret_broadland_compiler_version_number()
+char* interpret_broadland_compiler_version_number(void)
 {
 	return NULL;
 }
@@ -177,7 +177,7 @@ char* interpret_broadland_compiler_version_number()
 #endif
 #if defined(CEU_COMPILER_IS_CLANG)
 
-char* interpret_clang_compiler_version_number()
+char* interpret_clang_compiler_version_number(void)
 {
 	int retv;
 	char* buff = (char*)ceu_scalloc(sizeof(char), 256);
@@ -196,7 +196,7 @@ char* interpret_clang_compiler_version_number()
 }
 
 #else
-char *interpret_clang_compiler_version_number(){return NULL;}
+char *interpret_clang_compiler_version_number(void){return NULL;}
 #endif
 #if defined(CEU_COMPILER_IS_GCC)
 
@@ -222,7 +222,7 @@ char* interpret_gcc_compiler_version_number(void)
 char* interpret_gcc_compiler_version_number(void){return NULL;}
 #endif
 
-char* interpret_compiler_version_number()
+char* interpret_compiler_version_number(void)
 {
 	char* tcc_comp_version = interpret_tcc_compiler_version_number();
 	char* gcc_comp_version = interpret_gcc_compiler_version_number();
