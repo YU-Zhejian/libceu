@@ -10,13 +10,13 @@ extern "C"
 #endif
 
 
-void ceu_die_with_retv(const char *reason, int retv)
+void ceu_die_with_retv(char *reason, int retv)
 {
     printf("Error occured! reason:\t%s", reason);
     exit(retv);
 }
 
-void ceu_die(const char *reason)
+void ceu_die(char *reason)
 {
     ceu_die_with_retv(reason, 1);
 }
@@ -146,6 +146,23 @@ char *ceu_str_join_with_sep(char *sep, ceu_str_join_null_action_t nb, int count,
     free(curr_buf);
     return retbuff;
 }
+
+void ceu_ensure_not_none(char* vname, char* file_name, int lineno){
+    char lineno_s[10] = "";
+    snprintf(lineno_s, 10, "%d", lineno);
+    ceu_die(ceu_str_join_with_sep(
+        "",
+        CEU_STR_JOIN_REGARD_AS_EMPTY_STR,
+        6,
+        file_name,
+        ":",
+        lineno_s,
+        "\t",
+        vname,
+        " is NULL!"
+    ));
+}
+
 
 #ifdef __cplusplus
 }

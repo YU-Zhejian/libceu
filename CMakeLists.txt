@@ -26,3 +26,4 @@ endif ()
 
 include("${CMAKE_CURRENT_LIST_DIR}/cmake/libceu.cmake")
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/lib/")
+add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/bin/")
