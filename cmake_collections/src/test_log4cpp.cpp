@@ -1,8 +1,3 @@
-//
-// Created by yuzj on 3/18/22.
-//
-
-
 #include "log4cpp/Category.hh"
 #include "log4cpp/Appender.hh"
 #include "log4cpp/FileAppender.hh"
@@ -10,7 +5,7 @@
 #include "log4cpp/BasicLayout.hh"
 #include "log4cpp/Priority.hh"
 
-int main()
+int main(void)
 {
 	log4cpp::Appender* appender1 = new log4cpp::OstreamAppender("console", &std::cout);
 	appender1->setLayout(new log4cpp::BasicLayout());

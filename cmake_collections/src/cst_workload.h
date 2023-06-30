@@ -13,7 +13,7 @@
 extern "C" {
 #endif
 
-int perform_sqrt(int num_of_rounds, int num_to_sqrt)
+static inline int perform_sqrt(int num_of_rounds, int num_to_sqrt)
 {
 	double* result = (double*)malloc(sizeof(double) * num_to_sqrt);
 	if (result == NULL)
@@ -39,12 +39,12 @@ typedef struct
 	int num_of_threads;
 } parallel_params_type;
 
-parallel_params_type parse_args(void)
+static inline parallel_params_type parse_args(void)
 {
 	parallel_params_type parallel_params;
 	parallel_params.num_to_sqrt = 10;
 	parallel_params.num_of_rounds = 10;
-	parallel_params.num_of_threads = 10;
+	parallel_params.num_of_threads = 2;
 	return parallel_params;
 }
 

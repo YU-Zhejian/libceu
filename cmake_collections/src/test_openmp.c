@@ -2,9 +2,6 @@
 #include <omp.h>
 #include "cst_workload.h"
 
-
-int main(void);
-
 int main(void)
 {
 	parallel_params_type parallel_params = parse_args();

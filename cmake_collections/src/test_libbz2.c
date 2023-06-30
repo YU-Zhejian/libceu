@@ -3,11 +3,11 @@
 //
 #include <stddef.h>
 #include <stdio.h>
-#include <bzlib.h>
 #include <string.h>
+#include <bzlib.h>
 
 
-int main()
+int main(void)
 {
 	printf("libbz2 version: %s\n", BZ2_bzlibVersion());
 

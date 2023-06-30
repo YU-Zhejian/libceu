@@ -1,6 +1,9 @@
 #[=======================================================================[
 detect_c_preprocessor_macros -- The wrapper of <shell/detect_c_preprocessor_macros.sh>
 
+This script wouild automatically check language enabling status by checking definition of
+`CMAKE_C_COMPILER` and `CMAKE_CXX_COMPILER`.
+
 Synopsis: detect_c_preprocessor_macros()
 
 Requires:
@@ -25,4 +28,5 @@ function(detect_c_preprocessor_macros)
                 COMMAND sh "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/shell/detect_c_preprocessor_macros.sh" "${CMAKE_CXX_COMPILER}" c++ "${CMAKE_BINARY_DIR}/compile_logs/"
         )
     endif ()
+    unset(NULDEV)
 endfunction()

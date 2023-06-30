@@ -1,16 +1,21 @@
 #[=======================================================================[
 enable_debug.cmake -- C/C++/Fortran set up utilities
 
+Requires:
+    - `CMAKE_BUILD_TYPE`
+    - `CEU_CM_SHOULD_ENABLE_TEST`
+    - `CEU_CM_SHOULD_USE_NATIVE`
+
 Function:
     - Defines several functions.
     - Check whether the CMake variable `ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED` was set. If so, skip all processes described below. if not, set this variable.
     - Detect C/C++ preprocessor macros. If this is not a C/C++ project, this step would be omitted.
-    - Detect whether test should be built. If CMake variable `SHOULD_ENABLE_TEST` was set, would skip this step. Otherwise, will setup test if the CMake variable `CMAKE_BUILD_TYPE` is not `Release`.
-    - Detect whether we should build the application with native hardware support. If CMake variable `SHOULD_USE_NATIVE` was not set, would set it to `FALSE`. If this variable was set `TRUE`, would try and set `-march=native` `-mtune=native` `-mtune` flags.
+    - Detect whether test should be built. If CMake variable `CEU_CM_SHOULD_ENABLE_TEST` was set, would skip this step. Otherwise, will setup test if the CMake variable `CMAKE_BUILD_TYPE` is not `Release`.
+    - Detect whether we should build the application with native hardware support. If CMake variable `CEU_CM_SHOULD_USE_NATIVE` was not set, would set it to `FALSE`. If this variable was set `TRUE`, would try and set `-march=native` `-mtune=native` `-mtune` flags.
     - Detect build type using CMake variable `CMAKE_BUILD_TYPE`.
         - If `Release`, will supress warnings (`-W0` `-w`), supress debug information (`-g0`) and enable optimization (`-Ofast` `-O3` `-O2`)
         - If `RelWithDebInfo` (Release with Debug Information), will supress warnings, enable debug information (`-g`) and enable optimization.
-        - If `Debug` or if is others, will enable all warnings (`-Wall`) and extra warnings (`-Wextra`), enable pedantic mode (`-pedantic` `-Wpedantic`), enable full debug information (`-Og`) (`-g3`) and supress optimization (`-Og`). It will add `IS_DEBUG` to compiler flags (i.e., `-DIS_DEBUG`).
+        - If `Debug` or if is others, will enable all warnings (`-Wall`) and extra warnings (`-Wextra`), enable pedantic mode (`-pedantic` `-Wpedantic`), enable full debug information (`-Og`) (`-g3`) and supress optimization (`-Og`). It will add `CEU_CM_IS_DEBUG` to compiler flags (i.e., `-DCEU_CM_IS_DEBUG`).
     - Print basic C/C++/Fortran information, including test and native information.
 #]=======================================================================]
 
@@ -32,7 +37,9 @@ Notice:
     - `-static-libgcc`
     - `-static-libstdc++`
     - `-static-libgfortran`
-    For those who uses pthreads & openMP on GLibC platforms (i.e., common GNU/Linux EXCLUDING Alpine Linux), this option would lead to segfaults.
+
+Warnings:
+    - For those who uses pthreads & openMP on GLibC platforms (i.e., common GNU/Linux EXCLUDING Alpine Linux), this option would lead to segfaults.
 #]=======================================================================]
 macro(set_static_cmake name)
     set_target_properties("${name}" PROPERTIES LINK_SEARCH_START_STATIC 1)
@@ -66,6 +73,7 @@ function(global_enhanced_check_compiler_flag)
         if (DEFINED CMAKE_C_COMPILER)
             check_c_compiler_flag(${FLAG} C_COMPILER_HAVE_${FLAG})
         else ()
+            # If no C support is added, bypass the test.
             set(C_COMPILER_HAVE_${FLAG} TRUE)
         endif ()
         if (DEFINED CMAKE_CXX_COMPILER)
@@ -79,7 +87,6 @@ function(global_enhanced_check_compiler_flag)
         endif ()
     endforeach ()
 endfunction()
-
 
 function(internal_check_linker_flag_impl_c flag var)
     try_compile(
@@ -99,60 +106,41 @@ function(internal_check_linker_flag_impl_cxx flag var)
     )
 endfunction()
 
-function(target_enhanced_check_linker_flag NAME)
-    foreach (FLAGNAME ${ARGN})
-        if (DEFINED CMAKE_C_COMPILER)
-            internal_check_linker_flag_impl_c(${FLAGNAME} C_LINKER_HAVE_${FLAGNAME})
-        else ()
-            set(C_LINKER_HAVE_${FLAGNAME} TRUE)
-        endif ()
-        if (DEFINED CMAKE_CXX_COMPILER)
-            internal_check_linker_flag_impl_cxx(${FLAGNAME} CXX_LINKER_HAVE_${FLAGNAME})
-        else ()
-            set(CXX_LINKER_HAVE_${FLAGNAME} TRUE)
-        endif ()
-        if (C_LINKER_HAVE_${NAME} AND CXX_LINKER_HAVE_${FLAGNAME})
-            target_link_options(${NAME} PRIVATE ${FLAGNAME})
-            return()
-        endif ()
-    endforeach ()
-endfunction()
-
-
 if (NOT DEFINED ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
-    set(ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED 1)
+    set(ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED TRUE CACHE BOOL "Whether a description on environment was printed.")
     # Detect C/CXX Pre-Processor Macros
     detect_c_preprocessor_macros()
 
-    # Define Test
-    if (NOT DEFINED SHOULD_ENABLE_TEST)
+    # Detect Test.
+    if (NOT DEFINED CEU_CM_SHOULD_ENABLE_TEST)
         if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
-            set(SHOULD_ENABLE_TEST FALSE)
+            set(CEU_CM_SHOULD_ENABLE_TEST FALSE)
         else ()
-            set(SHOULD_ENABLE_TEST TRUE)
+            set(CEU_CM_SHOULD_ENABLE_TEST TRUE)
         endif ()
     endif ()
-    if (NOT DEFINED SHOULD_USE_NATIVE)
-        set(SHOULD_USE_NATIVE FALSE)
+
+    # Detect native.
+    if (NOT DEFINED CEU_CM_SHOULD_USE_NATIVE)
+        set(CEU_CM_SHOULD_USE_NATIVE FALSE)
     endif ()
-    if (SHOULD_USE_NATIVE)
+    if (CEU_CM_SHOULD_USE_NATIVE)
         global_enhanced_check_compiler_flag(-march=native -mtune=native -mtune)
     endif ()
+
+    # Detect build type.
+    if (NOT DEFINED CMAKE_BUILD_TYPE)
+        set(CMAKE_BUILD_TYPE "Debug")
+    endif()
     if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release") # Release
-        set(TETGS_DEBUG 0)
-        set(TETGS_RELEASE 1)
         global_enhanced_check_compiler_flag(-W0 -w)
         global_enhanced_check_compiler_flag(-g0)
         global_enhanced_check_compiler_flag(-Ofast -O3 -O2)
     elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "RelWithDebInfo") # Release with Debug Information
-        set(TETGS_DEBUG 0)
-        set(TETGS_RELEASE 1)
         global_enhanced_check_compiler_flag(-W0 -w)
         global_enhanced_check_compiler_flag(-Ofast -O3 -O2)
         global_enhanced_check_compiler_flag(-g)
-    else () # Debug
-        set(TETGS_DEBUG 1)
-        set(TETGS_RELEASE 0)
+    else () # Debug, the default.
         global_enhanced_check_compiler_flag(-Wall)
         global_enhanced_check_compiler_flag(-Wextra)
         global_enhanced_check_compiler_flag(-Wp64) # Visual Studio 64 bit compatibility
@@ -160,7 +148,7 @@ if (NOT DEFINED ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         global_enhanced_check_compiler_flag(-pedantic -Wpedantic)
         global_enhanced_check_compiler_flag(-Og)
         global_enhanced_check_compiler_flag(-g3)
-        add_compile_definitions(IS_DEBUG)
+        add_compile_definitions(CEU_CM_IS_DEBUG)
     endif ()
 
     message(STATUS "/------------------- Basic Information -------------------\\")
@@ -190,13 +178,12 @@ if (NOT DEFINED ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
     message(STATUS "|CMAKE_SYSTEM_INCLUDE_PATH=${CMAKE_SYSTEM_INCLUDE_PATH}")
     message(STATUS "|CMAKE_SYSTEM_PREFIX_PATH=${CMAKE_SYSTEM_PREFIX_PATH}")
 
-    # This TETGS_DEBUG & TETGS_RELEASE will be written in tetgs.h
     if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
         message(STATUS "|CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -> Release mode was on")
     else ()
         message(STATUS "|CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -> Debug mode was on")
     endif ()
-    message(STATUS "|SHOULD_ENABLE_TEST=${SHOULD_ENABLE_TEST}; SHOULD_USE_NATIVE=${SHOULD_USE_NATIVE}")
+    message(STATUS "|CEU_CM_SHOULD_ENABLE_TEST=${CEU_CM_SHOULD_ENABLE_TEST}; CEU_CM_SHOULD_USE_NATIVE=${CEU_CM_SHOULD_USE_NATIVE}")
 
     message(STATUS "\\------------------- Basic Information -------------------/")
 

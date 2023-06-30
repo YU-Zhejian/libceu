@@ -3,10 +3,6 @@
 #include <cstdio>
 #include "cst_workload.h"
 
-int main();
-
-void worker(int id, int num_to_sqrt, int num_of_rounds, int* retv);
-
 void worker(int id, int num_to_sqrt, int num_of_rounds, int* retv)
 {
 	printf("Thread %d start\n", id);
@@ -14,7 +10,7 @@ void worker(int id, int num_to_sqrt, int num_of_rounds, int* retv)
 	printf("Thread %d join with return value %d\n", id, *retv);
 }
 
-int main()
+int main(void)
 {
 	parallel_params_type parallel_params = parse_args();
 	std::vector <std::thread> thread_vector;

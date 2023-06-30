@@ -1,27 +1,6 @@
-//
-// Created by yuzj on 3/18/22.
-//
-
-
-
 #include <pthread.h>
 #include <stdio.h>
-
-#ifdef _WIN32
-#include <Windows.h>
-#else
-
-#include <unistd.h>
-#include <stdlib.h>
-
-#endif
-
 #include "cst_workload.h"
-
-
-int main(int argc, char** argv);
-
-void* pthread_thread(void* args);
 
 typedef struct
 {
@@ -40,9 +19,9 @@ void* pthread_thread(void* args)
 	pthread_exit(NULL);
 }
 
-int main(int argc, char** argv)
+int main(void)
 {
-	parallel_params_type parallel_params = parse_args(argc, argv);
+	parallel_params_type parallel_params = parse_args();
 	pthread_t* thr = (pthread_t*)malloc(sizeof(pthread_t) * parallel_params.num_of_threads);
 	pthread_params_type* pthread_params_arr = (pthread_params_type*)malloc(
 			sizeof(pthread_params_type) * parallel_params.num_of_threads

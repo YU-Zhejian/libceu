@@ -18,4 +18,4 @@ else ()
     set(HAVE_WORKING_LIBDEFLATE_COMPILE_STATIC FALSE CACHE INTERNAL "doc")
 endif ()
 
-print_test_status("libdeflate" LIBDEFLATE LIBDEFLATE)
+ceu_print_test_status("libdeflate" LIBDEFLATE)

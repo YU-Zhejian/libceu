@@ -1,16 +1,27 @@
-macro(print_test_status name VARNAME LIBNAME)
-    if (NOT DEFINED PRINTED_${name} AND NOT DEFINED CPPTETGS_DIST_CMAKE_TEST)
-        set(PRINTED_${name} 1)
-        if (DEFINED ${LIBNAME}_LIBRARY_SHARED AND DEFINED ${LIBNAME}_LIBRARY_SHARED)
-            message(STATUS "/------------------- Info about ${name} -------------------\\")
-            message(STATUS "|${name} shared: ${${LIBNAME}_LIBRARY_SHARED} compile=${HAVE_WORKING_${VARNAME}_COMPILE_SHARED}, run=${HAVE_WORKING_${VARNAME}_RUN_SHARED}")
-            message(STATUS "|${name} static: ${${LIBNAME}_LIBRARY_STATIC} compile=${HAVE_WORKING_${VARNAME}_COMPILE_STATIC}, run=${HAVE_WORKING_${VARNAME}_RUN_STATIC}")
-            message(STATUS "\\------------------- Info about ${name} -------------------/")
-        elseif (DEFINED HAVE_WORKING_${VARNAME}_COMPILE_SHARED)
-            message(STATUS "/------------------- Info about ${name} -------------------\\")
-            message(STATUS "|${name} shared: compile=${HAVE_WORKING_${VARNAME}_COMPILE_SHARED}, run=${HAVE_WORKING_${VARNAME}_RUN_SHARED}")
-            message(STATUS "|${name} static: compile=${HAVE_WORKING_${VARNAME}_COMPILE_STATIC}, run=${HAVE_WORKING_${VARNAME}_RUN_STATIC}")
-            message(STATUS "\\------------------- Info about ${name} -------------------/")
-        endif ()
-    endif ()
+#[=======================================================================[
+ceu_print_test_status -- Print pretty-formatted test status.
+
+Synopsis: ceu_print_test_status(NAME VARNAME)
+
+Params:
+    - `NAME`: Name of the test
+    - `VARNAME`: See below.
+
+Requires:
+    - `CEU_CM_HAVE_WORKING_${VARNAME}_COMPILE_SHARED`
+    - `CEU_CM_HAVE_WORKING_${VARNAME}_RUN_SHARED`
+    - `CEU_CM_HAVE_WORKING_${VARNAME}_COMPILE_STATIC`
+    - `CEU_CM_HAVE_WORKING_${VARNAME}_RUN_STATIC`
+
+Sets:
+    - `CEU_CM_PRINTED_${NAME}`: Indicator that stops redundant printing. Cache level.
+#]=======================================================================]
+macro(ceu_print_test_status NAME VARNAME)
+    if(NOT DEFINED CEU_CM_PRINTED_${NAME})
+        set(CEU_CM_PRINTED_${NAME} TRUE CACHE BOOL "")
+        message(STATUS "/------------------- Info about ${NAME} -------------------\\")
+        message(STATUS "|${NAME} shared: compile=${CEU_CM_HAVE_WORKING_${VARNAME}_COMPILE_SHARED}, run=${CEU_CM_HAVE_WORKING_${VARNAME}_RUN_SHARED}")
+        message(STATUS "|${NAME} static: compile=${CEU_CM_HAVE_WORKING_${VARNAME}_COMPILE_STATIC}, run=${CEU_CM_HAVE_WORKING_${VARNAME}_RUN_STATIC}")
+        message(STATUS "\\------------------- Info about ${NAME} -------------------/")
+    endif()
 endmacro()

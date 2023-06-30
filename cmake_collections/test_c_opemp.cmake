@@ -15,4 +15,4 @@ else ()
     enhanced_try_run(STATIC VARNAME C_OPENMP SRC_PATH "test_openmp.c" LINK_LIBRARIES OpenMP::OpenMP_C m)
 endif ()
 
-print_test_status("openmp (c)" C_OPENMP "")
+ceu_print_test_status("openmp (c)" C_OPENMP)

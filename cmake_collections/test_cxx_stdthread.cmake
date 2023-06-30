@@ -15,4 +15,4 @@ else ()
     enhanced_try_run(STATIC VARNAME CXX_STDTHREAD SRC_PATH "test_stdthread.cpp" LINK_LIBRARIES Threads::Threads m)
 endif ()
 
-print_test_status("stdthread (cxx)" CXX_STDTHREAD "")
+ceu_print_test_status("stdthread (cxx)" CXX_STDTHREAD)

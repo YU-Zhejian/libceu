@@ -1,3 +1,5 @@
+# TODO: Refactor this piece of sh*t
+
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/print_test_status.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/enhanced_find.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/enhanced_try_run.cmake")
@@ -24,4 +26,4 @@ else ()
     set(HAVE_WORKING_GTEST_RUN_STATIC 127 CACHE BOOL "doc")
 endif ()
 
-print_test_status("gtest (cxx)" GTEST "GTEST_MAIN")
+ceu_print_test_status("gtest (cxx)" GTEST "GTEST_MAIN")

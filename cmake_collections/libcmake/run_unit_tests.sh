@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Shell script that executes unit test.
+# TODO: docs
 mkdir -p build log
 for fn in *_unittest; do
     printf "Testing ${fn}..."

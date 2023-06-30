@@ -1,11 +1,7 @@
-//
-// Created by yuzj on 3/23/22.
-// From https://blog.csdn.net/wangpengqi/article/details/7873198
-//
 #include <stddef.h>
 #include <stdio.h>
-#include <zlib.h>
 #include <string.h>
+#include <zlib.h>
 
 
 uLong get_adler_crc32(unsigned char* buff)
@@ -15,7 +11,7 @@ uLong get_adler_crc32(unsigned char* buff)
 	return adler_checksum;
 }
 
-int main()
+int main(void)
 {
 	printf("Zlib version: %s\n", ZLIB_VERSION);
 
