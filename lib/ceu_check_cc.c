@@ -222,6 +222,25 @@ char* interpret_gcc_compiler_version_number(void)
 char* interpret_gcc_compiler_version_number(void){return NULL;}
 #endif
 
+#if defined(__VERSION__)
+
+char* interpret_compiler_macro_version_number(void)
+{
+	char* buff = (char*)ceu_scalloc(sizeof(char), 256);
+	int retv;
+	retv = snprintf(buff, 256, "__VERSION__ version number: %s", __VERSION__);
+	if (retv < 0)
+	{
+		free(buff);
+		return NULL;
+	}
+	return buff;
+}
+
+#else
+char* interpret_compiler_macro_version_number(void){return NULL;}
+#endif
+
 char* interpret_compiler_version_number(void)
 {
 	char* tcc_comp_version = interpret_tcc_compiler_version_number();
@@ -231,8 +250,9 @@ char* interpret_compiler_version_number(void)
 	char* msvc_comp_version = interpret_msvc_compiler_version_number();
 	char* nvhpc_comp_version = interpret_nvhpc_compiler_version_number();
 	char* broadland_comp_version = interpret_broadland_compiler_version_number();
-	char* final_buff = ceu_str_join_with_sep("\n\t", CEU_STR_JOIN_SKIP, 7, tcc_comp_version, gcc_comp_version,
-			icc_comp_version, clang_comp_version, msvc_comp_version, nvhpc_comp_version, broadland_comp_version);
+	char* version_macro_version = interpret_compiler_macro_version_number();
+	char* final_buff = ceu_str_join_with_sep("\n\t", CEU_STR_JOIN_SKIP, 8, tcc_comp_version, gcc_comp_version,
+			icc_comp_version, clang_comp_version, msvc_comp_version, nvhpc_comp_version, broadland_comp_version, version_macro_version);
 	ceu_free_non_null(tcc_comp_version);
 	ceu_free_non_null(gcc_comp_version);
 	ceu_free_non_null(icc_comp_version);
@@ -240,6 +260,7 @@ char* interpret_compiler_version_number(void)
 	ceu_free_non_null(msvc_comp_version);
 	ceu_free_non_null(nvhpc_comp_version);
 	ceu_free_non_null(broadland_comp_version);
+	ceu_free_non_null(version_macro_version);
 	return final_buff;
 }
 

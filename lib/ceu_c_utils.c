@@ -120,12 +120,14 @@ char *ceu_str_join_with_sep(char *sep, ceu_str_join_null_action_t nb, int count,
         }
         char *new_intem_buf = ceu_str_join(curr_buf, new_item);
         if (new_intem_buf == NULL) {
+            va_end(args);
             return NULL;
         }
         curr_buf = (char *) ceu_srealloc(curr_buf, sizeof(char) * strlen(new_intem_buf) + 1);
         retv = snprintf(curr_buf, strlen(new_intem_buf) + 1, "%s", new_intem_buf);
         free(new_intem_buf);
         if (retv < 0) {
+            va_end(args);
             return NULL;
         }
 
@@ -137,6 +139,7 @@ char *ceu_str_join_with_sep(char *sep, ceu_str_join_null_action_t nb, int count,
         retv = snprintf(curr_buf, strlen(new_intem_buf2) + 1, "%s", new_intem_buf2);
         free(new_intem_buf2);
         if (retv < 0) {
+            va_end(args);
             return NULL;
         }
     }

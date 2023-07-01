@@ -11,3 +11,5 @@
 *.lib
 /cmake_vars.cmake
 /doxygen.out.d/
+*.core
+*.kdev4

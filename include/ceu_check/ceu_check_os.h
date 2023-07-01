@@ -70,8 +70,7 @@ extern "C" {
 #endif
 #endif
 
-#if defined(BSD)
-#define CEU_ON_BSD
+
 #if defined(__FreeBSD__)
 #define CEU_ON_FreeBSD
 #define CEU_PRIMARY_OS_TYPE "Free BSD"
@@ -84,9 +83,9 @@ extern "C" {
 #elif defined(__OpenBSD__)
 #define CEU_ON_OpenBSD
 #define CEU_PRIMARY_OS_TYPE "OpenBSD"
-#else
+#elif defined(BSD)
+#define CEU_ON_BSD
 #define CEU_PRIMARY_OS_TYPE "Other BSD"
-#endif
 #endif
 
 
