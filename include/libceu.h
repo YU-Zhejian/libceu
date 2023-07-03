@@ -29,6 +29,6 @@
 #endif // snprintf
 
 
-char* ceu_lib_rtime_version(void);
+char *ceu_lib_rtime_version(void);
 
 #endif //LIBCEU_CEU_H

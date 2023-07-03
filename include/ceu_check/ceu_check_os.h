@@ -149,13 +149,12 @@ defined(CEU_ON_HP_UX)
 /**
 * Get a nicely-formatted compile-time operating system information.
 */
-char* ceu_check_get_compile_time_os_info(void);
-
+char *ceu_check_get_compile_time_os_info(void);
 
 /**
 * Get a nicely-formatted run-time operating system information.
 */
-char* ceu_check_get_run_time_os_info(void);
+char *ceu_check_get_run_time_os_info(void);
 
 #ifdef __cplusplus
 }

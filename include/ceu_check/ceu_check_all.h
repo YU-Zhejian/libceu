@@ -8,7 +8,7 @@
 extern "C" {
 #endif
 
-char* ceu_check_get_full_info();
+char *ceu_check_get_full_info(void);
 
 #ifdef __cplusplus
 }

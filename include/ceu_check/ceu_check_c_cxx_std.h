@@ -79,26 +79,26 @@ extern "C"
 /**
  * Get compile-time C standard version number.
  */
-char* ceu_interpret_c_std_version(void);
+char *ceu_interpret_c_std_version(void);
 
 /*!
  * @brief Get a nicely formatted compile-time C++ standard version number.
  * @param buff Buffer to write to. This should be at least 1024 bytes long.
  */
-char* ceu_check_get_c_std_info(void);
+char *ceu_check_get_c_std_info(void);
 
 /*!
  * @fn interpret_cxx_version
  * @brief Get compile-time C++ standard version number.
  * @param buff Buffer to write to. This should be at least 256 bytes long.
  */
-char* ceu_interpret_cxx_std_version(void);
+char *ceu_interpret_cxx_std_version(void);
 
 /*!
  * @brief Get a nicely formatted compile-time C++ standard version number.
  * @param buff Buffer to write to. This should be at least 1024 bytes long.
  */
-char* ceu_check_get_cxx_std_info(void);
+char *ceu_check_get_cxx_std_info(void);
 
 #ifdef __cplusplus
 }

@@ -44,7 +44,7 @@ Warnings:
 macro(set_static_cmake name)
     set_target_properties("${name}" PROPERTIES LINK_SEARCH_START_STATIC 1)
     set_target_properties("${name}" PROPERTIES LINK_SEARCH_END_STATIC 1)
-    if(CMAKE_VERSION GREATER_EQUAL 3.13 AND NOT BORLAND)
+    if (CMAKE_VERSION GREATER_EQUAL 3.13 AND NOT BORLAND)
         target_link_options(
                 "${name}" PRIVATE
                 -static
@@ -52,7 +52,7 @@ macro(set_static_cmake name)
                 $<$<COMPILE_LANGUAGE:CXX>:-static-libstdc++>
                 $<$<COMPILE_LANGUAGE:Fortran>:-static-libgfortran>
         )
-    endif()
+    endif ()
 endmacro()
 
 #[=======================================================================[
@@ -132,11 +132,11 @@ if (NOT DEFINED ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         global_enhanced_check_compiler_flag(-pedantic -Wpedantic)
         global_enhanced_check_compiler_flag(-Og)
         global_enhanced_check_compiler_flag(-g3)
-        if(CMAKE_VERSION GREATER_EQUAL 3.12)
+        if (CMAKE_VERSION GREATER_EQUAL 3.12)
             add_compile_definitions(CEU_CM_IS_DEBUG)
         else ()
             add_compile_options("-DCEU_CM_IS_DEBUG")
-        endif()
+        endif ()
     endif ()
 
     message(STATUS "/------------------- Basic Information -------------------\\")

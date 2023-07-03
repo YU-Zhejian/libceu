@@ -4,7 +4,7 @@
 extern "C" {
 #endif
 
-char* ceu_check_get_ctypes_limit_info(void);
+char *ceu_check_get_ctypes_limit_info(void);
 
 #ifdef __cplusplus
 }
