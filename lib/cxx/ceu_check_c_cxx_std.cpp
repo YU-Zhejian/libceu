@@ -1,5 +1,4 @@
-#include "ceu_check/ceu_check_c_std.h"
-#include "ceu_check/ceu_check_cxx_std.hpp"
+#include "ceu_check/ceu_check_c_cxx_std.h"
 #include "ceu_check/ceu_c_utils.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,34 +7,33 @@
 extern "C" {
 #endif
 
-char* interpret_c_version(void)
+char* ceu_interpret_c_std_version(void)
 {
-	char* buff = (char*)ceu_scalloc(sizeof(char), 256);
-	int retv;
-	retv = snprintf(buff, 256, "%s (%ld)", CEU_C_STD, CEU_C_STD_MACRO);
+	char* buff = (char*) ceu_scalloc(256, sizeof(char));
+	int retv = snprintf(buff, 256, "%s (%ld)", CEU_C_STD, (long) CEU_C_STD_MACRO);
 	if (retv < 0)
 	{
-		free(buff);
+		ceu_free_non_null(buff);
 		return NULL;
 	}
 	return buff;
 }
 
-char* get_c_info(void)
+char* ceu_check_get_c_std_info(void)
 {
-	char* buff = (char*)ceu_scalloc(sizeof(char), 512);
+	char* buff = (char*) ceu_scalloc(512, sizeof(char));
 	int retv;
-	char* c_std_version_buff = interpret_c_version();
+	char* c_std_version_buff = ceu_interpret_c_std_version();
 	if (c_std_version_buff == NULL)
 	{
 		return NULL;
 	}
 
 	retv = snprintf(buff, 512, "Compile-time C std.: ver. %s", c_std_version_buff);
-	free(c_std_version_buff);
+	ceu_free_non_null(c_std_version_buff);
 	if (retv < 0)
 	{
-		free(buff);
+		ceu_free_non_null(buff);
 		return NULL;
 	}
 	return buff;
@@ -47,9 +45,9 @@ char* get_c_info(void)
  * @brief Get compile-time C++ standard version number.
  * @param buff Buffer to write to. This should be at least 256 bytes long.
  */
-char* interpret_cxx_version(void)
+char* ceu_interpret_cxx_std_version(void)
 {
-	char* buff = (char*)ceu_scalloc(sizeof(char), 256);
+	char* buff = (char*) ceu_scalloc(256, sizeof(char));
 	int retv;
 	if (CEU_CXX_STD == 0)
 	{
@@ -65,7 +63,7 @@ char* interpret_cxx_version(void)
 	}
 	if (retv < 0)
 	{
-		free(buff);
+		ceu_free_non_null(buff);
 		return NULL;
 	}
 	return buff;
@@ -75,21 +73,21 @@ char* interpret_cxx_version(void)
  * @brief Get a nicely formatted compile-time C++ standard version number.
  * @param buff Buffer to write to. This should be at least 1024 bytes long.
  */
-char* get_cxx_info(void)
+char* ceu_check_get_cxx_std_info(void)
 {
-	char* buff = (char*)ceu_scalloc(sizeof(char), 512);
+	char* buff = (char*) ceu_scalloc(512, sizeof(char));
 	int retv;
-	char* cxx_std_version_buff = interpret_cxx_version();
+	char* cxx_std_version_buff = ceu_interpret_cxx_std_version();
 	if (cxx_std_version_buff == NULL)
 	{
 		return NULL;
 	}
 
 	retv = snprintf(buff, 512, "Compile-time C++ std.: ver. %s", cxx_std_version_buff);
-	free(cxx_std_version_buff);
+	ceu_free_non_null(cxx_std_version_buff);
 	if (retv < 0)
 	{
-		free(buff);
+		ceu_free_non_null(buff);
 		return NULL;
 	}
 	return buff;

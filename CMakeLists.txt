@@ -1,30 +1,41 @@
-cmake_minimum_required(VERSION 3.17)
-project(libceu VERSION 0.1 LANGUAGES C)
+cmake_minimum_required(VERSION 3.11)
 set(CMAKE_C_STANDARD 11)
+project(libceu VERSION 0.1 LANGUAGES C)
+
+include(CheckLanguage)
+include(CheckIncludeFile)
+include(CheckIncludeFileCXX)
+check_language(CXX)
+if (CMAKE_CXX_COMPILER)
+    set(CMAKE_CXX_STANDARD 11)
+    enable_language(CXX)
+endif ()
 
 if (EXISTS "${CMAKE_CURRENT_LIST_DIR}/cmake_vars.cmake")
     message(STATUS "Including cmake_vars.cmake")
     include("${CMAKE_CURRENT_LIST_DIR}/cmake_vars.cmake")
 endif ()
 
+include("CheckSymbolExists")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/enable_debug.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c_helloworld.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c__bool.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c_inline.cmake")
 
-if (${CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_SHARED} EQUAL 0)
-    set(LIBCEU_BUILD_SHARED TRUE CACHE BOOL "")
-    message(STATUS "LIBCEU: Will build shared libceu")
-else ()
-	set(LIBCEU_BUILD_SHARED FALSE CACHE BOOL "")
-    message(STATUS "LIBCEU: Will NOT build shared libceu!")
+if (CMAKE_CXX_COMPILER)
+    include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_cxx_helloworld.cmake")
 endif ()
 
-if (${CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_STATIC} EQUAL 0)
-    set(LIBCEU_BUILD_STATIC TRUE CACHE BOOL "")
-    message(STATUS "LIBCEU: Will build static libceu")
-else ()
-	set(LIBCEU_BUILD_STATIC FALSE CACHE BOOL "")
-    message(STATUS "LIBCEU: Will NOT build static libceu")
-endif ()
+check_symbol_exists(snprintf "stdio.h" CEU_HAVE_SNPRINTF)
+check_symbol_exists(_snprintf "stdio.h" CEU_HAVE__SNPRINTF)
+
+check_include_file("stdbool.h" CEU_HAVE_INCLUDE_STDBOOL_H)
+check_include_file("VersionHelpers.h" CEU_HAVE_INCLUDE_VERSIONHELPERS_H)
+
+configure_file(
+        "${CMAKE_CURRENT_LIST_DIR}/include/libceu_stddef.h.in"
+        "${CMAKE_CURRENT_LIST_DIR}/include/libceu_stddef.h"
+)
 
 include("${CMAKE_CURRENT_LIST_DIR}/cmake/libceu.cmake")
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/lib/")

@@ -2,13 +2,13 @@ include("${CMAKE_CURRENT_LIST_DIR}/libcmake/enhanced_find.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/enhanced_try_run.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/print_test_status.cmake")
 
-if(NOT DEFINED LIBZ_LIBRARY_SHARED)
+if (NOT DEFINED LIBZ_LIBRARY_SHARED)
     ceu_enhanced_find_library(OUTPUT_VARIABLE LIBZ_LIBRARY_SHARED PKGCONFIG_NAME zlib LINKER_FLAG z)
-endif()
+endif ()
 
-if(NOT DEFINED LIBZ_LIBRARY_STATIC)
+if (NOT DEFINED LIBZ_LIBRARY_STATIC)
     ceu_enhanced_find_library(STATIC OUTPUT_VARIABLE LIBZ_LIBRARY_STATIC PKGCONFIG_NAME zlib LINKER_FLAG z)
-endif()
+endif ()
 
 if (LIBZ_LIBRARY_SHARED)
     enhanced_try_run(VARNAME LIBZ SRC_PATH "test_libz.c" LINK_LIBRARIES "${LIBZ_LIBRARY_SHARED}")

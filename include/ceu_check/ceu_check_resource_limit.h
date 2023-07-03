@@ -113,10 +113,10 @@ inline void get_rlimit_info(char* buff)
 	);
 #else
 	append_sprintf(
-		buff,
-		"%sRun-time System resource limits set by `ulimit` or getrlimit(2):\n",
-		buff
-		);
+			buff,
+			"%sRun-time System resource limits set by `ulimit` or getrlimit(2):\n",
+			buff
+	);
 #endif
 }
 

@@ -44,13 +44,15 @@ Warnings:
 macro(set_static_cmake name)
     set_target_properties("${name}" PROPERTIES LINK_SEARCH_START_STATIC 1)
     set_target_properties("${name}" PROPERTIES LINK_SEARCH_END_STATIC 1)
-    target_link_options(
-            "${name}" PRIVATE
-            -static
-            $<$<COMPILE_LANGUAGE:C,CXX>:-static-libgcc>
-            $<$<COMPILE_LANGUAGE:CXX>:-static-libstdc++>
-            $<$<COMPILE_LANGUAGE:Fortran>:-static-libgfortran>
-    )
+    if(CMAKE_VERSION GREATER_EQUAL 3.13 AND NOT BORLAND)
+        target_link_options(
+                "${name}" PRIVATE
+                -static
+                $<$<COMPILE_LANGUAGE:C,CXX>:-static-libgcc>
+                $<$<COMPILE_LANGUAGE:CXX>:-static-libstdc++>
+                $<$<COMPILE_LANGUAGE:Fortran>:-static-libgfortran>
+        )
+    endif()
 endmacro()
 
 #[=======================================================================[
@@ -88,24 +90,6 @@ function(global_enhanced_check_compiler_flag)
     endforeach ()
 endfunction()
 
-function(internal_check_linker_flag_impl_c flag var)
-    try_compile(
-            var
-            "${CMAKE_BINARY_DIR}"
-            "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/src/test_helloworld.c"
-            LINK_OPTIONS ${flag}
-    )
-endfunction()
-
-function(internal_check_linker_flag_impl_cxx flag var)
-    try_compile(
-            var
-            "${CMAKE_BINARY_DIR}"
-            "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/src/test_helloworld.cpp"
-            LINK_OPTIONS ${flag}
-    )
-endfunction()
-
 if (NOT DEFINED ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
     set(ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED TRUE CACHE BOOL "Whether a description on environment was printed.")
     # Detect C/CXX Pre-Processor Macros
@@ -131,7 +115,7 @@ if (NOT DEFINED ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
     # Detect build type.
     if (NOT DEFINED CMAKE_BUILD_TYPE)
         set(CMAKE_BUILD_TYPE "Debug")
-    endif()
+    endif ()
     if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release") # Release
         global_enhanced_check_compiler_flag(-W0 -w)
         global_enhanced_check_compiler_flag(-g0)
@@ -148,7 +132,11 @@ if (NOT DEFINED ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         global_enhanced_check_compiler_flag(-pedantic -Wpedantic)
         global_enhanced_check_compiler_flag(-Og)
         global_enhanced_check_compiler_flag(-g3)
-        add_compile_definitions(CEU_CM_IS_DEBUG)
+        if(CMAKE_VERSION GREATER_EQUAL 3.12)
+            add_compile_definitions(CEU_CM_IS_DEBUG)
+        else ()
+            add_compile_options("-DCEU_CM_IS_DEBUG")
+        endif()
     endif ()
 
     message(STATUS "/------------------- Basic Information -------------------\\")

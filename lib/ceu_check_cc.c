@@ -8,10 +8,10 @@ extern "C"
 {
 #endif
 
-char* interpret_compilation_date_time(void)
+char* ceu_check_interpret_compilation_date_time(void)
 {
 	int retv;
-	char* buff = (char*)ceu_scalloc(sizeof(char), 256);
+	char* buff = (char*) ceu_scalloc(256, sizeof(char));
 #if defined(__DATE__) && defined(__TIME__)
 	retv = snprintf(buff, 256, "%s, %s", __DATE__, __TIME__);
 #elif defined(__DATE__)
@@ -21,32 +21,33 @@ char* interpret_compilation_date_time(void)
 #endif
 	if (retv < 0)
 	{
-		free(buff);
+		ceu_free_non_null(buff);
 		return NULL;
 	}
 	return buff;
 }
 
-char* get_compiler_info(void)
+char* ceu_check_get_compiler_info(void)
 {
-	char* buff = (char*)ceu_scalloc(sizeof(char), 1024);
+	char* compiler_version_buff;
+	char* buff = (char*) ceu_scalloc(1024, sizeof(char));
 	int retv;
-	char* date_time_buff = interpret_compilation_date_time();
+	char* date_time_buff = ceu_check_interpret_compilation_date_time();
 	if (date_time_buff == NULL)
 	{
 		return NULL;
 	}
-	char* compiler_version_buff = interpret_compiler_version_number();
+	compiler_version_buff = interpret_compiler_version_number();
 	if (compiler_version_buff == NULL)
 	{
-		free(date_time_buff);
+		ceu_free_non_null(date_time_buff);
 		return NULL;
 	}
 
 	retv = snprintf(buff, 1024, "Compiled at %s with compiler '%s'\n\t%s", date_time_buff, CEU_COMPILER_NAME,
 			compiler_version_buff);
-	free(date_time_buff);
-	free(compiler_version_buff);
+	ceu_free_non_null(date_time_buff);
+	ceu_free_non_null(compiler_version_buff);
 	if (retv < 0)
 	{
 		return NULL;
@@ -57,7 +58,7 @@ char* get_compiler_info(void)
 #if defined(CEU_COMPILER_IS_ICC)
 char *interpret_icc_compiler_version_number()
 {
-	char *buff = (char *)ceu_scalloc(sizeof(char), 256);
+	char *buff = (char *) ceu_scalloc(256, sizeof(char));
 	int retv;
 #ifdef __INTEL_COMPILER_UPDATE
 	retv = snprintf(buff, 256, "ICC compatible version number: %d.%d", __ICC, __INTEL_COMPILER_UPDATE);
@@ -66,7 +67,7 @@ char *interpret_icc_compiler_version_number()
 #endif
 	if (retv < 0)
 	{
-		free(buff);
+		ceu_free_non_nullbuff);
 		return NULL;
 	}
 	return buff;
@@ -82,7 +83,7 @@ char* interpret_icc_compiler_version_number(void)
 #if defined(CEU_COMPILER_IS_MSVC)
 char *interpret_msvc_compiler_version_number(void)
 {
-	char *buff = (char *)ceu_scalloc(sizeof(char), 256);
+	char *buff = (char *) ceu_scalloc(256, sizeof(char));
 	int retv;
 	int msv_major_version = CEU_COMPILER_VERSION / 100;
 	int msc_minor_version = CEU_COMPILER_VERSION % 100;
@@ -93,7 +94,7 @@ char *interpret_msvc_compiler_version_number(void)
 #endif
 	if (retv < 0)
 	{
-		free(buff);
+		ceu_free_non_null(buff);
 		return NULL;
 	}
 	return buff;
@@ -109,12 +110,12 @@ char* interpret_msvc_compiler_version_number()
 #if defined(CEU_COMPILER_IS_NVHPC)
 char *interpret_nvhpc_compiler_version_number()
 {
-	char *buff = (char *)ceu_scalloc(sizeof(char), 256);
+	char *buff = (char *) ceu_scalloc(256, sizeof(char));
 	int retv;
 	retv = snprintf(buff, 256, "NVHPC compatible version number: %d.%d.%d", __NVCOMPILER_MAJOR__, __NVCOMPILER_MINOR__, __NVCOMPILER_PATCHLEVEL__);
 	if (retv < 0)
 	{
-		free(buff);
+		ceu_free_non_null(buff);
 		return NULL;
 	}
 	return buff;
@@ -130,7 +131,7 @@ char* interpret_nvhpc_compiler_version_number(void)
 #if defined(CEU_COMPILER_IS_TINYCC)
 char *interpret_tcc_compiler_version_number(void)
 {
-	char *buff = (char *)ceu_scalloc(sizeof(char), 256);
+	char *buff = (char *) ceu_scalloc(256, sizeof(char));
 	int retv;
 	int major = __TINYC__ / 10000;
 	int minor = (__TINYC__ - major * 10000) / 100;
@@ -138,7 +139,7 @@ char *interpret_tcc_compiler_version_number(void)
 	retv = snprintf(buff, 256, "TCC compatible version number: %d.%d.%d", major, minor, patchlevel);
 	if (retv < 0)
 	{
-		free(buff);
+		ceu_free_non_null(buff);
 		return NULL;
 	}
 	return buff;
@@ -155,14 +156,14 @@ char* interpret_tcc_compiler_version_number(void)
 #if defined(CEU_COMPILER_IS_BORLAND)
 char *interpret_broadland_compiler_version_number(void)
 {
-   char *buff = (char *)ceu_scalloc(sizeof(char), 256);
+   char *buff = (char *) ceu_scalloc(256, sizeof(char));
    int retv;
    int major = __BORLANDC__ / 256;
    int revision = (__BORLANDC__ - 256 * major) / 16 + __BORLANDC__ % 16;
    retv = snprintf(buff, 256, "Broadland compatible version number: %d.%d", major, revision);
    if (retv < 0)
    {
-		free(buff);
+		ceu_free_non_null(buff);
 		return NULL;
    }
    return buff;
@@ -180,7 +181,7 @@ char* interpret_broadland_compiler_version_number(void)
 char* interpret_clang_compiler_version_number(void)
 {
 	int retv;
-	char* buff = (char*)ceu_scalloc(sizeof(char), 256);
+	char* buff = (char*) ceu_scalloc(256, sizeof(char));
 #ifdef __clang_major__
 	retv = snprintf(buff, 256, "Clang compatible version number: %d.%d.%d", __clang_major__, __clang_minor__,
 			__clang_patchlevel__);
@@ -189,20 +190,25 @@ char* interpret_clang_compiler_version_number(void)
 #endif
 	if (retv < 0)
 	{
-		free(buff);
+		ceu_free_non_null(buff);
 		return NULL;
 	}
 	return buff;
 }
 
 #else
-char *interpret_clang_compiler_version_number(void){return NULL;}
+
+char* interpret_clang_compiler_version_number(void)
+{
+	return NULL;
+}
+
 #endif
 #if defined(CEU_COMPILER_IS_GCC)
 
 char* interpret_gcc_compiler_version_number(void)
 {
-	char* buff = (char*)ceu_scalloc(sizeof(char), 256);
+	char* buff = (char*) ceu_scalloc(256, sizeof(char));
 	int retv;
 #ifdef __GNUC_PATCHLEVEL__
 	retv = snprintf(buff, 256, "GCC compatible version number: %d.%d.%d", __GNUC__, __GNUC_MINOR__,
@@ -212,33 +218,43 @@ char* interpret_gcc_compiler_version_number(void)
 #endif
 	if (retv < 0)
 	{
-		free(buff);
+		ceu_free_non_null(buff);
 		return NULL;
 	}
 	return buff;
 }
 
 #else
-char* interpret_gcc_compiler_version_number(void){return NULL;}
+
+char* interpret_gcc_compiler_version_number(void)
+{
+	return NULL;
+}
+
 #endif
 
 #if defined(__VERSION__)
 
 char* interpret_compiler_macro_version_number(void)
 {
-	char* buff = (char*)ceu_scalloc(sizeof(char), 256);
+	char* buff = (char*) ceu_scalloc(256, sizeof(char));
 	int retv;
 	retv = snprintf(buff, 256, "__VERSION__ version number: %s", __VERSION__);
 	if (retv < 0)
 	{
-		free(buff);
+		ceu_free_non_null(buff);
 		return NULL;
 	}
 	return buff;
 }
 
 #else
-char* interpret_compiler_macro_version_number(void){return NULL;}
+
+char* interpret_compiler_macro_version_number(void)
+{
+	return NULL;
+}
+
 #endif
 
 char* interpret_compiler_version_number(void)
@@ -252,7 +268,8 @@ char* interpret_compiler_version_number(void)
 	char* broadland_comp_version = interpret_broadland_compiler_version_number();
 	char* version_macro_version = interpret_compiler_macro_version_number();
 	char* final_buff = ceu_str_join_with_sep("\n\t", CEU_STR_JOIN_SKIP, 8, tcc_comp_version, gcc_comp_version,
-			icc_comp_version, clang_comp_version, msvc_comp_version, nvhpc_comp_version, broadland_comp_version, version_macro_version);
+			icc_comp_version, clang_comp_version, msvc_comp_version, nvhpc_comp_version, broadland_comp_version,
+			version_macro_version);
 	ceu_free_non_null(tcc_comp_version);
 	ceu_free_non_null(gcc_comp_version);
 	ceu_free_non_null(icc_comp_version);

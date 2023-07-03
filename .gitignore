@@ -13,3 +13,5 @@
 /doxygen.out.d/
 *.core
 *.kdev4
+*.cmd
+*.bat

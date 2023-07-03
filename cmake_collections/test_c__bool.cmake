@@ -1,0 +1,19 @@
+include("${CMAKE_CURRENT_LIST_DIR}/libcmake/enhanced_try_run.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/libcmake/print_test_status.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/test_c_helloworld.cmake")
+
+if(CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_SHARED EQUAL 0)
+    enhanced_try_run(VARNAME C__BOOL SRC_PATH "test_c__bool.c")
+else()
+    set(CEU_CM_HAVE_WORKING_C__BOOL_COMPILE_SHARED FALSE CACHE BOOL "Dependency CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_SHARED Failed.")
+    set(CEU_CM_HAVE_WORKING_C__BOOL_RUN_SHARED 127 CACHE INTERNAL "Dependency CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_SHARED Failed.")
+endif()
+
+if(CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_STATIC EQUAL 0)
+    enhanced_try_run(STATIC VARNAME C__BOOL SRC_PATH "test_c__bool.c")
+else()
+    set(CEU_CM_HAVE_WORKING_C__BOOL_COMPILE_STATIC FALSE CACHE BOOL "Dependency CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_STATIC Failed.")
+    set(CEU_CM_HAVE_WORKING_C__BOOL_RUN_STATIC 127 CACHE INTERNAL "Dependency CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_STATIC Failed.")
+endif()
+
+ceu_print_test_status("_Bool (c)" C__BOOL)

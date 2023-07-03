@@ -2,7 +2,6 @@
  * For unknown ones
  */
 #include <string.h>
-#include <stdbool.h>
 
 #ifndef CEU_COMPILER_NAME
 #define CEU_COMPILER_NAME "unknown"

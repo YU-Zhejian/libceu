@@ -3,5 +3,8 @@ include("${CMAKE_CURRENT_LIST_DIR}/libcmake/enhanced_try_run.cmake")
 
 enhanced_try_run(VARNAME CXX_HELLOWORLD SRC_PATH "test_helloworld.cpp")
 enhanced_try_run(STATIC VARNAME CXX_HELLOWORLD SRC_PATH "test_helloworld.cpp")
-
+if (CMAKE_HOST_WIN32)
+    set(CEU_CM_HAVE_WORKING_CXX_HELLOWORLD_COMPILE_SHARED FALSE CACHE INTERNAL "Force fail for shared compilations on Windows")
+    set(CEU_CM_HAVE_WORKING_CXX_HELLOWORLD_RUN_SHARED 127 CACHE INTERNAL "Force fail for shared compilations on Windows")
+endif ()
 ceu_print_test_status("helloworld (cxx)" CXX_HELLOWORLD)
