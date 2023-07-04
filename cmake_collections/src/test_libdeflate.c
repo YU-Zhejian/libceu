@@ -6,6 +6,6 @@
 
 int main(void)
 {
-	printf("libdeflate version: %s\n", LIBDEFLATE_VERSION_STRING);
-	return 0;
+    printf("libdeflate version: %s\n", LIBDEFLATE_VERSION_STRING);
+    return 0;
 }
