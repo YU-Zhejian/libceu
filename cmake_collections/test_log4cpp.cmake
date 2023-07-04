@@ -1,22 +1,39 @@
+# Search for log4cpp <https://log4cpp.sourceforge.net>
 include("${CMAKE_CURRENT_LIST_DIR}/test_cxx_stdthread.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/print_test_status.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/enhanced_find.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/enhanced_try_run.cmake")
 
-ceu_enhanced_find_library(OUTPUT_VARIABLE LOG4CPP_LIBRARY_SHARED PKGCONFIG_NAME log4cpp LINKER_FLAG log4cpp)
-ceu_enhanced_find_library(STATIC OUTPUT_VARIABLE LOG4CPP_LIBRARY_STATIC PKGCONFIG_NAME log4cpp LINKER_FLAG log4cpp)
+if (NOT DEFINED LOG4CPP_LIBRARY_SHARED)
+    ceu_enhanced_find_library(
+        OUTPUT_VARIABLE LOG4CPP_LIBRARY_SHARED
+        PKGCONFIG_NAME log4cpp
+        LINKER_FLAG log4cpp
+    )
+endif()
 
-if (LOG4CPP_LIBRARY_SHARED AND (${CEU_CM_HAVE_WORKING_CXX_STDTHREAD_RUN_SHARED} EQUAL 0))
-    enhanced_try_run(VARNAME LOG4CPP SRC_PATH "test_log4cpp.cpp" LINK_LIBRARIES ${LOG4CPP_LIBRARY_SHARED} Threads::Threads)
-else ()
-    set(CEU_CM_HAVE_WORKING_LOG4CPP_RUN_SHARED 127 CACHE INTERNAL "doc")
-    set(CEU_CM_HAVE_WORKING_LOG4CPP_COMPILE_SHARED FALSE CACHE INTERNAL "doc")
-endif ()
-if (LOG4CPP_LIBRARY_STATIC AND (${CEU_CM_HAVE_WORKING_CXX_STDTHREAD_RUN_STATIC} EQUAL 0))
-    enhanced_try_run(STATIC VARNAME LOG4CPP SRC_PATH "test_log4cpp.cpp" LINK_LIBRARIES ${LOG4CPP_LIBRARY_STATIC} Threads::Threads)
-else ()
-    set(CEU_CM_HAVE_WORKING_LOG4CPP_RUN_STATIC 127 CACHE INTERNAL "doc")
-    set(CEU_CM_HAVE_WORKING_LOG4CPP_COMPILE_STATIC FALSE CACHE INTERNAL "doc")
-endif ()
+if(NOT DEFINED LOG4CPP_LIBRARY_STATIC)
+    ceu_enhanced_find_library(
+        STATIC
+        OUTPUT_VARIABLE LOG4CPP_LIBRARY_STATIC
+        PKGCONFIG_NAME log4cpp
+        LINKER_FLAG log4cpp
+    )
+endif()
+
+enhanced_try_run(
+    VARNAME LOG4CPP
+    SRC_PATH "test_log4cpp.cpp"
+    LINK_LIBRARIES ${LOG4CPP_LIBRARY_SHARED} Threads::Threads
+    DEPENDS CXX_STDTHREAD
+)
+
+enhanced_try_run(
+    STATIC
+    VARNAME LOG4CPP
+    SRC_PATH "test_log4cpp.cpp"
+    LINK_LIBRARIES ${LOG4CPP_LIBRARY_SATTIC} Threads::Threads
+    DEPENDS CXX_STDTHREAD
+)
 
 ceu_print_test_status("log4cpp" LOG4CPP)
