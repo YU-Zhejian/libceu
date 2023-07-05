@@ -1,21 +1,37 @@
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/enhanced_find.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/enhanced_try_run.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/print_test_status.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/test_c_helloworld.cmake")
 
-ceu_enhanced_find_library(OUTPUT_VARIABLE LIBDEFLATE_LIBRARY_SHARED PKGCONFIG_NAME libdeflate LINKER_FLAG deflate)
-ceu_enhanced_find_library(STATIC OUTPUT_VARIABLE LIBDEFLATE_LIBRARY_STATIC PKGCONFIG_NAME libdeflate LINKER_FLAG deflate)
+if (NOT DEFINED LIBDEFLATE_LIBRARY_SHARED)
+    ceu_enhanced_find_library(
+            OUTPUT_VARIABLE CMAKE_CM_LIBDEFLATE_LIBRARY_SHARED
+            PKGCONFIG_NAME libdeflate
+            LINKER_FLAG deflate
+    )
+endif ()
 
-if (LIBDEFLATE_LIBRARY_SHARED)
-    enhanced_try_run(VARNAME LIBDEFLATE SRC_PATH "test_libdeflate.c" LINK_LIBRARIES "${LIBDEFLATE_LIBRARY_SHARED}")
-else ()
-    set(HAVE_WORKING_LIBDEFLATE_RUN_SHARED 127 CACHE INTERNAL "doc")
-    set(HAVE_WORKING_LIBDEFLATE_COMPILE_SHARED FALSE CACHE INTERNAL "doc")
+if (NOT DEFINED LIBDEFLATE_LIBRARY_STATIC)
+    ceu_enhanced_find_library(
+            STATIC
+            OUTPUT_VARIABLE CMAKE_CM_LIBDEFLATE_LIBRARY_STATIC
+            PKGCONFIG_NAME libdeflate
+            LINKER_FLAG deflate
+    )
 endif ()
-if (LIBDEFLATE_LIBRARY_STATIC)
-    enhanced_try_run(STATIC VARNAME LIBDEFLATE SRC_PATH "test_libdeflate.c" LINK_LIBRARIES "${LIBDEFLATE_LIBRARY_STATIC}")
-else ()
-    set(HAVE_WORKING_LIBDEFLATE_RUN_STATIC 127 CACHE INTERNAL "doc")
-    set(HAVE_WORKING_LIBDEFLATE_COMPILE_STATIC FALSE CACHE INTERNAL "doc")
-endif ()
+
+enhanced_try_run(
+        VARNAME LIBDEFLATE
+        SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_libdeflate.c"
+        LINK_LIBRARIES "${CMAKE_CM_LIBDEFLATE_LIBRARY_SHARED}"
+        DEPENDS C_HELLOWORLD
+)
+enhanced_try_run(
+        STATIC
+        VARNAME LIBDEFLATE
+        SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_libdeflate.c"
+        LINK_LIBRARIES "${CMAKE_CM_LIBDEFLATE_LIBRARY_STATIC}"
+        DEPENDS C_HELLOWORLD
+)
 
 ceu_print_test_status("libdeflate" LIBDEFLATE)

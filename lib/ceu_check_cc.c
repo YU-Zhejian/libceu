@@ -174,18 +174,17 @@ char *interpret_broadland_compiler_version_number(void)
 #endif
 #if defined(CEU_COMPILER_IS_CLANG)
 
-char* interpret_clang_compiler_version_number(void)
+char *interpret_clang_compiler_version_number(void)
 {
     int retv;
-    char* buff = (char*) ceu_scalloc(256, sizeof(char));
+    char *buff = (char *) ceu_scalloc(256, sizeof(char));
 #ifdef __clang_major__
     retv = snprintf(buff, 256, "Clang compatible version number: %d.%d.%d", __clang_major__, __clang_minor__,
-            __clang_patchlevel__);
+                    __clang_patchlevel__);
 #else
     retv = snprintf(buff, 256, "Clang compatible version number: unknown");
 #endif
-    if (retv < 0)
-    {
+    if (retv < 0) {
         ceu_free_non_null(buff);
         return NULL;
     }
@@ -202,18 +201,17 @@ char *interpret_clang_compiler_version_number(void)
 #endif
 #if defined(CEU_COMPILER_IS_GCC)
 
-char* interpret_gcc_compiler_version_number(void)
+char *interpret_gcc_compiler_version_number(void)
 {
-    char* buff = (char*) ceu_scalloc(256, sizeof(char));
+    char *buff = (char *) ceu_scalloc(256, sizeof(char));
     int retv;
 #ifdef __GNUC_PATCHLEVEL__
     retv = snprintf(buff, 256, "GCC compatible version number: %d.%d.%d", __GNUC__, __GNUC_MINOR__,
-            __GNUC_PATCHLEVEL__);
+                    __GNUC_PATCHLEVEL__);
 #else
     retv = snprintf(buff, 256, "%d.%d", __GNUC__, __GNUC_MINOR__);
 #endif
-    if (retv < 0)
-    {
+    if (retv < 0) {
         ceu_free_non_null(buff);
         return NULL;
     }
@@ -231,13 +229,12 @@ char *interpret_gcc_compiler_version_number(void)
 
 #if defined(__VERSION__)
 
-char* interpret_compiler_macro_version_number(void)
+char *interpret_compiler_macro_version_number(void)
 {
-    char* buff = (char*) ceu_scalloc(256, sizeof(char));
+    char *buff = (char *) ceu_scalloc(256, sizeof(char));
     int retv;
     retv = snprintf(buff, 256, "__VERSION__ version number: %s", __VERSION__);
-    if (retv < 0)
-    {
+    if (retv < 0) {
         ceu_free_non_null(buff);
         return NULL;
     }

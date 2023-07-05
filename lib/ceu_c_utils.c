@@ -115,7 +115,7 @@ char *ceu_str_join_with_sep(char *sep, ceu_str_join_null_action_t nb, int count,
     va_start(args, count);
     for (i = 0; i < count; ++i) {
         new_item = va_arg(args,
-        char*);
+                          char*);
         if (new_item == NULL) {
             if (nb == CEU_STR_JOIN_REGARD_AS_EMPTY_STR) {
                 new_item = "";

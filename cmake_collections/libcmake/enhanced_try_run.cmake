@@ -6,15 +6,16 @@ if (DEFINED CEU_CM_ADD_ETR_AS_TESTS)
 endif ()
 
 function(enhanced_try_run)
+    # Parse args
     set(options STATIC)
     set(oneValueArgs SRC_PATH VARNAME)
     set(multiValueArgs LINK_LIBRARIES COMPILE_DEFS DEPENDS)
     cmake_parse_arguments(
-        ENHANCED_TRY_RUN
-        "${options}"
-        "${oneValueArgs}"
-        "${multiValueArgs}"
-        ${ARGN}
+            ENHANCED_TRY_RUN
+            "${options}"
+            "${oneValueArgs}"
+            "${multiValueArgs}"
+            ${ARGN}
     )
 
     if (ENHANCED_TRY_RUN_STATIC)
@@ -23,25 +24,27 @@ function(enhanced_try_run)
         set(TARGET_POSTFIX "SHARED")
     endif ()
 
+    # Unconditional skip
     if (DEFINED SKIP_ALL_TRY_RUN)
         set(
-            CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX} TRUE
-            CACHE INTERNAL
-            "SKIP_ALL_TRY_RUN was set, skip all tests."
+                CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX} TRUE
+                CACHE INTERNAL
+                "SKIP_ALL_TRY_RUN was set, skip all tests."
         )
         set(
-            CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX} 0
-            CACHE INTERNAL
-            "SKIP_ALL_TRY_RUN was set, skip all tests."
+                CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX} 0
+                CACHE INTERNAL
+                "SKIP_ALL_TRY_RUN was set, skip all tests."
         )
         return()
     endif ()
 
+    # Add as test and evaluate later.
     if (DEFINED CEU_CM_ADD_ETR_AS_TESTS)
         set(TARGET_NAME CEU_CM_"${ENHANCED_TRY_RUN_VARNAME}_${TARGET_POSTFIX}")
 
         if (NOT TARGET "${TARGET_NAME}")
-            add_executable("${TARGET_NAME}" "${CMAKE_CURRENT_LIST_DIR}/src/${ENHANCED_TRY_RUN_SRC_PATH}")
+            add_executable("${TARGET_NAME}" "${ENHANCED_TRY_RUN_SRC_PATH}")
             message(STATUS "CEU_CM: Adding test ${TARGET_NAME}")
             add_test("${TARGET_NAME}" "${TARGET_NAME}")
 
@@ -63,74 +66,78 @@ function(enhanced_try_run)
         endif ()
     endif ()
 
+    # Start processing
     if (NOT DEFINED CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX})
-    message(STATUS "CEU_CM: Finding and assessing ${TARGET_POSTFIX} ${ENHANCED_TRY_RUN_VARNAME}")
+        message(STATUS "CEU_CM: Finding and assessing ${TARGET_POSTFIX} ${ENHANCED_TRY_RUN_VARNAME}")
 
-    set(
-        CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX} FALSE
-        CACHE INTERNAL
-        "Default to fail."
-    )
-    set(
-        CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX} 127
-        CACHE INTERNAL
-        "Default to fail."
-    )
-    foreach (DEPENDENT_VARNAME ENHANCED_TRY_RUN_DEPENDS)
-        if(DEFINED CEN_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX})
-            if(NOT ${CEN_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX}} EQUAL 0)
-                set(
-                    CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX} FALSE
-                    CACHE INTERNAL
-                    "Dependency CEN_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX} failed."
-                )
-                set(
-                    CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX} 127
-                    CACHE INTERNAL
-                    "Dependency CEN_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX} failed."
-                )
-                return()
-            endif()
-        else()
-                set(
-                    CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX} FALSE
-                    CACHE INTERNAL
-                    "Dependency CEN_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX} undefined."
-                )
-                set(
-                    CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX} 127
-                    CACHE INTERNAL
-                    "Dependency CEN_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX} undefined."
-                )
-                return()
-        endif()
-    endforeach ()
-
-
-        if (NOT DEFINED ENHANCED_TRY_RUN_LINK_LIBRARIES)
-            set(ENHANCED_TRY_RUN_LINK_LIBRARIES "")
-        endif ()
-
-        foreach (ENHANCED_TRY_RUN_LINK_LIBRARY ENHANCED_TRY_RUN_LINK_LIBRARIES)
-            if(NOT ENHANCED_TRY_RUN_LINK_LIBRARY)
-            set(
+        set(
                 CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX} FALSE
                 CACHE INTERNAL
-                "Dependency ${ENHANCED_TRY_RUN_LINK_LIBRARY} not found."
-            )
-            set(
+                "Default to fail."
+        )
+        set(
                 CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX} 127
                 CACHE INTERNAL
-                "Dependency ${ENHANCED_TRY_RUN_LINK_LIBRARY} not found."
-            )
-            return()
-            endif()
-        endforeach()
+                "Default to fail."
+        )
+        if (DEFINED ENHANCED_TRY_RUN_DEPENDS)
+            foreach (DEPENDENT_VARNAME ${ENHANCED_TRY_RUN_DEPENDS})
+                if (DEFINED CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX})
+                    if (NOT ${CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX}} EQUAL 0)
+                        set(
+                                CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX} FALSE
+                                CACHE INTERNAL
+                                "Dependency CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX} failed."
+                        )
+                        set(
+                                CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX} 127
+                                CACHE INTERNAL
+                                "Dependency CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX} failed."
+                        )
+                        return()
+                    endif ()
+                else ()
+                    set(
+                            CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX} FALSE
+                            CACHE INTERNAL
+                            "Dependency CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX} undefined."
+                    )
+                    set(
+                            CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX} 127
+                            CACHE INTERNAL
+                            "Dependency CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX} undefined."
+                    )
+                    return()
+                endif ()
+            endforeach ()
+        endif ()
+
+        if (DEFINED ENHANCED_TRY_RUN_LINK_LIBRARIES)
+            foreach (ENHANCED_TRY_RUN_LINK_LIBRARY ${ENHANCED_TRY_RUN_LINK_LIBRARIES})
+                if (ENHANCED_TRY_RUN_LINK_LIBRARY EQUAL "")
+                    continue()
+                elseif (NOT ENHANCED_TRY_RUN_LINK_LIBRARY)
+                    set(
+                            CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX} FALSE
+                            CACHE INTERNAL
+                            "Dependency ${ENHANCED_TRY_RUN_LINK_LIBRARY} not found."
+                    )
+                    set(
+                            CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX} 127
+                            CACHE INTERNAL
+                            "Dependency ${ENHANCED_TRY_RUN_LINK_LIBRARY} not found."
+                    )
+                    return()
+                endif ()
+            endforeach ()
+        else ()
+            set(ENHANCED_TRY_RUN_LINK_LIBRARIES "")
+        endif ()
 
         set(ENHANCED_TRY_RUN_COMPILE_DEFS_TRY_RUN "")
 
         if (DEFINED ENHANCED_TRY_RUN_COMPILE_DEFS)
-            foreach (FLAG ENHANCED_TRY_RUN_COMPILE_DEFS)
+            foreach (FLAG ${ENHANCED_TRY_RUN_COMPILE_DEFS})
                 set(ENHANCED_TRY_RUN_COMPILE_DEFS_TRY_RUN ${ENHANCED_TRY_RUN_COMPILE_DEFS_TRY_RUN} -D${FLAG})
             endforeach ()
         endif ()
@@ -140,31 +147,33 @@ function(enhanced_try_run)
         else ()
             set(LINK_OPTIONS "")
         endif ()
+
         if (CMAKE_VERSION GREATER_EQUAL 3.14)
             try_run(
-                CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}
+                    CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}
                     CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX}
                     "${CMAKE_BINARY_DIR}/CEU_TRC"
-                    "${CMAKE_CURRENT_LIST_DIR}/src/${ENHANCED_TRY_RUN_SRC_PATH}"
+                    "${ENHANCED_TRY_RUN_SRC_PATH}"
                     LINK_OPTIONS ${LINK_OPTIONS}
                     LINK_LIBRARIES ${ENHANCED_TRY_RUN_LINK_LIBRARIES}
                     COMPILE_DEFINITIONS ${ENHANCED_TRY_RUN_COMPILE_DEFS_TRY_RUN}
                     COMPILE_OUTPUT_VARIABLE CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX}_VAR
                     RUN_OUTPUT_VARIABLE CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}_VAR
-                    )
+            )
         else ()
             try_run(
-                CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}
+                    CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}
                     CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX}
                     "${CMAKE_BINARY_DIR}/CEU_TRC"
-                    "${CMAKE_CURRENT_LIST_DIR}/src/${ENHANCED_TRY_RUN_SRC_PATH}"
+                    "${ENHANCED_TRY_RUN_SRC_PATH}"
                     # LINK_OPTIONS ${LINK_OPTIONS}
                     LINK_LIBRARIES ${ENHANCED_TRY_RUN_LINK_LIBRARIES}
                     COMPILE_DEFINITIONS ${ENHANCED_TRY_RUN_COMPILE_DEFS_TRY_RUN}
                     COMPILE_OUTPUT_VARIABLE CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX}_VAR
                     RUN_OUTPUT_VARIABLE CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}_VAR
-                    )
+            )
         endif ()
+
         if (NOT DEFINED CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}_VAR)
             set(CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}_VAR "")
         endif ()
@@ -181,7 +190,11 @@ function(enhanced_try_run)
         unset(CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}_VAR)
 
         if (NOT DEFINED CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX})
-            set(CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX} 127 CACHE INTERNAL "doc")
+            set(
+                    CEU_CM_HAVE_WORKING_${ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX} 127
+                    CACHE INTERNAL
+                    "Compilation failed."
+            )
         endif ()
     else ()
         message(DEBUG "MISC_ENHANCED_TRY_COMPILE: Cached static ${ENHANCED_TRY_RUN_VARNAME}")

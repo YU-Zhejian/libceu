@@ -145,45 +145,44 @@ char *get_run_time_windows_version(void)
 #include <unistd.h> // Should NOT be removed
 #include <sys/utsname.h>
 
-char* get_run_time_posix_uts_info(void)
+char *get_run_time_posix_uts_info(void)
 {
     int retv;
     struct utsname ceu_utsname;
     uname(&ceu_utsname);
-    char* buff = (char*) ceu_scalloc(256, sizeof(char));
+    char *buff = (char *) ceu_scalloc(256, sizeof(char));
     retv = snprintf(
-            buff,
-            256,
-            "POSIX UTSINFO=\'%s %s %s %s %s\'",
-            ceu_utsname.sysname,
-            ceu_utsname.nodename,
-            ceu_utsname.release,
-            ceu_utsname.version,
-            ceu_utsname.machine
+        buff,
+        256,
+        "POSIX UTSINFO=\'%s %s %s %s %s\'",
+        ceu_utsname.sysname,
+        ceu_utsname.nodename,
+        ceu_utsname.release,
+        ceu_utsname.version,
+        ceu_utsname.machine
     );
-    if (retv < 0)
-    {
+    if (retv < 0) {
         ceu_free_non_null(buff);
         return NULL;
     }
     return buff;
 }
 
-char* get_compile_time_posix_standard(void)
+char *get_compile_time_posix_standard(void)
 {
-    char* ct_posix1_buff = (char*) ceu_scalloc(256, sizeof(char));
+    char *ct_posix1_buff = (char *) ceu_scalloc(256, sizeof(char));
 #ifdef _POSIX_VERSION
     snprintf(ct_posix1_buff, 256, "POSIX.1 Version: %ld", _POSIX_VERSION);
 #else
     snprintf(ct_posix1_buff, 256, "POSIX.1 Version: undefined");
 #endif
-    char* ct_posix2_buff = (char*) ceu_scalloc(256, sizeof(char));
+    char *ct_posix2_buff = (char *) ceu_scalloc(256, sizeof(char));
 #ifdef _POSIX2_VERSION
     snprintf(ct_posix2_buff, 256, "POSIX.2 Version: %ld", _POSIX2_VERSION);
 #else
     snprintf(ct_posix2_buff, 256, "POSIX.2 Version: undefined");
 #endif
-    char* ct_sus_buff = (char*) ceu_scalloc(256, sizeof(char));
+    char *ct_sus_buff = (char *) ceu_scalloc(256, sizeof(char));
 #ifdef _XOPEN_UNIX
 #ifdef _XOPEN_VERSION
     snprintf(ct_sus_buff, 256, "Single UNIX Specification (SUS) version: %d", _XOPEN_VERSION);
@@ -193,7 +192,7 @@ char* get_compile_time_posix_standard(void)
 #else
     snprintf(ct_sus_buff, 256, "Single UNIX Specification (SUS) version: undefined");
 #endif
-    char* retbuff = ceu_str_join_with_sep("\n\t", CEU_STR_JOIN_SKIP, 3, ct_posix1_buff, ct_posix2_buff, ct_sus_buff);
+    char *retbuff = ceu_str_join_with_sep("\n\t", CEU_STR_JOIN_SKIP, 3, ct_posix1_buff, ct_posix2_buff, ct_sus_buff);
     return retbuff;
 }
 

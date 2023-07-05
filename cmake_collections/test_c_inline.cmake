@@ -2,34 +2,32 @@ include("${CMAKE_CURRENT_LIST_DIR}/libcmake/enhanced_try_run.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/print_test_status.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/test_c_helloworld.cmake")
 
-if (CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_SHARED EQUAL 0)
-    enhanced_try_run(VARNAME C___INLINE SRC_PATH "test_c___inline.c")
-else ()
-    set(CEU_CM_HAVE_WORKING_C___INLINE_COMPILE_SHARED FALSE CACHE BOOL "Dependency CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_SHARED Failed.")
-    set(CEU_CM_HAVE_WORKING_C___INLINE_RUN_SHARED 127 CACHE INTERNAL "Dependency CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_SHARED Failed.")
-endif ()
+enhanced_try_run(
+        VARNAME C___INLINE
+        SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_c___inline.c"
+        DEPENDS C_HELLOWORLD
+)
 
-if (CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_STATIC EQUAL 0)
-    enhanced_try_run(STATIC VARNAME C___INLINE SRC_PATH "test_c___inline.c")
-else ()
-    set(CEU_CM_HAVE_WORKING_C___INLINE_COMPILE_STATIC FALSE CACHE BOOL "Dependency CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_STATIC Failed.")
-    set(CEU_CM_HAVE_WORKING_C___INLINE_RUN_STATIC 127 CACHE INTERNAL "Dependency CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_STATIC Failed.")
-endif ()
+enhanced_try_run(
+        STATIC
+        VARNAME C___INLINE
+        SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_c___inline.c"
+        DEPENDS C_HELLOWORLD
+)
 
 ceu_print_test_status("__inline (c)" C___INLINE)
 
-if (CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_SHARED EQUAL 0)
-    enhanced_try_run(VARNAME C_INLINE SRC_PATH "test_c_inline.c")
-else ()
-    set(CEU_CM_HAVE_WORKING_C_INLINE_COMPILE_SHARED FALSE CACHE BOOL "Dependency CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_SHARED Failed.")
-    set(CEU_CM_HAVE_WORKING_C_INLINE_RUN_SHARED 127 CACHE INTERNAL "Dependency CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_SHARED Failed.")
-endif ()
+enhanced_try_run(
+        VARNAME C_INLINE
+        SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_c_inline.c"
+        DEPENDS C_HELLOWORLD
+)
 
-if (CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_STATIC EQUAL 0)
-    enhanced_try_run(STATIC VARNAME C_INLINE SRC_PATH "test_c_inline.c")
-else ()
-    set(CEU_CM_HAVE_WORKING_C_INLINE_COMPILE_STATIC FALSE CACHE BOOL "Dependency CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_STATIC Failed.")
-    set(CEU_CM_HAVE_WORKING_C_INLINE_RUN_STATIC 127 CACHE INTERNAL "Dependency CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_STATIC Failed.")
-endif ()
+enhanced_try_run(
+        STATIC
+        VARNAME C_INLINE
+        SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_c_inline.c"
+        DEPENDS C_HELLOWORLD
+)
 
 ceu_print_test_status("inline (c)" C_INLINE)
