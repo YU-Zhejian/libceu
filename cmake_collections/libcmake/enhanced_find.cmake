@@ -96,7 +96,10 @@ Sets:
 #]=======================================================================]
 function(ceu_cm_get_linker_flags_from_pkg_config OUTPUT_VARIABLE PKGCONFIG_NAME IS_STATIC)
     if (PKG_CONFIG_FOUND)
-        pkg_check_modules(CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME} ${PKGCONFIG_NAME})
+        pkg_check_modules(
+            CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME} ${PKGCONFIG_NAME}
+            QUIET
+        )
         if (CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}_FOUND)
             if (NOT ${IS_STATIC} AND CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}_LIBRARIES)
                 set(${OUTPUT_VARIABLE} ${CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}_LIBRARIES} PARENT_SCOPE)
@@ -172,6 +175,12 @@ function(ceu_cm_enhanced_find_library)
         return()
     endif ()
 
+    if(CEU_CM_ENHANCED_FIND_LIBRARY_STATIC)
+        set(CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_TYPE "static")
+    else()
+        set(CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_TYPE "shared")
+    endif()
+
     if (NOT DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_LINKER_FLAG AND NOT DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME)
         message(FATAL_ERROR "You need to define LINKER_FLAG or LIBRARY_PKGCONFIG_NAME")
     endif ()
@@ -189,6 +198,7 @@ function(ceu_cm_enhanced_find_library)
         else ()
             set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS} CACHE INTERNAL "Result of calling ceu_cm_enhanced_find_library(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE})")
         endif ()
+        message("CEU_CM: Find ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_TYPE} ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}}")
         return()
     endif ()
 
@@ -207,5 +217,6 @@ function(ceu_cm_enhanced_find_library)
     else ()
         set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS} CACHE INTERNAL "Result of calling ceu_cm_enhanced_find_library(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE})")
     endif ()
+    message("CEU_CM: Find ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_TYPE} ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}}")
     return()
 endfunction()

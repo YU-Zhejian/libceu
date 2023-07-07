@@ -20,12 +20,12 @@ function(ceu_cm_detect_c_preprocessor_macros)
     endif ()
     if (DEFINED CMAKE_C_COMPILER)
         execute_process(
-                COMMAND sh "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/shell/ceu_cm_detect_c_preprocessor_macros.sh" "${CMAKE_C_COMPILER}" c "${CMAKE_BINARY_DIR}/compile_logs/"
+                COMMAND sh "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/shell/detect_c_preprocessor_macros.sh" "${CMAKE_C_COMPILER}" c "${CMAKE_BINARY_DIR}/compile_logs/"
         )
     endif ()
     if (DEFINED CMAKE_CXX_COMPILER)
         execute_process(
-                COMMAND sh "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/shell/ceu_cm_detect_c_preprocessor_macros.sh" "${CMAKE_CXX_COMPILER}" c++ "${CMAKE_BINARY_DIR}/compile_logs/"
+                COMMAND sh "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/shell/detect_c_preprocessor_macros.sh" "${CMAKE_CXX_COMPILER}" c++ "${CMAKE_BINARY_DIR}/compile_logs/"
         )
     endif ()
     unset(NULDEV)

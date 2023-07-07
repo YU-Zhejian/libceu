@@ -11,3 +11,15 @@ file(GLOB CPPTETGS_DIST_CMAKE_TEST_FILES "${CMAKE_CURRENT_LIST_DIR}/test_*.cmake
 foreach (fiename ${CPPTETGS_DIST_CMAKE_TEST_FILES})
     include(${fiename})
 endforeach ()
+
+file(GLOB CPPTETGS_DIST_CMAKE_FIND_OR_GET_FILES "${CMAKE_CURRENT_LIST_DIR}/find_or_get_*.cmake")
+
+foreach (fiename ${CPPTETGS_DIST_CMAKE_FIND_OR_GET_FILES})
+    include(${fiename})
+endforeach ()
+
+# ceu_cm_find_or_get_gtest(
+#     POLICY "Download"
+#     GIT_REPOSITORY "/home/yuzj/Documents/gtest"
+#     GIT_TAG "v1.13.0"
+# )
