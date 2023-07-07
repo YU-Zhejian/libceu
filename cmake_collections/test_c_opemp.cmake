@@ -7,14 +7,14 @@ if (NOT DEFINED OpenMP_C_FOUND)
     find_package(OpenMP)
 endif ()
 
-enhanced_try_run(
+ceu_cm_enhanced_try_run(
         VARNAME C_OPENMP
         SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_openmp.c"
         DEPENDS C_HELLOWORLD
         LINK_LIBRARIES OpenMP::OpenMP_C "${CEU_CM_LIBM_SHARED}"
 )
 
-enhanced_try_run(
+ceu_cm_enhanced_try_run(
         STATIC
         VARNAME C_OPENMP
         SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_openmp.c"
@@ -22,4 +22,4 @@ enhanced_try_run(
         LINK_LIBRARIES OpenMP::OpenMP_C "${CEU_CM_LIBM_STATIC}"
 )
 
-ceu_print_test_status("openmp (c)" C_OPENMP)
+ceu_cm_print_test_status("openmp (c)" C_OPENMP)

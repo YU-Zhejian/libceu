@@ -6,13 +6,13 @@ if (NOT DEFINED Threads_FOUND)
     find_package(Threads)
 endif ()
 
-enhanced_try_run(
+ceu_cm_enhanced_try_run(
         VARNAME CXX_STDTHREAD
         SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_stdthread.cpp"
         LINK_LIBRARIES Threads::Threads "${CEU_CM_LIBM_SHARED}"
         DEPENDS CXX_HELLOWORLD
 )
-enhanced_try_run(
+ceu_cm_enhanced_try_run(
         STATIC VARNAME CXX_STDTHREAD
         SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_stdthread.cpp"
         LINK_LIBRARIES Threads::Threads "${CEU_CM_LIBM_SHARED}"
@@ -20,4 +20,4 @@ enhanced_try_run(
 )
 
 
-ceu_print_test_status("stdthread (cxx)" CXX_STDTHREAD)
+ceu_cm_print_test_status("stdthread (cxx)" CXX_STDTHREAD)

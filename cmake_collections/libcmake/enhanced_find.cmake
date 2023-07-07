@@ -3,9 +3,9 @@
 find_package(PkgConfig)
 
 #[=======================================================================[
-ceu_get_abspath_from_linker_flag -- Get absolute path of libraries from linker flag.
+ceu_cm_get_abspath_from_linker_flag -- Get absolute path of libraries from linker flag.
 
-Synopsis: `ceu_get_abspath_from_linker_flag(OUTPUT_VARIABLE LINKER_FLAG IS_STATIC)`
+Synopsis: `ceu_cm_get_abspath_from_linker_flag(OUTPUT_VARIABLE LINKER_FLAG IS_STATIC)`
 
 Params:
     - `OUTPUT_VARIABLE`: Name of the output variable.
@@ -13,8 +13,8 @@ Params:
     - `IS_STATIC`: Whether to find static or dynamic libraries.
 
 Sample:
-    - `ceu_get_abspath_from_linker_flag(OV z TRUE)` -> `libz.a`
-    - `ceu_get_abspath_from_linker_flag(OV z FALSE)` -> `libz.so`
+    - `ceu_cm_get_abspath_from_linker_flag(OV z TRUE)` -> `libz.a`
+    - `ceu_cm_get_abspath_from_linker_flag(OV z FALSE)` -> `libz.so`
 
 Sets:
     - `OUTPUT_VARIABLE`: Parent scope level.
@@ -28,7 +28,7 @@ Warnings:
         If `liba.so` does not contain implementations defined in `libb.so`,
         direct execution of `app` would yield bugs.
 #]=======================================================================]
-function(ceu_get_abspath_from_linker_flag OUTPUT_VARIABLE LINKER_FLAG IS_STATIC)
+function(ceu_cm_get_abspath_from_linker_flag OUTPUT_VARIABLE LINKER_FLAG IS_STATIC)
     if (IS_STATIC)
         set(
                 POSSIBLE_LIBRARY_FILENAMES
@@ -77,9 +77,9 @@ function(ceu_get_abspath_from_linker_flag OUTPUT_VARIABLE LINKER_FLAG IS_STATIC)
 endfunction()
 
 #[=======================================================================[
-ceu_get_linker_flags_from_pkg_config -- Get linker flags from pkgconfig (*.pc) files.
+ceu_cm_get_linker_flags_from_pkg_config -- Get linker flags from pkgconfig (*.pc) files.
 
-Synopsis: `ceu_get_abspath_from_linker_flag(OUTPUT_VARIABLE PKGCONFIG_NAME IS_STATIC)`
+Synopsis: `ceu_cm_get_linker_flags_from_pkg_config(OUTPUT_VARIABLE PKGCONFIG_NAME IS_STATIC)`
 
 Params:
     - `OUTPUT_VARIABLE`: Name of the output variable.
@@ -87,14 +87,14 @@ Params:
     - `IS_STATIC`: Whether to find static or dynamic libraries.
 
 Sample:
-    - `ceu_get_linker_flags_from_pkg_config(OV xrender TRUE)` -> `Xrender;X11;pthread;xcb;Xau;Xdmcp`
-    - `ceu_get_linker_flags_from_pkg_config(OV xrender FALSE)` -> `Xrender;X11`
+    - `ceu_cm_get_linker_flags_from_pkg_config(OV xrender TRUE)` -> `Xrender;X11;pthread;xcb;Xau;Xdmcp`
+    - `ceu_cm_get_linker_flags_from_pkg_config(OV xrender FALSE)` -> `Xrender;X11`
 
 Sets:
     - `OUTPUT_VARIABLE`: Parent scope level.
     - `CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}*`: Cache level. For debug purposes.
 #]=======================================================================]
-function(ceu_get_linker_flags_from_pkg_config OUTPUT_VARIABLE PKGCONFIG_NAME IS_STATIC)
+function(ceu_cm_get_linker_flags_from_pkg_config OUTPUT_VARIABLE PKGCONFIG_NAME IS_STATIC)
     if (PKG_CONFIG_FOUND)
         pkg_check_modules(CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME} ${PKGCONFIG_NAME})
         if (CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}_FOUND)
@@ -111,9 +111,9 @@ function(ceu_get_linker_flags_from_pkg_config OUTPUT_VARIABLE PKGCONFIG_NAME IS_
 endfunction()
 
 #[=======================================================================[
-ceu_get_linker_flags_from_pkg_config -- Get library absolute paths from pkgconfig (*.pc) files.
+ceu_cm_get_library_abspath_from_pkg_config -- Get library absolute paths from pkgconfig (*.pc) files.
 
-Synopsis: `ceu_get_library_abspath_from_pkg_config(OUTPUT_VARIABLE PKGCONFIG_NAME IS_STATIC)`
+Synopsis: `ceu_cm_get_library_abspath_from_pkg_config(OUTPUT_VARIABLE PKGCONFIG_NAME IS_STATIC)`
 
 Params:
     - `OUTPUT_VARIABLE`: Name of the output variable.
@@ -121,21 +121,21 @@ Params:
     - `IS_STATIC`: Whether to find static or dynamic libraries.
 
 Sample:
-    - `ceu_get_linker_flags_from_pkg_config(OV xrender TRUE)` -> `/usr/lib/x86_64-linux-gnu/libXrender.a;/usr/lib/x86_64-linux-gnu/libX11.a;/usr/lib/x86_64-linux-gnu/libpthread.a;/usr/lib/x86_64-linux-gnu/libxcb.a;/usr/lib/x86_64-linux-gnu/libXau.a;/usr/lib/x86_64-linux-gnu/libXdmcp.a`
-    - `ceu_get_linker_flags_from_pkg_config(OV xrender FALSE)` -> `/usr/lib/x86_64-linux-gnu/libXrender.so;/usr/lib/x86_64-linux-gnu/libX11.so`
+    - `ceu_cm_get_library_abspath_from_pkg_config(OV xrender TRUE)` -> `/usr/lib/x86_64-linux-gnu/libXrender.a;/usr/lib/x86_64-linux-gnu/libX11.a;/usr/lib/x86_64-linux-gnu/libpthread.a;/usr/lib/x86_64-linux-gnu/libxcb.a;/usr/lib/x86_64-linux-gnu/libXau.a;/usr/lib/x86_64-linux-gnu/libXdmcp.a`
+    - `ceu_cm_get_library_abspath_from_pkg_config(OV xrender FALSE)` -> `/usr/lib/x86_64-linux-gnu/libXrender.so;/usr/lib/x86_64-linux-gnu/libX11.so`
 
 Sets:
     - `OUTPUT_VARIABLE`: Parent scope level.
 #]=======================================================================]
-function(ceu_get_library_abspath_from_pkg_config OUTPUT_VARIABLE PKGCONFIG_NAME IS_STATIC)
-    ceu_get_linker_flags_from_pkg_config(LINKER_FLAGS "${PKGCONFIG_NAME}" "${IS_STATIC}")
+function(ceu_cm_get_library_abspath_from_pkg_config OUTPUT_VARIABLE PKGCONFIG_NAME IS_STATIC)
+    ceu_cm_get_linker_flags_from_pkg_config(LINKER_FLAGS "${PKGCONFIG_NAME}" "${IS_STATIC}")
     if (NOT LINKER_FLAGS)
         set(${OUTPUT_VARIABLE} ${OUTPUT_VARIABLE}-NOTFOUND PARENT_SCOPE)
         return()
     endif ()
 
     foreach (LINKER_FLAG ${LINKER_FLAGS})
-        ceu_get_abspath_from_linker_flag(${LINKER_FLAG}_LIBRARY_ABSPATH ${LINKER_FLAG} ${IS_STATIC})
+        ceu_cm_get_abspath_from_linker_flag(${LINKER_FLAG}_LIBRARY_ABSPATH ${LINKER_FLAG} ${IS_STATIC})
         if (${LINKER_FLAG}_LIBRARY_ABSPATH)
             list(APPEND THIS_LIBRARY_ABSPATHS ${${LINKER_FLAG}_LIBRARY_ABSPATH})
         else ()
@@ -146,9 +146,9 @@ function(ceu_get_library_abspath_from_pkg_config OUTPUT_VARIABLE PKGCONFIG_NAME 
 endfunction()
 
 #[=======================================================================[
-ceu_enhanced_find_library -- Get library absolute paths from pkgconfig (*.pc) files (piortized, recommended) or linker flags.
+ceu_cm_enhanced_find_library -- Get library absolute paths from pkgconfig (*.pc) files (piortized, recommended) or linker flags.
 
-Synopsis: `ceu_enhanced_find_library([STATIC] [NO_CACHE] [OUTPUT_VARIABLE OUTPUT_VARIABLE] [LINKER_FLAG LINKER_FLAG] [PKGCONFIG_NAME PKGCONFIG_NAME])`
+Synopsis: `ceu_cm_enhanced_find_library([STATIC] [NO_CACHE] [OUTPUT_VARIABLE OUTPUT_VARIABLE] [LINKER_FLAG LINKER_FLAG] [PKGCONFIG_NAME PKGCONFIG_NAME])`
 
 Params:
     - `OUTPUT_VARIABLE`: Name of the output variable.
@@ -162,50 +162,50 @@ Params:
 Sets:
     - `OUTPUT_VARIABLE`: Parent scope level.
 #]=======================================================================]
-function(ceu_enhanced_find_library)
+function(ceu_cm_enhanced_find_library)
     set(options STATIC NO_CACHE)
     set(oneValueArgs OUTPUT_VARIABLE LINKER_FLAG PKGCONFIG_NAME)
     set(multiValueArgs "")
-    cmake_parse_arguments(CEU_ENHANCED_FIND_LIBRARY "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+    cmake_parse_arguments(CEU_CM_ENHANCED_FIND_LIBRARY "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
-    if (CEU_ENHANCED_FIND_LIBRARY_NO_CACHE AND DEFINED CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE)
+    if (CEU_CM_ENHANCED_FIND_LIBRARY_NO_CACHE AND DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE)
         return()
     endif ()
 
-    if (NOT DEFINED CEU_ENHANCED_FIND_LIBRARY_LINKER_FLAG AND NOT DEFINED CEU_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME)
+    if (NOT DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_LINKER_FLAG AND NOT DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME)
         message(FATAL_ERROR "You need to define LINKER_FLAG or LIBRARY_PKGCONFIG_NAME")
     endif ()
 
-    if (DEFINED CEU_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME AND CEU_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME AND PKG_CONFIG_FOUND)
-        ceu_get_library_abspath_from_pkg_config(
-                "${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS"
-                "${CEU_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME}"
-                "${CEU_ENHANCED_FIND_LIBRARY_STATIC}"
+    if (DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME AND CEU_CM_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME AND PKG_CONFIG_FOUND)
+        ceu_cm_get_library_abspath_from_pkg_config(
+                "${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS"
+                "${CEU_CM_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME}"
+                "${CEU_CM_ENHANCED_FIND_LIBRARY_STATIC}"
         )
     endif ()
-    if (${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS)
-        if (CEU_ENHANCED_FIND_LIBRARY_NO_CACHE)
-            set(${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS} PARENT_SCOPE)
+    if (${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS)
+        if (CEU_CM_ENHANCED_FIND_LIBRARY_NO_CACHE)
+            set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS} PARENT_SCOPE)
         else ()
-            set(${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS} CACHE INTERNAL "Result of calling ceu_enhanced_find_library(${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE})")
+            set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS} CACHE INTERNAL "Result of calling ceu_cm_enhanced_find_library(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE})")
         endif ()
         return()
     endif ()
 
-    if (DEFINED CEU_ENHANCED_FIND_LIBRARY_LINKER_FLAG AND CEU_ENHANCED_FIND_LIBRARY_LINKER_FLAG)
-        ceu_get_abspath_from_linker_flag(
-                "${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS"
-                "${CEU_ENHANCED_FIND_LIBRARY_LINKER_FLAG}"
-                "${CEU_ENHANCED_FIND_LIBRARY_STATIC}"
+    if (DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_LINKER_FLAG AND CEU_CM_ENHANCED_FIND_LIBRARY_LINKER_FLAG)
+        ceu_cm_get_abspath_from_linker_flag(
+                "${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS"
+                "${CEU_CM_ENHANCED_FIND_LIBRARY_LINKER_FLAG}"
+                "${CEU_CM_ENHANCED_FIND_LIBRARY_STATIC}"
         )
     endif ()
-    if (NOT ${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS)
-        set(${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS ${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}-NOTFOUND)
+    if (NOT ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS)
+        set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}-NOTFOUND)
     endif ()
-    if (CEU_ENHANCED_FIND_LIBRARY_NO_CACHE)
-        set(${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS} PARENT_SCOPE)
+    if (CEU_CM_ENHANCED_FIND_LIBRARY_NO_CACHE)
+        set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS} PARENT_SCOPE)
     else ()
-        set(${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS} CACHE INTERNAL "Result of calling ceu_enhanced_find_library(${CEU_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE})")
+        set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS} CACHE INTERNAL "Result of calling ceu_cm_enhanced_find_library(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE})")
     endif ()
     return()
 endfunction()

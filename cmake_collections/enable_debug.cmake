@@ -8,7 +8,7 @@ Requires:
 
 Function:
     - Defines several functions.
-    - Check whether the CMake variable `ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED` was set. If so, skip all processes described below. if not, set this variable.
+    - Check whether the CMake variable `CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED` was set. If so, skip all processes described below. if not, set this variable.
     - Detect C/C++ preprocessor macros. If this is not a C/C++ project, this step would be omitted.
     - Detect whether test should be built. If CMake variable `CEU_CM_SHOULD_ENABLE_TEST` was set, would skip this step. Otherwise, will setup test if the CMake variable `CMAKE_BUILD_TYPE` is not `Release`.
     - Detect whether we should build the application with native hardware support. If CMake variable `CEU_CM_SHOULD_USE_NATIVE` was not set, would set it to `FALSE`. If this variable was set `TRUE`, would try and set `-march=native` `-mtune=native` `-mtune` flags.
@@ -24,9 +24,9 @@ include(CheckCXXCompilerFlag)
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/detect_c_preprocessor_macros.cmake")
 
 #[=======================================================================[
-set_static_cmake -- Mark a target as static.
+ceu_cm_set_static_target -- Mark a target as static.
 
-Synopsis: set_static_cmake(name)
+Synopsis: ceu_cm_set_static_target(name)
 
 Params:
     - `name`: the name of the target that would be sattis
@@ -41,7 +41,7 @@ Notice:
 Warnings:
     - For those who uses pthreads & openMP on GLibC platforms (i.e., common GNU/Linux EXCLUDING Alpine Linux), this option would lead to segfaults.
 #]=======================================================================]
-macro(set_static_cmake name)
+macro(ceu_cm_set_static_target name)
     set_target_properties("${name}" PROPERTIES LINK_SEARCH_START_STATIC 1)
     set_target_properties("${name}" PROPERTIES LINK_SEARCH_END_STATIC 1)
     if (CMAKE_VERSION GREATER_EQUAL 3.13 AND NOT BORLAND)
@@ -56,9 +56,9 @@ macro(set_static_cmake name)
 endmacro()
 
 #[=======================================================================[
-global_enhanced_check_compiler_flag -- Check whether one of the flags in a group of flags is available.
+ceu_cm_global_enhanced_check_compiler_flag -- Check whether one of the flags in a group of flags is available.
 
-Synopsis: global_enhanced_check_compiler_flag(FLAG [[FLAG]...])
+Synopsis: ceu_cm_global_enhanced_check_compiler_flag(FLAG [[FLAG]...])
 
 Params:
     - `FLAG`: A linker flag.
@@ -70,7 +70,7 @@ Notice:
 Sets:
     - CMake variable `C_COMPILER_HAVE_${FLAG}`.
 #]=======================================================================]
-function(global_enhanced_check_compiler_flag)
+function(ceu_cm_global_enhanced_check_compiler_flag)
     foreach (FLAG ${ARGN})
         if (DEFINED CMAKE_C_COMPILER)
             check_c_compiler_flag(${FLAG} C_COMPILER_HAVE_${FLAG})
@@ -90,10 +90,14 @@ function(global_enhanced_check_compiler_flag)
     endforeach ()
 endfunction()
 
-if (NOT DEFINED ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
-    set(ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED TRUE CACHE BOOL "Whether a description on environment was printed.")
+if (NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
+    set(
+        CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED TRUE 
+        CACHE BOOL 
+        "Whether a description on environment was printed."
+    )
     # Detect C/CXX Pre-Processor Macros
-    detect_c_preprocessor_macros()
+    ceu_cm_detect_c_preprocessor_macros()
 
     # Detect Test.
     if (NOT DEFINED CEU_CM_SHOULD_ENABLE_TEST)
@@ -109,7 +113,7 @@ if (NOT DEFINED ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         set(CEU_CM_SHOULD_USE_NATIVE FALSE)
     endif ()
     if (CEU_CM_SHOULD_USE_NATIVE)
-        global_enhanced_check_compiler_flag(-march=native -mtune=native -mtune)
+        ceu_cm_global_enhanced_check_compiler_flag(-march=native -mtune=native -mtune)
     endif ()
 
     # Detect build type.
@@ -117,21 +121,21 @@ if (NOT DEFINED ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         set(CMAKE_BUILD_TYPE "Debug")
     endif ()
     if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release") # Release
-        global_enhanced_check_compiler_flag(-W0 -w)
-        global_enhanced_check_compiler_flag(-g0)
-        global_enhanced_check_compiler_flag(-Ofast -O3 -O2)
+        ceu_cm_global_enhanced_check_compiler_flag(-W0 -w)
+        ceu_cm_global_enhanced_check_compiler_flag(-g0)
+        ceu_cm_global_enhanced_check_compiler_flag(-Ofast -O3 -O2)
     elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "RelWithDebInfo") # Release with Debug Information
-        global_enhanced_check_compiler_flag(-W0 -w)
-        global_enhanced_check_compiler_flag(-Ofast -O3 -O2)
-        global_enhanced_check_compiler_flag(-g)
+        ceu_cm_global_enhanced_check_compiler_flag(-W0 -w)
+        ceu_cm_global_enhanced_check_compiler_flag(-Ofast -O3 -O2)
+        ceu_cm_global_enhanced_check_compiler_flag(-g)
     else () # Debug, the default.
-        global_enhanced_check_compiler_flag(-Wall)
-        global_enhanced_check_compiler_flag(-Wextra)
-        global_enhanced_check_compiler_flag(-Wp64) # Visual Studio 64 bit compatibility
-        global_enhanced_check_compiler_flag(-permissive) # Visual Studio
-        global_enhanced_check_compiler_flag(-pedantic -Wpedantic)
-        global_enhanced_check_compiler_flag(-Og)
-        global_enhanced_check_compiler_flag(-g3)
+        ceu_cm_global_enhanced_check_compiler_flag(-Wall)
+        ceu_cm_global_enhanced_check_compiler_flag(-Wextra)
+        ceu_cm_global_enhanced_check_compiler_flag(-Wp64) # Visual Studio 64 bit compatibility
+        ceu_cm_global_enhanced_check_compiler_flag(-permissive) # Visual Studio
+        ceu_cm_global_enhanced_check_compiler_flag(-pedantic -Wpedantic)
+        ceu_cm_global_enhanced_check_compiler_flag(-Og)
+        ceu_cm_global_enhanced_check_compiler_flag(-g3)
         if (CMAKE_VERSION GREATER_EQUAL 3.12)
             add_compile_definitions(CEU_CM_IS_DEBUG)
         else ()
@@ -157,7 +161,6 @@ if (NOT DEFINED ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         message(STATUS "|CMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} (${CMAKE_CXX_COMPILER_ABI}) ver. ${CMAKE_CXX_COMPILER_VERSION} std. ${CMAKE_CXX_STANDARD}")
         message(STATUS "|CMAKE_CXX_LINK_EXECUTABLE=${CMAKE_CXX_LINK_EXECUTABLE}")
     endif ()
-
     if (DEFINED CMAKE_Fortran_COMPILER)
         message(STATUS "|CMAKE_Fortran_COMPILER=${CMAKE_Fortran_COMPILER} (${CMAKE_Fortran_COMPILER_ABI}) ver. ${CMAKE_Fortran_COMPILER_VERSION}")
         message(STATUS "|CMAKE_Fortran_LINK_EXECUTABLE=${CMAKE_Fortran_LINK_EXECUTABLE}")

@@ -4,7 +4,7 @@ include("${CMAKE_CURRENT_LIST_DIR}/libcmake/print_test_status.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/test_c_helloworld.cmake")
 
 if (NOT DEFINED LIBLZMA_LIBRARY_SHARED)
-    ceu_enhanced_find_library(
+    ceu_cm_enhanced_find_library(
             OUTPUT_VARIABLE CMAKE_CM_LIBLZMA_LIBRARY_SHARED
             PKGCONFIG_NAME liblzma
             LINKER_FLAG lzma
@@ -12,7 +12,7 @@ if (NOT DEFINED LIBLZMA_LIBRARY_SHARED)
 endif ()
 
 if (NOT DEFINED LIBLZMA_LIBRARY_STATIC)
-    ceu_enhanced_find_library(
+    ceu_cm_enhanced_find_library(
             STATIC
             OUTPUT_VARIABLE CMAKE_CM_LIBLZMA_LIBRARY_STATIC
             PKGCONFIG_NAME liblzma
@@ -20,13 +20,13 @@ if (NOT DEFINED LIBLZMA_LIBRARY_STATIC)
     )
 endif ()
 
-enhanced_try_run(
+ceu_cm_enhanced_try_run(
         VARNAME LIBLZMA
         SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_liblzma.c"
         LINK_LIBRARIES "${CMAKE_CM_LIBLZMA_LIBRARY_SHARED}"
         DEPENDS C_HELLOWORLD
 )
-enhanced_try_run(
+ceu_cm_enhanced_try_run(
         STATIC
         VARNAME LIBLZMA
         SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_liblzma.c"
@@ -34,4 +34,4 @@ enhanced_try_run(
         DEPENDS C_HELLOWORLD
 )
 
-ceu_print_test_status("liblzma" LIBLZMA)
+ceu_cm_print_test_status("liblzma" LIBLZMA)

@@ -4,35 +4,35 @@ include("${CMAKE_CURRENT_LIST_DIR}/libcmake/enhanced_find.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/print_test_status.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/test_c_helloworld.cmake")
 
-enhanced_try_run(
+ceu_cm_enhanced_try_run(
         VARNAME C_NO_LIBM
         SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_libm.c"
         DEPENDS C_HELLOWORLD
 )
-enhanced_try_run(
+ceu_cm_enhanced_try_run(
         STATIC
         VARNAME C_NO_LIBM
         SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_libm.c"
         DEPENDS C_HELLOWORLD
 )
 
-ceu_print_test_status("libm: no -lm (c)" C_NO_LIBM)
+ceu_cm_print_test_status("libm: no -lm (c)" C_NO_LIBM)
 
 if (NOT DEFINED LIBM_LIBRARY_SHARED)
-    ceu_enhanced_find_library(OUTPUT_VARIABLE LIBM_LIBRARY_SHARED LINKER_FLAG m)
+    ceu_cm_enhanced_find_library(OUTPUT_VARIABLE LIBM_LIBRARY_SHARED LINKER_FLAG m)
 endif ()
 
 if (NOT DEFINED LIBM_LIBRARY_STATIC)
-    ceu_enhanced_find_library(STATIC OUTPUT_VARIABLE LIBM_LIBRARY_STATIC LINKER_FLAG m)
+    ceu_cm_enhanced_find_library(STATIC OUTPUT_VARIABLE LIBM_LIBRARY_STATIC LINKER_FLAG m)
 endif ()
 
-enhanced_try_run(
+ceu_cm_enhanced_try_run(
         VARNAME C_WITH_LIBM
         SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_libm.c"
         DEPENDS C_HELLOWORLD
         LINK_LIBRARIES ${LIBM_LIBRARY_SHARED}
 )
-enhanced_try_run(
+ceu_cm_enhanced_try_run(
         STATIC
         VARNAME C_WITH_LIBM
         SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_libm.c"
@@ -40,7 +40,7 @@ enhanced_try_run(
         LINK_LIBRARIES ${LIBM_LIBRARY_STATIC}
 )
 
-ceu_print_test_status("libm: with -lm (c)" C_WITH_LIBM)
+ceu_cm_print_test_status("libm: with -lm (c)" C_WITH_LIBM)
 
 if (CEU_CM_HAVE_WORKING_C_WITHOUT_LIBM_RUN_SHARED EQUAL 0)
     set(
