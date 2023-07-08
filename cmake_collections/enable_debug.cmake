@@ -92,9 +92,9 @@ endfunction()
 
 if (NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
     set(
-        CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED TRUE 
-        CACHE BOOL 
-        "Whether a description on environment was printed."
+            CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED TRUE
+            CACHE BOOL
+            "Whether a description on environment was printed."
     )
     # Detect C/CXX Pre-Processor Macros
     ceu_cm_detect_c_preprocessor_macros()
@@ -116,6 +116,10 @@ if (NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         ceu_cm_global_enhanced_check_compiler_flag(-march=native -mtune=native -mtune)
     endif ()
 
+    if(MSVC)
+        ceu_cm_global_enhanced_check_compiler_flag(-utf-8)
+        set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+    endif()
     # Detect build type.
     if (NOT DEFINED CMAKE_BUILD_TYPE)
         set(CMAKE_BUILD_TYPE "Debug")

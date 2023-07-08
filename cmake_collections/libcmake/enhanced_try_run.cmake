@@ -5,6 +5,14 @@ if (DEFINED CEU_CM_ADD_ETR_AS_TESTS)
     enable_testing()
 endif ()
 
+if (NOT DEFINED CEU_CM_TRY_COMPILE_INCLUDES)
+    set(
+            CEU_CM_TRY_COMPILE_INCLUDES ""
+            CACHE INTERNAL
+            "Extra path added to try_compile"
+    )
+endif ()
+
 function(ceu_cm_enhanced_try_run)
     # Parse args
     set(options STATIC)
@@ -41,7 +49,7 @@ function(ceu_cm_enhanced_try_run)
 
     # Add as test and evaluate later.
     if (DEFINED CEU_CM_ADD_ETR_AS_TESTS)
-        set(TARGET_NAME CEU_CM_"${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_${TARGET_POSTFIX}")
+        set(TARGET_NAME CEU_CM_ "${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_${TARGET_POSTFIX}")
 
         if (NOT TARGET "${TARGET_NAME}")
             add_executable("${TARGET_NAME}" "${CEU_CM_ENHANCED_TRY_RUN_SRC_PATH}")
@@ -154,6 +162,7 @@ function(ceu_cm_enhanced_try_run)
                     CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX}
                     "${CMAKE_BINARY_DIR}/CEU_TRC"
                     "${CEU_CM_ENHANCED_TRY_RUN_SRC_PATH}"
+                    CMAKE_FLAGS "-DINCLUDE_DIRECTORIES=${CEU_CM_TRY_COMPILE_INCLUDES}"
                     LINK_OPTIONS ${LINK_OPTIONS}
                     LINK_LIBRARIES ${CEU_CM_ENHANCED_TRY_RUN_LINK_LIBRARIES}
                     COMPILE_DEFINITIONS ${CEU_CM_ENHANCED_TRY_RUN_COMPILE_DEFS_TRY_RUN}

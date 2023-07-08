@@ -15,9 +15,13 @@ ceu_cm_enhanced_try_run(
         SRC_PATH "${CMAKE_CURRENT_LIST_DIR}/src/test_libm.c"
         DEPENDS C_HELLOWORLD
 )
-
-ceu_cm_print_test_status("libm: no -lm (c)" C_NO_LIBM)
-
+if (NOT DEFINED "${CMAKE_CURRENT_LIST_FILE}_INCLUDED")
+    set(
+            "${CMAKE_CURRENT_LIST_FILE}_INCLUDED" TRUE
+            CACHE BOOL "This file was included"
+    )
+    ceu_cm_print_test_status("libm: no -lm (c)" C_NO_LIBM)
+endif ()
 if (NOT DEFINED LIBM_LIBRARY_SHARED)
     ceu_cm_enhanced_find_library(OUTPUT_VARIABLE LIBM_LIBRARY_SHARED LINKER_FLAG m)
 endif ()
@@ -39,10 +43,14 @@ ceu_cm_enhanced_try_run(
         DEPENDS C_HELLOWORLD
         LINK_LIBRARIES ${LIBM_LIBRARY_STATIC}
 )
-
-ceu_cm_print_test_status("libm: with -lm (c)" C_WITH_LIBM)
-
-if (CEU_CM_HAVE_WORKING_C_WITHOUT_LIBM_RUN_SHARED EQUAL 0)
+if (NOT DEFINED "${CMAKE_CURRENT_LIST_FILE}_INCLUDED")
+    set(
+            "${CMAKE_CURRENT_LIST_FILE}_INCLUDED" TRUE
+            CACHE BOOL "This file was included"
+    )
+    ceu_cm_print_test_status("libm: with -lm (c)" C_WITH_LIBM)
+endif ()
+if (CEU_CM_HAVE_WORKING_C_NO_LIBM_RUN_SHARED EQUAL 0)
     set(
             CEU_CM_LIBM_SHARED ""
             CACHE INTERNAL
@@ -50,7 +58,7 @@ if (CEU_CM_HAVE_WORKING_C_WITHOUT_LIBM_RUN_SHARED EQUAL 0)
     )
 elseif (CEU_CM_HAVE_WORKING_C_WITH_LIBM_RUN_SHARED EQUAL 0)
     set(
-            CEU_CM_LIBM_SHARED ${LIBM_LIBRARY_SHARED}
+            CEU_CM_LIBM_SHARED "${LIBM_LIBRARY_SHARED}"
             CACHE INTERNAL
             "mathematical functions work with libm"
     )
@@ -62,7 +70,7 @@ else ()
     )
 endif ()
 
-if (CEU_CM_HAVE_WORKING_C_WITHOUT_LIBM_RUN_STATIC EQUAL 0)
+if (CEU_CM_HAVE_WORKING_C_NO_LIBM_RUN_STATIC EQUAL 0)
     set(
             CEU_CM_LIBM_STATIC ""
             CACHE INTERNAL
@@ -70,7 +78,7 @@ if (CEU_CM_HAVE_WORKING_C_WITHOUT_LIBM_RUN_STATIC EQUAL 0)
     )
 elseif (CEU_CM_HAVE_WORKING_C_WITH_LIBM_RUN_STATIC EQUAL 0)
     set(
-            CEU_CM_LIBM_STATIC ${LIBM_LIBRARY_STATIC}
+            CEU_CM_LIBM_STATIC "${LIBM_LIBRARY_STATIC}"
             CACHE INTERNAL
             "mathematical functions work with libm"
     )

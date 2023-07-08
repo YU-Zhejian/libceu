@@ -31,7 +31,7 @@ endif ()
 
 if (LIBCEU_BUILD_STATIC)
     add_library(${CEU_LIBRARY_STATIC} STATIC ${CEU_LIBRARY_SOURCES_C})
-    set_static_cmake(${CEU_LIBRARY_STATIC})
+    ceu_cm_set_static_target(${CEU_LIBRARY_STATIC})
 endif ()
 
 if (DEFINED CMAKE_CXX_COMPILER)
@@ -57,7 +57,7 @@ if (DEFINED CMAKE_CXX_COMPILER)
 
     if (LIBCEU_BUILD_STATIC_CXX)
         add_library(${CEU_LIBRARY_STATIC_CXX} STATIC ${CEU_LIBRARY_SOURCES_CXX})
-        set_static_cmake(${CEU_LIBRARY_STATIC_CXX})
+        ceu_cm_set_static_target(${CEU_LIBRARY_STATIC_CXX})
     endif ()
 else ()
     set(LIBCEU_BUILD_SHARED_CXX FALSE CACHE BOOL "CMake CXX compiler undefined")

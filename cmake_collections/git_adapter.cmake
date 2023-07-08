@@ -1,22 +1,22 @@
 if (NOT DEFINED CEU_CM_GIT_ADAPTER_WAS_ALREADY_INCLUDED)
     set(
-        CEU_CM_GIT_ADAPTER_WAS_ALREADY_INCLUDED TRUE
-        CACHE BOOL "Whether the CEU CM Git adapter was already included."
+            CEU_CM_GIT_ADAPTER_WAS_ALREADY_INCLUDED TRUE
+            CACHE BOOL "Whether the CEU CM Git adapter was already included."
     )
     set(
-        CEU_CM_GIT_COMMIT_HASH "Do not have Git VCS"
-        CACHE STRING
-        "Default to unfound"
+            CEU_CM_GIT_COMMIT_HASH "Do not have Git VCS"
+            CACHE STRING
+            "Default to unfound"
     )
     set(
-        CEU_CM_GIT_COMMIT_DATE "Do not have Git VCS"
-        CACHE STRING
-        "Default to unfound"
+            CEU_CM_GIT_COMMIT_DATE "Do not have Git VCS"
+            CACHE STRING
+            "Default to unfound"
     )
     set(
-        CEU_CM_GIT_GIT_COMMIT_MESSAGE "Do not have Git VCS"
-        CACHE STRING
-        "Default to unfound"
+            CEU_CM_GIT_GIT_COMMIT_MESSAGE "Do not have Git VCS"
+            CACHE STRING
+            "Default to unfound"
     )
 
     find_package(Git)

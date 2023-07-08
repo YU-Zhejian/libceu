@@ -1,4 +1,5 @@
 # Search for log4cpp <https://log4cpp.sourceforge.net>
+
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/print_test_status.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/enhanced_find.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/libcmake/enhanced_try_run.cmake")
@@ -35,5 +36,10 @@ ceu_cm_enhanced_try_run(
         LINK_LIBRARIES ${CMAKE_CM_LOG4CPP_LIBRARY_SATTIC} Threads::Threads
         DEPENDS CXX_STDTHREAD
 )
-
-ceu_cm_print_test_status("log4cpp" LOG4CPP)
+if (NOT DEFINED "${CMAKE_CURRENT_LIST_FILE}_INCLUDED")
+    set(
+            "${CMAKE_CURRENT_LIST_FILE}_INCLUDED" TRUE
+            CACHE BOOL "This file was included"
+    )
+    ceu_cm_print_test_status("log4cpp" LOG4CPP)
+endif ()

@@ -14,7 +14,7 @@ endif ()
 
 if (LIBCEU_BUILD_STATIC)
     add_executable(ceu_exe_static ${CEU_EXE_SOURCES_C})
-    set_static_cmake(ceu_exe_static)
+    ceu_cm_set_static_target(ceu_exe_static)
     target_link_libraries(ceu_exe_static PUBLIC "${CEU_LIBRARY_STATIC}")
 endif ()
 
@@ -26,6 +26,6 @@ endif ()
 
 if (LIBCEU_BUILD_STATIC_CXX)
     add_executable(ceu_exe_static_cxx ${CEU_EXE_SOURCES_CXX})
-    set_static_cmake(ceu_exe_static_cxx)
+    ceu_cm_set_static_target(ceu_exe_static_cxx)
     target_link_libraries(ceu_exe_static_cxx PUBLIC "${CEU_LIBRARY_STATIC_CXX}")
 endif ()
