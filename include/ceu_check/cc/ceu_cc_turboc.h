@@ -5,7 +5,8 @@
  *
  * Example: 0x551 = Borland C++ 5.51
  *
- * See: <https://docwiki.embarcadero.com/RADStudio/Alexandria/en/Compiler_Versions>
+ * See:
+ * <https://docwiki.embarcadero.com/RADStudio/Alexandria/en/Compiler_Versions>
  */
 #include <string.h>
 

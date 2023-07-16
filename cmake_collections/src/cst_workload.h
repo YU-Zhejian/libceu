@@ -13,8 +13,9 @@
 extern "C" {
 #endif
 
-static inline int perform_sqrt(int num_of_rounds, int num_to_sqrt) {
-    double *result = (double *) malloc(sizeof(double) * num_to_sqrt);
+static inline int perform_sqrt(int num_of_rounds, int num_to_sqrt)
+{
+    double* result = (double*)malloc(sizeof(double) * num_to_sqrt);
     if (result == NULL) {
         return 1;
     }
@@ -28,7 +29,8 @@ static inline int perform_sqrt(int num_of_rounds, int num_to_sqrt) {
     return 0;
 }
 
-typedef struct {
+typedef struct
+{
     int num_to_sqrt;
     int num_of_rounds;
     int num_of_threads;
@@ -36,7 +38,8 @@ typedef struct {
 
 static inline parallel_params_type
 
-parse_args(void) {
+parse_args(void)
+{
     parallel_params_type parallel_params;
     parallel_params.num_to_sqrt = 10;
     parallel_params.num_of_rounds = 10;
@@ -48,4 +51,4 @@ parse_args(void) {
 };
 #endif
 
-#endif //LIBCONCURRENTQUEUE_CST_WORKLOAD_H
+#endif // LIBCONCURRENTQUEUE_CST_WORKLOAD_H

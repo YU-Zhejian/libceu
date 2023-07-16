@@ -3,6 +3,5 @@ Checks: 'clang-diagnostic-*,clang-analyzer-*,-clang-analyzer-cplusplus*'
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: false
-FormatStyle: mozilla
 ...
 

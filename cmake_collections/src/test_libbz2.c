@@ -1,19 +1,18 @@
 //
 // Created by yuzj on 3/23/22.
 //
+#include <bzlib.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
-#include <bzlib.h>
 
-
-int main(void) {
+int main(void)
+{
     printf("libbz2 version: %s\n", BZ2_bzlibVersion());
 
-
     char strSrc[] = "hello world!";
-    char buf[1024] = {0};
-    char strDst[1024] = {0};
+    char buf[1024] = { 0 };
+    char strDst[1024] = { 0 };
     unsigned srcLen = sizeof(strSrc);
     unsigned bufLen = sizeof(buf);
     unsigned dstLen = sizeof(strDst);

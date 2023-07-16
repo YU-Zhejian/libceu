@@ -10,8 +10,8 @@
 #ifndef CEU_CHECK_CC_H
 #define CEU_CHECK_CC_H
 
-#include "ceu_cstd/ceu_stdbool.h"
 #include "ceu_check/ceu_c_utils.h"
+#include "ceu_cstd/ceu_stdbool.h"
 
 // Undefine conflicting macros
 #ifdef CEU_COMPILER_NAME
@@ -24,8 +24,7 @@
 #endif
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 /*!
@@ -33,31 +32,30 @@ extern "C"
  *
  * @return Returned buffer, should be freed manually. Would be NULL on error.
  */
-char *interpret_compiler_version_number(void);
+char* interpret_compiler_version_number(void);
 
+#include "cc/ceu_cc_clang.h"
+#include "cc/ceu_cc_gcc.h"
+#include "cc/ceu_cc_icc.h"
+#include "cc/ceu_cc_msvc.h"
 #include "cc/ceu_cc_nvhpc.h"
 #include "cc/ceu_cc_tcc.h"
 #include "cc/ceu_cc_turboc.h"
-#include "cc/ceu_cc_icc.h"
-#include "cc/ceu_cc_msvc.h"
-#include "cc/ceu_cc_clang.h"
-#include "cc/ceu_cc_gcc.h"
 #include "cc/ceu_cc_unknown.h"
-
 
 /*!
  * @brief Get compiling date & time, and write them to buffer.
  *
  * @return Returned buffer, should be freed manually. Would be NULL on error.
  */
-char *ceu_check_interpret_compilation_date_time(void);
+char* ceu_check_interpret_compilation_date_time(void);
 
 /*!
  * @brief Get compiler information.
  *
  * @param Returned buffer, should be freed manually.
-*/
-char *ceu_check_get_compiler_info(void);
+ */
+char* ceu_check_get_compiler_info(void);
 
 #ifdef __cplusplus
 }

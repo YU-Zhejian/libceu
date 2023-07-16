@@ -26,9 +26,9 @@ extern "C" {
 #endif // !_snprintf
 #endif // snprintf
 
-char *ceu_lib_rtime_version(void);
+char* ceu_lib_rtime_version(void);
 
 #ifdef __cplusplus
 }
 #endif
-#endif //LIBCEU_CEU_H
+#endif // LIBCEU_CEU_H

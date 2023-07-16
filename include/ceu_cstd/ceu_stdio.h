@@ -1,13 +1,12 @@
 #ifndef CEU_STDIO_H
 #define CEU_STDIO_H
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 #include <stdio.h>
 
-size_t ceu_snprintf(char *buff, size_t max_print_n_char, const char *fmt, ...);
+size_t ceu_snprintf(char* buff, size_t max_print_n_char, const char* fmt, ...);
 
 #ifdef __cplusplus
 }

@@ -1,12 +1,11 @@
 #ifndef CEU_APPEND_SPRINTF_H
 #define CEU_APPEND_SPRINTF_H
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
-#include <stddef.h>
 #include "libceu.h"
+#include <stddef.h>
 
 #include "ceu_cstd/ceu_stdnoreturn.h"
 
@@ -17,43 +16,46 @@ typedef enum {
     CEU_STR_JOIN_WARN_SKIP = 3
 } ceu_str_join_null_action_t;
 
-#define CEU_ENSURE_NOT_NONE(X) \
-    {                             \
-    if (X == NULL){               \
-        ceu_ensure_not_none(#X, __FILE__, __LINE__); \
-    }; \
+#define CEU_ENSURE_NOT_NONE(X)                           \
+    {                                                    \
+        if (X == NULL) {                                 \
+            ceu_ensure_not_none(#X, __FILE__, __LINE__); \
+        };                                               \
     }
 
-noreturn void ceu_die_with_retv(char *reason, int retv);
+noreturn void ceu_die_with_retv(char* reason, int retv);
 
-noreturn void ceu_die(char *reason);
+noreturn void ceu_die(char* reason);
 
 /*!
- * @brief A simple wrapper to malloc() that allows program exit with retv=12 if failed.
+ * @brief A simple wrapper to malloc() that allows program exit with retv=12
+ * if failed.
  * @param size Number of bytes to allocate.
  * @return Allocated memory
  */
-void *ceu_smalloc(size_t size);
+void* ceu_smalloc(size_t size);
 
 /*!
-* @brief A simple wrapper to realloc() that allows program exit with retv=12 if failed.
-* @param size Number of bytes to allocate.
-* @return Allocated memory
-*/
-void *ceu_srealloc(void *m, size_t size);
-
-/*!
- * @brief A simple wrapper to calloc() that allows program exit with retv=12 if failed.
+ * @brief A simple wrapper to realloc() that allows program exit with retv=12
+ * if failed.
  * @param size Number of bytes to allocate.
  * @return Allocated memory
  */
-void *ceu_scalloc(size_t count, size_t size);
+void* ceu_srealloc(void* m, size_t size);
 
-void ceu_free_non_null(void *m);
+/*!
+ * @brief A simple wrapper to calloc() that allows program exit with retv=12
+ * if failed.
+ * @param size Number of bytes to allocate.
+ * @return Allocated memory
+ */
+void* ceu_scalloc(size_t count, size_t size);
 
-char *ceu_str_join(char *buff1, char *buff2);
+void ceu_free_non_null(void* m);
 
-char *ceu_str_join_with_sep(char *sep, ceu_str_join_null_action_t nb, int count, ...);
+char* ceu_str_join(char* buff1, char* buff2);
+
+char* ceu_str_join_with_sep(char* sep, ceu_str_join_null_action_t nb, int count, ...);
 
 /*!
  * Internal -- DO NOT USE!
@@ -62,9 +64,10 @@ char *ceu_str_join_with_sep(char *sep, ceu_str_join_null_action_t nb, int count,
  * @param file_name Name of the source file.
  * @param lineno Line number.
  */
-void ceu_ensure_not_none(char *vname, char *file_name, int lineno);
+void ceu_ensure_not_none(char* vname, char* file_name, int lineno);
+void* ceu_sreallocarray(void* m, size_t count, size_t size);
 
-noreturn void ceu_press_any_key_to_exit();
+noreturn void ceu_press_any_key_to_exit(void);
 
 #ifdef __cplusplus
 }

@@ -1,8 +1,9 @@
-#include <stdio.h>
-#include <omp.h>
 #include "cst_workload.h"
+#include <omp.h>
+#include <stdio.h>
 
-int main(void) {
+int main(void)
+{
     parallel_params_type parallel_params = parse_args();
 
 #pragma omp parallel for
@@ -14,6 +15,4 @@ int main(void) {
         printf("Thread %d join with return value %d\n", thread_no, retv);
     }
     return 0;
-
 }
-
