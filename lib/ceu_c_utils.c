@@ -1,15 +1,15 @@
-#include "ceu_check/ceu_c_utils.h"
-#include <stddef.h>
-#include <string.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <stdio.h>
+
+#include "ceu_check/ceu_c_utils.h"
+#include "ceu_cstd/ceu_string.h"
+
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-
 
 void ceu_die_with_retv(char *reason, int retv)
 {
@@ -154,7 +154,7 @@ char *ceu_str_join_with_sep(char *sep, ceu_str_join_null_action_t nb, int count,
         }
     }
     retbuff = ceu_scalloc(strlen(curr_buf) - strlen(sep) + 1, sizeof(char));
-    strncpy(retbuff, curr_buf, strlen(curr_buf) - strlen(sep));
+    ceu_strncpy(retbuff, curr_buf, strlen(curr_buf) - strlen(sep));
     va_end(args);
     ceu_free_non_null(curr_buf);
     return retbuff;

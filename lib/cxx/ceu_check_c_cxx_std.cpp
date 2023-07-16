@@ -45,15 +45,13 @@ char *ceu_interpret_cxx_std_version(void)
 {
     char *buff = (char *) ceu_scalloc(256, sizeof(char));
     int retv;
-    if (CEU_CXX_STD == 0) {
+#if CEU_CXX_STD == 0
         retv = snprintf(buff, 256, "before 98 (%ld)", (unsigned long) CEU_CXX_STD_VERSION_MACRO);
-    }
-    else if (CEU_CXX_STD == -2) {
+#elif CEU_CXX_STD == -2
         retv = snprintf(buff, 256, "unknown (_MSVC_LANG and __cplusplus undefined)");
-    }
-    else {
+#else
         retv = snprintf(buff, 256, "%d (%ld)", CEU_CXX_STD, (unsigned long) CEU_CXX_STD_VERSION_MACRO);
-    }
+#endif
     if (retv < 0) {
         ceu_free_non_null(buff);
         return NULL;

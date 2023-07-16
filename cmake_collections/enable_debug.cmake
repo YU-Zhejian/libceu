@@ -44,7 +44,7 @@ Warnings:
 macro(ceu_cm_set_static_target name)
     set_target_properties("${name}" PROPERTIES LINK_SEARCH_START_STATIC 1)
     set_target_properties("${name}" PROPERTIES LINK_SEARCH_END_STATIC 1)
-    if (CMAKE_VERSION GREATER_EQUAL 3.13 AND NOT BORLAND)
+    if (CMAKE_VERSION GREATER_EQUAL 3.13 AND NOT BORLAND AND NOT MSVC)
         target_link_options(
                 "${name}" PRIVATE
                 -static
@@ -119,8 +119,11 @@ if (NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
     endif ()
 
     if(MSVC)
-        ceu_cm_global_enhanced_check_compiler_flag(-utf-8)
-        set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+        set(CMAKE_GENERATOR_PLATFORM x64 CACHE INTERNAL "")
+        ceu_cm_global_enhanced_check_compiler_flag(-options:strict) # Error on unrecognized arguments 
+        ceu_cm_global_enhanced_check_compiler_flag(/utf-8)
+        ceu_cm_global_enhanced_check_compiler_flag(/Qspectre) # Stop spectre memory issues
+        ceu_cm_global_enhanced_check_compiler_flag(/MP) # Multiprocessing 
     endif()
     # Detect build type.
     if (NOT DEFINED CMAKE_BUILD_TYPE)
@@ -137,8 +140,10 @@ if (NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
     else () # Debug, the default.
         ceu_cm_global_enhanced_check_compiler_flag(-Wall)
         ceu_cm_global_enhanced_check_compiler_flag(-Wextra)
-        ceu_cm_global_enhanced_check_compiler_flag(-Wp64) # Visual Studio 64 bit compatibility
-        ceu_cm_global_enhanced_check_compiler_flag(-permissive) # Visual Studio
+        ceu_cm_global_enhanced_check_compiler_flag(/Wp64) # Visual Studio 64 bit compatibility
+        ceu_cm_global_enhanced_check_compiler_flag(/permissive) # Visual Studio
+        ceu_cm_global_enhanced_check_compiler_flag(/sdl) # Visual Studio
+        ceu_cm_global_enhanced_check_compiler_flag(/Z7) # Visual Studio
         ceu_cm_global_enhanced_check_compiler_flag(-pedantic -Wpedantic)
         ceu_cm_global_enhanced_check_compiler_flag(-Og)
         ceu_cm_global_enhanced_check_compiler_flag(-g3)
