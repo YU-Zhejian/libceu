@@ -102,12 +102,14 @@ if (NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
     # Detect Test.
     if (NOT DEFINED CEU_CM_SHOULD_ENABLE_TEST)
         if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
-            set(CEU_CM_SHOULD_ENABLE_TEST FALSE)
+            set(CEU_CM_SHOULD_ENABLE_TEST FALSE CACHE BOOL "Test automatically disabled")
         else ()
-            set(CEU_CM_SHOULD_ENABLE_TEST TRUE)
+            set(CEU_CM_SHOULD_ENABLE_TEST TRUE CACHE BOOL "Test automatically enabled")
         endif ()
     endif ()
-
+    if(CEU_CM_SHOULD_ENABLE_TEST)
+        enable_testing()
+    endif()
     # Detect native.
     if (NOT DEFINED CEU_CM_SHOULD_USE_NATIVE)
         set(CEU_CM_SHOULD_USE_NATIVE FALSE)
