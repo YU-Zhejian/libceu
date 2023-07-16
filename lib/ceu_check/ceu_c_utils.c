@@ -5,6 +5,7 @@
 
 #include "ceu_check/ceu_c_utils.h"
 #include "ceu_cstd/ceu_string.h"
+#include "ceu_cstd/ceu_stdio.h"
 
 
 #ifdef __cplusplus
@@ -12,14 +13,12 @@ extern "C"
 {
 #endif
 
-noreturn void ceu_die_with_retv(char *reason, int retv)
-{
+noreturn void ceu_die_with_retv(char *reason, int retv) {
     printf("Error occured! reason:\t%s", reason);
     exit(retv);
 }
 
-noreturn void ceu_die(char *reason)
-{
+noreturn void ceu_die(char *reason) {
     ceu_die_with_retv(reason, 1);
 }
 
@@ -28,13 +27,11 @@ noreturn void ceu_die(char *reason)
  * @param size Number of bytes to allocate.
  * @return Allocated memory
  */
-void *ceu_smalloc(size_t size)
-{
+void *ceu_smalloc(size_t size) {
     void *m = malloc(size);
     if (m == NULL) {
         ceu_die_with_retv("ERR 12 -- Cannot allocate memory", 12);
-    }
-    else {
+    } else {
         memset(m, 0, size);
     }
     return m;
@@ -45,8 +42,7 @@ void *ceu_smalloc(size_t size)
 * @param size Number of bytes to allocate.
 * @return Allocated memory
 */
-void *ceu_srealloc(void *m, size_t size)
-{
+void *ceu_srealloc(void *m, size_t size) {
     void *new_m;
     if (m == NULL) {
         ceu_die_with_retv("ERR 12 -- Cannot allocate memory", 12);
@@ -55,8 +51,7 @@ void *ceu_srealloc(void *m, size_t size)
     if (new_m == NULL) {
         ceu_free_non_null(m);
         ceu_die_with_retv("ERR 12 -- Cannot allocate memory", 12);
-    }
-    else {
+    } else {
         memset(new_m, 0, size);
     }
     return new_m;
@@ -67,8 +62,7 @@ void *ceu_srealloc(void *m, size_t size)
  * @param size Number of bytes to allocate.
  * @return Allocated memory
  */
-void *ceu_scalloc(size_t count, size_t size)
-{
+void *ceu_scalloc(size_t count, size_t size) {
     void *m = calloc(count, size);
     if (m == NULL) {
         ceu_die_with_retv("ERR 12 -- Cannot allocate memory", 12);
@@ -76,22 +70,20 @@ void *ceu_scalloc(size_t count, size_t size)
     return m;
 }
 
-void ceu_free_non_null(void *m)
-{
+void ceu_free_non_null(void *m) {
     if (m != NULL) {
         free(m);
     }
 }
 
-char *ceu_str_join(char *buff1, char *buff2)
-{
+char *ceu_str_join(char *buff1, char *buff2) {
     char *dst_buff = NULL;
     if (buff1 == NULL || buff2 == NULL) {
         return NULL;
     }
     // +1 here was used to supress Windows CRT errors.
     dst_buff = (char *) ceu_scalloc(strlen(buff1) + strlen(buff2) + 1, sizeof(char));
-    if (snprintf(dst_buff, strlen(buff1) + strlen(buff2) + 1, "%s%s", buff1, buff2) < 0) {
+    if (ceu_snprintf(dst_buff, strlen(buff1) + strlen(buff2) + 1, "%s%s", buff1, buff2) < 0) {
         ceu_free_non_null(dst_buff);
         return NULL;
     }
@@ -99,8 +91,7 @@ char *ceu_str_join(char *buff1, char *buff2)
     return dst_buff;
 }
 
-char *ceu_str_join_with_sep(char *sep, ceu_str_join_null_action_t nb, int count, ...)
-{
+char *ceu_str_join_with_sep(char *sep, ceu_str_join_null_action_t nb, int count, ...) {
     int retv;
     char *curr_buf;
     va_list args;
@@ -120,11 +111,9 @@ char *ceu_str_join_with_sep(char *sep, ceu_str_join_null_action_t nb, int count,
         if (new_item == NULL) {
             if (nb == CEU_STR_JOIN_REGARD_AS_EMPTY_STR) {
                 new_item = "";
-            }
-            else if (nb == CEU_STR_JOIN_SKIP) {
+            } else if (nb == CEU_STR_JOIN_SKIP) {
                 continue;
-            }
-            else if (nb == CEU_STR_JOIN_WARN_SKIP) {
+            } else if (nb == CEU_STR_JOIN_WARN_SKIP) {
                 printf("WARNING: NULL encountered at token %d\n", i);
                 continue;
             }
@@ -161,23 +150,27 @@ char *ceu_str_join_with_sep(char *sep, ceu_str_join_null_action_t nb, int count,
     return retbuff;
 }
 
-void ceu_ensure_not_none(char *vname, char *file_name, int lineno)
-{
+void ceu_ensure_not_none(char *vname, char *file_name, int lineno) {
     char lineno_s[10] = "";
     snprintf(lineno_s, 10, "%d", lineno);
     ceu_die(ceu_str_join_with_sep(
-        "",
-        CEU_STR_JOIN_REGARD_AS_EMPTY_STR,
-        6,
-        file_name,
-        ":",
-        lineno_s,
-        "\t",
-        vname,
-        " is NULL!"
+            "",
+            CEU_STR_JOIN_REGARD_AS_EMPTY_STR,
+            6,
+            file_name,
+            ":",
+            lineno_s,
+            "\t",
+            vname,
+            " is NULL!"
     ));
 }
 
+noreturn void ceu_press_any_key_to_exit() {
+    puts("Press any key to exit...");
+    getchar();
+    exit(0);
+}
 
 #ifdef __cplusplus
 }

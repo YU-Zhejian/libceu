@@ -5,8 +5,7 @@
 #include <lzma.h>
 
 
-int main(void)
-{
-	printf("liblzma version: %s\n", LZMA_VERSION_STRING);
-	return 0;
+int main(void) {
+    printf("liblzma version: %s\n", LZMA_VERSION_STRING);
+    return 0;
 }

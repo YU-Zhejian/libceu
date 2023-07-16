@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11)
+﻿cmake_minimum_required(VERSION 3.11)
 set(CMAKE_C_STANDARD 11)
 project(libceu VERSION 0.1 LANGUAGES C)
 
@@ -40,5 +40,10 @@ configure_file(
 )
 
 include("${CMAKE_CURRENT_LIST_DIR}/cmake/libceu.cmake")
+include_directories("${CMAKE_CURRENT_LIST_DIR}/include_priv/")
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/lib/")
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/bin/")
+if (CEU_CM_SHOULD_ENABLE_TEST)
+    enable_testing()
+    add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/test/")
+endif ()

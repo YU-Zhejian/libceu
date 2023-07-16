@@ -10,8 +10,7 @@ extern "C"
 
 #include "ceu_cstd/ceu_stdnoreturn.h"
 
-typedef enum
-{
+typedef enum {
     CEU_STR_JOIN_RETURN_NULL = 0,
     CEU_STR_JOIN_REGARD_AS_EMPTY_STR = 1,
     CEU_STR_JOIN_SKIP = 2,
@@ -65,6 +64,7 @@ char *ceu_str_join_with_sep(char *sep, ceu_str_join_null_action_t nb, int count,
  */
 void ceu_ensure_not_none(char *vname, char *file_name, int lineno);
 
+noreturn void ceu_press_any_key_to_exit();
 
 #ifdef __cplusplus
 }

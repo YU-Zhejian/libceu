@@ -6,10 +6,13 @@
 extern "C"
 {
 #endif
+
 #include "libceu_stddef.h"
 
 #if CEU_HAVE_INCLUDE_STDBOOL_H == 1
+
 #include <stdbool.h>
+
 #else
 #ifndef _STDBOOL
 #define _STDBOOL
