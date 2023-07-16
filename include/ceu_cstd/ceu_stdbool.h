@@ -1,3 +1,16 @@
+#ifndef CEU_STDBOOL_H
+#define CEU_STDBOOL_H
+
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+#include "libceu_stddef.h"
+
+#if CEU_HAVE_INCLUDE_STDBOOL_H == 1
+#include <stdbool.h>
+#else
 #ifndef _STDBOOL
 #define _STDBOOL
 
@@ -16,3 +29,10 @@
 #endif // !__bool_true_false_are_defined
 
 #endif /* _STDBOOL */
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

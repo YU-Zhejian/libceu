@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "ceu_check/ceu_c_utils.h"
 #include "ceu_cstd/ceu_string.h"
@@ -11,13 +12,13 @@ extern "C"
 {
 #endif
 
-void ceu_die_with_retv(char *reason, int retv)
+noreturn void ceu_die_with_retv(char *reason, int retv)
 {
     printf("Error occured! reason:\t%s", reason);
     exit(retv);
 }
 
-void ceu_die(char *reason)
+noreturn void ceu_die(char *reason)
 {
     ceu_die_with_retv(reason, 1);
 }

@@ -1,10 +1,10 @@
-inline static int f(i)
+inline static int f(int i)
 {
 	return i - 1;
 }
 
 int main(void)
 {
-	volatile j = f(1);
+	volatile int j = f(1);
 	return j;
 }

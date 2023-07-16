@@ -21,6 +21,7 @@ include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/enable_debug.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c_helloworld.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c__bool.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c_inline.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c__Noreturn.cmake")
 
 if (CMAKE_CXX_COMPILER)
     include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_cxx_helloworld.cmake")

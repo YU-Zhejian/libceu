@@ -1,14 +1,9 @@
 #include <limits.h>
-#include "libceu_stddef.h"
-#if CEU_HAVE_INCLUDE_STDBOOL_H == 1
-#include <stdbool.h>
-#else
-#include <pstdbool.h>
-#endif
 #include <wchar.h>
 #include <stdio.h>
 #include <pstdint.h>
 #include "ceu_check/ceu_c_utils.h"
+#include "ceu_cstd/ceu_stdbool.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -8,6 +8,8 @@ extern "C"
 #include <stddef.h>
 #include "libceu.h"
 
+#include "ceu_cstd/ceu_stdnoreturn.h"
+
 typedef enum
 {
     CEU_STR_JOIN_RETURN_NULL = 0,
@@ -23,9 +25,9 @@ typedef enum
     }; \
     }
 
-void ceu_die_with_retv(char *reason, int retv);
+noreturn void ceu_die_with_retv(char *reason, int retv);
 
-void ceu_die(char *reason);
+noreturn void ceu_die(char *reason);
 
 /*!
  * @brief A simple wrapper to malloc() that allows program exit with retv=12 if failed.

@@ -9,12 +9,8 @@
 
 #ifndef CEU_CHECK_CC_H
 #define CEU_CHECK_CC_H
-#include "libceu_stddef.h"
-#if CEU_HAVE_INCLUDE_STDBOOL_H == 1
-#include <stdbool.h>
-#else
-#include <pstdbool.h>
-#endif
+
+#include "ceu_cstd/ceu_stdbool.h"
 #include "ceu_check/ceu_c_utils.h"
 
 // Undefine conflicting macros
