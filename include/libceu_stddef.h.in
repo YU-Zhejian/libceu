@@ -1,6 +1,7 @@
 // On following code 1 indicates success.
 #cmakedefine01 CEU_HAVE_SNPRINTF
 #cmakedefine01 CEU_HAVE__SNPRINTF
+#cmakedefine01 CEU_HAVE_STRNCPY_S
 #cmakedefine01 CEU_HAVE_INCLUDE_STDBOOL_H
 #cmakedefine01 CEU_HAVE_INCLUDE_VERSIONHELPERS_H
 

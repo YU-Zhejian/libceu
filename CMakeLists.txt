@@ -27,6 +27,7 @@ if (CMAKE_CXX_COMPILER)
 endif ()
 
 check_symbol_exists(snprintf "stdio.h" CEU_HAVE_SNPRINTF)
+check_symbol_exists(strncpy_s "string.h" CEU_HAVE_STRNCPY_S)
 check_symbol_exists(_snprintf "stdio.h" CEU_HAVE__SNPRINTF)
 
 check_include_file("stdbool.h" CEU_HAVE_INCLUDE_STDBOOL_H)
