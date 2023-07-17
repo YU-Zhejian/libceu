@@ -8,9 +8,9 @@
 extern "C" {
 #endif
 
-char *ceu_check_get_full_info(void);
+char* ceu_check_get_full_info(void);
 
 #ifdef __cplusplus
 }
 #endif
-#endif //CPPTETGS_EXPERIMENTAL_UTILS_H
+#endif // CPPTETGS_EXPERIMENTAL_UTILS_H

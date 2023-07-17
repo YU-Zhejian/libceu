@@ -19,7 +19,6 @@ extern "C" {
 
 #endif
 
-
 #if defined(__MINGW32__) || defined(__WINNT__) || defined(__WINNT)
 #ifndef CEU_PRIMARY_OS_TYPE
 #define CEU_PRIMARY_OS_TYPE "MINGW32"
@@ -47,7 +46,6 @@ extern "C" {
 #define CEU_ON_WINDOWS
 #endif
 
-
 #if defined(__APPLE__) || defined(__MACH__)
 #define CEU_ON_APPLE
 #include <TargetConditionals.h>
@@ -70,7 +68,6 @@ extern "C" {
 #endif
 #endif
 
-
 #if defined(__FreeBSD__)
 #define CEU_ON_FreeBSD
 #define CEU_PRIMARY_OS_TYPE "Free BSD"
@@ -88,12 +85,10 @@ extern "C" {
 #define CEU_PRIMARY_OS_TYPE "Other BSD"
 #endif
 
-
 #if defined(__sun) && defined(__SVR4)
 #define CEU_ON_SOLARIS
 #define CEU_PRIMARY_OS_TYPE "Solaris"
 #endif
-
 
 #if defined(__ANDROID__)
 #define CEU_ON_ANDROID
@@ -115,13 +110,7 @@ extern "C" {
 #endif
 
 #ifdef CEU_ON_UNIX
-#if defined(CEU_ON_APPLE) || \
-defined(CEU_ON_GNU_LINUX) || \
-defined(CEU_ON_BSD) || \
-defined(CEU_ON_ANDROID) || \
-defined(CEU_ON_AIX) || \
-defined(CEU_ON_SOLARIS) || \
-defined(CEU_ON_HP_UX)
+#if defined(CEU_ON_APPLE) || defined(CEU_ON_GNU_LINUX) || defined(CEU_ON_BSD) || defined(CEU_ON_ANDROID) || defined(CEU_ON_AIX) || defined(CEU_ON_SOLARIS) || defined(CEU_ON_HP_UX)
 #else
 #define CEU_ON_OTHER_UNIX
 #endif
@@ -136,7 +125,6 @@ defined(CEU_ON_HP_UX)
 #define CEU_ON_WINE
 #endif
 
-
 #ifndef CEU_PRIMARY_OS_TYPE
 #ifdef CEU_ON_UNIX
 #define CEU_PRIMARY_OS_TYPE "Other UNIX"
@@ -145,19 +133,18 @@ defined(CEU_ON_HP_UX)
 #endif
 #endif
 
+/**
+ * Get a nicely-formatted compile-time operating system information.
+ */
+char* ceu_check_get_compile_time_os_info(void);
 
 /**
-* Get a nicely-formatted compile-time operating system information.
-*/
-char *ceu_check_get_compile_time_os_info(void);
-
-/**
-* Get a nicely-formatted run-time operating system information.
-*/
-char *ceu_check_get_run_time_os_info(void);
+ * Get a nicely-formatted run-time operating system information.
+ */
+char* ceu_check_get_run_time_os_info(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif //CEU_CHECK_OS_H
+#endif // CEU_CHECK_OS_H

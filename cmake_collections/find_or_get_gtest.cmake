@@ -64,73 +64,73 @@ function(ceu_cm_find_or_get_gtest)
             file(REMOVE_RECURSE "${CMAKE_BINARY_DIR}/build_thirdparty")
             file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/build_thirdparty")
 
-            if(NOT DEFINED CEU_CM_GTEST_CONFIGURE)
-            if (CEU_CM_HAVE_WORKING_CXX_HELLOWORLD_RUN_SHARED EQUAL 0)
-                # TODO: Not implemented
-                message(STATUS "CEU_CM: Configuring SHARED GTest ${googletest_SOURCE_DIR} -> ${CMAKE_BINARY_DIR}/build_thirdparty")
+            if (NOT DEFINED CEU_CM_GTEST_CONFIGURE)
+                if (CEU_CM_HAVE_WORKING_CXX_HELLOWORLD_RUN_SHARED EQUAL 0)
+                    # TODO: Not implemented
+                    message(STATUS "CEU_CM: Configuring SHARED GTest ${googletest_SOURCE_DIR} -> ${CMAKE_BINARY_DIR}/build_thirdparty")
+                    execute_process(
+                            COMMAND "cmake"
+                            -G "${CMAKE_GENERATOR}"
+                            -DCMAKE_BUILD_TYPE=Release
+                            "${googletest_SOURCE_DIR}"
+                            WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/build_thirdparty"
+                            ERROR_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_configure.stderr.log"
+                            OUTPUT_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_configure.stdout.log"
+                            RESULT_VARIABLE CEU_CM_GTEST_CONFIGURE
+                    )
+                elseif (CEU_CM_HAVE_WORKING_CXX_HELLOWORLD_RUN_STATIC EQUAL 0)
+                    message(STATUS "CEU_CM: Configuring STATIC GTest ${googletest_SOURCE_DIR} -> ${CMAKE_BINARY_DIR}/build_thirdparty")
+                    execute_process(
+                            COMMAND "cmake"
+                            -G "${CMAKE_GENERATOR}"
+                            -DCMAKE_BUILD_TYPE=Release
+                            "${googletest_SOURCE_DIR}"
+                            WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/build_thirdparty"
+                            ERROR_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_configure.stderr.log"
+                            OUTPUT_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_configure.stdout.log"
+                            RESULT_VARIABLE CEU_CM_GTEST_CONFIGURE
+                    )
+                else ()
+                    message(FATAL_ERROR "CEU_CM: Building of GTest needs CEU_CM_HAVE_WORKING_CXX_HELLOWORLD_RUN_STATIC or CEU_CM_HAVE_WORKING_CXX_HELLOWORLD_RUN_SHARED")
+                endif ()
+
+                if (NOT CEU_CM_GTEST_CONFIGURE EQUAL 0)
+                    message(FATAL_ERROR "GTest configure failed -- ${CEU_CM_GTEST_CONFIGURE}!")
+                endif ()
+            endif ()
+
+            if (NOT DEFINED CEU_CM_GTEST_BUILD)
+                message(STATUS "CEU_CM: Building GTest ${googletest_SOURCE_DIR}/build_thirdparty -> ${CMAKE_BINARY_DIR}/build_thirdparty")
                 execute_process(
                         COMMAND "cmake"
-                        -G "${CMAKE_GENERATOR}"
-                        -DCMAKE_BUILD_TYPE=Release
-                        "${googletest_SOURCE_DIR}"
+                        --build "${CMAKE_BINARY_DIR}/build_thirdparty"
                         WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/build_thirdparty"
-                        ERROR_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_configure.stderr.log"
-                        OUTPUT_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_configure.stdout.log"
-                        RESULT_VARIABLE CEU_CM_GTEST_CONFIGURE
+                        ERROR_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_build.stderr.log"
+                        OUTPUT_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_build.stdout.log"
+                        RESULT_VARIABLE CEU_CM_GTEST_BUILD
                 )
-            elseif (CEU_CM_HAVE_WORKING_CXX_HELLOWORLD_RUN_STATIC EQUAL 0)
-                message(STATUS "CEU_CM: Configuring STATIC GTest ${googletest_SOURCE_DIR} -> ${CMAKE_BINARY_DIR}/build_thirdparty")
+
+                if (NOT CEU_CM_GTEST_BUILD EQUAL 0)
+                    message(FATAL_ERROR "CEU_CM: GTest build failed -- ${CEU_CM_GTEST_BUILD}!")
+                endif ()
+            endif ()
+
+            if (NOT DEFINED CEU_CM_GTEST_INSTALL)
+                message(STATUS "CEU_CM: Installing GTest ${googletest_SOURCE_DIR}/build_thirdparty -> ${CEU_CM_GTEST_INSTALL_PREFIX}")
                 execute_process(
                         COMMAND "cmake"
-                        -G "${CMAKE_GENERATOR}"
-                        -DCMAKE_BUILD_TYPE=Release
-                        "${googletest_SOURCE_DIR}"
+                        --install "${CMAKE_BINARY_DIR}/build_thirdparty"
+                        --prefix "${CEU_CM_GTEST_INSTALL_PREFIX}"
                         WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/build_thirdparty"
-                        ERROR_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_configure.stderr.log"
-                        OUTPUT_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_configure.stdout.log"
-                        RESULT_VARIABLE CEU_CM_GTEST_CONFIGURE
+                        ERROR_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_install.stderr.log"
+                        OUTPUT_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_install.stdout.log"
+                        RESULT_VARIABLE CEU_CM_GTEST_INSTALL
                 )
-            else ()
-                message(FATAL_ERROR "CEU_CM: Building of GTest needs CEU_CM_HAVE_WORKING_CXX_HELLOWORLD_RUN_STATIC or CEU_CM_HAVE_WORKING_CXX_HELLOWORLD_RUN_SHARED")
+
+                if (NOT CEU_CM_GTEST_INSTALL EQUAL 0)
+                    message(FATAL_ERROR "CEU_CM: GTest install failed -- ${CEU_CM_GTEST_INSTALL}!")
+                endif ()
             endif ()
-
-            if (NOT CEU_CM_GTEST_CONFIGURE EQUAL 0)
-                message(FATAL_ERROR "GTest configure failed -- ${CEU_CM_GTEST_CONFIGURE}!")
-            endif ()
-            endif()
-
-            if(NOT DEFINED CEU_CM_GTEST_BUILD)
-            message(STATUS "CEU_CM: Building GTest ${googletest_SOURCE_DIR}/build_thirdparty -> ${CMAKE_BINARY_DIR}/build_thirdparty")
-            execute_process(
-                    COMMAND "cmake"
-                    --build "${CMAKE_BINARY_DIR}/build_thirdparty"
-                    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/build_thirdparty"
-                    ERROR_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_build.stderr.log"
-                    OUTPUT_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_build.stdout.log"
-                    RESULT_VARIABLE CEU_CM_GTEST_BUILD
-            )
-
-            if (NOT CEU_CM_GTEST_BUILD EQUAL 0)
-                message(FATAL_ERROR "CEU_CM: GTest build failed -- ${CEU_CM_GTEST_BUILD}!")
-            endif ()
-            endif()
-
-            if(NOT DEFINED CEU_CM_GTEST_INSTALL)
-            message(STATUS "CEU_CM: Installing GTest ${googletest_SOURCE_DIR}/build_thirdparty -> ${CEU_CM_GTEST_INSTALL_PREFIX}")
-            execute_process(
-                    COMMAND "cmake"
-                    --install "${CMAKE_BINARY_DIR}/build_thirdparty"
-                    --prefix "${CEU_CM_GTEST_INSTALL_PREFIX}"
-                    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/build_thirdparty"
-                    ERROR_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_install.stderr.log"
-                    OUTPUT_FILE "${CMAKE_BINARY_DIR}/compile_logs/gtest_install.stdout.log"
-                    RESULT_VARIABLE CEU_CM_GTEST_INSTALL
-            )
-
-            if (NOT CEU_CM_GTEST_INSTALL EQUAL 0)
-                message(FATAL_ERROR "CEU_CM: GTest install failed -- ${CEU_CM_GTEST_INSTALL}!")
-            endif ()
-            endif()
 
             list(APPEND CMAKE_PREFIX_PATH "${CEU_CM_GTEST_INSTALL_PREFIX}")
             list(APPEND CEU_CM_TRY_COMPILE_INCLUDES "${CEU_CM_GTEST_INSTALL_PREFIX}/include")

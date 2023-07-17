@@ -4,7 +4,11 @@
 
 #ifndef LIBCEU_CEU_H
 #define LIBCEU_CEU_H
+#ifdef __cplusplus
+extern "C" {
+#endif
 #define CEU_LIB_CTIME_VERSION "0.1"
+
 #include "libceu_stddef.h"
 
 // Require safe strting functions
@@ -22,6 +26,9 @@
 #endif // !_snprintf
 #endif // snprintf
 
-char *ceu_lib_rtime_version(void);
+char* ceu_lib_rtime_version(void);
 
-#endif //LIBCEU_CEU_H
+#ifdef __cplusplus
+}
+#endif
+#endif // LIBCEU_CEU_H

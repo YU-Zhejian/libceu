@@ -107,9 +107,9 @@ if (NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
             set(CEU_CM_SHOULD_ENABLE_TEST TRUE CACHE BOOL "Test automatically enabled")
         endif ()
     endif ()
-    if(CEU_CM_SHOULD_ENABLE_TEST)
+    if (CEU_CM_SHOULD_ENABLE_TEST)
         enable_testing()
-    endif()
+    endif ()
     # Detect native.
     if (NOT DEFINED CEU_CM_SHOULD_USE_NATIVE)
         set(CEU_CM_SHOULD_USE_NATIVE FALSE)
@@ -128,7 +128,7 @@ if (NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         ceu_cm_global_enhanced_check_compiler_flag(/utf-8)
         ceu_cm_global_enhanced_check_compiler_flag(/Qspectre) # Stop spectre memory issues
         ceu_cm_global_enhanced_check_compiler_flag(/MP) # Multiprocessing 
-    endif()
+    endif ()
     # Detect build type.
     if (NOT DEFINED CMAKE_BUILD_TYPE)
         set(CMAKE_BUILD_TYPE "Debug")

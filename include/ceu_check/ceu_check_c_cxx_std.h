@@ -48,7 +48,6 @@ Latest supported C++ Standard Verison.
 #define CEU_CXX_STD 98
 #endif
 
-
 #define CEU_C_STD_LATEST 17
 
 #if (!defined __STDC_VERSION__)
@@ -57,7 +56,7 @@ Latest supported C++ Standard Verison.
 #define CEU_C_STD_MACRO __STDC_VERSION__
 #endif
 
-#if  CEU_C_STD_MACRO < 199409L
+#if CEU_C_STD_MACRO < 199409L
 #define CEU_C_STD "pre-94"
 #elif CEU_C_STD_MACRO == 199409L
 #define CEU_C_STD "94"
@@ -72,33 +71,32 @@ Latest supported C++ Standard Verison.
 #endif
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 /**
  * Get compile-time C standard version number.
  */
-char *ceu_interpret_c_std_version(void);
+char* ceu_interpret_c_std_version(void);
 
 /*!
  * @brief Get a nicely formatted compile-time C++ standard version number.
  * @param buff Buffer to write to. This should be at least 1024 bytes long.
  */
-char *ceu_check_get_c_std_info(void);
+char* ceu_check_get_c_std_info(void);
 
 /*!
  * @fn interpret_cxx_version
  * @brief Get compile-time C++ standard version number.
  * @param buff Buffer to write to. This should be at least 256 bytes long.
  */
-char *ceu_interpret_cxx_std_version(void);
+char* ceu_interpret_cxx_std_version(void);
 
 /*!
  * @brief Get a nicely formatted compile-time C++ standard version number.
  * @param buff Buffer to write to. This should be at least 1024 bytes long.
  */
-char *ceu_check_get_cxx_std_info(void);
+char* ceu_check_get_cxx_std_info(void);
 
 #ifdef __cplusplus
 }
