@@ -1,5 +1,6 @@
 #ifndef CEU_FEATURES_H
 #define CEU_FEATURES_H
+#include "ceu_check/ceu_check_cc.h"
 #include "ceu_cstd/ceu_cdefs.h"
 #include "libceu_stddef.h"
 
@@ -19,10 +20,11 @@
 #error "Either __inline or inline should be defined!"
 #endif
 #endif
-
-#if (CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC * CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC == 0)
+#if defined(CEU_COMPILER_IS_BORLAND) // No idea why we need this case. Seems bugs with BCC?
+#define _Noreturn // NOLINT
+#elif (CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC * CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC == 0)
 // Normal condition where _Noreturn is supported
 #else
-#define _Noreturn __attribute__((__noreturn__))
+#define _Noreturn __attribute__((__noreturn__)) // NOLINT
 #endif
 #endif

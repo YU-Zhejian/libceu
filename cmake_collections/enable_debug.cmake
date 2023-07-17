@@ -117,8 +117,11 @@ if (NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
     if (CEU_CM_SHOULD_USE_NATIVE)
         ceu_cm_global_enhanced_check_compiler_flag(-march=native -mtune=native -mtune)
     endif ()
-
-    add_compile_definitions(__STDC_WANT_LIB_EXT1__=1)
+    if (CMAKE_VERSION GREATER_EQUAL 3.12)
+        add_compile_definitions(__STDC_WANT_LIB_EXT1__=1)
+    else()
+        add_compile_options("-D__STDC_WANT_LIB_EXT1__=1")
+    endif()
     if(MSVC)
         set(CMAKE_GENERATOR_PLATFORM x64 CACHE INTERNAL "")
         ceu_cm_global_enhanced_check_compiler_flag(-options:strict) # Error on unrecognized arguments 

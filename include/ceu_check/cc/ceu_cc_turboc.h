@@ -7,8 +7,6 @@
  *
  * See: <https://docwiki.embarcadero.com/RADStudio/Alexandria/en/Compiler_Versions>
  */
-#include <string.h>
-
 #if defined(__BORLANDC__) || defined(__CODEGEARC__) || defined(__BCPLUSPLUS__) || defined(__TCPLUSPLUS__) || defined(__TURBOC__)
 #define CEU_COMPILER_IS_BORLAND
 #if defined(__clang__)

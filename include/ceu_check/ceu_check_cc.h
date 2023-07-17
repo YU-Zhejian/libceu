@@ -28,12 +28,6 @@ extern "C"
 {
 #endif
 
-/*!
- * @brief Get a string describing compiler version.
- *
- * @return Returned buffer, should be freed manually. Would be NULL on error.
- */
-char *interpret_compiler_version_number(void);
 
 #include "cc/ceu_cc_nvhpc.h"
 #include "cc/ceu_cc_tcc.h"
@@ -43,6 +37,13 @@ char *interpret_compiler_version_number(void);
 #include "cc/ceu_cc_clang.h"
 #include "cc/ceu_cc_gcc.h"
 #include "cc/ceu_cc_unknown.h"
+
+/*!
+ * @brief Get a string describing compiler version.
+ *
+ * @return Returned buffer, should be freed manually. Would be NULL on error.
+ */
+char *interpret_compiler_version_number(void);
 
 
 /*!
