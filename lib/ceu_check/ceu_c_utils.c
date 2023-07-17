@@ -141,6 +141,7 @@ char* ceu_str_join_with_sep(char* sep, ceu_str_join_null_action_t nb, int count,
         }
         new_intem_buf = ceu_str_join(curr_buf, new_item);
         if (new_intem_buf == NULL) {
+            ceu_free_non_null(curr_buf);
             va_end(args);
             return NULL;
         }
@@ -165,8 +166,8 @@ char* ceu_str_join_with_sep(char* sep, ceu_str_join_null_action_t nb, int count,
 
 void ceu_ensure_not_none(char* vname, char* file_name, int lineno)
 {
-    char lineno_s[10] = "";
-    snprintf(lineno_s, 10, "%d", lineno);
+    char lineno_s[20] = "";
+    ceu_snprintf(lineno_s, 20, "%d", lineno);
     ceu_die(ceu_str_join_with_sep("", CEU_STR_JOIN_REGARD_AS_EMPTY_STR, 6, file_name, ":", lineno_s, "\t", vname,
         " is NULL!"));
 }

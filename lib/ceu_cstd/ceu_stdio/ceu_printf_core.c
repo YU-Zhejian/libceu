@@ -114,8 +114,7 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, size_t max_print_n_char, const c
 {
     ceu_printf_ret_t rett = { .current_buffer_position = 0, .current_fmt_position = 0 };
     int current_state = CEU_PRINTF_PARSING_COMMON_CHAR;
-    // FIXME:  warning: ISO C forbids empty initializer braces [-Wpedantic]
-    ceu_printf_flags_t pf = {};
+    ceu_printf_flags_t pf = {0};
     int minimum_field_width = 0;
     int precision = 0;
     int length = -1;

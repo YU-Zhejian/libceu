@@ -1,4 +1,4 @@
 .PHONY: clang-format
 clang-format:
-	bash clang-tidyw.sh
+	bash clang-format-all.sh
 

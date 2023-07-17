@@ -41,7 +41,7 @@ char* ceu_check_get_ctypes_limit_info(void)
 
     snprintf(short_info, 256, "short     (%llu size):              %+21hd -> %+21hd",
         (unsigned long long)sizeof(short), SHRT_MIN, SHRT_MAX);
-    snprintf(ushort_info, 256, "ushort    (%llu size):              %+21hd -> %21u",
+    snprintf(ushort_info, 256, "ushort    (%llu size):              %+21hd -> %21hu",
         (unsigned long long)sizeof(unsigned short), 0, USHRT_MAX);
 
     snprintf(int_info, 256, "int       (%llu size):              %+21d -> %+21d", (unsigned long long)sizeof(int),

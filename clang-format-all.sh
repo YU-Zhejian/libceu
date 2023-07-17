@@ -8,7 +8,7 @@ git ls-files |
     while read -r line; do
         if [ -e "${line}" ]; then
             echo "${line}"
-            clang-format -i -style=webkit "${line}" &
+            ./clang-formatw.sh "${line}" &
         fi
     done
 wait
