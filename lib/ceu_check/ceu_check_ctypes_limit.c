@@ -1,13 +1,13 @@
-#include "ceu_check/ceu_c_utils.h"
-#include "ceu_cstd/ceu_stdbool.h"
+#include "ceu_check/ceu_check_ctypes_limit.h"
+#include "ceu_c_utils.h"
+#include "ceu_check/ceu_check_utils.h"
 #include "ceu_cstd/ceu_stdio.h"
-#include <limits.h>
-#include <pstdint.h>
-#include <wchar.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include "pstdint.h"
+#include <stdio.h>
+// Following includes are for BCC compatibility
+// clang-format off
+#include <wchar.h> // NOLINT
+// clang-format on
 
 char* ceu_check_get_ctypes_limit_info(void)
 {
@@ -80,7 +80,3 @@ char* ceu_check_get_ctypes_limit_info(void)
     ceu_free_non_null(bool_info);
     return retbuff;
 }
-
-#ifdef __cplusplus
-}
-#endif

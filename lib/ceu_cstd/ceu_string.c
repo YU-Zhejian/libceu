@@ -1,9 +1,4 @@
 #include "ceu_cstd/ceu_string.h"
-#include <string.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 char* ceu_strncpy(char* dest, const char* src, size_t n)
 {
@@ -30,6 +25,11 @@ int ceu_strcmp(const char* str1, const char* str2)
     return (unsigned char)str1[ptr] - (unsigned char)str2[ptr];
 }
 
-#ifdef __cplusplus
+size_t ceu_strlen(const char* instr)
+{
+    int reti = 0;
+    while (instr[reti] != 0) {
+        reti++;
+    }
+    return reti;
 }
-#endif

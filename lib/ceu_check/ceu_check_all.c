@@ -1,15 +1,11 @@
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include "ceu_check/ceu_c_utils.h"
+#include "ceu_c_utils.h"
 #include "ceu_check/ceu_check_c_cxx_std.h"
 #include "ceu_check/ceu_check_cc.h"
 #include "ceu_check/ceu_check_ctypes_limit.h"
 #include "ceu_check/ceu_check_os.h"
+#include "ceu_check/ceu_check_utils.h"
 #include "ceu_cstd/ceu_stdio.h"
 #include "libceu.h"
-#include <stdio.h>
 
 char* ceu_lib_rtime_version(void)
 {
@@ -40,7 +36,3 @@ char* ceu_check_get_full_info(void)
     ceu_free_non_null(compile_time_ctypes_info);
     return retbuff;
 }
-
-#ifdef __cplusplus
-}
-#endif

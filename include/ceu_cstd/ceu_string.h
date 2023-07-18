@@ -4,7 +4,6 @@
 extern "C" {
 #endif
 
-#include "libceu.h"
 #include "libceu_stddef.h"
 
 #include <stddef.h>
@@ -26,6 +25,8 @@ extern "C" {
 char* ceu_strncpy(char* dest, const char* src, size_t n);
 
 int ceu_strcmp(const char* str1, const char* str2);
+
+size_t ceu_strlen(const char* instr);
 
 #ifdef __cplusplus
 }

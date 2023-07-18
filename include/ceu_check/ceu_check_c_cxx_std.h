@@ -15,7 +15,9 @@
 #ifndef CEU_CHECK_C_CXX_STD_H
 #define CEU_CHECK_C_CXX_STD_H
 
-#include "libceu.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #if defined(_MSVC_LANG)
 #define CEU_CXX_STD_VERSION_MACRO _MSVC_LANG
@@ -68,10 +70,6 @@ Latest supported C++ Standard Verison.
 #define CEU_C_STD "17"
 #else
 #define CEU_C_STD "unknown"
-#endif
-
-#ifdef __cplusplus
-extern "C" {
 #endif
 
 /**

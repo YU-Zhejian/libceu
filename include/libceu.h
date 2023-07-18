@@ -1,7 +1,3 @@
-//
-// Created by yuzj on 6/20/23.
-//
-
 #ifndef LIBCEU_CEU_H
 #define LIBCEU_CEU_H
 #ifdef __cplusplus

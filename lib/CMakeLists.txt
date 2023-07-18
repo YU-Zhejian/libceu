@@ -1,16 +1,16 @@
 file(
         GLOB CEU_LIBRARY_SOURCES_C
-        ${CMAKE_CURRENT_LIST_DIR}/ceu_check/*.c
-        ${CMAKE_CURRENT_LIST_DIR}/ceu_cstd/*.c
-        ${CMAKE_CURRENT_LIST_DIR}/ceu_cstd/*/*.c
+        ${CMAKE_CURRENT_LIST_DIR}/*.c
+        ${CMAKE_CURRENT_LIST_DIR}/*/*.c
+        ${CMAKE_CURRENT_LIST_DIR}/*/*/*.c
         ${CMAKE_CURRENT_LIST_DIR}/ceu_check/c/*.c
 )
 
 file(
         GLOB CEU_LIBRARY_SOURCES_CXX
-        ${CMAKE_CURRENT_LIST_DIR}/ceu_check/*.c
-        ${CMAKE_CURRENT_LIST_DIR}/ceu_cstd/*.c
-        ${CMAKE_CURRENT_LIST_DIR}/ceu_cstd/*/*.c
+        ${CMAKE_CURRENT_LIST_DIR}/*.c
+        ${CMAKE_CURRENT_LIST_DIR}/*/*.c
+        ${CMAKE_CURRENT_LIST_DIR}/*/*/*.c
         ${CMAKE_CURRENT_LIST_DIR}/ceu_check/cxx/*.cpp
 )
 

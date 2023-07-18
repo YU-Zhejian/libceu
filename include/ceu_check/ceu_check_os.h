@@ -14,9 +14,6 @@ extern "C" {
 #define CEU_PRIMARY_OS_TYPE "CYGWIN"
 #endif
 #define CEU_ON_CYGWIN
-
-#include <windows.h>
-
 #endif
 
 #if defined(__MINGW32__) || defined(__WINNT__) || defined(__WINNT)

@@ -1,7 +1,8 @@
 #include <pstdint.h>
 #include <stdlib.h>
+#include <string.h>
 
-#include "ceu_check/ceu_c_utils.h"
+#include "ceu_c_utils.h"
 #include "ceu_cstd/ceu_stdio/ceu_printf_core.h"
 
 // TODO: Here warns a -Wunused-but-set-parameter.
@@ -114,14 +115,14 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, size_t max_print_n_char, const c
 {
     ceu_printf_ret_t rett = { .current_buffer_position = 0, .current_fmt_position = 0 };
     int current_state = CEU_PRINTF_PARSING_COMMON_CHAR;
-    ceu_printf_flags_t pf = {0};
+    ceu_printf_flags_t pf = { 0 };
     int minimum_field_width = 0;
     int precision = 0;
     int length = -1;
     char current_char = fmt[rett.current_fmt_position];
     char next_char = ceu_buff_peek(fmt, rett.current_fmt_position);
 
-    u_int64_t arg_uint = 0; // Value of the argument if it is unsigned int.
+    uint64_t arg_uint = 0; // Value of the argument if it is unsigned int.
     int64_t arg_int = 0; // Value of the argument if it is signed int.
     long double arg_dbl = 0.0; // Value of the argument if it is float or double.
     void* arg_pointer = NULL; // Value of the argument if it is a pointer.
@@ -296,7 +297,7 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, size_t max_print_n_char, const c
                     arg_int = va_arg(*args, long long int);
                     break;
                 case CEU_PRINTF_LENGTH_j:
-                    arg_int = va_arg(*args, __intmax_t); // TODO: Is this portable?
+                    arg_int = va_arg(*args, uint64_t); // FIXME: __intmax_t not portable
                     break;
                 case CEU_PRINTF_LENGTH_z:
                     arg_int = va_arg(*args, size_t);

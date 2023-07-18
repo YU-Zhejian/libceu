@@ -1,12 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "ceu_check/ceu_check_cc.h"
+#include "ceu_c_utils.h"
+#include "ceu_check/ceu_check_utils.h"
 #include "ceu_cstd/ceu_stdio.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 char* ceu_check_interpret_compilation_date_time(void)
 {
@@ -275,7 +270,3 @@ char* interpret_compiler_version_number(void)
     ceu_free_non_null(version_macro_version);
     return final_buff;
 }
-
-#ifdef __cplusplus
-}
-#endif

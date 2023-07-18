@@ -2,7 +2,7 @@
 extern "C" {
 #endif
 
-#include "ceu_check/ceu_c_utils.h"
+#include "ceu_c_utils.h"
 #include "ceu_check/ceu_check_all.h"
 #include <stdio.h>
 

@@ -3,9 +3,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include <stdio.h>
-
+#include <stddef.h>
 size_t ceu_snprintf(char* buff, size_t max_print_n_char, const char* fmt, ...);
 
 #ifdef __cplusplus

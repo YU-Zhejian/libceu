@@ -1,13 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "ceu_check/ceu_c_utils.h"
 #include "ceu_check/ceu_check_os.h"
+#include "ceu_c_utils.h"
+#include "ceu_check/ceu_check_utils.h"
 #include "ceu_cstd/ceu_stdio.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #ifdef CEU_ON_CYGWIN_LIKE
 
@@ -213,7 +207,3 @@ char* ceu_check_get_run_time_os_info(void)
     ceu_free_non_null(posix_uts_buff);
     return final_buff;
 }
-
-#ifdef __cplusplus
-}
-#endif
