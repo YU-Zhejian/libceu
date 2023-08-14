@@ -1,13 +1,18 @@
 ﻿cmake_minimum_required(VERSION 3.11)
-set(CMAKE_C_STANDARD 11)
 project(libceu VERSION 0.1 LANGUAGES C)
 
 include(CheckLanguage)
 include(CheckIncludeFile)
 include(CheckIncludeFileCXX)
+
+if(NOT DEFINED CMAKE_C_STANDARD)
+    set(CMAKE_C_STANDARD 11)
+endif()
 check_language(CXX)
 if (CMAKE_CXX_COMPILER)
-    set(CMAKE_CXX_STANDARD 11)
+    if(NOT DEFINED CMAKE_CXX_STANDARD)
+        set(CMAKE_CXX_STANDARD 11)
+    endif()
     enable_language(CXX)
 endif ()
 
