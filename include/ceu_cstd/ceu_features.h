@@ -4,7 +4,7 @@
 #include "ceu_check/ceu_check_cc.h"
 
 #include "ceu_cstd/ceu_cdefs.h"
-#include "libceu_stddef.h"
+#include "ceu_basic/libceu_stddef.h"
 
 // Following codes are from musl
 

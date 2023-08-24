@@ -1,6 +1,6 @@
 #include <stdarg.h>
 
-#include "ceu_c_utils.h"
+#include "ceu_basic/ceu_c_utils.h"
 #include "ceu_check/ceu_check_utils.h"
 #include "ceu_cstd/ceu_stdio.h"
 #include "ceu_cstd/ceu_string.h"

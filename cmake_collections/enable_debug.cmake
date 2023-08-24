@@ -44,6 +44,7 @@ Warnings:
 macro(ceu_cm_set_static_target name)
     set_target_properties("${name}" PROPERTIES LINK_SEARCH_START_STATIC 1)
     set_target_properties("${name}" PROPERTIES LINK_SEARCH_END_STATIC 1)
+    set_target_properties("${name}" PROPERTIES INSTALL_RPATH "")
     if (CMAKE_VERSION GREATER_EQUAL 3.13 AND NOT BORLAND AND NOT MSVC)
         target_link_options(
                 "${name}" PRIVATE
@@ -186,6 +187,8 @@ if (NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
     message(STATUS "|CMAKE_SYSTEM_LIBRARY_PATH=${CMAKE_SYSTEM_LIBRARY_PATH}")
     message(STATUS "|CMAKE_SYSTEM_INCLUDE_PATH=${CMAKE_SYSTEM_INCLUDE_PATH}")
     message(STATUS "|CMAKE_SYSTEM_PREFIX_PATH=${CMAKE_SYSTEM_PREFIX_PATH}")
+    message(STATUS "|CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}")
+
 
     if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
         message(STATUS "|CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -> Release mode was on")

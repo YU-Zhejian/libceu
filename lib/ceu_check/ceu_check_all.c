@@ -1,11 +1,11 @@
-#include "ceu_c_utils.h"
+#include "ceu_basic/ceu_c_utils.h"
 #include "ceu_check/ceu_check_c_cxx_std.h"
 #include "ceu_check/ceu_check_cc.h"
 #include "ceu_check/ceu_check_ctypes_limit.h"
 #include "ceu_check/ceu_check_os.h"
 #include "ceu_check/ceu_check_utils.h"
 #include "ceu_cstd/ceu_stdio.h"
-#include "libceu.h"
+#include "ceu_basic/libceu.h"
 
 char* ceu_lib_rtime_version(void)
 {

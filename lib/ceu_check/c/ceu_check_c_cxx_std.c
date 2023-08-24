@@ -1,5 +1,5 @@
 #include "ceu_check/ceu_check_c_cxx_std.h"
-#include "ceu_c_utils.h"
+#include "ceu_basic/ceu_c_utils.h"
 #include "ceu_cstd/ceu_stdio.h"
 
 char* ceu_interpret_c_std_version(void)

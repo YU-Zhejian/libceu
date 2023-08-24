@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-#include "libceu_stddef.h"
+#include "ceu_basic/libceu_stddef.h"
 
 #if CEU_HAVE_INCLUDE_STDBOOL_H == 1
 

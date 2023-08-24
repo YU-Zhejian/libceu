@@ -35,10 +35,12 @@ endif ()
 
 if (LIBCEU_BUILD_SHARED)
     add_library(${CEU_LIBRARY_SHARED} SHARED ${CEU_LIBRARY_SOURCES_C})
+    install(TARGETS ${CEU_LIBRARY_SHARED} TYPE LIBRARY)
 endif ()
 
 if (LIBCEU_BUILD_STATIC)
     add_library(${CEU_LIBRARY_STATIC} STATIC ${CEU_LIBRARY_SOURCES_C})
+    install(TARGETS ${CEU_LIBRARY_STATIC} TYPE LIBRARY)
     ceu_cm_set_static_target(${CEU_LIBRARY_STATIC})
 endif ()
 
@@ -61,10 +63,12 @@ if (DEFINED CMAKE_CXX_COMPILER)
 
     if (LIBCEU_BUILD_SHARED_CXX)
         add_library(${CEU_LIBRARY_SHARED_CXX} SHARED ${CEU_LIBRARY_SOURCES_CXX})
+        install(TARGETS ${CEU_LIBRARY_SHARED_CXX} TYPE LIBRARY)
     endif ()
 
     if (LIBCEU_BUILD_STATIC_CXX)
         add_library(${CEU_LIBRARY_STATIC_CXX} STATIC ${CEU_LIBRARY_SOURCES_CXX})
+        install(TARGETS ${CEU_LIBRARY_STATIC_CXX} TYPE LIBRARY)
         ceu_cm_set_static_target(${CEU_LIBRARY_STATIC_CXX})
     endif ()
 else ()
