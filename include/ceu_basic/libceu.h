@@ -5,7 +5,7 @@ extern "C" {
 #endif
 #define CEU_LIB_CTIME_VERSION "0.1"
 
-#include "libceu_stddef.h"
+#include "ceu_basic/libceu_stddef.h"
 
 // Require safe strting functions
 #ifndef __STDC_WANT_LIB_EXT1__

@@ -58,6 +58,7 @@ file(GLOB CEU_INCLUSIONS "${CMAKE_CURRENT_LIST_DIR}/include/ceu_*")
 install(DIRECTORY ${CEU_INCLUSIONS} TYPE INCLUDE)
 
 include_directories("${CMAKE_CURRENT_LIST_DIR}/include_priv/")
+include_directories("${CMAKE_CURRENT_BINARY_DIR}/include/")
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/lib/")
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/bin/")
 if (CEU_CM_SHOULD_ENABLE_TEST)
