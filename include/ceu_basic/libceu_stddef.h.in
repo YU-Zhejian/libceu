@@ -4,6 +4,8 @@
 #cmakedefine01 CEU_HAVE_STRNCPY_S
 #cmakedefine01 CEU_HAVE_INCLUDE_STDBOOL_H
 #cmakedefine01 CEU_HAVE_INCLUDE_VERSIONHELPERS_H
+#cmakedefine01 CEU_HAVE_INCLUDE_CYGWIN_VERSION_H
+#cmakedefine01 CEU_HAVE_INCLUDE_SYS_UTSNAME_H
 
 // On following code 0 indicates success.
 #cmakedefine01 CEU_CM_HAVE_WORKING_C__BOOL_RUN_STATIC

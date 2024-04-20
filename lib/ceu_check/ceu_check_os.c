@@ -4,7 +4,7 @@
 #include "ceu_cstd/ceu_stdio.h"
 
 #ifdef CEU_ON_CYGWIN_LIKE
-
+#if CEU_HAVE_INCLUDE_CYGWIN_VERSION_H == 1
 #include <cygwin/version.h>
 
 char* get_compile_time_cygwin_version(void)
@@ -20,7 +20,19 @@ char* get_compile_time_cygwin_version(void)
     }
     return buff;
 }
-
+#else
+char* get_compile_time_cygwin_version(void)
+{
+    int retv;
+    char* buff = (char*)ceu_scalloc(256, sizeof(char));
+    retv = ceu_snprintf(buff, 256, "CYGWIN API ver. undefined\n\tCYGWIN DLL (undefined) ver. undefined -- We're on MSYS2/MinGW?");
+    if (retv < 0) {
+        ceu_free_non_null(buff);
+        return NULL;
+    }
+    return buff;
+}
+#endif
 #else
 
 char* get_compile_time_cygwin_version(void)
@@ -102,9 +114,10 @@ char* get_run_time_windows_version(void)
 #endif
 
 #ifdef CEU_ON_POSIX
-
-#include <sys/utsname.h>
 #include <unistd.h> // Should NOT be removed
+
+#if CEU_HAVE_INCLUDE_SYS_UTSNAME_H == 1
+#include <sys/utsname.h>
 
 char* get_run_time_posix_uts_info(void)
 {
@@ -120,6 +133,19 @@ char* get_run_time_posix_uts_info(void)
     }
     return buff;
 }
+#else
+char* get_run_time_posix_uts_info(void)
+{
+    int retv;
+    char* buff = (char*)ceu_scalloc(256, sizeof(char));
+    retv = ceu_snprintf(buff, 256, "POSIX UTSINFO=undefined");
+    if (retv < 0) {
+        ceu_free_non_null(buff);
+        return NULL;
+    }
+    return buff;
+}
+#endif
 
 char* get_compile_time_posix_standard(void)
 {

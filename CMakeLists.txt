@@ -46,6 +46,8 @@ check_symbol_exists(strncpy_s "string.h" CEU_HAVE_STRNCPY_S)
 check_symbol_exists(_snprintf "stdio.h" CEU_HAVE__SNPRINTF)
 check_include_file("stdbool.h" CEU_HAVE_INCLUDE_STDBOOL_H)
 check_include_file("VersionHelpers.h" CEU_HAVE_INCLUDE_VERSIONHELPERS_H)
+check_include_file("cygwin/version.h" CEU_HAVE_INCLUDE_CYGWIN_VERSION_H)
+check_include_file("sys/utsname.h" CEU_HAVE_INCLUDE_SYS_UTSNAME_H)
 
 configure_file(
         "include/ceu_basic/libceu_stddef.h.in"
