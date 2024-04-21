@@ -26,6 +26,13 @@ char* ceu_strncpy(char* dest, const char* src, size_t n);
 
 int ceu_strcmp(const char* str1, const char* str2);
 
+/*!
+ * Determine string length by searching for `\0`.
+ * The string length will be the offset of `\0`.
+ * i.e., number of characters plus one.
+ * 
+ * @param instr Input string.
+ */
 size_t ceu_strlen(const char* instr);
 
 #ifdef __cplusplus
