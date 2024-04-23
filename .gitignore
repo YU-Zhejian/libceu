@@ -17,3 +17,4 @@
 *.bat
 /CMakeLists.txt.user
 CMakeSettings.json
+.unioncode
