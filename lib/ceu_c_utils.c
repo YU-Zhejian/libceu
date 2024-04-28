@@ -3,6 +3,7 @@
 
 #include "ceu_basic/ceu_c_utils.h"
 #include "ceu_cstd/ceu_stdio.h"
+#include "ceu_cstd/ceu_string.h"
 
 void* ceu_smalloc(size_t size)
 {
@@ -10,7 +11,7 @@ void* ceu_smalloc(size_t size)
     if (m == NULL) {
         ceu_die_with_retv("ERR 12 -- Cannot allocate memory", 12);
     } else {
-        m = memset(m, 0, size);
+        m = ceu_memset(m, 0, size);
     }
     return m;
 }
@@ -29,13 +30,13 @@ void ceu_free_non_null(void* m)
     if (m != NULL) {
         free(m);
     }
+    m = NULL;
 }
 
 noreturn void ceu_die_with_retv(char* reason, int retv)
 {
-
     printf("Error occured! reason:\t%s", reason);
-#ifdef CEU_CM_IS_DEBUG
+#if (defined CEU_CM_IS_DEBUG && CEU_CM_IS_DEBUG == 1)
     // To allow debuggers to investigate
     abort();
 #else

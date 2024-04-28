@@ -17,6 +17,8 @@ extern "C" {
  * If `\0` encountered without reaching `n`, additional `\0` would be padded
  * to the end of `dst` until reached `n`.
  *
+ * @warning This function does not guarantee that destination string is ended with `\0`!
+ *
  * @param dest Destination buffer.
  * @param src Source buffer.
  * @param n Number of character to copy.
@@ -35,6 +37,28 @@ int ceu_strcmp(const char* str1, const char* str2);
  */
 size_t ceu_strlen(const char* instr);
 
+/**
+ * @brief Copy memory content.
+ * @warning Ensure that the destination buffer is large enough.
+ *
+ * @param dest The destination buffer.
+ * @param src The source buffer.
+ * @param n Number of unsigned chars to copy.
+ * @return void* The destination buffer modified.
+ */
+void* ceu_memcpy(void* dest, const void* src, size_t n);
+
+/**
+ * @brief Set c to the first len unsigned chars of s.
+ *
+ * @param s The buffer to set.
+ * @param c Unsigned char.
+ * @param len Length to set.
+ * @return void* The destination buffer modified.
+ * @warning Ensure that the destination buffer is large enough.
+ * @warning The code were not optimized to 4- or 8-byte alignments so are slow.
+ */
+void* ceu_memset(void* s, int c, size_t n);
 #ifdef __cplusplus
 }
 #endif

@@ -1,3 +1,10 @@
+/**
+ * @file test_c___attribute__.c
+ * @author YU Zhejian
+ * @brief Test whether __attribute__ is supported. Will test __attribute__((noreturn)) and __attribute__((unused)).
+ * @version 0.1
+ * @date 2024-04-28
+ */
 #include <stdlib.h>
 
 __attribute__((noreturn)) static int f(int i)

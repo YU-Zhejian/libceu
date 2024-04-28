@@ -19,6 +19,7 @@
 #cmakedefine01 CEU_HAVE_INCLUDE_VERSIONHELPERS_H
 #cmakedefine01 CEU_HAVE_INCLUDE_CYGWIN_VERSION_H
 #cmakedefine01 CEU_HAVE_INCLUDE_SYS_UTSNAME_H
+#cmakedefine CEU_CM_IS_DEBUG @CEU_CM_IS_DEBUG@
 
 // On following code 0 indicates success.
 #cmakedefine01 CEU_CM_HAVE_WORKING_C_BOOL_RUN_STATIC

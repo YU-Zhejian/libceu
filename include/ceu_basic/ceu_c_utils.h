@@ -43,6 +43,11 @@ void* ceu_smalloc(size_t size);
  */
 void* ceu_scalloc(size_t count, size_t size);
 
+/**
+ * @brief Free a piece of memory if it is not NULL. The piece of memory will be set to NULL afterwards.
+ *
+ * @param m The memory to be freed.
+ */
 void ceu_free_non_null(void* m);
 #ifdef __cplusplus
 }

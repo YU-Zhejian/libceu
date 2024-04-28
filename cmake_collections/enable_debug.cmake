@@ -157,6 +157,9 @@ if(NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         ceu_cm_global_enhanced_check_compiler_flag(-g3) # Add debug info
         ceu_cm_global_enhanced_check_compiler_flag(-pg) # Add profiling info
         ceu_cm_global_enhanced_check_compiler_flag(-O0) # Stop optimization
+        set(CEU_CM_IS_DEBUG
+            1
+            CACHE INTERNAL "") # Also set CMake variable
         if(CMAKE_VERSION GREATER_EQUAL 3.12)
             add_compile_definitions(CEU_CM_IS_DEBUG)
         else()

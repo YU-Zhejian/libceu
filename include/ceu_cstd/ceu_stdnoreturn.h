@@ -5,8 +5,6 @@
  * @version 0.1
  * @date 2024-04-28
  *
- * @copyright Copyright (c) 2024
- *
  */
 
 #ifdef __cplusplus

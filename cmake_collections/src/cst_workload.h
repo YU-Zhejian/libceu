@@ -1,6 +1,10 @@
-//
-// Created by yuzj on 3/18/22.
-//
+/**
+ * @file cst_workload.h
+ * @author YU Zhejian
+ * @brief Workload for testing parallelization libraries like OpenMP, PThread, etc.
+ * @version 0.1
+ * @date 2024-04-28
+ */
 
 #ifndef LIBCONCURRENTQUEUE_CST_WORKLOAD_H
 #define LIBCONCURRENTQUEUE_CST_WORKLOAD_H

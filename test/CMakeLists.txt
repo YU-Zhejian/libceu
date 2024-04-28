@@ -1,5 +1,7 @@
 project("ceu_test" LANGUAGES C)
 
+include_directories("${CMAKE_CURRENT_LIST_DIR}")
+
 enable_testing()
 
 if(LIBCEU_BUILD_SHARED)
@@ -37,3 +39,4 @@ macro(ceu_add_test test_name source_name)
 endmacro()
 
 ceu_add_test("ceu_cstd_stdio_printf_core" "${CMAKE_CURRENT_LIST_DIR}/ceu_cstd/ceu_stdio/test_printf_core.c")
+ceu_add_test("ceu_ystr" "${CMAKE_CURRENT_LIST_DIR}/ceu_ystrlib/test_ystr.c")

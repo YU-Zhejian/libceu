@@ -99,3 +99,15 @@ This project uses code from the following projects:
   - `include/ceu_w32api/pstdint.h`
 
   With BSD License.
+
+---
+
+- **David Pastor's `minunit` Project***
+
+  Available from <https://github.com/siu/minunit> revision `a058656`.
+
+  Affected files:
+
+  - `test/minunit.h`
+
+  With MIT license.
