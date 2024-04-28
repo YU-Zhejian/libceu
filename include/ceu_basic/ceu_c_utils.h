@@ -7,18 +7,12 @@ extern "C" {
 
 #include <stddef.h>
 
-
-
-
-
 #define CEU_ENSURE_NOT_NONE(X)                           \
     {                                                    \
         if (X == NULL) {                                 \
             ceu_ensure_not_none(#X, __FILE__, __LINE__); \
         };                                               \
     }
-
-
 
 /*!
  * Internal -- DO NOT USE!
@@ -53,7 +47,6 @@ void ceu_free_non_null(void* m);
 #ifdef __cplusplus
 }
 #endif
-
 
 noreturn void ceu_press_any_key_to_exit(void);
 

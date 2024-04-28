@@ -45,15 +45,13 @@ macro(ceu_cm_set_static_target name)
     set_target_properties("${name}" PROPERTIES LINK_SEARCH_START_STATIC 1)
     set_target_properties("${name}" PROPERTIES LINK_SEARCH_END_STATIC 1)
     set_target_properties("${name}" PROPERTIES INSTALL_RPATH "")
-    if (CMAKE_VERSION GREATER_EQUAL 3.13 AND NOT BORLAND AND NOT MSVC)
+    if(CMAKE_VERSION GREATER_EQUAL 3.13
+       AND NOT BORLAND
+       AND NOT MSVC)
         target_link_options(
-                "${name}" PRIVATE
-                -static
-                $<$<COMPILE_LANGUAGE:C,CXX>:-static-libgcc>
-                $<$<COMPILE_LANGUAGE:CXX>:-static-libstdc++>
-                $<$<COMPILE_LANGUAGE:Fortran>:-static-libgfortran>
-        )
-    endif ()
+            "${name}" PRIVATE -static $<$<COMPILE_LANGUAGE:C,CXX>:-static-libgcc>
+            $<$<COMPILE_LANGUAGE:CXX>:-static-libstdc++> $<$<COMPILE_LANGUAGE:Fortran>:-static-libgfortran>)
+    endif()
 endmacro()
 
 #[=======================================================================[
@@ -72,77 +70,81 @@ Sets:
     - CMake variable `C_COMPILER_HAVE_${FLAG}`.
 #]=======================================================================]
 function(ceu_cm_global_enhanced_check_compiler_flag)
-    foreach (FLAG ${ARGN})
-        if (DEFINED CMAKE_C_COMPILER)
+    foreach(FLAG ${ARGN})
+        if(DEFINED CMAKE_C_COMPILER)
             check_c_compiler_flag(${FLAG} C_COMPILER_HAVE_${FLAG})
-        else ()
+        else()
             # If no C support is added, bypass the test.
             set(C_COMPILER_HAVE_${FLAG} TRUE)
-        endif ()
-        if (DEFINED CMAKE_CXX_COMPILER)
+        endif()
+        if(DEFINED CMAKE_CXX_COMPILER)
             check_cxx_compiler_flag(${FLAG} CXX_COMPILER_HAVE_${FLAG})
-        else ()
+        else()
             set(CXX_COMPILER_HAVE_${FLAG} TRUE)
-        endif ()
-        if (C_COMPILER_HAVE_${FLAG} AND CXX_COMPILER_HAVE_${FLAG})
+        endif()
+        if(C_COMPILER_HAVE_${FLAG} AND CXX_COMPILER_HAVE_${FLAG})
             add_compile_options(${FLAG})
             return()
-        endif ()
-    endforeach ()
+        endif()
+    endforeach()
 endfunction()
 
-if (NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
-    set(
-            CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED TRUE
-            CACHE BOOL
-            "Whether a description on environment was printed."
-    )
+if(NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
+    set(CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED
+        TRUE
+        CACHE BOOL "Whether a description on environment was printed.")
     # Detect C/CXX Pre-Processor Macros
     ceu_cm_detect_c_preprocessor_macros()
 
     # Detect Test.
-    if (NOT DEFINED CEU_CM_SHOULD_ENABLE_TEST)
-        if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
-            set(CEU_CM_SHOULD_ENABLE_TEST FALSE CACHE BOOL "Test automatically disabled")
-        else ()
-            set(CEU_CM_SHOULD_ENABLE_TEST TRUE CACHE BOOL "Test automatically enabled")
-        endif ()
-    endif ()
-    if (CEU_CM_SHOULD_ENABLE_TEST)
+    if(NOT DEFINED CEU_CM_SHOULD_ENABLE_TEST)
+        if("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+            set(CEU_CM_SHOULD_ENABLE_TEST
+                FALSE
+                CACHE BOOL "Test automatically disabled")
+        else()
+            set(CEU_CM_SHOULD_ENABLE_TEST
+                TRUE
+                CACHE BOOL "Test automatically enabled")
+        endif()
+    endif()
+    if(CEU_CM_SHOULD_ENABLE_TEST)
         enable_testing()
-    endif ()
+    endif()
     # Detect native.
-    if (NOT DEFINED CEU_CM_SHOULD_USE_NATIVE)
+    if(NOT DEFINED CEU_CM_SHOULD_USE_NATIVE)
         set(CEU_CM_SHOULD_USE_NATIVE FALSE)
-    endif ()
-    if (CEU_CM_SHOULD_USE_NATIVE)
+    endif()
+    if(CEU_CM_SHOULD_USE_NATIVE)
         ceu_cm_global_enhanced_check_compiler_flag(-march=native -mtune=native -mtune)
-    endif ()
-    if (CMAKE_VERSION GREATER_EQUAL 3.12)
+    endif()
+    if(CMAKE_VERSION GREATER_EQUAL 3.12)
         add_compile_definitions(__STDC_WANT_LIB_EXT1__=1)
     else()
         add_compile_options("-D__STDC_WANT_LIB_EXT1__=1")
     endif()
     if(MSVC)
-        set(CMAKE_GENERATOR_PLATFORM x64 CACHE INTERNAL "")
-        ceu_cm_global_enhanced_check_compiler_flag(-options:strict) # Error on unrecognized arguments 
+        set(CMAKE_GENERATOR_PLATFORM
+            x64
+            CACHE INTERNAL "")
+        ceu_cm_global_enhanced_check_compiler_flag(-options:strict) # Error on unrecognized arguments
         ceu_cm_global_enhanced_check_compiler_flag(/utf-8)
         ceu_cm_global_enhanced_check_compiler_flag(/Qspectre) # Stop spectre memory issues
-        ceu_cm_global_enhanced_check_compiler_flag(/MP) # Multiprocessing 
-    endif ()
+        ceu_cm_global_enhanced_check_compiler_flag(/MP) # Multiprocessing
+    endif()
     # Detect build type.
-    if (NOT DEFINED CMAKE_BUILD_TYPE)
+    if(NOT DEFINED CMAKE_BUILD_TYPE)
         set(CMAKE_BUILD_TYPE "Debug")
-    endif ()
-    if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release") # Release
+    endif()
+    if("${CMAKE_BUILD_TYPE}" STREQUAL "Release") # Release
         ceu_cm_global_enhanced_check_compiler_flag(-W0 -w)
         ceu_cm_global_enhanced_check_compiler_flag(-g0)
         ceu_cm_global_enhanced_check_compiler_flag(-Ofast -O3 -O2)
-    elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "RelWithDebInfo") # Release with Debug Information
+    elseif("${CMAKE_BUILD_TYPE}" STREQUAL "RelWithDebInfo") # Release with Debug Information
         ceu_cm_global_enhanced_check_compiler_flag(-W0 -w)
         ceu_cm_global_enhanced_check_compiler_flag(-Ofast -O3 -O2)
         ceu_cm_global_enhanced_check_compiler_flag(-g)
-    else () # Debug, the default.
+    else() # Debug, the default.
         set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
         ceu_cm_global_enhanced_check_compiler_flag(-Wall)
         ceu_cm_global_enhanced_check_compiler_flag(-Wextra)
@@ -155,12 +157,12 @@ if (NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         ceu_cm_global_enhanced_check_compiler_flag(-g3) # Add debug info
         ceu_cm_global_enhanced_check_compiler_flag(-pg) # Add profiling info
         ceu_cm_global_enhanced_check_compiler_flag(-O0) # Stop optimization
-        if (CMAKE_VERSION GREATER_EQUAL 3.12)
+        if(CMAKE_VERSION GREATER_EQUAL 3.12)
             add_compile_definitions(CEU_CM_IS_DEBUG)
-        else ()
+        else()
             add_compile_options("-DCEU_CM_IS_DEBUG")
-        endif ()
-    endif ()
+        endif()
+    endif()
 
     message(STATUS "/------------------- Basic Information -------------------\\")
     message(STATUS "|CMAKE_BINARY_DIR=${CMAKE_BINARY_DIR}, CMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR}")
@@ -169,34 +171,51 @@ if (NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
     message(STATUS "|CMAKE_AR=${CMAKE_AR}")
     message(STATUS "|CMAKE_RANLIB=${CMAKE_RANLIB}")
     message(STATUS "|CMAKE_EXECUTABLE_SUFFIX=${CMAKE_EXECUTABLE_SUFFIX}")
-    message(STATUS "|CMAKE_SHARED_LIBRARY_PREFIX=${CMAKE_SHARED_LIBRARY_PREFIX}, CMAKE_SHARED_LIBRARY_SUFFIX=${CMAKE_SHARED_LIBRARY_SUFFIX}")
-    message(STATUS "|CMAKE_STATIC_LIBRARY_PREFIX=${CMAKE_STATIC_LIBRARY_PREFIX}, CMAKE_STATIC_LIBRARY_SUFFIX=${CMAKE_STATIC_LIBRARY_SUFFIX}")
+    message(
+        STATUS
+            "|CMAKE_SHARED_LIBRARY_PREFIX=${CMAKE_SHARED_LIBRARY_PREFIX}, CMAKE_SHARED_LIBRARY_SUFFIX=${CMAKE_SHARED_LIBRARY_SUFFIX}"
+    )
+    message(
+        STATUS
+            "|CMAKE_STATIC_LIBRARY_PREFIX=${CMAKE_STATIC_LIBRARY_PREFIX}, CMAKE_STATIC_LIBRARY_SUFFIX=${CMAKE_STATIC_LIBRARY_SUFFIX}"
+    )
 
-    if (DEFINED CMAKE_C_COMPILER)
-        message(STATUS "|CMAKE_C_COMPILER=${CMAKE_C_COMPILER} (${CMAKE_C_COMPILER_ABI}) ver. ${CMAKE_C_COMPILER_VERSION} std. ${CMAKE_C_STANDARD}")
+    if(DEFINED CMAKE_C_COMPILER)
+        message(
+            STATUS
+                "|CMAKE_C_COMPILER=${CMAKE_C_COMPILER} (${CMAKE_C_COMPILER_ABI}) ver. ${CMAKE_C_COMPILER_VERSION} std. ${CMAKE_C_STANDARD}"
+        )
         message(STATUS "|CMAKE_C_LINK_EXECUTABLE=${CMAKE_C_LINK_EXECUTABLE}")
-    endif ()
-    if (DEFINED CMAKE_CXX_COMPILER)
-        message(STATUS "|CMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} (${CMAKE_CXX_COMPILER_ABI}) ver. ${CMAKE_CXX_COMPILER_VERSION} std. ${CMAKE_CXX_STANDARD}")
+    endif()
+    if(DEFINED CMAKE_CXX_COMPILER)
+        message(
+            STATUS
+                "|CMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} (${CMAKE_CXX_COMPILER_ABI}) ver. ${CMAKE_CXX_COMPILER_VERSION} std. ${CMAKE_CXX_STANDARD}"
+        )
         message(STATUS "|CMAKE_CXX_LINK_EXECUTABLE=${CMAKE_CXX_LINK_EXECUTABLE}")
-    endif ()
-    if (DEFINED CMAKE_Fortran_COMPILER)
-        message(STATUS "|CMAKE_Fortran_COMPILER=${CMAKE_Fortran_COMPILER} (${CMAKE_Fortran_COMPILER_ABI}) ver. ${CMAKE_Fortran_COMPILER_VERSION}")
+    endif()
+    if(DEFINED CMAKE_Fortran_COMPILER)
+        message(
+            STATUS
+                "|CMAKE_Fortran_COMPILER=${CMAKE_Fortran_COMPILER} (${CMAKE_Fortran_COMPILER_ABI}) ver. ${CMAKE_Fortran_COMPILER_VERSION}"
+        )
         message(STATUS "|CMAKE_Fortran_LINK_EXECUTABLE=${CMAKE_Fortran_LINK_EXECUTABLE}")
-    endif ()
+    endif()
     message(STATUS "|CMAKE_SYSTEM_LIBRARY_PATH=${CMAKE_SYSTEM_LIBRARY_PATH}")
     message(STATUS "|CMAKE_SYSTEM_INCLUDE_PATH=${CMAKE_SYSTEM_INCLUDE_PATH}")
     message(STATUS "|CMAKE_SYSTEM_PREFIX_PATH=${CMAKE_SYSTEM_PREFIX_PATH}")
     message(STATUS "|CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}")
 
-
-    if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+    if("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
         message(STATUS "|CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -> Release mode was on")
-    else ()
+    else()
         message(STATUS "|CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -> Debug mode was on")
-    endif ()
-    message(STATUS "|CEU_CM_SHOULD_ENABLE_TEST=${CEU_CM_SHOULD_ENABLE_TEST}; CEU_CM_SHOULD_USE_NATIVE=${CEU_CM_SHOULD_USE_NATIVE}")
+    endif()
+    message(
+        STATUS
+            "|CEU_CM_SHOULD_ENABLE_TEST=${CEU_CM_SHOULD_ENABLE_TEST}; CEU_CM_SHOULD_USE_NATIVE=${CEU_CM_SHOULD_USE_NATIVE}"
+    )
 
     message(STATUS "\\------------------- Basic Information -------------------/")
 
-endif ()
+endif()

@@ -4,7 +4,8 @@ This is a small C/C++ library designed for the following purposes:
 
 1. A small portable C runtime library like MUSL or uCLibC;
 2. String manipulation functions and data structures like GLib;
-3. Other tasks related to portability: Perform platform detection.
+3. A build system that supports CMake for modularized integration to other projects and GNU Autotools that allows execution over diverse machines.
+4. Other tasks related to portability: Perform platform detection.
 
 It is still under development. Do not use.
 

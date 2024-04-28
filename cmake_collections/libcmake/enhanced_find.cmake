@@ -22,58 +22,61 @@ Sets:
 
 Warnings:
     - Finding libraries using linker flag cannot guarantee usability!
-    
+
         For example, we have `app` -> `liba.so` -> `libb.so`.
 
         If `liba.so` does not contain implementations defined in `libb.so`,
         direct execution of `app` would yield bugs.
 #]=======================================================================]
 function(ceu_cm_get_abspath_from_linker_flag OUTPUT_VARIABLE LINKER_FLAG IS_STATIC)
-    if (IS_STATIC)
-        set(
-                POSSIBLE_LIBRARY_FILENAMES
-                "${LINKER_FLAG}${CMAKE_STATIC_LIBRARY_SUFFIX}"
-                "${CMAKE_STATIC_LIBRARY_PREFIX}${LINKER_FLAG}${CMAKE_STATIC_LIBRARY_SUFFIX}"
-                "lib${LINKER_FLAG}${CMAKE_STATIC_LIBRARY_SUFFIX}"
-                "${LINKER_FLAG}.a"
-                "${CMAKE_STATIC_LIBRARY_PREFIX}${LINKER_FLAG}.a"
-                "lib${LINKER_FLAG}.a"
-        )
-    else ()
-        set(
-                POSSIBLE_LIBRARY_FILENAMES
-                "${LINKER_FLAG}${CMAKE_SHARED_LIBRARY_SUFFIX}"
-                "${CMAKE_SHARED_LIBRARY_PREFIX}${LINKER_FLAG}${CMAKE_SHARED_LIBRARY_SUFFIX}"
-                "lib${LINKER_FLAG}${CMAKE_SHARED_LIBRARY_SUFFIX}"
-                "${LINKER_FLAG}.so"
-                "${CMAKE_SHARED_LIBRARY_PREFIX}${LINKER_FLAG}.so"
-                "lib${LINKER_FLAG}.so"
-                "${LINKER_FLAG}.dll"
-                "${CMAKE_SHARED_LIBRARY_PREFIX}${LINKER_FLAG}.dll"
-                "lib${LINKER_FLAG}.dll"
-                "${LINKER_FLAG}.dll.a"
-                "${CMAKE_SHARED_LIBRARY_PREFIX}${LINKER_FLAG}.dll.a"
-                "lib${LINKER_FLAG}.dll.a"
-        )
-    endif ()
+    if(IS_STATIC)
+        set(POSSIBLE_LIBRARY_FILENAMES
+            "${LINKER_FLAG}${CMAKE_STATIC_LIBRARY_SUFFIX}"
+            "${CMAKE_STATIC_LIBRARY_PREFIX}${LINKER_FLAG}${CMAKE_STATIC_LIBRARY_SUFFIX}"
+            "lib${LINKER_FLAG}${CMAKE_STATIC_LIBRARY_SUFFIX}"
+            "${LINKER_FLAG}.a"
+            "${CMAKE_STATIC_LIBRARY_PREFIX}${LINKER_FLAG}.a"
+            "lib${LINKER_FLAG}.a")
+    else()
+        set(POSSIBLE_LIBRARY_FILENAMES
+            "${LINKER_FLAG}${CMAKE_SHARED_LIBRARY_SUFFIX}"
+            "${CMAKE_SHARED_LIBRARY_PREFIX}${LINKER_FLAG}${CMAKE_SHARED_LIBRARY_SUFFIX}"
+            "lib${LINKER_FLAG}${CMAKE_SHARED_LIBRARY_SUFFIX}"
+            "${LINKER_FLAG}.so"
+            "${CMAKE_SHARED_LIBRARY_PREFIX}${LINKER_FLAG}.so"
+            "lib${LINKER_FLAG}.so"
+            "${LINKER_FLAG}.dll"
+            "${CMAKE_SHARED_LIBRARY_PREFIX}${LINKER_FLAG}.dll"
+            "lib${LINKER_FLAG}.dll"
+            "${LINKER_FLAG}.dll.a"
+            "${CMAKE_SHARED_LIBRARY_PREFIX}${LINKER_FLAG}.dll.a"
+            "lib${LINKER_FLAG}.dll.a")
+    endif()
     unset(POSSIBLE_LIBRARY_FILENAME)
-    if (IS_STATIC)
+    if(IS_STATIC)
         set(TARGET_POSTFIX "STATIC")
-    else ()
+    else()
         set(TARGET_POSTFIX "SHARED")
-    endif ()
-    foreach (POSSIBLE_LIBRARY_FILENAME ${POSSIBLE_LIBRARY_FILENAMES})
+    endif()
+    foreach(POSSIBLE_LIBRARY_FILENAME ${POSSIBLE_LIBRARY_FILENAMES})
         find_library(CEU_CM_LIB_FL_${LINKER_FLAG}_ABSPATH_${TARGET_POSTFIX} ${POSSIBLE_LIBRARY_FILENAME})
-        if (CEU_CM_LIB_FL_${LINKER_FLAG}_ABSPATH_${TARGET_POSTFIX})
-            message(DEBUG "${LINKER_FLAG}: Finding ${POSSIBLE_LIBRARY_FILENAME} SUCCESS = ${CEU_CM_LIB_FL_${LINKER_FLAG}_ABSPATH_${TARGET_POSTFIX}}!")
-            set(${OUTPUT_VARIABLE} ${CEU_CM_LIB_FL_${LINKER_FLAG}_ABSPATH_${TARGET_POSTFIX}} PARENT_SCOPE)
+        if(CEU_CM_LIB_FL_${LINKER_FLAG}_ABSPATH_${TARGET_POSTFIX})
+            message(
+                DEBUG
+                "${LINKER_FLAG}: Finding ${POSSIBLE_LIBRARY_FILENAME} SUCCESS = ${CEU_CM_LIB_FL_${LINKER_FLAG}_ABSPATH_${TARGET_POSTFIX}}!"
+            )
+            set(${OUTPUT_VARIABLE}
+                ${CEU_CM_LIB_FL_${LINKER_FLAG}_ABSPATH_${TARGET_POSTFIX}}
+                PARENT_SCOPE)
             unset(CEU_CM_LIB_FL_${LINKER_FLAG}_ABSPATH_${TARGET_POSTFIX} CACHE)
             return()
-        else ()
+        else()
             message(DEBUG "${LINKER_FLAG}: Finding ${POSSIBLE_LIBRARY_FILENAME} FAILED!")
-        endif ()
-    endforeach ()
-    set(${OUTPUT_VARIABLE} ${LINKER_FLAG}-NOTFOUND PARENT_SCOPE)
+        endif()
+    endforeach()
+    set(${OUTPUT_VARIABLE}
+        ${LINKER_FLAG}-NOTFOUND
+        PARENT_SCOPE)
 endfunction()
 
 #[=======================================================================[
@@ -95,22 +98,25 @@ Sets:
     - `CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}*`: Cache level. For debug purposes.
 #]=======================================================================]
 function(ceu_cm_get_linker_flags_from_pkg_config OUTPUT_VARIABLE PKGCONFIG_NAME IS_STATIC)
-    if (PKG_CONFIG_FOUND)
-        pkg_check_modules(
-                CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME} ${PKGCONFIG_NAME}
-                QUIET
-        )
-        if (CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}_FOUND)
-            if (NOT ${IS_STATIC} AND CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}_LIBRARIES)
-                set(${OUTPUT_VARIABLE} ${CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}_LIBRARIES} PARENT_SCOPE)
+    if(PKG_CONFIG_FOUND)
+        pkg_check_modules(CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME} ${PKGCONFIG_NAME} QUIET)
+        if(CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}_FOUND)
+            if(NOT ${IS_STATIC} AND CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}_LIBRARIES)
+                set(${OUTPUT_VARIABLE}
+                    ${CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}_LIBRARIES}
+                    PARENT_SCOPE)
                 return()
-            elseif (${IS_STATIC} AND CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}_STATIC_LIBRARIES)
-                set(${OUTPUT_VARIABLE} ${CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}_STATIC_LIBRARIES} PARENT_SCOPE)
+            elseif(${IS_STATIC} AND CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}_STATIC_LIBRARIES)
+                set(${OUTPUT_VARIABLE}
+                    ${CEU_CM_PKGCONF_LIB_${PKGCONFIG_NAME}_STATIC_LIBRARIES}
+                    PARENT_SCOPE)
                 return()
-            endif ()
-        endif ()
-    endif ()
-    set(${OUTPUT_VARIABLE} ${OUTPUT_VARIABLE}-NOTFOUND PARENT_SCOPE)
+            endif()
+        endif()
+    endif()
+    set(${OUTPUT_VARIABLE}
+        ${OUTPUT_VARIABLE}-NOTFOUND
+        PARENT_SCOPE)
 endfunction()
 
 #[=======================================================================[
@@ -132,20 +138,24 @@ Sets:
 #]=======================================================================]
 function(ceu_cm_get_library_abspath_from_pkg_config OUTPUT_VARIABLE PKGCONFIG_NAME IS_STATIC)
     ceu_cm_get_linker_flags_from_pkg_config(LINKER_FLAGS "${PKGCONFIG_NAME}" "${IS_STATIC}")
-    if (NOT LINKER_FLAGS)
-        set(${OUTPUT_VARIABLE} ${OUTPUT_VARIABLE}-NOTFOUND PARENT_SCOPE)
+    if(NOT LINKER_FLAGS)
+        set(${OUTPUT_VARIABLE}
+            ${OUTPUT_VARIABLE}-NOTFOUND
+            PARENT_SCOPE)
         return()
-    endif ()
+    endif()
 
-    foreach (LINKER_FLAG ${LINKER_FLAGS})
+    foreach(LINKER_FLAG ${LINKER_FLAGS})
         ceu_cm_get_abspath_from_linker_flag(${LINKER_FLAG}_LIBRARY_ABSPATH ${LINKER_FLAG} ${IS_STATIC})
-        if (${LINKER_FLAG}_LIBRARY_ABSPATH)
+        if(${LINKER_FLAG}_LIBRARY_ABSPATH)
             list(APPEND THIS_LIBRARY_ABSPATHS ${${LINKER_FLAG}_LIBRARY_ABSPATH})
-        else ()
+        else()
             list(APPEND THIS_LIBRARY_ABSPATHS ${LINKER_FLAG}-NOTFOUND)
-        endif ()
-    endforeach ()
-    set(${OUTPUT_VARIABLE} ${THIS_LIBRARY_ABSPATHS} PARENT_SCOPE)
+        endif()
+    endforeach()
+    set(${OUTPUT_VARIABLE}
+        ${THIS_LIBRARY_ABSPATHS}
+        PARENT_SCOPE)
 endfunction()
 
 #[=======================================================================[
@@ -171,52 +181,65 @@ function(ceu_cm_enhanced_find_library)
     set(multiValueArgs "")
     cmake_parse_arguments(CEU_CM_ENHANCED_FIND_LIBRARY "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
-    if (CEU_CM_ENHANCED_FIND_LIBRARY_NO_CACHE AND DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE)
+    if(CEU_CM_ENHANCED_FIND_LIBRARY_NO_CACHE AND DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE)
         return()
-    endif ()
+    endif()
 
-    if (CEU_CM_ENHANCED_FIND_LIBRARY_STATIC)
+    if(CEU_CM_ENHANCED_FIND_LIBRARY_STATIC)
         set(CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_TYPE "static")
-    else ()
+    else()
         set(CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_TYPE "shared")
-    endif ()
+    endif()
 
-    if (NOT DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_LINKER_FLAG AND NOT DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME)
+    if(NOT DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_LINKER_FLAG AND NOT DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME)
         message(FATAL_ERROR "You need to define LINKER_FLAG or LIBRARY_PKGCONFIG_NAME")
-    endif ()
+    endif()
 
-    if (DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME AND CEU_CM_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME AND PKG_CONFIG_FOUND)
+    if(DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME
+       AND CEU_CM_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME
+       AND PKG_CONFIG_FOUND)
         ceu_cm_get_library_abspath_from_pkg_config(
-                "${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS"
-                "${CEU_CM_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME}"
-                "${CEU_CM_ENHANCED_FIND_LIBRARY_STATIC}"
+            "${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS"
+            "${CEU_CM_ENHANCED_FIND_LIBRARY_PKGCONFIG_NAME}" "${CEU_CM_ENHANCED_FIND_LIBRARY_STATIC}")
+    endif()
+    if(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS)
+        if(CEU_CM_ENHANCED_FIND_LIBRARY_NO_CACHE)
+            set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}
+                ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS}
+                PARENT_SCOPE)
+        else()
+            set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}
+                ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS}
+                CACHE INTERNAL
+                      "Result of calling ceu_cm_enhanced_find_library(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE})")
+        endif()
+        message(
+            "CEU_CM: Find ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_TYPE} ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}}"
         )
-    endif ()
-    if (${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS)
-        if (CEU_CM_ENHANCED_FIND_LIBRARY_NO_CACHE)
-            set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS} PARENT_SCOPE)
-        else ()
-            set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS} CACHE INTERNAL "Result of calling ceu_cm_enhanced_find_library(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE})")
-        endif ()
-        message("CEU_CM: Find ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_TYPE} ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}}")
         return()
-    endif ()
+    endif()
 
-    if (DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_LINKER_FLAG AND CEU_CM_ENHANCED_FIND_LIBRARY_LINKER_FLAG)
+    if(DEFINED CEU_CM_ENHANCED_FIND_LIBRARY_LINKER_FLAG AND CEU_CM_ENHANCED_FIND_LIBRARY_LINKER_FLAG)
         ceu_cm_get_abspath_from_linker_flag(
-                "${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS"
-                "${CEU_CM_ENHANCED_FIND_LIBRARY_LINKER_FLAG}"
-                "${CEU_CM_ENHANCED_FIND_LIBRARY_STATIC}"
-        )
-    endif ()
-    if (NOT ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS)
-        set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}-NOTFOUND)
-    endif ()
-    if (CEU_CM_ENHANCED_FIND_LIBRARY_NO_CACHE)
-        set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS} PARENT_SCOPE)
-    else ()
-        set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS} CACHE INTERNAL "Result of calling ceu_cm_enhanced_find_library(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE})")
-    endif ()
-    message("CEU_CM: Find ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_TYPE} ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}}")
+            "${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS"
+            "${CEU_CM_ENHANCED_FIND_LIBRARY_LINKER_FLAG}" "${CEU_CM_ENHANCED_FIND_LIBRARY_STATIC}")
+    endif()
+    if(NOT ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS)
+        set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS
+            ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}-NOTFOUND)
+    endif()
+    if(CEU_CM_ENHANCED_FIND_LIBRARY_NO_CACHE)
+        set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}
+            ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS}
+            PARENT_SCOPE)
+    else()
+        set(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}
+            ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}_TMP_LIBRARY_ABSPATHS}
+            CACHE INTERNAL
+                  "Result of calling ceu_cm_enhanced_find_library(${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE})")
+    endif()
+    message(
+        "CEU_CM: Find ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_TYPE} ${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE} ${${CEU_CM_ENHANCED_FIND_LIBRARY_OUTPUT_VARIABLE}}"
+    )
     return()
 endfunction()
