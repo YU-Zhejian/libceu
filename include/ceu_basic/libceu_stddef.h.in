@@ -1,18 +1,40 @@
+/**
+ * @file libceu_stddef.h.in
+ * @author YU Zhejian
+ * @brief Feature detection macros used by the compiler.
+ * @version 0.1
+ * @date 2024-04-28
+ * 
+ * A clean file that have no external dependencies.
+ */
+#ifndef LIBCEU_STDDEF_H
+#define LIBCEU_STDDEF_H
+
 // On following code 1 indicates success.
 #cmakedefine01 CEU_HAVE_SNPRINTF
 #cmakedefine01 CEU_HAVE__SNPRINTF
 #cmakedefine01 CEU_HAVE_STRNCPY_S
 #cmakedefine01 CEU_HAVE_INCLUDE_STDBOOL_H
+#cmakedefine01 CEU_HAVE_INCLUDE_STDNORETURN_H
 #cmakedefine01 CEU_HAVE_INCLUDE_VERSIONHELPERS_H
 #cmakedefine01 CEU_HAVE_INCLUDE_CYGWIN_VERSION_H
 #cmakedefine01 CEU_HAVE_INCLUDE_SYS_UTSNAME_H
 
 // On following code 0 indicates success.
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_BOOL_RUN_STATIC
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_BOOL_RUN_SHARED
 #cmakedefine01 CEU_CM_HAVE_WORKING_C__BOOL_RUN_STATIC
 #cmakedefine01 CEU_CM_HAVE_WORKING_C__BOOL_RUN_SHARED
 #cmakedefine01 CEU_CM_HAVE_WORKING_C_INLINE_RUN_STATIC
 #cmakedefine01 CEU_CM_HAVE_WORKING_C_INLINE_RUN_SHARED
 #cmakedefine01 CEU_CM_HAVE_WORKING_C___INLINE_RUN_STATIC
 #cmakedefine01 CEU_CM_HAVE_WORKING_C___INLINE_RUN_SHARED
+#cmakedefine01 CEU_CM_HAVE_WORKING_C___INLINE___RUN_STATIC
+#cmakedefine01 CEU_CM_HAVE_WORKING_C___INLINE___RUN_SHARED
 #cmakedefine01 CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC
 #cmakedefine01 CEU_CM_HAVE_WORKING_C__NORETURN_RUN_SHARED
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_NORETURN_RUN_STATIC
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED
+#cmakedefine01 CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_STATIC
+#cmakedefine01 CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_SHARED
+#endif

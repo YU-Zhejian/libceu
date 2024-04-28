@@ -1,5 +1,15 @@
-#include "ceu_check/ceu_check_cc.h"
+/**
+ * @file ceu_cdefs.h
+ * @author YU Zhejian
+ * @brief Defines GNU-compatuble __attribute__ macro.
+ * @version 0.1
+ * @date 2024-04-28
+ *
+ */
+#include "ceu_basic/libceu_stddef.h"
 
-#if !(defined(CEU_COMPILER_IS_GCC) || defined(CEU_COMPILER_IS_CLANG))
+#if (CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_STATIC * CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_STATIC == 0)
+#else
+// Define GNU-compatuble __attribute__ macro.
 #define __attribute__(x)
 #endif
