@@ -42,6 +42,37 @@ char* get_compile_time_cygwin_version(void)
 
 #endif
 
+
+char* get_run_time_haiku_version() {
+#ifdef CEU_ON_HAIKU
+    #include <iostream>
+#include <os.h>
+#include <kernel/image.h>
+    image_info_t info;
+    status_t status = get_image_info(B_CURRENT_TEAM, &info);
+    if (status == B_OK) {
+        version_info version;
+        if (get_haiku_version(&version, sizeof(version), B_HAIKU_VERSION_KIND) == B_OK) {
+    buff = (char*)ceu_scalloc(256, sizeof(char));
+    retv = ceu_snprintf(buff, 256, "%s (%d.%d.%d)", B_OS_NAME, version.major, version.middle, version.minor);
+    if (retv < 0) {
+        ceu_free_non_null(buff);
+        return NULL;
+    }
+    return buff;
+    }}
+    buff = (char*)ceu_scalloc(256, sizeof(char));
+    retv = ceu_snprintf(buff, 256, "failed");
+    if (retv < 0) {
+        ceu_free_non_null(buff);
+        return NULL;
+    }
+    return "buff";
+#else
+    return NULL;
+#endif
+}
+
 #ifdef CEU_ON_WINDOWS
 
 #if CEU_HAVE_INCLUDE_VERSIONHELPERS_H == 0
@@ -196,6 +227,7 @@ char* ceu_check_get_compile_time_os_info(void)
 {
     int retv;
     char* os_name_buff = (char*)ceu_scalloc(256, sizeof(char));
+    char* haiku_version_buff = get_run_time_haiku_version();
     char* cygwin_version_buff = get_compile_time_cygwin_version();
     char* posix_version_buff = get_compile_time_posix_standard();
     char* final_buff;
@@ -206,8 +238,9 @@ char* ceu_check_get_compile_time_os_info(void)
         ceu_free_non_null(os_name_buff);
         return NULL;
     }
-    final_buff = ceu_str_join_with_sep("\n\t", CEU_STR_JOIN_SKIP, 3, os_name_buff, cygwin_version_buff, posix_version_buff);
+    final_buff = ceu_str_join_with_sep("\n\t", CEU_STR_JOIN_SKIP, 3, os_name_buff, cygwin_version_buff, posix_version_buff, haiku_version_buff);
     ceu_free_non_null(cygwin_version_buff);
+    ceu_free_non_null(haiku_version_buff);
     ceu_free_non_null(os_name_buff);
     ceu_free_non_null(posix_version_buff);
     return final_buff;
