@@ -11,6 +11,13 @@ It is still under development. Do not use.
 
 ## Supported Operating Systems
 
+- GNU/Linux. Tested on Debian GNU/Linux 11.
+- BSD. Test on FreeBSD 14 (quarter).
+- OpenSolaris. Tested on OpenIndiana (latest).
+- Haiku.
+- Debian GNU/Hurd.
+- Microsoft Windows.
+
 For Visual Studio Users:
 
 Tested under MS Visual Studio 2019 (Windows 7) and 2022 (Windows 10). A Windows 10 SDK and Universal C Runtime (UCRT) should be needed.
