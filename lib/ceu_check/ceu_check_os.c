@@ -42,14 +42,14 @@ char* get_compile_time_cygwin_version(void)
 
 #endif
 
-
-char* get_run_time_haiku_version(void ) {
+char* get_run_time_haiku_version(void)
+{
     // FIXME: Contains bugs.
     /*
 #ifdef CEU_ON_HAIKU
     #include <iostream>
-#include <os.h>
 #include <kernel/image.h>
+#include <os.h>
     image_info_t info;
     status_t status = get_image_info(B_CURRENT_TEAM, &info);
     if (status == B_OK) {

@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 #include "ceu_basic/ceu_c_utils.h"
+#include "ceu_check/ceu_check_os.h"
 #include "ceu_cstd/ceu_stdio.h"
 #include "ceu_cstd/ceu_string.h"
-#include "ceu_check/ceu_check_os.h"
 
 void* ceu_smalloc(size_t size)
 {
@@ -36,7 +36,8 @@ void* ceu_srealloc(void* m, size_t size)
     return retm;
 }
 
-void* ceu_sreallocarray(void* m, size_t count, size_t size){
+void* ceu_sreallocarray(void* m, size_t count, size_t size)
+{
     void* retm = realloc(m, size * count);
     if (retm == NULL) {
         ceu_free_non_null(m);
@@ -48,7 +49,7 @@ void* ceu_sreallocarray(void* m, size_t count, size_t size){
 void ceu_free_non_null(void* m)
 {
     if (m != NULL) {
-       free(m);
+        free(m);
     }
 #ifndef CEU_ON_WINDOWS
     m = NULL;

@@ -100,20 +100,20 @@ static void (*minunit_teardown)(void) = NULL;
     minunit_teardown = teardown_fun;)
 
 /*  Test runner */
-#define MU_RUN_TEST(test) MU__SAFE_BLOCK(                     \
-    if (minunit_setup) (*minunit_setup)();                  \
-    minunit_status = 0;                                       \
-    test();                                                   \
-    minunit_run++;                                            \
-    if (minunit_status) {                                     \
-        minunit_fail++;                                       \
-        printf("F");                                          \
-        printf("\n%s\n", minunit_last_message);               \
-    }(void)fflush(stdout);                                    \
+#define MU_RUN_TEST(test) MU__SAFE_BLOCK(       \
+    if (minunit_setup) (*minunit_setup)();      \
+    minunit_status = 0;                         \
+    test();                                     \
+    minunit_run++;                              \
+    if (minunit_status) {                       \
+        minunit_fail++;                         \
+        printf("F");                            \
+        printf("\n%s\n", minunit_last_message); \
+    }(void)fflush(stdout);                      \
     if (minunit_teardown)(*minunit_teardown)();)
 
 /*  Report */
-#define MU_REPORT() MU__SAFE_BLOCK(                                                                  \
+#define MU_REPORT() MU__SAFE_BLOCK( \
     printf("\n\n%d tests, %d assertions, %d failures\n", minunit_run, minunit_assert, minunit_fail);)
 #define MU_EXIT_CODE minunit_fail
 

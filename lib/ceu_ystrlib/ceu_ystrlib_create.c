@@ -38,7 +38,7 @@ void ceu_ystr_guarantee(ceu_ystr_t* ystr, size_t new_buffer_size)
     ystr->buff_length = new_buffer_size;
 
     ystr->buff = (char*)ceu_sreallocarray(ystr->buff, ystr->buff_length, sizeof(char));
-    for(size_t i = ystr->consumed_length; i < ystr->buff_length; i++){
+    for (size_t i = ystr->consumed_length; i < ystr->buff_length; i++) {
         ystr->buff[i] = CEU_STRING_ENDING;
     }
 }
