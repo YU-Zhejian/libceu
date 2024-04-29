@@ -44,18 +44,20 @@ extern "C" {
 #endif
 
 #if defined(__APPLE__) || defined(__MACH__)
-#define CEU_ON_APPLE
-#include <TargetConditionals.h>
-#if TARGET_IPHONE_SIMULATOR == 1 || TARGET_OS_IPHONE == 1
-#define CEU_ON_APPLE_IOS
-#define CEU_PRIMARY_OS_TYPE "Apple IOS"
-#elif TARGET_OS_MAC == 1
-#define CEU_ON_APPLE_MACOSX
-#define CEU_PRIMARY_OS_TYPE "Apple MacOSX"
-#else
-#define CEU_ON_APPLE_UNKNOWN
-#define CEU_PRIMARY_OS_TYPE "Apple UNKNOWN"
-#endif
+// #define CEU_ON_APPLE
+// #include <TargetConditionals.h>
+// #if TARGET_IPHONE_SIMULATOR == 1 || TARGET_OS_IPHONE == 1
+// #define CEU_ON_APPLE_IOS
+// #define CEU_PRIMARY_OS_TYPE "Apple IOS"
+// #elif TARGET_OS_MAC == 1
+// #define CEU_ON_APPLE_MACOSX
+// #define CEU_PRIMARY_OS_TYPE "Apple MacOSX"
+// #else
+// #define CEU_ON_APPLE_UNKNOWN
+// #define CEU_PRIMARY_OS_TYPE "Apple UNKNOWN"
+// #endif
+#define CEU_ON_MACH
+#define CEU_PRIMIARY_OS_TYPE "MACH"
 #endif
 
 #if defined(__linux) || defined(__linux__) || defined(linux) || defined(__gnu_linux__)
