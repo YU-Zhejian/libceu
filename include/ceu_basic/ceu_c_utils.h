@@ -38,10 +38,25 @@ void* ceu_smalloc(size_t size);
 /*!
  * @brief A simple wrapper to calloc() that allows program exit with retv=12
  * if failed.
- * @param size Number of bytes to allocate.
  * @return Allocated memory
  */
 void* ceu_scalloc(size_t count, size_t size);
+
+/*!
+ * @brief A simple wrapper to realloc() that allows program exit with retv=12
+ * if failed.
+ * @param size Number of bytes to allocate.
+ * @return Allocated memory
+ */
+void* ceu_srealloc(void* m, size_t size);
+
+/*!
+ * @brief A simple wrapper to realloc() that allows program exit with retv=12
+ * if failed.
+ * @param size Number of bytes to allocate.
+ * @return Allocated memory
+ */
+void* ceu_sreallocarray(void* m, size_t count, size_t size);
 
 /**
  * @brief Free a piece of memory if it is not NULL. The piece of memory will be set to NULL afterwards.

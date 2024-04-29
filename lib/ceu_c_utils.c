@@ -25,6 +25,25 @@ void* ceu_scalloc(size_t count, size_t size)
     return m;
 }
 
+void* ceu_srealloc(void* m, size_t size)
+{
+    void* retm = realloc(m, size);
+    if (retm == NULL) {
+        ceu_free_non_null(m);
+        ceu_die_with_retv("ERR 12 -- Cannot allocate memory", 12);
+    }
+    return retm;
+}
+
+void* ceu_sreallocarray(void* m, size_t count, size_t size){
+    void* retm = realloc(m, size * count);
+    if (retm == NULL) {
+        ceu_free_non_null(m);
+        ceu_die_with_retv("ERR 12 -- Cannot allocate memory", 12);
+    }
+    return retm;
+}
+
 void ceu_free_non_null(void* m)
 {
     if (m != NULL) {
