@@ -43,7 +43,9 @@ char* get_compile_time_cygwin_version(void)
 #endif
 
 
-char* get_run_time_haiku_version() {
+char* get_run_time_haiku_version(void ) {
+    // FIXME: Contains bugs.
+    /*
 #ifdef CEU_ON_HAIKU
     #include <iostream>
 #include <os.h>
@@ -53,7 +55,7 @@ char* get_run_time_haiku_version() {
     if (status == B_OK) {
         version_info version;
         if (get_haiku_version(&version, sizeof(version), B_HAIKU_VERSION_KIND) == B_OK) {
-    buff = (char*)ceu_scalloc(256, sizeof(char));
+    char* buff = (char*)ceu_scalloc(256, sizeof(char));
     retv = ceu_snprintf(buff, 256, "%s (%d.%d.%d)", B_OS_NAME, version.major, version.middle, version.minor);
     if (retv < 0) {
         ceu_free_non_null(buff);
@@ -61,16 +63,12 @@ char* get_run_time_haiku_version() {
     }
     return buff;
     }}
-    buff = (char*)ceu_scalloc(256, sizeof(char));
-    retv = ceu_snprintf(buff, 256, "failed");
-    if (retv < 0) {
-        ceu_free_non_null(buff);
-        return NULL;
-    }
-    return "buff";
+    return NULL;
 #else
     return NULL;
 #endif
+     */
+    return NULL;
 }
 
 #ifdef CEU_ON_WINDOWS
