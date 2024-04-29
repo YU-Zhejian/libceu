@@ -12,7 +12,7 @@
  */
 ceu_ystr_t* ceu_ystr_proxy_create_from_cstr(const char* cstr)
 {
-    ceu_ystr_t* ceu_ystr = (ceu_ystr_t*)ceu_smalloc(sizeof(ceu_ystr));
+    ceu_ystr_t* ceu_ystr = (ceu_ystr_t*)ceu_smalloc(sizeof(ceu_ystr_t));
     size_t sl = ceu_strlen(cstr);
     ceu_ystr->buff_length = sl + 1;
     ceu_ystr->buff = cstr;
@@ -27,6 +27,7 @@ ceu_ystr_t* ceu_ystr_proxy_create_from_cstr(const char* cstr)
  */
 void ceu_ystr_proxy_destroy(ceu_ystr_t* ystr)
 {
+    ystr->buff = NULL;
     ystr->consumed_length = 0;
     ystr->buff_length = 0;
     ceu_free_non_null(ystr);
@@ -49,23 +50,25 @@ ceu_ystr_t* ceu_ystr_cstr_concat_const(const ceu_ystr_t* ystr, const char* cstr)
 
 void ceu_ystr_concat_inplace(ceu_ystr_t* ystr, const ceu_ystr_t* ystr2)
 {
-    ceu_ystr_guarantee(ystr, ystr2->consumed_length + ystr->consumed_length + 1);
-    for (size_t i = 0; i <= ystr2->consumed_length; ++i) {
+    size_t new_consumed_length = ystr2->consumed_length + ystr->consumed_length;
+    ceu_ystr_guarantee(ystr, new_consumed_length + 1);
+    for (size_t i = 0; i < ystr2->consumed_length; ++i) {
         ystr->buff[i + ystr->consumed_length] = ystr2->buff[i];
     }
-    ystr->consumed_length = ystr2->consumed_length + ystr->consumed_length;
-    ystr->buff[ystr2->consumed_length + ystr->consumed_length + 1] = CEU_STRING_ENDING;
+    ystr->consumed_length = new_consumed_length;
+    ystr->buff[new_consumed_length] = CEU_STRING_ENDING;
 }
 
 ceu_ystr_t* ceu_ystr_concat_const(const ceu_ystr_t* ystr, const ceu_ystr_t* ystr2)
 {
-    size_t target_length = CEU_MAX(ystr2->consumed_length + ystr->consumed_length + 1, ystr->buff_length);
+    size_t new_consumed_length = ystr2->consumed_length + ystr->consumed_length;
+    size_t target_length = CEU_MAX(new_consumed_length + 1, ystr->buff_length);
     ceu_ystr_t* ystr_ret = ceu_ystr_create_from_cstr(ystr->buff, target_length - ystr2->consumed_length - 1);
 
-    for (size_t i = 0; i <= ystr2->consumed_length; ++i) {
+    for (size_t i = 0; i < ystr2->consumed_length; ++i) {
         ystr_ret->buff[i + ystr->consumed_length] = ystr2->buff[i];
     }
-    ystr_ret->consumed_length = ystr2->consumed_length + ystr->consumed_length;
-    ystr_ret->buff[ystr2->consumed_length + ystr->consumed_length + 1] = CEU_STRING_ENDING;
+    ystr_ret->consumed_length = new_consumed_length;
+    ystr_ret->buff[new_consumed_length] = CEU_STRING_ENDING;
     return ystr_ret;
 }

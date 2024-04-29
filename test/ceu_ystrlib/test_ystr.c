@@ -154,6 +154,15 @@ MU_TEST(ystr_garantee)
     ceu_ystr_destroy(ystr1);
 }
 
+MU_TEST(ystr_garantee2)
+{
+    ceu_ystr_t* ystr1 = ceu_ystr_create_from_cstr("3000000000", 0);
+    ceu_ystr_guarantee(ystr1, 2);
+    mu_assert_string_eq("3000000000", ystr1->buff);
+    mu_assert_int_eq(11, ystr1->buff_length);
+    ceu_ystr_destroy(ystr1);
+}
+
 MU_TEST(ystr_concat_inplace)
 {
     ceu_ystr_t* ystr1 = ceu_ystr_create_from_cstr("3000", 0);
@@ -269,6 +278,7 @@ MU_TEST_SUITE(test_suite)
     MU_RUN_TEST(ystr_to_cstr_ncpy2);
     MU_RUN_TEST(ystr_copy);
     MU_RUN_TEST(ystr_garantee);
+    MU_RUN_TEST(ystr_garantee2);
     MU_RUN_TEST(ystr_concat_inplace);
     MU_RUN_TEST(ystr_concat_inplace2);
     MU_RUN_TEST(ystr_concat_inplace3);

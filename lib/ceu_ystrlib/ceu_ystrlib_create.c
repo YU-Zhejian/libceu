@@ -41,8 +41,6 @@ void ceu_ystr_guarantee(ceu_ystr_t* ystr, size_t new_buffer_size)
     for(size_t i = ystr->consumed_length; i < ystr->buff_length; i++){
         ystr->buff[i] = CEU_STRING_ENDING;
     }
-    // ceu_strncpy(ystr->buff, tmpcstr, ystr->consumed_length);
-   //  ceu_free_non_null(tmpcstr);
 }
 
 ceu_ystr_t* ceu_ystr_copy(const ceu_ystr_t* ystr)

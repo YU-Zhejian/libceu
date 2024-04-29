@@ -30,6 +30,7 @@ noreturn void ceu_die(char* reason);
 /*!
  * @brief A simple wrapper to malloc() that allows program exit with retv=12
  * if failed.
+ * In this implementation, the allocated memory will be initialized with 0.
  * @param size Number of bytes to allocate.
  * @return Allocated memory
  */
@@ -38,6 +39,7 @@ void* ceu_smalloc(size_t size);
 /*!
  * @brief A simple wrapper to calloc() that allows program exit with retv=12
  * if failed.
+ * In this implementation, the allocated memory will be initialized with 0.
  * @return Allocated memory
  */
 void* ceu_scalloc(size_t count, size_t size);
@@ -45,6 +47,7 @@ void* ceu_scalloc(size_t count, size_t size);
 /*!
  * @brief A simple wrapper to realloc() that allows program exit with retv=12
  * if failed.
+ * In this implementation, the newly allocated memory will NOT be initialized with 0.
  * @param size Number of bytes to allocate.
  * @return Allocated memory
  */
@@ -53,6 +56,7 @@ void* ceu_srealloc(void* m, size_t size);
 /*!
  * @brief A simple wrapper to realloc() that allows program exit with retv=12
  * if failed.
+ * In this implementation, the newly allocated memory will NOT be initialized with 0.
  * @param size Number of bytes to allocate.
  * @return Allocated memory
  */

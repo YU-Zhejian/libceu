@@ -34,6 +34,7 @@ Params:
 Notice:
     This function works by adding following lines to link options:
     - `-static`
+    - `-static-libasan`
     - `-static-libgcc`
     - `-static-libstdc++`
     - `-static-libgfortran`
@@ -49,7 +50,7 @@ macro(ceu_cm_set_static_target name)
        AND NOT BORLAND
        AND NOT MSVC)
         target_link_options(
-            "${name}" PRIVATE -static $<$<COMPILE_LANGUAGE:C,CXX>:-static-libgcc>
+            "${name}" PRIVATE -static -static-libasan $<$<COMPILE_LANGUAGE:C,CXX>:-static-libgcc>
             $<$<COMPILE_LANGUAGE:CXX>:-static-libstdc++> $<$<COMPILE_LANGUAGE:Fortran>:-static-libgfortran>)
     endif()
 endmacro()
@@ -146,6 +147,7 @@ if(NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         ceu_cm_global_enhanced_check_compiler_flag(-g)
     else() # Debug, the default.
         set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+        ceu_cm_global_enhanced_check_compiler_flag(-fsanitize=address)
         ceu_cm_global_enhanced_check_compiler_flag(-Wall)
         ceu_cm_global_enhanced_check_compiler_flag(-Wextra)
         ceu_cm_global_enhanced_check_compiler_flag(/Wp64) # Visual Studio 64 bit compatibility

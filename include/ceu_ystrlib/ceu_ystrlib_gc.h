@@ -10,8 +10,7 @@
 void ceu_ystr_destroy(ceu_ystr_t* ystr);
 
 /**
- * @brief Clear the content of the string.
- * @warning Will NOT free the buffer.
+ * @brief Clear the content of the string without shrinking the buffer.
  *
  * @param ystr yStr to clear.
  */
