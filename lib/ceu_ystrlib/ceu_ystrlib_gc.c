@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "ceu_ystrlib/ceu_ystrlib_gc.h"
 #include "ceu_basic/ceu_c_utils.h"
 #include "ceu_basic/ceu_fast_macros.h"

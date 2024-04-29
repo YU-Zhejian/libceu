@@ -87,6 +87,11 @@ extern "C" {
 #define CEU_PRIMARY_OS_TYPE "Solaris"
 #endif
 
+#if defined(__HAIKU__)
+#define CEU_ON_HAIKU
+#define CEU_PRIMARY_OS_TYPE "HAIKU"
+#endif
+
 #if defined(__ANDROID__)
 #define CEU_ON_ANDROID
 #define CEU_PRIMARY_OS_TYPE "Android"

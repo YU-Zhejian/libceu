@@ -35,8 +35,9 @@ void ceu_free_non_null(void* m)
 
 noreturn void ceu_die_with_retv(char* reason, int retv)
 {
-    printf("Error occured! reason:\t%s", reason);
+    printf("Error occured! reason:\t%s\n", reason);
 #if (defined CEU_CM_IS_DEBUG && CEU_CM_IS_DEBUG == 1)
+    printf("Ready to return at %d, but abort to allow debugging.\n", retv);
     // To allow debuggers to investigate
     abort();
 #else
