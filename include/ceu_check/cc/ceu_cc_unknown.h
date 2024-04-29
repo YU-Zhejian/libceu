@@ -1,5 +1,5 @@
-/**
- * For unknown ones
+/*!
+ * @brief For unknown ones
  */
 #ifndef CEU_COMPILER_NAME
 #define CEU_COMPILER_NAME "unknown"

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Shell script that counts how many lines of code was written by us.
 # shellcheck disable=SC2086
+which dos2unix &> /dev/null && \
 git ls-files |
     while read -r line; do
         if [ -e "${line}" ]; then
@@ -12,6 +13,7 @@ git ls-files |
     done
 wait
 
+which shfmt &> /dev/null && \
 git ls-files |
     grep -v 'deps' |
     grep -v '.idea/' |
@@ -26,6 +28,7 @@ git ls-files |
     done
 wait
 
+which black &> /dev/null && \
 git ls-files |
     grep -v 'deps' |
     grep -v '.idea/' |
@@ -40,6 +43,7 @@ git ls-files |
     done
 wait
 
+which clang-format &> /dev/null && \
 git ls-files |
     grep -v 'deps' |
     grep -v '.idea/' |
@@ -54,6 +58,7 @@ git ls-files |
     done
 wait
 
+which cmake-format &> /dev/null && \
 git ls-files |
     grep -v 'deps' |
     grep -v '.idea/' |

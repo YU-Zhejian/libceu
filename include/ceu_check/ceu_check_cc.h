@@ -20,10 +20,6 @@
 #undef CEU_COMPILER_VERSION
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "ceu_cstd/ceu_stdbool.h"
 // Inclusion order of following lines should be preserved
 // clang-format off
@@ -36,6 +32,10 @@ extern "C" {
 #include "cc/ceu_cc_gcc.h" // NOLINT
 #include "cc/ceu_cc_unknown.h" // NOLINT
 // clang-format on
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*!
  * @brief Get a string describing compiler version.

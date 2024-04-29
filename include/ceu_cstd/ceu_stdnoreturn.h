@@ -16,7 +16,9 @@
 
 #include "ceu_check/ceu_check_cc.h"
 
-#include "ceu_basic/libceu_stddef.h"
+#ifdef CEU_CM_UNDER_CMAKE
+#include "ceu_basic/libceu_stddef_cmake.h"
+#endif
 #if (CEU_HAVE_INCLUDE_STDNORETURN_H == 1 && CEU_CM_HAVE_WORKING_C_NORETURN_RUN_STATIC * CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED == 0)
 #include <stdnoreturn.h> // This file should define noreturn
 #elif (CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC * CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC == 0)

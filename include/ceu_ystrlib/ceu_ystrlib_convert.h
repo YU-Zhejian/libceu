@@ -5,7 +5,9 @@
 #ifndef CEU_YSTRLIB_CONVERT_H
 #define CEU_YSTRLIB_CONVERT_H
 #include <ceu_ystrlib/ceu_ystrlib.h>
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 /**
  * @brief Convert yStr to C string.
  * @warning Performs memory allocation inside. Use ceu_ystr_to_cstr_ncpy() if you want to avoid memory allocation.
@@ -33,5 +35,9 @@ void ceu_ystr_to_cstr_cpy(const ceu_ystr_t* ystr, char* dest);
  * @param dest Destination buffer.
  */
 void ceu_ystr_to_cstr_ncpy(const ceu_ystr_t* ystr, char* dest, size_t n);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // CEU_YSTRLIB_CONVERT_H

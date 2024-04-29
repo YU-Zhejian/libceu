@@ -172,7 +172,7 @@ function(ceu_cm_find_or_get_gtest)
             VARNAME
             GTEST
             SRC_PATH
-            "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/src/test_gtest.cpp"
+            "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/src/test_gtest.cc"
             LINK_LIBRARIES
             ${CEU_CM_GTEST_MAIN_LIBRARY_SHARED}
             DEPENDS
@@ -182,7 +182,7 @@ function(ceu_cm_find_or_get_gtest)
             VARNAME
             GTEST
             SRC_PATH
-            "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/src/test_gtest.cpp"
+            "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/src/test_gtest.cc"
             LINK_LIBRARIES
             ${CEU_CM_GTEST_MAIN_LIBRARY_STATIC}
             DEPENDS

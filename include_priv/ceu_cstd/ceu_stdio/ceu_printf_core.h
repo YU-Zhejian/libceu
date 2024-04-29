@@ -1,21 +1,13 @@
 #ifndef CEU_CSTD_STDIO_PRINTF_CORE_H
 #define CEU_CSTD_STDIO_PRINTF_CORE_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "ceu_cstd/ceu_stdbool.h"
 #include <stdarg.h>
 #include <stddef.h>
 
-#define MAX_UINT64_OCT_LENGTH 20
-
-static const char BIN_NUMBERS[] = { "01" };
-static const char AUG_NUMBERS[] = { "01234567" };
-static const char OCT_NUMBERS[] = { "0123456789" };
-static const char HEX_NUMBERS[] = { "0123456789ABCDEF" };
-static const char HEX_NUMBERS_LC[] = { "0123456789" };
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 enum CEU_PRINTF_STATE_MACHINE {
     CEU_PRINTF_PARSING_COMMON_CHAR = 0,

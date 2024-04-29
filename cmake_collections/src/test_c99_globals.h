@@ -9,14 +9,16 @@
 #include <stdbool.h>
 extern int puts(const char*);
 extern int printf(const char*, ...);
-extern int dprintf(int, const char*, ...);
+// extern int dprintf(int, const char*, ...);
+// FIXME: Not working under Windows
 extern void* malloc(size_t);
 extern void free(void*);
 
 // Check varargs macros.  These examples are taken from C99 6.10.3.5.
 // dprintf is used instead of fprintf to avoid needing to declare
 // FILE and stderr.
-#define debug(...) dprintf(2, __VA_ARGS__)
+// #define debug(...) dprintf(2, __VA_ARGS__)
+#define debug(...) // FIXME: See above
 #define showlist(...) puts(#__VA_ARGS__)
 #define report(test, ...) ((test) ? puts(#test) : printf(__VA_ARGS__))
 static void

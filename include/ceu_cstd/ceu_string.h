@@ -1,12 +1,15 @@
 #ifndef CEU_STRING_H
 #define CEU_STRING_H
+
+#ifdef CEU_CM_UNDER_CMAKE
+#include "ceu_basic/libceu_stddef_cmake.h"
+#endif
+
+#include <stddef.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "ceu_basic/libceu_stddef.h"
-
-#include <stddef.h>
 
 /*!
  * The `strncpy` definition provided by GNU.

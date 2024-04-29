@@ -1,5 +1,5 @@
-/*
- * Original LLVM Clang
+/*!
+ * @brief Original LLVM Clang
  */
 #if (defined(__clang__) || defined(__llvm__))
 #define CEU_COMPILER_IS_CLANG

@@ -5,7 +5,9 @@
 #ifndef CEU_YSTRLIB_CREATE_H
 #define CEU_YSTRLIB_CREATE_H
 #include <ceu_ystrlib/ceu_ystrlib.h>
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 /**
  * @brief Create an empty string.
  *
@@ -46,5 +48,9 @@ ceu_ystr_t* ceu_ystr_copy(const ceu_ystr_t* ystr);
  * @param new_buffer_size Target buffer size.
  */
 void ceu_ystr_guarantee(ceu_ystr_t* ystr, size_t new_buffer_size);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // CEU_YSTRLIB_CREATE_H

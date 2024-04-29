@@ -1,5 +1,5 @@
-/*
- * GNU GCC and G++
+/*!
+ * @brief GNU GCC and G++
  */
 #if defined(__GNUC__)
 #define CEU_COMPILER_IS_GCC

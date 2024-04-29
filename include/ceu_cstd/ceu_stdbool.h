@@ -9,11 +9,9 @@
 #ifndef CEU_STDBOOL_H
 #define CEU_STDBOOL_H
 
-#ifdef __cplusplus
-extern "C" {
+#ifdef CEU_CM_UNDER_CMAKE
+#include "ceu_basic/libceu_stddef_cmake.h"
 #endif
-
-#include "ceu_basic/libceu_stddef.h"
 
 #if (CEU_HAVE_INCLUDE_STDBOOL_H == 1 && CEU_CM_HAVE_WORKING_C_BOOL_RUN_STATIC * CEU_CM_HAVE_WORKING_C_BOOL_RUN_SHARED == 0)
 // Normal condition where stdbool.h is available and compatible
@@ -41,10 +39,6 @@ extern "C" {
 #endif // !__bool_true_false_are_defined
 
 #endif /* _STDBOOL */
-#endif
-
-#ifdef __cplusplus
-}
 #endif
 
 #endif

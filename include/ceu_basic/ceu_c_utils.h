@@ -1,8 +1,6 @@
 #ifndef CEU_C_UTILS_H
 #define CEU_C_UTILS_H
-#ifdef __cplusplus
-extern "C" {
-#endif
+
 #include "ceu_cstd/ceu_stdnoreturn.h"
 
 #include <stddef.h>
@@ -13,6 +11,10 @@ extern "C" {
             ceu_ensure_not_none(#X, __FILE__, __LINE__); \
         };                                               \
     }
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*!
  * Internal -- DO NOT USE!
@@ -68,10 +70,11 @@ void* ceu_sreallocarray(void* m, size_t count, size_t size);
  * @param m The memory to be freed.
  */
 void ceu_free_non_null(void* m);
+
+noreturn void ceu_press_any_key_to_exit(void);
+
 #ifdef __cplusplus
 }
 #endif
-
-noreturn void ceu_press_any_key_to_exit(void);
 
 #endif // CEU_C_UTILS_H

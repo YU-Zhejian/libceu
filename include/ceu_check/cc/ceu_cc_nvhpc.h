@@ -1,5 +1,4 @@
 /*!
-@file nvhpc.h
 @brief For NVidia HPC (NVHPC) Toolkit NVC++
 */
 #include <string.h>

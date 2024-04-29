@@ -1,5 +1,5 @@
-/**
- * Old Intel C/C++ compiler called ICC/ICPC
+/*!
+ * @brief Old Intel C/C++ compiler called ICC/ICPC
  */
 
 #if defined(__ICC) || defined(__INTEL_COMPILER)

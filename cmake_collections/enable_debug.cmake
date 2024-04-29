@@ -84,17 +84,22 @@ function(ceu_cm_global_enhanced_check_compiler_flag)
         endif()
         if(C_COMPILER_HAVE_${FLAG} AND CXX_COMPILER_HAVE_${FLAG})
             add_compile_options(${FLAG})
+            set(CEU_CM_ADDITIONAL_COMPILER_FLAGS ${FLAG} ${CEU_CM_ADDITIONAL_COMPILER_FLAGS} PARENT_SCOPE)
             return()
         endif()
     endforeach()
 endfunction()
 
+
 if(NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
+    set(CEU_CM_ADDITIONAL_COMPILER_FLAGS "")
     set(CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED
         TRUE
         CACHE BOOL "Whether a description on environment was printed.")
     # Detect C/CXX Pre-Processor Macros
-    ceu_cm_detect_c_preprocessor_macros()
+    if(NOT MSVC)
+        ceu_cm_detect_c_preprocessor_macros()
+    endif()
 
     # Detect Test.
     if(NOT DEFINED CEU_CM_SHOULD_ENABLE_TEST)
@@ -131,6 +136,8 @@ if(NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         ceu_cm_global_enhanced_check_compiler_flag(/utf-8)
         ceu_cm_global_enhanced_check_compiler_flag(/Qspectre) # Stop spectre memory issues
         ceu_cm_global_enhanced_check_compiler_flag(/MP) # Multiprocessing
+        ceu_cm_global_enhanced_check_compiler_flag(/Zc:__STDC__) # Define __STDC__
+        ceu_cm_global_enhanced_check_compiler_flag(/Zc:__cplusplus) # Define __cplusplus
     endif()
     # Detect build type.
     if(NOT DEFINED CMAKE_BUILD_TYPE)
@@ -149,23 +156,25 @@ if(NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         # ceu_cm_global_enhanced_check_compiler_flag(-fsanitize=address)
         ceu_cm_global_enhanced_check_compiler_flag(-Wall)
         ceu_cm_global_enhanced_check_compiler_flag(-Wextra)
-        ceu_cm_global_enhanced_check_compiler_flag(/Wp64) # Visual Studio 64 bit compatibility
-        ceu_cm_global_enhanced_check_compiler_flag(/permissive) # Visual Studio
-        ceu_cm_global_enhanced_check_compiler_flag(/sdl) # Visual Studio
-        ceu_cm_global_enhanced_check_compiler_flag(/Z7) # Visual Studio
-        ceu_cm_global_enhanced_check_compiler_flag(-pedantic -Wpedantic)
-        ceu_cm_global_enhanced_check_compiler_flag(-Og) # Add debug info
-        ceu_cm_global_enhanced_check_compiler_flag(-g3) # Add debug info
-        ceu_cm_global_enhanced_check_compiler_flag(-pg) # Add profiling info
-        ceu_cm_global_enhanced_check_compiler_flag(-O0) # Stop optimization
+        if(NOT MSVC)
+            ceu_cm_global_enhanced_check_compiler_flag(-pedantic -Wpedantic)
+            ceu_cm_global_enhanced_check_compiler_flag(-Og) # Add debug info
+            ceu_cm_global_enhanced_check_compiler_flag(-g3) # Add debug info
+            ceu_cm_global_enhanced_check_compiler_flag(-pg) # Add profiling info
+            ceu_cm_global_enhanced_check_compiler_flag(-O0) # Stop optimization
+        endif ()
+
+        if(MSVC)
+            ceu_cm_global_enhanced_check_compiler_flag(/Wp64) # Visual Studio 64 bit compatibility
+            ceu_cm_global_enhanced_check_compiler_flag(/permissive) # Visual Studio
+            ceu_cm_global_enhanced_check_compiler_flag(/sdl) # Visual Studio
+            ceu_cm_global_enhanced_check_compiler_flag(/Z7) # Visual Studio
+        endif ()
+
         set(CEU_CM_IS_DEBUG
             1
             CACHE INTERNAL "") # Also set CMake variable
-        if(CMAKE_VERSION GREATER_EQUAL 3.12)
-            add_compile_definitions(CEU_CM_IS_DEBUG)
-        else()
-            add_compile_options("-DCEU_CM_IS_DEBUG")
-        endif()
+        set(CEU_CM_ADDITIONAL_COMPILER_FLAGS "-DCEU_CM_IS_DEBUG" "-D__STDC_WANT_LIB_EXT1__=1" ${CEU_CM_ADDITIONAL_COMPILER_FLAGS})
     endif()
 
     message(STATUS "/------------------- Basic Information -------------------\\")
@@ -219,7 +228,9 @@ if(NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         STATUS
             "|CEU_CM_SHOULD_ENABLE_TEST=${CEU_CM_SHOULD_ENABLE_TEST}; CEU_CM_SHOULD_USE_NATIVE=${CEU_CM_SHOULD_USE_NATIVE}"
     )
+    message(STATUS "|CEU_CM_ADDITIONAL_COMPILER_FLAGS=${CEU_CM_ADDITIONAL_COMPILER_FLAGS}")
 
     message(STATUS "\\------------------- Basic Information -------------------/")
 
+    set(CEU_CM_ADDITIONAL_COMPILER_FLAGS ${CEU_CM_ADDITIONAL_COMPILER_FLAGS} CACHE INTERNAL "Additional compiler flags")
 endif()

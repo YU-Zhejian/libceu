@@ -255,7 +255,8 @@ namespace test_template_argument_deduction_for_class_templates {
 namespace test_non_type_auto_template_parameters {
 
     template <auto n>
-    struct B { };
+    struct B {
+    };
 
     B<5> b1;
     B<'a'> b2;
@@ -297,8 +298,10 @@ namespace test_structured_bindings {
 
 namespace test_exception_spec_type_system {
 
-    struct Good { };
-    struct Bad { };
+    struct Good {
+    };
+    struct Bad {
+    };
 
     void g1() noexcept;
     void g2();

@@ -40,7 +40,8 @@ namespace test_final_override {
 namespace test_double_right_angle_brackets {
 
     template <typename T>
-    struct check { };
+    struct check {
+    };
 
     typedef check<void> single_type;
     typedef check<check<void>> double_type;
@@ -238,7 +239,8 @@ namespace test_variadic_templates {
 // because of this.
 namespace test_template_alias_sfinae {
 
-    struct foo { };
+    struct foo {
+    };
 
     template <typename T>
     using member = typename T::member_type;

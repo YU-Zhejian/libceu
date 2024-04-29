@@ -1,8 +1,5 @@
 #ifndef CEU_CHECK_OS_H
 #define CEU_CHECK_OS_H
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #if defined(__MSYS__)
 #define CEU_PRIMARY_OS_TYPE "MSYS"
@@ -141,6 +138,10 @@ extern "C" {
 #else
 #define CEU_PRIMARY_OS_TYPE "UNKNOWN"
 #endif
+#endif
+
+#ifdef __cplusplus
+extern "C" {
 #endif
 
 /**

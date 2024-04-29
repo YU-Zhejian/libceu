@@ -1,12 +1,12 @@
 #ifndef LIBCEU_CEU_YSTRLIB_H
 #define LIBCEU_CEU_YSTRLIB_H
 
+#include <stddef.h>
+#define DEFAULT_CEU_YSTR_SIZE 16
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include <stddef.h>
-#define DEFAULT_CEU_YSTR_SIZE 16
 /**
  * @brief The yStr type.
  *

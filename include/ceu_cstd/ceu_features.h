@@ -9,7 +9,9 @@
 #ifndef CEU_FEATURES_H
 #define CEU_FEATURES_H
 
-#include "ceu_basic/libceu_stddef.h"
+#ifdef CEU_CM_UNDER_CMAKE
+#include "ceu_basic/libceu_stddef_cmake.h"
+#endif
 
 // Following codes are from musl
 #if (CEU_CM_HAVE_WORKING_C_INLINE_RUN_STATIC * CEU_CM_HAVE_WORKING_C_INLINE_RUN_SHARED == 0)

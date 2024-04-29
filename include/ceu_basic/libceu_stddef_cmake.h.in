@@ -1,5 +1,5 @@
 /**
- * @file libceu_stddef.h.in
+ * @file libceu_stddef_cmake.h.in
  * @author YU Zhejian
  * @brief Feature detection macros used by the compiler.
  * @version 0.1
@@ -11,9 +11,6 @@
 #define LIBCEU_STDDEF_H
 
 // On following code 1 indicates success.
-#cmakedefine01 CEU_HAVE_SNPRINTF
-#cmakedefine01 CEU_HAVE__SNPRINTF
-#cmakedefine01 CEU_HAVE_STRNCPY_S
 #cmakedefine01 CEU_HAVE_INCLUDE_STDBOOL_H
 #cmakedefine01 CEU_HAVE_INCLUDE_STDNORETURN_H
 #cmakedefine01 CEU_HAVE_INCLUDE_VERSIONHELPERS_H

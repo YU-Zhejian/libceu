@@ -15,10 +15,6 @@
 #ifndef CEU_CHECK_C_CXX_STD_H
 #define CEU_CHECK_C_CXX_STD_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #if defined(_MSVC_LANG)
 #define CEU_CXX_STD_VERSION_MACRO _MSVC_LANG
 #elif defined(__cplusplus)
@@ -72,6 +68,9 @@ Latest supported C++ Standard Verison.
 #define CEU_C_STD "unknown"
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 /**
  * Get compile-time C standard version number.
  */

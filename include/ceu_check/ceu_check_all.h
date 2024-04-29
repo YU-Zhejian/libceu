@@ -1,7 +1,3 @@
-//
-// Created by yuzj on 1/15/22.
-//
-
 #ifndef CPPTETGS_EXPERIMENTAL_UTILS_H
 #define CPPTETGS_EXPERIMENTAL_UTILS_H
 #ifdef __cplusplus

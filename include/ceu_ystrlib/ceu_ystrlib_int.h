@@ -6,6 +6,9 @@
 #define CEU_YSTRLIB_INT_H
 #include <ceu_w32api/pstdint.h>
 #include <ceu_ystrlib/ceu_ystrlib.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * @brief Convert an unsigned integer to yStr. Supplements the basic functionality of printf series.
@@ -16,4 +19,7 @@
  */
 ceu_ystr_t* ceu_ystr_from_uint(int raidx, uint64_t src_int);
 
+#ifdef __cplusplus
+}
+#endif
 #endif // CEU_YSTRLIB_INT_H

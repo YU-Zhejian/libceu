@@ -1,6 +1,9 @@
 #ifndef CEU_YSTRLIB_GC_H
 #define CEU_YSTRLIB_GC_H
 #include <ceu_ystrlib/ceu_ystrlib.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * @brief Destroy the string.
@@ -30,4 +33,7 @@ void ceu_ystr_clean(ceu_ystr_t* ystr);
  */
 void ceu_ystr_shrink(ceu_ystr_t* ystr, size_t new_buffer_size);
 
+#ifdef __cplusplus
+}
+#endif
 #endif // CEU_YSTRLIB_GC_H

@@ -1,5 +1,5 @@
-/*
- * Borland C/C++
+/*!
+ * @brief Borland C/C++
  *
  * Version: 0xVRR : V = Version, RR = Revision
  *

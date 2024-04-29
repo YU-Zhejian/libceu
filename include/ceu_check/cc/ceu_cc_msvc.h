@@ -1,5 +1,5 @@
-/**
- * Microsoft MSVC. That is, what is bundled in Visual Studio.
+/*!
+ * @brief Microsoft MSVC. That is, what is bundled in Visual Studio.
  */
 #if defined(_MSC_VER) && !defined(CEU_COMPILER_NAME)
 #define CEU_COMPILER_IS_MSVC
