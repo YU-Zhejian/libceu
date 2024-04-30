@@ -17,6 +17,6 @@ ceu_cm_enhanced_try_run(
 if(NOT DEFINED "${CMAKE_CURRENT_LIST_FILE}_INCLUDED")
     set("${CMAKE_CURRENT_LIST_FILE}_INCLUDED"
         TRUE
-        CACHE BOOL "This file was included")
+        CACHE INTERNAL "This file was included")
     ceu_cm_print_test_status("__attribute__ (c)" C___ATTRIBUTE__)
 endif()

@@ -40,7 +40,7 @@ ceu_cm_enhanced_try_run(
 if(NOT DEFINED "${CMAKE_CURRENT_LIST_FILE}_INCLUDED")
     set("${CMAKE_CURRENT_LIST_FILE}_INCLUDED"
         TRUE
-        CACHE BOOL "This file was included")
+        CACHE INTERNAL "This file was included")
     ceu_cm_print_test_status("__inline (c)" C___INLINE)
     ceu_cm_print_test_status("__inline__ (c)" C___INLINE__)
     ceu_cm_print_test_status("inline (c)" C_INLINE)

@@ -73,6 +73,63 @@ install(DIRECTORY ${CEU_INCLUSIONS} TYPE INCLUDE)
 
 include_directories("${CMAKE_CURRENT_LIST_DIR}/include_priv/")
 include_directories("${CMAKE_CURRENT_BINARY_DIR}/include/")
+
+if("${CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_SHARED}" EQUAL 0 AND CEU_CM_TRY_COMP_LINK_SHARED)
+    set(LIBCEU_BUILD_SHARED
+        TRUE
+        CACHE INTERNAL "")
+    message(STATUS "${PROJECT_NAME}: Will build shared ${PROJECT_NAME} (C)")
+else()
+    set(LIBCEU_BUILD_SHARED
+        FALSE
+        CACHE INTERNAL "")
+    message(STATUS "${PROJECT_NAME}: Will NOT build shared ${PROJECT_NAME} (C)")
+endif()
+
+if("${CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_STATIC}" EQUAL 0 AND CEU_CM_TRY_COMP_LINK_STATIC)
+    set(LIBCEU_BUILD_STATIC
+        TRUE
+        CACHE INTERNAL "")
+    message(STATUS "${PROJECT_NAME}: Will build static ${PROJECT_NAME} (C)")
+else()
+    set(LIBCEU_BUILD_STATIC
+        FALSE
+        CACHE INTERNAL "")
+    message(STATUS "${PROJECT_NAME}: Will NOT build static ${PROJECT_NAME} (C)")
+endif()
+if(DEFINED CMAKE_CXX_COMPILER)
+    if("${CEU_CM_HAVE_WORKING_CXX_HELLOWORLD_RUN_SHARED}" EQUAL 0 AND ${CEU_CM_TRY_COMP_LINK_SHARED})
+        set(LIBCEU_BUILD_SHARED_CXX
+            TRUE
+            CACHE INTERNAL "")
+        message(STATUS "${PROJECT_NAME}: Will build shared ${PROJECT_NAME} (CXX)")
+    else()
+        set(LIBCEU_BUILD_SHARED_CXX
+            FALSE
+            CACHE INTERNAL "Check for CEU_CM_HAVE_WORKING_CXX_HELLOWORLD_RUN_SHARED failed")
+        message(STATUS "${PROJECT_NAME}: Will NOT build shared ${PROJECT_NAME} (CXX)")
+    endif()
+
+    if("${CEU_CM_HAVE_WORKING_CXX_HELLOWORLD_RUN_STATIC}" EQUAL 0 AND ${CEU_CM_TRY_COMP_LINK_STATIC})
+        set(LIBCEU_BUILD_STATIC_CXX
+            TRUE
+            CACHE INTERNAL "")
+        message(STATUS "${PROJECT_NAME}: Will build static ${PROJECT_NAME} (CXX)")
+    else()
+        set(LIBCEU_BUILD_STATIC_CXX
+            FALSE
+            CACHE INTERNAL "Check for CEU_CM_HAVE_WORKING_CXX_HELLOWORLD_RUN_STATIC failed")
+        message(STATUS "${PROJECT_NAME}: Will NOT build static ${PROJECT_NAME} (CXX)")
+    endif()
+else()
+    set(LIBCEU_BUILD_SHARED_CXX
+        FALSE
+        CACHE INTERNAL "CMake CXX compiler undefined")
+    set(LIBCEU_BUILD_STATIC_CXX
+        FALSE
+        CACHE INTERNAL "CMake CXX compiler undefined")
+endif()
+
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/lib/")
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/bin/")
 if(CEU_CM_SHOULD_ENABLE_TEST)

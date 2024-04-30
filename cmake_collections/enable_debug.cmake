@@ -95,7 +95,7 @@ if(NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
     set(CEU_CM_ADDITIONAL_COMPILER_FLAGS "")
     set(CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED
         TRUE
-        CACHE BOOL "Whether a description on environment was printed.")
+        CACHE INTERNAL "Whether a description on environment was printed.")
     # Detect C/CXX Pre-Processor Macros
     if(NOT MSVC)
         ceu_cm_detect_c_preprocessor_macros()
@@ -106,11 +106,11 @@ if(NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         if("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
             set(CEU_CM_SHOULD_ENABLE_TEST
                 FALSE
-                CACHE BOOL "Test automatically disabled")
+                CACHE INTERNAL "Test automatically disabled")
         else()
             set(CEU_CM_SHOULD_ENABLE_TEST
                 TRUE
-                CACHE BOOL "Test automatically enabled")
+                CACHE INTERNAL "Test automatically enabled")
         endif()
     endif()
     if(CEU_CM_SHOULD_ENABLE_TEST)

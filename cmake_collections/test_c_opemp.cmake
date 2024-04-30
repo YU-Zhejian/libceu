@@ -1,7 +1,7 @@
 if(NOT DEFINED "${CMAKE_CURRENT_LIST_FILE}_INCLUDED")
     set("${CMAKE_CURRENT_LIST_FILE}_INCLUDED"
         TRUE
-        CACHE BOOL "This file was included")
+        CACHE INTERNAL "This file was included")
     include("${CMAKE_CURRENT_LIST_DIR}/libcmake/print_test_status.cmake")
     include("${CMAKE_CURRENT_LIST_DIR}/libcmake/enhanced_try_run.cmake")
     include("${CMAKE_CURRENT_LIST_DIR}/test_c_helloworld.cmake")
@@ -36,7 +36,7 @@ if(NOT DEFINED "${CMAKE_CURRENT_LIST_FILE}_INCLUDED")
     if(NOT DEFINED "${CMAKE_CURRENT_LIST_FILE}_INCLUDED")
         set("${CMAKE_CURRENT_LIST_FILE}_INCLUDED"
             TRUE
-            CACHE BOOL "This file was included")
+            CACHE INTERNAL "This file was included")
         ceu_cm_print_test_status("openmp (c)" C_OPENMP)
     endif()
 endif()
