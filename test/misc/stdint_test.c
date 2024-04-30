@@ -1,6 +1,8 @@
 #include "ceu_basic/ceu_fast_macros.h"
 #include "minunit.h"
 #include <ceu_w32api/pstdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 void test_setup(void)
 {
@@ -37,8 +39,9 @@ TEST_INT(int16_t, "32767", "-32768", 32767, -32768, "%d", 2, strtol)
 TEST_INT(uint16_t, "65535", "0", 65535, 0, "%u", 2, strtol)
 TEST_INT(int32_t, "2147483647", "-2147483648", 2147483647, -2147483648, "%d", 4, strtol)
 TEST_INT(uint32_t, "4294967295", "0", 4294967295LL, 0LL, "%u", 4, strtoul)
-TEST_INT(int64_t, "9223372036854775807", "-9223372036854775808", 9223372036854775807LL, -9223372036854775808LL, "%lld", 8, strtoll)
+TEST_INT(int64_t, "9223372036854775807", "-9223372036854775808", 9223372036854775807LL, (-9223372036854775807LL - 1LL), "%lld", 8, strtoll)
 TEST_INT(uint64_t, "18446744073709551615", "0", 18446744073709551615ULL, 0ULL, "%llu", 8, strtoull)
+
 
 MU_TEST_SUITE(test_suite)
 {

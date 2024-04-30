@@ -47,3 +47,4 @@ configure
 /Makefile.am
 a.out
 /aclocal.m4
+*.log
