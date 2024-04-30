@@ -11,6 +11,7 @@ else()
     set(CEU_TEST_BUILD_SHARED FALSE)
     message(STATUS "${PROJECT_NAME}: Will NOT build shared ${PROJECT_NAME}")
 endif()
+
 if(LIBCEU_BUILD_STATIC)
     set(CEU_TEST_BUILD_STATIC TRUE)
     message(STATUS "${PROJECT_NAME}: Will build static ${PROJECT_NAME}")

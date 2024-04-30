@@ -14,7 +14,7 @@ function(ceu_cm_find_or_get_gtest)
     if(NOT DEFINED CEU_CM_FIND_OR_GET_GTEST_RESULT)
         set(CEU_CM_FIND_OR_GET_GTEST_RESULT
             FALSE
-            CACHE BOOL "Default to fail.")
+            CACHE INTERNAL "Default to fail.")
     endif()
     if(NOT CEU_CM_FIND_OR_GET_GTEST_RESULT)
         set(options "")
@@ -192,7 +192,7 @@ function(ceu_cm_find_or_get_gtest)
         if(CEU_CM_HAVE_WORKING_GTEST_RUN_SHARED EQUAL 0 OR CEU_CM_HAVE_WORKING_GTEST_RUN_STATIC EQUAL 0)
             set(CEU_CM_FIND_OR_GET_GTEST_RESULT
                 TRUE
-                CACHE BOOL "GTest found.")
+                CACHE INTERNAL "GTest found.")
         endif()
     endif()
 endfunction()
