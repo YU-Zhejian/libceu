@@ -34,5 +34,5 @@ ceu_ystr_t* ceu_ystr_from_uint(int raidx, uint64_t src_int)
     for (int i = 0; i < current_position; i++) {
         retc[i] = immc[current_position - i - 1];
     }
-    return ceu_ystr_create_from_cstr(retc, 0);
+    return ceu_ystr_create_from_cstr_reserve(retc, 0);
 }

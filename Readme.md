@@ -20,7 +20,7 @@ It is still under development. Do not use.
 
 For Visual Studio Users:
 
-Tested under MS Visual Studio 2019 (Windows 7) and 2022 (Windows 10). A Windows 10 SDK and Universal C Runtime (UCRT) should be needed.
+Tested under MS Visual Studio 2019 (Windows 7) and 2022 (Windows 10/11). A Windows 10 SDK should be needed.
 
 ## Building libceu
 
@@ -31,3 +31,5 @@ Tested under MS Visual Studio 2019 (Windows 7) and 2022 (Windows 10). A Windows 
 Further modularize CMake modules.
 
 Add [GNU Autotools](https://www.gnu.org/software/autoconf/) and [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/)/[pkgconf](http://pkgconf.org/) support to allow it run on ancient OS that does not have a CMake.
+
+The `ceu_check` and the function `ceu_snprintf` is now a total mess. They're subjected to be revised.

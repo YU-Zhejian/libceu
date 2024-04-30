@@ -3,7 +3,7 @@
 
 #include "ceu_cstd/ceu_stdnoreturn.h"
 
-#include <stddef.h>
+#include <stddef.h> // size_t
 
 #define CEU_ENSURE_NOT_NONE(X)                           \
     {                                                    \
@@ -58,7 +58,11 @@ void* ceu_srealloc(void* m, size_t size);
 /*!
  * @brief A simple wrapper to realloc() that allows program exit with retv=12
  * if failed.
+ * 
  * In this implementation, the newly allocated memory will NOT be initialized with 0.
+ * 
+ * @note This is a simple wrapper of ceu_srealloc since reallocarray is not POSIX compliant.
+ * 
  * @param size Number of bytes to allocate.
  * @return Allocated memory
  */

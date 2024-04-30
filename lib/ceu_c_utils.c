@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h>  // printf
+#include <stdlib.h> // malloc, calloc, free, realloc
 
 #include "ceu_basic/ceu_c_utils.h"
 #include "ceu_check/ceu_check_os.h"
@@ -19,6 +19,9 @@ void* ceu_smalloc(size_t size)
 
 void* ceu_scalloc(size_t count, size_t size)
 {
+    if(count * size < 0L){
+        // FIXME: Overflow detection here.
+    }
     void* m = calloc(count, size);
     if (m == NULL) {
         ceu_die_with_retv("ERR 12 -- Cannot allocate memory", 12);

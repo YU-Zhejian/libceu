@@ -62,8 +62,7 @@ void ceu_ystr_concat_inplace(ceu_ystr_t* ystr, const ceu_ystr_t* ystr2)
 ceu_ystr_t* ceu_ystr_concat_const(const ceu_ystr_t* ystr, const ceu_ystr_t* ystr2)
 {
     size_t new_consumed_length = ystr2->consumed_length + ystr->consumed_length;
-    size_t target_length = CEU_MAX(new_consumed_length + 1, ystr->buff_length);
-    ceu_ystr_t* ystr_ret = ceu_ystr_create_from_cstr(ystr->buff, target_length - ystr2->consumed_length - 1);
+    ceu_ystr_t* ystr_ret = ceu_ystr_create_from_cstr_guarantee(ystr->buff, new_consumed_length + 1);
 
     for (size_t i = 0; i < ystr2->consumed_length; ++i) {
         ystr_ret->buff[i + ystr->consumed_length] = ystr2->buff[i];

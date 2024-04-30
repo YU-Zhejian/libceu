@@ -4,6 +4,7 @@
 /cmake-*/
 /out/
 /.vs/
+*cppcheck*
 
 *~
 *.a

@@ -27,10 +27,27 @@ ceu_ystr_t* ceu_ystr_create_sized(size_t reserved_length);
  * @brief Convert a C string to a yStr.
  *
  * @param cstr The source NULL-terminated cStr.
- * @param reserved_length Number of characters tor eserve.
+ * @return ceu_ystr_t* The converted string.
+ */
+ceu_ystr_t* ceu_ystr_create_from_cstr(const char* cstr);
+
+/**
+ * @brief Convert a C string to a yStr.
+ *
+ * @param cstr The source NULL-terminated cStr.
+ * @param reserved_length Number of characters to reserve.
  * @return ceu_ystr_t* The converted string. The final buffer length will be string length + reserved length.
  */
-ceu_ystr_t* ceu_ystr_create_from_cstr(const char* cstr, size_t reserved_length);
+ceu_ystr_t* ceu_ystr_create_from_cstr_reserve(const char* cstr, size_t reserved_length);
+
+/**
+ * @brief Convert a C string to a yStr.
+ *
+ * @param cstr The source NULL-terminated cStr.
+ * @param guarantee_buffer_length The buffer length should be at least this long.
+ * @return ceu_ystr_t* The converted string.
+ */
+ceu_ystr_t* ceu_ystr_create_from_cstr_guarantee(const char* cstr, size_t guarantee_buffer_length);
 
 /**
  * @brief Produce a duplication.
