@@ -7,7 +7,7 @@
 extern "C" {
 #endif
 // FIXME: The current implementation is completely crap. Consider have it redone.
-// size_t ceu_snprintf(char* buff, size_t max_print_n_char, const char* fmt, ...);
+size_t ceu_snprintf(char* buff, size_t max_print_n_char, const char* fmt, ...);
 
 #ifdef __cplusplus
 }

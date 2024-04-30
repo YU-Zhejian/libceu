@@ -33,3 +33,5 @@ Further modularize CMake modules.
 Add [GNU Autotools](https://www.gnu.org/software/autoconf/) and [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/)/[pkgconf](http://pkgconf.org/) support to allow it run on ancient OS that does not have a CMake.
 
 The `ceu_check` and the function `ceu_snprintf` is now a total mess. They're subjected to be revised.
+
+yStr: Support NULL inside string.

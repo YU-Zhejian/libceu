@@ -12,7 +12,6 @@ include(CheckSymbolExists)
 include(GNUInstallDirs)
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_LIBDIR}")
 
-
 if(CMAKE_VERSION GREATER_EQUAL 3.12)
     add_compile_definitions(CEU_CM_UNDER_CMAKE)
 else()
@@ -56,7 +55,6 @@ include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c_bool.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c_inline.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c_noreturn.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c___attribute__.cmake")
-
 
 check_include_file("stdbool.h" CEU_HAVE_INCLUDE_STDBOOL_H)
 check_include_file("stdnoreturn.h" CEU_HAVE_INCLUDE_STDNORETURN_H)
@@ -133,5 +131,6 @@ endif()
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/lib/")
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/bin/")
 if(CEU_CM_SHOULD_ENABLE_TEST)
+    message("libceu: Will perform test")
     add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/test/")
 endif()

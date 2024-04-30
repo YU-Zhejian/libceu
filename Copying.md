@@ -102,12 +102,24 @@ This project uses code from the following projects:
 
 ---
 
-- **David Pastor's `minunit` Project***
+- **David Pastor's `minunit` Project**
 
   Available from <https://github.com/siu/minunit> revision `a058656`.
 
   Affected files:
 
   - `test/minunit.h`
+
+  With MIT license.
+
+---
+
+- **rxi's `log.c` Project**
+
+  Available from <https://github.com/rxi/log.c>, revision `f9ea349`.
+
+  Affected files:
+
+  - `*/ceu_thirdparty/log.[ch]`
 
   With MIT license.

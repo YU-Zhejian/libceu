@@ -84,12 +84,13 @@ function(ceu_cm_global_enhanced_check_compiler_flag)
         endif()
         if(C_COMPILER_HAVE_${FLAG} AND CXX_COMPILER_HAVE_${FLAG})
             add_compile_options(${FLAG})
-            set(CEU_CM_ADDITIONAL_COMPILER_FLAGS ${FLAG} ${CEU_CM_ADDITIONAL_COMPILER_FLAGS} PARENT_SCOPE)
+            set(CEU_CM_ADDITIONAL_COMPILER_FLAGS
+                ${FLAG} ${CEU_CM_ADDITIONAL_COMPILER_FLAGS}
+                PARENT_SCOPE)
             return()
         endif()
     endforeach()
 endfunction()
-
 
 if(NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
     set(CEU_CM_ADDITIONAL_COMPILER_FLAGS "")
@@ -162,19 +163,20 @@ if(NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
             ceu_cm_global_enhanced_check_compiler_flag(-g3) # Add debug info
             ceu_cm_global_enhanced_check_compiler_flag(-pg) # Add profiling info
             ceu_cm_global_enhanced_check_compiler_flag(-O0) # Stop optimization
-        endif ()
+        endif()
 
         if(MSVC)
             ceu_cm_global_enhanced_check_compiler_flag(/Wp64) # Visual Studio 64 bit compatibility
             ceu_cm_global_enhanced_check_compiler_flag(/permissive) # Visual Studio
             ceu_cm_global_enhanced_check_compiler_flag(/sdl) # Visual Studio
             ceu_cm_global_enhanced_check_compiler_flag(/Z7) # Visual Studio
-        endif ()
+        endif()
 
         set(CEU_CM_IS_DEBUG
             1
             CACHE INTERNAL "") # Also set CMake variable
-        set(CEU_CM_ADDITIONAL_COMPILER_FLAGS "-DCEU_CM_IS_DEBUG" "-D__STDC_WANT_LIB_EXT1__=1" ${CEU_CM_ADDITIONAL_COMPILER_FLAGS})
+        set(CEU_CM_ADDITIONAL_COMPILER_FLAGS "-DCEU_CM_IS_DEBUG" "-D__STDC_WANT_LIB_EXT1__=1"
+                                             ${CEU_CM_ADDITIONAL_COMPILER_FLAGS})
     endif()
 
     message(STATUS "/------------------- Basic Information -------------------\\")
@@ -232,5 +234,7 @@ if(NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
 
     message(STATUS "\\------------------- Basic Information -------------------/")
 
-    set(CEU_CM_ADDITIONAL_COMPILER_FLAGS ${CEU_CM_ADDITIONAL_COMPILER_FLAGS} CACHE INTERNAL "Additional compiler flags")
+    set(CEU_CM_ADDITIONAL_COMPILER_FLAGS
+        ${CEU_CM_ADDITIONAL_COMPILER_FLAGS}
+        CACHE INTERNAL "Additional compiler flags")
 endif()

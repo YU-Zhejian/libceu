@@ -43,13 +43,13 @@ extern "C" {
 #endif
 
 #include <string.h>
-#include <sys/resource.h>
-#include <unistd.h> /* POSIX flags */
+// #include <sys/resource.h>
+// #include <unistd.h> /* POSIX flags */
 
-#if defined(__MACH__) && defined(__APPLE__)
-#include <mach/mach.h>
-#include <mach/mach_time.h>
-#endif
+// #if defined(__MACH__) && defined(__APPLE__)
+// #include <mach/mach.h>
+// #include <mach/mach_time.h>
+// #endif
 
 #if __GNUC__ >= 5 && !defined(__STDC_VERSION__)
 #define __func__ __extension__ __FUNCTION__

@@ -4,7 +4,7 @@
  * @brief Compatible file of <stdbool.h>, providing definition of bool, true, false macro/keyword.
  * @version 0.1
  * @date 2024-04-28
- * 
+ *
  * This file will be supressed under C++.
  */
 #ifndef CEU_STDBOOL_H

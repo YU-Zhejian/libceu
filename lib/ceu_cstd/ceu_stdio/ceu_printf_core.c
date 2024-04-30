@@ -115,7 +115,7 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, size_t max_print_n_char, const c
     char* converted_str = NULL; // Value of string that is converted from integer
     char* converted_padded_str = NULL;
     char arg_numeric_sign_char = CEU_STRING_ENDING; // Sign of the numeric, should be ' ' (see flags),
-        // '+', '-' or CEU_STRING_ENDING (disabled)
+                                                    // '+', '-' or CEU_STRING_ENDING (disabled)
     char padding_char = ' '; // Padding char, should be ' ' or '0'
     bool arg_int_is_negative = false;
 
@@ -334,7 +334,7 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, size_t max_print_n_char, const c
                 arg_str = va_arg(*args, char*);
                 switch (length) {
                 case CEU_PRINTF_LENGTH_l: // Default wchar_t
-                    // TODO: not implemented, so fallthrough
+                                          // TODO: not implemented, so fallthrough
                 case -1: // Default char
                     rett.current_buffer_position = ceu_printf_append_str_to_buff(buff, rett.current_buffer_position, arg_str);
                     break;

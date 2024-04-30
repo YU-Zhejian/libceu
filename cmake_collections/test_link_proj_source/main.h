@@ -3,4 +3,4 @@
 
 void helloworld();
 
-#endif //TEST_LINK_MAIN_H
+#endif // TEST_LINK_MAIN_H

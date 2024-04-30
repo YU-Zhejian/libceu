@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.11)
 project(
-        test_helloworld_link
-        VERSION 0.1
-        LANGUAGES C)
+    test_helloworld_link
+    VERSION 0.1
+    LANGUAGES C)
 
 add_compile_options(${CEU_CM_ADDITIONAL_COMPILER_FLAGS})
 

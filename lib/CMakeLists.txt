@@ -1,32 +1,10 @@
-file(GLOB CEU_LIBRARY_SOURCES_C ${CMAKE_CURRENT_LIST_DIR}/*.c ${CMAKE_CURRENT_LIST_DIR}/*/*.c
-     ${CMAKE_CURRENT_LIST_DIR}/ceu_cstd/*/*.c ${CMAKE_CURRENT_LIST_DIR}/ceu_check/c/*.c)
+file(GLOB CEU_LIBRARY_SOURCES_SHARED ${CMAKE_CURRENT_LIST_DIR}/*.c ${CMAKE_CURRENT_LIST_DIR}/*/*.c
+     ${CMAKE_CURRENT_LIST_DIR}/ceu_cstd/*/*.c)
 
-file(GLOB CEU_LIBRARY_SOURCES_CXX ${CMAKE_CURRENT_LIST_DIR}/*.c ${CMAKE_CURRENT_LIST_DIR}/*/*.c
-     ${CMAKE_CURRENT_LIST_DIR}/ceu_cstd/*/*.c ${CMAKE_CURRENT_LIST_DIR}/ceu_check/cxx/*.cc)
+set(CEU_LIBRARY_SOURCES_C ${CEU_LIBRARY_SOURCES_SHARED} ${CMAKE_CURRENT_LIST_DIR}/ceu_check/c/ceu_check_c_cxx_std.c)
 
-if("${CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_SHARED}" EQUAL 0 AND CEU_CM_TRY_COMP_LINK_SHARED)
-    set(LIBCEU_BUILD_SHARED
-        TRUE
-        CACHE INTERNAL "")
-    message(STATUS "${PROJECT_NAME}: Will build shared ${PROJECT_NAME} (C)")
-else()
-    set(LIBCEU_BUILD_SHARED
-        FALSE
-        CACHE INTERNAL "")
-    message(STATUS "${PROJECT_NAME}: Will NOT build shared ${PROJECT_NAME} (C)")
-endif()
-
-if("${CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_STATIC}" EQUAL 0 AND CEU_CM_TRY_COMP_LINK_STATIC)
-    set(LIBCEU_BUILD_STATIC
-        TRUE
-        CACHE INTERNAL "")
-    message(STATUS "${PROJECT_NAME}: Will build static ${PROJECT_NAME} (C)")
-else()
-    set(LIBCEU_BUILD_STATIC
-        FALSE
-        CACHE INTERNAL "")
-    message(STATUS "${PROJECT_NAME}: Will NOT build static ${PROJECT_NAME} (C)")
-endif()
+set(CEU_LIBRARY_SOURCES_CXX ${CEU_LIBRARY_SOURCES_SHARED}
+                            ${CMAKE_CURRENT_LIST_DIR}/ceu_check/cxx/ceu_check_c_cxx_std.cc)
 
 if(LIBCEU_BUILD_SHARED)
     add_library(${CEU_LIBRARY_SHARED} SHARED ${CEU_LIBRARY_SOURCES_C})
@@ -39,13 +17,13 @@ if(LIBCEU_BUILD_STATIC)
     ceu_cm_set_static_target(${CEU_LIBRARY_STATIC})
 endif()
 
-    if(LIBCEU_BUILD_SHARED_CXX)
-        add_library(${CEU_LIBRARY_SHARED_CXX} SHARED ${CEU_LIBRARY_SOURCES_CXX})
-        install(TARGETS ${CEU_LIBRARY_SHARED_CXX} TYPE LIBRARY)
-    endif()
+if(LIBCEU_BUILD_SHARED_CXX)
+    add_library(${CEU_LIBRARY_SHARED_CXX} SHARED ${CEU_LIBRARY_SOURCES_CXX})
+    install(TARGETS ${CEU_LIBRARY_SHARED_CXX} TYPE LIBRARY)
+endif()
 
-    if(LIBCEU_BUILD_STATIC_CXX)
-        add_library(${CEU_LIBRARY_STATIC_CXX} STATIC ${CEU_LIBRARY_SOURCES_CXX})
-        install(TARGETS ${CEU_LIBRARY_STATIC_CXX} TYPE LIBRARY)
-        ceu_cm_set_static_target(${CEU_LIBRARY_STATIC_CXX})
-    endif()
+if(LIBCEU_BUILD_STATIC_CXX)
+    add_library(${CEU_LIBRARY_STATIC_CXX} STATIC ${CEU_LIBRARY_SOURCES_CXX})
+    install(TARGETS ${CEU_LIBRARY_STATIC_CXX} TYPE LIBRARY)
+    ceu_cm_set_static_target(${CEU_LIBRARY_STATIC_CXX})
+endif()

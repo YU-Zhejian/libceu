@@ -134,7 +134,7 @@ function(ceu_cm_enhanced_try_run)
         if(DEFINED CEU_CM_ADDITIONAL_COMPILER_FLAGS)
             foreach(FLAG ${CEU_CM_ADDITIONAL_COMPILER_FLAGS})
                 set(CEU_CM_ENHANCED_TRY_RUN_COMPILE_DEFS_TRY_RUN ${CEU_CM_ENHANCED_TRY_RUN_COMPILE_DEFS_TRY_RUN}
-                        ${FLAG})
+                                                                 ${FLAG})
             endforeach()
         endif()
 
@@ -173,11 +173,13 @@ function(ceu_cm_enhanced_try_run)
         if(NOT DEFINED CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}_VAR)
             set(CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}_VAR "")
         endif()
-        if(NOT DEFINED CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX} OR NOT CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX})
-        file(WRITE
-             "${CMAKE_BINARY_DIR}/compile_logs/test_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_${TARGET_POSTFIX}_compile.log"
-             ${CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX}_VAR})
-        endif ()
+        if(NOT DEFINED CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX}
+           OR NOT CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX})
+            file(
+                WRITE
+                "${CMAKE_BINARY_DIR}/compile_logs/test_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_${TARGET_POSTFIX}_compile.log"
+                ${CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX}_VAR})
+        endif()
 
         unset(CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX}_VAR)
         unset(CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}_VAR)
@@ -187,9 +189,10 @@ function(ceu_cm_enhanced_try_run)
                 127
                 CACHE INTERNAL "Compilation failed.")
         endif()
-        if (NOT CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX} EQUAL 0)
-            file(WRITE "${CMAKE_BINARY_DIR}/compile_logs/test_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_${TARGET_POSTFIX}_run.log"
-                    ${CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}_VAR})
+        if(NOT CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX} EQUAL 0)
+            file(WRITE
+                 "${CMAKE_BINARY_DIR}/compile_logs/test_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_${TARGET_POSTFIX}_run.log"
+                 ${CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}_VAR})
         endif()
     else()
         message(DEBUG "MISC_ENHANCED_TRY_COMPILE: Cached static ${CEU_CM_ENHANCED_TRY_RUN_VARNAME}")
