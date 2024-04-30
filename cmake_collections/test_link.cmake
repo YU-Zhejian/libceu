@@ -1,3 +1,4 @@
+if(NOT DEFINED CEU_CM_TRY_COMP_LINK_STATIC)
 execute_process(
         COMMAND
         ctest
@@ -19,7 +20,8 @@ if(NOT CEU_CM_TRY_COMP_LINK_STATIC_RETV EQUAL 0)
 else()
     set(CEU_CM_TRY_COMP_LINK_STATIC TRUE CACHE INTERNAL "doc")
 endif ()
-
+endif ()
+if(NOT DEFINED CEU_CM_TRY_COMP_LINK_SHARED)
 execute_process(
         COMMAND
         ctest
@@ -40,4 +42,5 @@ if(NOT CEU_CM_TRY_COMP_LINK_SHARED_RETV EQUAL 0)
     set(CEU_CM_TRY_COMP_LINK_SHARED FALSE CACHE INTERNAL "doc")
 else()
     set(CEU_CM_TRY_COMP_LINK_SHARED TRUE CACHE INTERNAL "doc")
+endif ()
 endif ()

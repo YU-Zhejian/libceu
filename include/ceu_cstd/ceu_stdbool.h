@@ -4,10 +4,13 @@
  * @brief Compatible file of <stdbool.h>, providing definition of bool, true, false macro/keyword.
  * @version 0.1
  * @date 2024-04-28
- *
+ * 
+ * This file will be supressed under C++.
  */
 #ifndef CEU_STDBOOL_H
 #define CEU_STDBOOL_H
+// Supress definition of bool under C++.
+#ifndef __cplusplus
 
 #ifdef CEU_CM_UNDER_CMAKE
 #include "ceu_basic/libceu_stddef_cmake.h"
@@ -40,5 +43,5 @@
 
 #endif /* _STDBOOL */
 #endif
-
+#endif /* __cplusplus */
 #endif

@@ -1,6 +1,7 @@
 #include "main.h"
 
-int main(void){
+int main(void)
+{
     helloworld();
     return 0;
 }

@@ -43,8 +43,9 @@ endif()
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/enable_debug.cmake")
 
 # Check C Functions
-include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_link.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c_helloworld.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_buildin_types.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_link.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c11.cmake")
 if(CMAKE_CXX_COMPILER)
     include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_cxx_helloworld.cmake")
