@@ -1,6 +1,6 @@
 #include "ceu_basic/ceu_fast_macros.h"
+#include "ceu_cstd/ceu_stdint.h"
 #include "minunit.h"
-#include <ceu_w32api/pstdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -33,14 +33,14 @@ void test_teardown(void)
         mu_assert_int_eq(size, sizeof(type_name));                                \
     }
 
-TEST_INT(int8_t, "127", "-128", 127, -128, "%d", 1, strtol)
-TEST_INT(uint8_t, "255", "0", 255, 0, "%u", 1, strtol)
-TEST_INT(int16_t, "32767", "-32768", 32767, -32768, "%d", 2, strtol)
-TEST_INT(uint16_t, "65535", "0", 65535, 0, "%u", 2, strtol)
-TEST_INT(int32_t, "2147483647", "-2147483648", 2147483647, -2147483648, "%d", 4, strtol)
-TEST_INT(uint32_t, "4294967295", "0", 4294967295LL, 0LL, "%u", 4, strtoul)
-TEST_INT(int64_t, "9223372036854775807", "-9223372036854775808", 9223372036854775807LL, (-9223372036854775807LL - 1LL), "%lld", 8, strtoll)
-TEST_INT(uint64_t, "18446744073709551615", "0", 18446744073709551615ULL, 0ULL, "%llu", 8, strtoull)
+TEST_INT(int8_t, "127", "-128", INT8_MAX, INT8_MIN, "%d", CEU_INT8_SIZE, strtol)
+TEST_INT(uint8_t, "255", "0", UINT8_MAX, 0, "%u", CEU_INT8_SIZE, strtol)
+TEST_INT(int16_t, "32767", "-32768", INT16_MAX, INT16_MIN, "%d", CEU_INT16_SIZE, strtol)
+TEST_INT(uint16_t, "65535", "0", UINT16_MAX, 0, "%u", CEU_INT16_SIZE, strtol)
+TEST_INT(int32_t, "2147483647", "-2147483648", INT32_MAX, INT32_MIN, "%d", CEU_INT32_SIZE, strtol)
+TEST_INT(uint32_t, "4294967295", "0", UINT32_MAX, 0LL, "%u", CEU_INT32_SIZE, strtoul)
+TEST_INT(int64_t, "9223372036854775807", "-9223372036854775808", INT64_MAX, INT64_MIN, "%lld", CEU_INT64_SIZE, strtoll)
+TEST_INT(uint64_t, "18446744073709551615", "0", UINT64_MAX, 0ULL, "%llu", CEU_INT64_SIZE, strtoull)
 
 MU_TEST_SUITE(test_suite)
 {

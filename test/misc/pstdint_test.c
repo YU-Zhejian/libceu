@@ -29,7 +29,7 @@
         printf msg;               \
     }
 
-#define X_SIZE_MAX ((size_t) - 1)
+#define X_SIZE_MAX ((size_t)-1)
 
 int main()
 {
