@@ -1,4 +1,5 @@
 /**
+ * @file ceu_stdint.h
  * @brief A simple stdint.h implementation.
  *
  * @todo Needs to further test on different 32- and 64-bit, LE and BE platforms.

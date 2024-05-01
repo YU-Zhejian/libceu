@@ -5,7 +5,23 @@
  * @version 0.1
  * @date 2024-04-28
  *
+ * This file is expected to mimic the behaviour of noreturn ketyword in ISO C11.
+ * And it should correctly handle scenarios like being included in a C++ compilation unit.
  */
+
+/**
+ * @def noreturn
+ * @brief A macro that indicates that the function never returns.
+ * 
+ * @todo Deal with noreturn in C++.
+ * @todo Check for `[[noreturn]]` in C++ 23.
+ * 
+ * Would be expanded to:
+ * 
+ * - `_Noreturn`, if exists.
+ * - `__attribute__((noreturn))`, if supports.
+ * - Nothing as fallback.
+*/
 
 #ifdef __cplusplus
 // FIXME: Temporary solution for C++ 11.

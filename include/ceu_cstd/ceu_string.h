@@ -1,3 +1,38 @@
+/**
+ * @file ceu_string.h
+ * @brief POSIX-2008 compiliant string \& memory manipulation functions from <string.h>.
+ * 
+ * Pure-C functions, portable but slow.
+ * @todo void    *memccpy(void *restrict, const void *restrict, int, size_t);
+ * @todo void    *memchr(const void *, int, size_t);
+ * @todo int      memcmp(const void *, const void *, size_t);
+ * @todo void    *memmove(void *, const void *, size_t);
+ * @todo char    *stpcpy(char *restrict, const char *restrict);
+ * @todo char    *stpncpy(char *restrict, const char *restrict, size_t);
+ * @todo char    *strcat(char *restrict, const char *restrict);
+ * @todo char    *strchr(const char *, int);
+ * @todo int      strcoll(const char *, const char *);
+ * @todo int      strcoll_l(const char *, const char *, locale_t);
+ * @todo char    *strcpy(char *restrict, const char *restrict);
+ * @todo size_t   strcspn(const char *, const char *);
+ * @todo char    *strdup(const char *);
+ * @todo char    *strerror(int);
+ * @todo char    *strerror_l(int, locale_t);
+ * @todo int      strerror_r(int, char *, size_t);
+ * @todo char    *strncat(char *restrict, const char *restrict, size_t);
+ * @todo int      strncmp(const char *, const char *, size_t);
+ * @todo char    *strndup(const char *, size_t);
+ * @todo size_t   strnlen(const char *, size_t);
+ * @todo char    *strpbrk(const char *, const char *);
+ * @todo char    *strrchr(const char *, int);
+ * @todo char    *strsignal(int);
+ * @todo size_t   strspn(const char *, const char *);
+ * @todo char    *strstr(const char *, const char *);
+ * @todo char    *strtok(char *restrict, const char *restrict);
+ * @todo char    *strtok_r(char *restrict, const char *restrict, char **restrict);
+ * @todo size_t   strxfrm(char *restrict, const char *restrict, size_t);
+ * @todo size_t   strxfrm_l(char *restrict, const char *restrict, size_t, locale_t);
+*/
 #ifndef CEU_STRING_H
 #define CEU_STRING_H
 
@@ -11,14 +46,15 @@
 extern "C" {
 #endif
 
-/*!
+/**
+ * @brief Copy characters from `src` to `dst` until encountered `\0` or reached `n`.
+ * 
  * The `strncpy` definition provided by GNU.
- *
- * ceu_strncpy would copy characters from `src` to `dst` until
- * (1) encountered `\0` or reached `n`.
  *
  * If `\0` encountered without reaching `n`, additional `\0` would be padded
  * to the end of `dst` until reached `n`.
+ * 
+ * However, if `n` is reached first, no `\0` will be added.
  *
  * @warning This function does not guarantee that destination string is ended with `\0`!
  *

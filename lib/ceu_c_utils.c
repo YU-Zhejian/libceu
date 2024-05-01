@@ -1,5 +1,6 @@
 #include <stdio.h> // printf
 #include <stdlib.h> // malloc, calloc, free, realloc
+#include <limits.h> // SIZE_MAX
 
 #include "ceu_basic/ceu_c_utils.h"
 #include "ceu_check/ceu_check_os.h"
@@ -19,8 +20,9 @@ void* ceu_smalloc(size_t size)
 
 void* ceu_scalloc(size_t count, size_t size)
 {
-    if (count * size < 0L) {
-        // FIXME: Overflow detection here.
+    // a > numeric_limits<unsigned int>::max() / b;
+    if (count != 0 && size != 0 && count > SIZE_MAX / size){
+        ceu_die_with_retv("Overflow detected!", 12);
     }
     void* m = calloc(count, size);
     if (m == NULL) {
