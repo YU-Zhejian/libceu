@@ -1,59 +1,60 @@
+/*!
+ * @file ceu_c_utils.h
+ * @brief Utility functions for various purpose.
+ * @author YU Zhejian
+ * @version 0.1
+ * @date 2024-05-02
+ */
 #ifndef CEU_C_UTILS_H
 #define CEU_C_UTILS_H
 
 #include "ceu_cstd/ceu_stdnoreturn.h"
 
-#include <ceu_cstd/ceu_stddef.h>
-
-#define CEU_ENSURE_NOT_NONE(X)                           \
-    {                                                    \
-        if (X == NULL) {                                 \
-            ceu_ensure_not_none(#X, __FILE__, __LINE__); \
-        };                                               \
-    }
+#include <ceu_cstd/ceu_stddef.h> // ceu_size_t
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /*!
- * Internal -- DO NOT USE!
- *
- * @param vname Variable name that was none.
- * @param file_name Name of the source file.
- * @param lineno Line number.
+ * @brief Exit with exit value.
+ * @param reason What to say before exit.
+ * @param retv The exit value for a program.
+ * @return No return.
+ * @note If debug is allowed (i.e., `defined CEU_CM_IS_DEBUG && CEU_CM_IS_DEBUG == 1`), will use ::abort to allow debuggers to investigate
  */
-void ceu_ensure_not_none(char* vname, char* file_name, int lineno);
-
-noreturn void ceu_die_with_retv(char* reason, int retv);
-
-noreturn void ceu_die(char* reason);
+noreturn void ceu_die_with_retv(const char* reason, int retv);
 
 /*!
- * @brief A simple wrapper to malloc() that allows program exit with retv=12
+ * @brief ::ceu_die_with_retv with #EXIT_FAILURE as return value.
+ */
+noreturn void ceu_die(const char* reason);
+
+/*!
+ * @brief A simple wrapper to ::malloc() that allows program exit with retv=12
  * if failed.
  * In this implementation, the allocated memory will be initialized with 0.
  * @param size Number of bytes to allocate.
- * @return Allocated memory
+ * @return Allocated memory.
  */
-void* ceu_smalloc(size_t size);
+void* ceu_smalloc(ceu_size_t size);
 
 /*!
- * @brief A simple wrapper to calloc() that allows program exit with retv=12
+ * @brief A simple wrapper to ::calloc() that allows program exit with retv=12
  * if failed.
  * In this implementation, the allocated memory will be initialized with 0.
  * @return Allocated memory
  */
-void* ceu_scalloc(size_t count, size_t size);
+void* ceu_scalloc(ceu_size_t count, ceu_size_t size);
 
 /*!
- * @brief A simple wrapper to realloc() that allows program exit with retv=12
+ * @brief A simple wrapper to ::realloc() that allows program exit with retv=12
  * if failed.
  * In this implementation, the newly allocated memory will NOT be initialized with 0.
  * @param size Number of bytes to allocate.
  * @return Allocated memory
  */
-void* ceu_srealloc(void* m, size_t size);
+void* ceu_srealloc(void* m, ceu_size_t size);
 
 /*!
  * @brief A simple wrapper to realloc() that allows program exit with retv=12
@@ -66,15 +67,18 @@ void* ceu_srealloc(void* m, size_t size);
  * @param size Number of bytes to allocate.
  * @return Allocated memory
  */
-void* ceu_sreallocarray(void* m, size_t count, size_t size);
+void* ceu_sreallocarray(void* m, ceu_size_t count, ceu_size_t size);
 
-/**
- * @brief Free a piece of memory if it is not NULL. The piece of memory will be set to NULL afterwards.
+/*!
+ * @brief Free a piece of memory if it is not CEU_NULL. The piece of memory will be set to CEU_NULL afterwards.
  *
  * @param m The memory to be freed.
  */
 void ceu_free_non_null(void* m);
 
+/*!
+ * @brief Wait for a keystroke and then exit the program with #EXIT_SUCCESS.
+ */
 noreturn void ceu_press_any_key_to_exit(void);
 
 #ifdef __cplusplus

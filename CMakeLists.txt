@@ -58,7 +58,6 @@ include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c___attribute__.cmake"
 
 check_include_file("stdbool.h" CEU_HAVE_INCLUDE_STDBOOL_H)
 check_include_file("stdnoreturn.h" CEU_HAVE_INCLUDE_STDNORETURN_H)
-check_include_file("VersionHelpers.h" CEU_HAVE_INCLUDE_VERSIONHELPERS_H)
 check_include_file("cygwin/version.h" CEU_HAVE_INCLUDE_CYGWIN_VERSION_H)
 check_include_file("sys/utsname.h" CEU_HAVE_INCLUDE_SYS_UTSNAME_H)
 

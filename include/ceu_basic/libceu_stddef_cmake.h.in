@@ -1,4 +1,4 @@
-/**
+/*!
  * @file libceu_stddef_cmake.h.in
  * @author YU Zhejian
  * @brief Feature detection macros used by the compiler.
@@ -13,7 +13,6 @@
 // On following code 1 indicates success.
 #cmakedefine01 CEU_HAVE_INCLUDE_STDBOOL_H
 #cmakedefine01 CEU_HAVE_INCLUDE_STDNORETURN_H
-#cmakedefine01 CEU_HAVE_INCLUDE_VERSIONHELPERS_H
 #cmakedefine01 CEU_HAVE_INCLUDE_CYGWIN_VERSION_H
 #cmakedefine01 CEU_HAVE_INCLUDE_SYS_UTSNAME_H
 #cmakedefine CEU_CM_IS_DEBUG @CEU_CM_IS_DEBUG@
@@ -64,5 +63,5 @@
 #cmakedefine CEU_CM_TYPE_ULL_SIZE @CEU_CM_TYPE_ULL_SIZE@
 #cmakedefine CEU_CM_TYPE_ULLI_SIZE @CEU_CM_TYPE_ULLI_SIZE@
 #cmakedefine CEU_CM_TYPE_SIZE_T_SIZE @CEU_CM_TYPE_SIZE_T_SIZE@
-#cmakedefine CEU_CM_TYPE_PTRDIFF_T_SIZE @CEU_CM_TYPE_PTRDIFF_T_SIZE@
+// #cmakedefine CEU_CM_TYPE_PTRDIFF_T_SIZE @CEU_CM_TYPE_PTRDIFF_T_SIZE@
 #endif

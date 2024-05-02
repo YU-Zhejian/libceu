@@ -1,14 +1,22 @@
-/**
+/*!
+ * @file ceu_check_cc.h
  * @brief Header to get compiler information at compile time
  *
- * @details This header may detect information of C or C++ compilers.
- *
- * Usepackage https://sourceforge.net/p/predef/wiki/Architectures/
- * @def
+ * @see https://sourceforge.net/p/predef/wiki/Architectures/
  */
 
 #ifndef CEU_CHECK_CC_H
 #define CEU_CHECK_CC_H
+
+/*!
+ * @def CEU_COMPILER_NAME
+ * @brief Human-readable compiler name.
+ */
+
+/*!
+ * @def CEU_COMPILER_VERSION
+ * @brief Human-readable compiler version.
+ */
 
 // Undefine conflicting macros
 #ifdef CEU_COMPILER_NAME
@@ -40,14 +48,14 @@ extern "C" {
 /*!
  * @brief Get a string describing compiler version.
  *
- * @return Returned buffer, should be freed manually. Would be NULL on error.
+ * @return Returned buffer, should be freed manually. Would be CEU_NULL on error.
  */
 char* interpret_compiler_version_number(void);
 
 /*!
  * @brief Get compiling date & time, and write them to buffer.
  *
- * @return Returned buffer, should be freed manually. Would be NULL on error.
+ * @return Returned buffer, should be freed manually. Would be CEU_NULL on error.
  */
 char* ceu_check_interpret_compilation_date_time(void);
 

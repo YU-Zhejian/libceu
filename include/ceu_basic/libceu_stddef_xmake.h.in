@@ -1,0 +1,67 @@
+/*!
+ * @file libceu_stddef_cmake.h.in
+ * @author YU Zhejian
+ * @brief Feature detection macros used by the compiler.
+ * @version 0.1
+ * @date 2024-04-28
+ * 
+ * A clean file that have no external dependencies.
+ */
+#ifndef LIBCEU_STDDEF_H
+#define LIBCEU_STDDEF_H
+
+${define CEU_HAVE_INCLUDE_STDBOOL_H}
+${define CEU_HAVE_INCLUDE_STDNORETURN_H}
+${define CEU_HAVE_INCLUDE_CYGWIN_VERSION_H}
+${define CEU_HAVE_INCLUDE_SYS_UTSNAME_H}
+
+/*
+// On following code 0 indicates success.
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_BOOL_RUN_STATIC
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_BOOL_RUN_SHARED
+#cmakedefine01 CEU_CM_HAVE_WORKING_C__BOOL_RUN_STATIC
+#cmakedefine01 CEU_CM_HAVE_WORKING_C__BOOL_RUN_SHARED
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_INLINE_RUN_STATIC
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_INLINE_RUN_SHARED
+#cmakedefine01 CEU_CM_HAVE_WORKING_C___INLINE_RUN_STATIC
+#cmakedefine01 CEU_CM_HAVE_WORKING_C___INLINE_RUN_SHARED
+#cmakedefine01 CEU_CM_HAVE_WORKING_C___INLINE___RUN_STATIC
+#cmakedefine01 CEU_CM_HAVE_WORKING_C___INLINE___RUN_SHARED
+#cmakedefine01 CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC
+#cmakedefine01 CEU_CM_HAVE_WORKING_C__NORETURN_RUN_SHARED
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_NORETURN_RUN_STATIC
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED
+#cmakedefine01 CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_STATIC
+#cmakedefine01 CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_SHARED
+*/
+// Types and lengths
+${define CEU_CM_TYPE_C_SIZE}
+${define CEU_CM_TYPE_C_SIZE}
+${define CEU_CM_TYPE_SC_SIZE}
+${define CEU_CM_TYPE_UC_SIZE}
+${define CEU_CM_TYPE_SH_SIZE}
+${define CEU_CM_TYPE_SHI_SIZE}
+${define CEU_CM_TYPE_SSH_SIZE}
+${define CEU_CM_TYPE_SSHI_SIZE}
+${define CEU_CM_TYPE_USH_SIZE}
+${define CEU_CM_TYPE_USHI_SIZE}
+${define CEU_CM_TYPE_I_SIZE}
+${define CEU_CM_TYPE_S_SIZE}
+${define CEU_CM_TYPE_SI_SIZE}
+${define CEU_CM_TYPE_U_SIZE}
+${define CEU_CM_TYPE_UI_SIZE}
+${define CEU_CM_TYPE_L_SIZE}
+${define CEU_CM_TYPE_LI_SIZE}
+${define CEU_CM_TYPE_SL_SIZE}
+${define CEU_CM_TYPE_SLI_SIZE}
+${define CEU_CM_TYPE_UL_SIZE}
+${define CEU_CM_TYPE_ULI_SIZE}
+${define CEU_CM_TYPE_LL_SIZE}
+${define CEU_CM_TYPE_LLI_SIZE}
+${define CEU_CM_TYPE_SLL_SIZE}
+${define CEU_CM_TYPE_SLLI_SIZE}
+${define CEU_CM_TYPE_ULL_SIZE}
+${define CEU_CM_TYPE_ULLI_SIZE}
+${define CEU_CM_TYPE_SIZE_T_SIZE}
+// ${define CEU_CM_TYPE_PTRDIFF_T_SIZE}
+#endif

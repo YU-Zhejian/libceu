@@ -1,5 +1,6 @@
 /*!
  * @brief Old Intel C/C++ compiler called ICC/ICPC
+ * @warning Include this file befpre "ceu_cc_clang.h"!
  */
 
 #if defined(__ICC) || defined(__INTEL_COMPILER)

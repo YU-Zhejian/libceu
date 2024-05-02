@@ -13,10 +13,16 @@ autotools:
 	mkdir -p autotools
 	cd autotools && ../configure
 
-.PHONY: build
-build:
-	mkdir -p build && \
-	cd build && \
+.PHONY: cmake-build
+cmake-build:
+	mkdir -p cmake-build && \
+	cd cmake-build && \
 	cmake -Wdev -Wdeprecated --warn-uninitialized -DCMAKE_BUILD_TYPE=Debug .. && \
 	cmake --build . --clean-first --parallel 40 && \
 	ctest
+
+.PHONY: xmake-build
+xmake-build:
+	mkdir -p xmake-build && \
+	cd xmake-build && \
+	xmake build -P ..

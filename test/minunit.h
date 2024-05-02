@@ -22,6 +22,7 @@
  */
 #ifndef MINUNIT_MINUNIT_H
 #define MINUNIT_MINUNIT_H
+#include <ceu_cstd/ceu_stddef.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -76,8 +77,8 @@ static int minunit_status = 0;
 static char minunit_last_message[MINUNIT_MESSAGE_LEN];
 
 /*  Test setup and teardown function pointers */
-static void (*minunit_setup)(void) = NULL;
-static void (*minunit_teardown)(void) = NULL;
+static void (*minunit_setup)(void) = CEU_NULL;
+static void (*minunit_teardown)(void) = CEU_NULL;
 
 /*  Definitions */
 #define MU_TEST(method_name) static void method_name(void)
@@ -91,8 +92,8 @@ static void (*minunit_teardown)(void) = NULL;
 /*  Run test suite and unset setup and teardown functions */
 #define MU_RUN_SUITE(suite_name) MU__SAFE_BLOCK( \
     suite_name();                                \
-    minunit_setup = NULL;                        \
-    minunit_teardown = NULL;)
+    minunit_setup = CEU_NULL;                    \
+    minunit_teardown = CEU_NULL;)
 
 /*  Configure setup and teardown functions */
 #define MU_SUITE_CONFIGURE(setup_fun, teardown_fun) MU__SAFE_BLOCK( \

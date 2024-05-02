@@ -1,4 +1,4 @@
-/**
+/*!
  * @file ceu_stdbool.h
  * @author your name (you@domain.com)
  * @brief Compatible file of <stdbool.h>, providing definition of bool, true, false macro/keyword.
@@ -10,7 +10,7 @@
  * This file is POSIX-compiliant. It defines:
  */
 
-/**
+/*!
  * @def bool
  * @brief The boolean type.
  *
@@ -19,26 +19,26 @@
  *
  */
 
-/**
+/*!
  * @def true
  * @brief The boolean value `true`.
  *
  * Expand to integer constant 1.
  */
 
-/**
+/*!
  * @def false
  * @brief The boolean value `false`.
  *
  * Expand to integer constant 0.
  */
 
-/**
+/*!
  * @def __bool_true_false_are_defined
  * @brief To keep it POSIX-compiliant.
  */
 
-/**
+/*!
  * @def _STDBOOL
  * @brief To keep it POSIX-compiliant.
  */
@@ -48,11 +48,13 @@
 // Supress definition of bool under C++.
 #ifndef __cplusplus
 
-#ifdef CEU_CM_UNDER_CMAKE
+#if defined(CEU_CM_UNDER_CMAKE)
 #include "ceu_basic/libceu_stddef_cmake.h"
+#elif defined(CEU_CM_UNDER_XMAKE)
+#include "ceu_basic/libceu_stddef_xmake.h"
 #endif
 
-#if (CEU_HAVE_INCLUDE_STDBOOL_H == 1 && CEU_CM_HAVE_WORKING_C_BOOL_RUN_STATIC * CEU_CM_HAVE_WORKING_C_BOOL_RUN_SHARED == 0)
+#if (defined(CEU_HAVE_INCLUDE_STDBOOL_H) && CEU_HAVE_INCLUDE_STDBOOL_H == 1 && CEU_CM_HAVE_WORKING_C_BOOL_RUN_STATIC * CEU_CM_HAVE_WORKING_C_BOOL_RUN_SHARED == 0)
 // Normal condition where stdbool.h is available and compatible
 #include <stdbool.h>
 

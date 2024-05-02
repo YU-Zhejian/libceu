@@ -27,4 +27,4 @@ check_type_size("signed long long int" CEU_CM_TYPE_SLLI_SIZE BUILTIN_TYPES_ONLY 
 check_type_size("unsigned long long" CEU_CM_TYPE_ULL_SIZE BUILTIN_TYPES_ONLY LANGUAGE C)
 check_type_size("unsigned long long int" CEU_CM_TYPE_ULLI_SIZE BUILTIN_TYPES_ONLY LANGUAGE C)
 check_type_size("size_t" CEU_CM_TYPE_SIZE_T_SIZE LANGUAGE C)
-check_type_size("ptrdiff_t" CEU_CM_TYPE_PTRDIFF_T_SIZE LANGUAGE C)
+# check_type_size("ptrdiff_t" CEU_CM_TYPE_PTRDIFF_T_SIZE LANGUAGE C)

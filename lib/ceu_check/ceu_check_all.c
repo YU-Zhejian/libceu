@@ -5,10 +5,14 @@
 #include "ceu_check/ceu_check_os.h"
 #include "ceu_check/ceu_check_utils.h"
 #include "ceu_cstd/ceu_stdio.h"
+#include "ceu_ystrlib/ceu_ystrlib_all.h"
 
 char* ceu_lib_rtime_version(void)
 {
-    return CEU_LIB_CTIME_VERSION;
+    ceu_ystr_t* version_ystr = ceu_ystr_create_from_cstr(CEU_LIB_CTIME_VERSION);
+    char* retv = ceu_ystr_to_cstr(version_ystr);
+    ceu_ystr_destroy(version_ystr);
+    return retv;
 }
 
 char* ceu_check_get_full_info(void)

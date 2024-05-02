@@ -1,11 +1,17 @@
 /*!
  * @brief Microsoft MSVC. That is, what is bundled in Visual Studio.
+ *
+ * @see https://learn.microsoft.com/en-us/cpp/overview/compiler-versions?view=msvc-170
+ * @see https://learn.microsoft.com/en-us/cpp/preprocessor/predefined-macros?view=msvc-170
+ * @see https://devblogs.microsoft.com/cppblog/visual-c-compiler-version/
  */
 #if defined(_MSC_VER) && !defined(CEU_COMPILER_NAME)
 #define CEU_COMPILER_IS_MSVC
 #define CEU_COMPILER_NAME "MSVC"
 #define CEU_COMPILER_VERSION _MSC_VER
-#if CEU_COMPILER_VERSION == 800
+#if CEU_COMPILER_VERSION < 800
+#define VISUAL_STUDIO_VER "unknown before 1"
+#elif CEU_COMPILER_VERSION == 800
 #define VISUAL_STUDIO_VER "1"
 #elif CEU_COMPILER_VERSION == 900
 #define VISUAL_STUDIO_VER "3"
@@ -77,8 +83,18 @@
 #define VISUAL_STUDIO_VER "17.4 (2022)"
 #elif CEU_COMPILER_VERSION == 1935
 #define VISUAL_STUDIO_VER "17.5 (2022)"
-#elif CEU_COMPILER_VERSION > 1935
-#define VISUAL_STUDIO_VER "unknown later than 17.5 (2022)"
+#elif CEU_COMPILER_VERSION == 1936
+#define VISUAL_STUDIO_VER "17.6 (2022)"
+#elif CEU_COMPILER_VERSION == 1937
+#define VISUAL_STUDIO_VER "17.7 (2022)"
+#elif CEU_COMPILER_VERSION == 1938
+#define VISUAL_STUDIO_VER "17.8 (2022)"
+#elif CEU_COMPILER_VERSION == 1939
+#define VISUAL_STUDIO_VER "17.9 (2022)"
+#elif CEU_COMPILER_VERSION == 1940
+#define VISUAL_STUDIO_VER "17.10 (2022)"
+#elif CEU_COMPILER_VERSION > 1940
+#define VISUAL_STUDIO_VER "unknown later than 17.10 (1940)"
 #else
 #define VISUAL_STUDIO_VER "unknown"
 #endif

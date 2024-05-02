@@ -1,4 +1,4 @@
-/**
+/*!
  * @file cst_workload.h
  * @author YU Zhejian
  * @brief Workload for testing parallelization libraries like OpenMP, PThread, etc.

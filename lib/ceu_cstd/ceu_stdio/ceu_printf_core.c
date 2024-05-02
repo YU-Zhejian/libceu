@@ -1,15 +1,16 @@
-#include <pstdint.h>
 #include <stdlib.h>
 
 // TODO: Refactor to use ystrlib
 
 #include "ceu_basic/ceu_c_utils.h"
 #include "ceu_basic/ceu_fast_macros.h"
+#include "ceu_cstd/ceu_stdint.h"
 #include "ceu_cstd/ceu_stdio/ceu_printf_core.h"
 #include "ceu_cstd/ceu_string.h"
 #include "ceu_ystrlib/ceu_ystrlib_convert.h"
 #include "ceu_ystrlib/ceu_ystrlib_gc.h"
 #include "ceu_ystrlib/ceu_ystrlib_int.h"
+#include <ceu_cstd/ceu_stddef.h>
 
 // TODO: Here warns a -Wunused-but-set-parameter.
 static void clear_ceu_printf_flags_t(ceu_printf_flags_t pf)
@@ -21,7 +22,7 @@ static void clear_ceu_printf_flags_t(ceu_printf_flags_t pf)
     pf.CEU_PRINTF_FLAG_ZERO = false;
 }
 
-/**
+/*!
  * Next position if current position is not line ending, otherwise report line endings.
  *
  * This function is safe but inefficient, as it would measure buffer length to prevent overflow all the time.
@@ -32,14 +33,14 @@ static void clear_ceu_printf_flags_t(ceu_printf_flags_t pf)
  */
 static char ceu_buff_peek(const char* buff, int pos)
 {
-    size_t buff_len = ceu_strlen(buff);
+    ceu_size_t buff_len = ceu_strlen(buff);
     if (pos >= buff_len) {
         return CEU_STRING_ENDING;
     }
     return buff[pos + 1];
 }
 
-static size_t ceu_printf_append_str_to_buff(char* buff, size_t current_buffer_position, const char* arg)
+static ceu_size_t ceu_printf_append_str_to_buff(char* buff, ceu_size_t current_buffer_position, const char* arg)
 {
     int current_arg_position = 0;
     while (arg[current_arg_position] != CEU_STRING_ENDING) {
@@ -59,11 +60,11 @@ static size_t ceu_printf_append_str_to_buff(char* buff, size_t current_buffer_po
  * within the field (by default it is right-justified)
  * @param padding_char
  */
-static char* ceu_printf_pad_blanks(const char* converted_str, char arg_numeric_sign_char, size_t dest_length,
+static char* ceu_printf_pad_blanks(const char* converted_str, char arg_numeric_sign_char, ceu_size_t dest_length,
     bool ceu_printf_flag_minus, char padding_char)
 {
-    size_t current_length = ceu_strlen(converted_str);
-    char* imm_str = NULL;
+    ceu_size_t current_length = ceu_strlen(converted_str);
+    char* imm_str = CEU_NULL;
     if (arg_numeric_sign_char != CEU_STRING_ENDING) {
         current_length += 1;
     }
@@ -79,7 +80,7 @@ static char* ceu_printf_pad_blanks(const char* converted_str, char arg_numeric_s
     } // FIXME: Wrong! If padding_char = ' ', will add sign and pad; '0'
     // otherwise.
 
-    char* return_str = NULL;
+    char* return_str = CEU_NULL;
     return_str = (char*)ceu_scalloc(dest_length + 1, sizeof(char));
     if (ceu_printf_flag_minus) {
         ceu_printf_append_str_to_buff(return_str, 0, imm_str);
@@ -88,7 +89,7 @@ static char* ceu_printf_pad_blanks(const char* converted_str, char arg_numeric_s
             return_str[current_length] = padding_char;
         }
     } else {
-        for (size_t i = 0; i < dest_length - current_length; i++) {
+        for (ceu_size_t i = 0; i < dest_length - current_length; i++) {
             return_str[i] = padding_char;
         }
         ceu_printf_append_str_to_buff(return_str, dest_length - current_length, imm_str);
@@ -96,7 +97,7 @@ static char* ceu_printf_pad_blanks(const char* converted_str, char arg_numeric_s
     ceu_free_non_null(imm_str);
     return return_str;
 }
-ceu_printf_ret_t ceu_vsnprintf_core(char* buff, size_t max_print_n_char, const char* fmt, va_list* args)
+ceu_printf_ret_t ceu_vsnprintf_core(char* buff, ceu_size_t max_print_n_char, const char* fmt, va_list* args)
 {
     ceu_printf_ret_t rett = { .current_buffer_position = 0, .current_fmt_position = 0 };
     int current_state = CEU_PRINTF_PARSING_COMMON_CHAR;
@@ -107,13 +108,13 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, size_t max_print_n_char, const c
     char current_char = fmt[rett.current_fmt_position];
     char next_char = ceu_buff_peek(fmt, rett.current_fmt_position);
 
-    uint64_t arg_uint = 0; // Value of the argument if it is unsigned int.
-    int64_t arg_int = 0; // Value of the argument if it is signed int.
+    ceu_uint64_t arg_uint = 0; // Value of the argument if it is unsigned int.
+    ceu_int64_t arg_int = 0; // Value of the argument if it is signed int.
     long double arg_dbl = 0.0; // Value of the argument if it is float or double.
-    void* arg_pointer = NULL; // Value of the argument if it is a pointer.
-    char* arg_str = NULL; // Value of the argument if it is a string.
-    char* converted_str = NULL; // Value of string that is converted from integer
-    char* converted_padded_str = NULL;
+    void* arg_pointer = CEU_NULL; // Value of the argument if it is a pointer.
+    char* arg_str = CEU_NULL; // Value of the argument if it is a string.
+    char* converted_str = CEU_NULL; // Value of string that is converted from integer
+    char* converted_padded_str = CEU_NULL;
     char arg_numeric_sign_char = CEU_STRING_ENDING; // Sign of the numeric, should be ' ' (see flags),
                                                     // '+', '-' or CEU_STRING_ENDING (disabled)
     char padding_char = ' '; // Padding char, should be ' ' or '0'
@@ -143,11 +144,11 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, size_t max_print_n_char, const c
                     arg_uint = 0;
                     arg_int = 0;
                     arg_dbl = 0.0;
-                    arg_pointer = NULL;
-                    arg_str = NULL;
-                    converted_str = NULL;
+                    arg_pointer = CEU_NULL;
+                    arg_str = CEU_NULL;
+                    converted_str = CEU_NULL;
                     arg_numeric_sign_char = CEU_STRING_ENDING, padding_char = ' ';
-                    converted_padded_str = NULL;
+                    converted_padded_str = CEU_NULL;
                     break;
                 }
             } else {
@@ -282,14 +283,15 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, size_t max_print_n_char, const c
                     arg_int = va_arg(*args, long long int);
                     break;
                 case CEU_PRINTF_LENGTH_j:
-                    arg_int = va_arg(*args, uint64_t); // FIXME: __intmax_t not portable
+                    arg_int = va_arg(*args, ceu_uintmax_t);
                     break;
                 case CEU_PRINTF_LENGTH_z:
-                    arg_int = va_arg(*args, size_t);
+                    arg_int = va_arg(*args, ceu_size_t);
                     break;
-                case CEU_PRINTF_LENGTH_t:
-                    arg_int = va_arg(*args, ptrdiff_t);
-                    break;
+                // FIXME: Support tenporarily dropped
+                // case CEU_PRINTF_LENGTH_t:
+                //     arg_int = va_arg(*args, ptrdiff_t);
+                //     break;
                 default:
                     abort();
                     break;
@@ -359,7 +361,7 @@ overflow:
     return rett;
 }
 
-ceu_printf_ret_t ceu_snprintf_core(char* buff, size_t max_print_n_char, const char* fmt, ...)
+ceu_printf_ret_t ceu_snprintf_core(char* buff, ceu_size_t max_print_n_char, const char* fmt, ...)
 {
     va_list(args);
     va_start(args, fmt);

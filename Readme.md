@@ -26,6 +26,8 @@ Tested under MS Visual Studio 2019 (Windows 7) and 2022 (Windows 10/11). A Windo
 
 ## Building libceu
 
+`libceu` currently does not suppost cross-compiling since lots of its CMake tests requires the generated program to be executed under the current environment.
+
 ## Integrating libceu to Your Program
 
 ## Future Targets
@@ -36,7 +38,7 @@ Add [GNU Autotools](https://www.gnu.org/software/autoconf/) and [pkg-config](htt
 
 The `ceu_check` and the function `ceu_snprintf` is now a total mess. They're subjected to be revised.
 
-yStr: Support NULL inside string.
+yStr: Support CEU_NULL inside string.
 
 ## Historical Stuff
 

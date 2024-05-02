@@ -1,4 +1,4 @@
-/**
+/*!
  * @file ceu_features.h
  * @author YU Zhejian
  * @brief Defines "inline" macro. Will do nothing if inline macro or keyword had already been defined.
@@ -11,8 +11,10 @@
 #ifndef CEU_FEATURES_H
 #define CEU_FEATURES_H
 
-#ifdef CEU_CM_UNDER_CMAKE
+#if defined(CEU_CM_UNDER_CMAKE)
 #include "ceu_basic/libceu_stddef_cmake.h"
+#elif defined(CEU_CM_UNDER_XMAKE)
+#include "ceu_basic/libceu_stddef_xmake.h"
 #endif
 
 // Following codes are from musl

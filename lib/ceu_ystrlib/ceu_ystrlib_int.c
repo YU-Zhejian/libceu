@@ -9,7 +9,7 @@ static const char AUG_NUMBERS[] = { "01234567" };
 static const char OCT_NUMBERS[] = { "0123456789" };
 static const char HEX_NUMBERS[] = { "0123456789ABCDEF" };
 
-ceu_ystr_t* ceu_ystr_from_uint(int raidx, uint64_t src_int)
+ceu_ystr_t* ceu_ystr_from_uint(int raidx, ceu_uint64_t src_int)
 {
     const char* numbers;
     if (raidx == 2) {

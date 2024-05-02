@@ -2,7 +2,7 @@
 #define CEU_CSTD_STDIO_PRINTF_CORE_H
 
 #include "ceu_cstd/ceu_stdbool.h"
-#include <ceu_cstd/ceu_stddef.h>
+#include <ceu_cstd/ceu_stddef.h> // ceu_size_t
 #include <stdarg.h>
 
 #ifdef __cplusplus
@@ -57,13 +57,13 @@ typedef struct
 
 typedef struct
 {
-    size_t current_buffer_position;
-    size_t current_fmt_position;
+    ceu_size_t current_buffer_position;
+    ceu_size_t current_fmt_position;
 } ceu_printf_ret_t;
 
-ceu_printf_ret_t ceu_vsnprintf_core(char* buff, size_t max_print_n_char, const char* fmt, va_list* args);
+ceu_printf_ret_t ceu_vsnprintf_core(char* buff, ceu_size_t max_print_n_char, const char* fmt, va_list* args);
 
-ceu_printf_ret_t ceu_snprintf_core(char* buff, size_t max_print_n_char, const char* fmt, ...);
+ceu_printf_ret_t ceu_snprintf_core(char* buff, ceu_size_t max_print_n_char, const char* fmt, ...);
 
 #ifdef __cplusplus
 }

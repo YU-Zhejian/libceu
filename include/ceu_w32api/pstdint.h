@@ -189,9 +189,9 @@
  *
  */
 
-#include <ceu_cstd/ceu_stddef.h>
 #include <limits.h>
 #include <signal.h>
+#include <stddef.h> // size_t
 
 /*
  *  For gcc with _STDINT_H, fill in the PRINTF_INT*_MODIFIER macros, and

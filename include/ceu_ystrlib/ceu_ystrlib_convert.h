@@ -8,7 +8,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/**
+/*!
  * @brief Convert yStr to C string.
  * @warning Performs memory allocation inside. Use ceu_ystr_to_cstr_ncpy() if you want to avoid memory allocation.
  *
@@ -17,24 +17,24 @@ extern "C" {
  */
 char* ceu_ystr_to_cstr(const ceu_ystr_t* ystr);
 
-/**
+/*!
  * @brief Convert yStr to C string in a way that mimics strcpy.
  * @warning Make sure that dest has enough space.
  *
  * @param ystr yStr to convert.
- * @param dest Destination buffer. The resulting buffer will be NULL-terminated.
+ * @param dest Destination buffer. The resulting buffer will be CEU_NULL-terminated.
  */
 void ceu_ystr_to_cstr_cpy(const ceu_ystr_t* ystr, char* dest);
 
-/**
+/*!
  * @brief Convert yStr to C string in a way that mimics strncpy.
  * @warning Make sure that dest has enough space.
- * @warning The resulting buffer may NOT be NULL-terminated.
+ * @warning The resulting buffer may NOT be CEU_NULL-terminated.
  *
  * @param ystr yStr to convert.
  * @param dest Destination buffer.
  */
-void ceu_ystr_to_cstr_ncpy(const ceu_ystr_t* ystr, char* dest, size_t n);
+void ceu_ystr_to_cstr_ncpy(const ceu_ystr_t* ystr, char* dest, ceu_size_t n);
 
 #ifdef __cplusplus
 }

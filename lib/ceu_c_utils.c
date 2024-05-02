@@ -3,14 +3,15 @@
 #include <stdlib.h> // malloc, calloc, free, realloc
 
 #include "ceu_basic/ceu_c_utils.h"
+#include "ceu_basic/ceu_fast_macros.h"
 #include "ceu_check/ceu_check_os.h"
 #include "ceu_cstd/ceu_stdio.h"
 #include "ceu_cstd/ceu_string.h"
 
-void* ceu_smalloc(size_t size)
+void* ceu_smalloc(ceu_size_t size)
 {
     void* m = malloc(size);
-    if (m == NULL) {
+    if (m == CEU_NULL) {
         ceu_die_with_retv("ERR 12 -- Cannot allocate memory", 12);
     } else {
         m = ceu_memset(m, 0, size);
@@ -18,33 +19,33 @@ void* ceu_smalloc(size_t size)
     return m;
 }
 
-void* ceu_scalloc(size_t count, size_t size)
+void* ceu_scalloc(ceu_size_t count, ceu_size_t size)
 {
     // a > numeric_limits<unsigned int>::max() / b;
     if (count != 0 && size != 0 && count > SIZE_MAX / size) {
         ceu_die_with_retv("Overflow detected!", 12);
     }
     void* m = calloc(count, size);
-    if (m == NULL) {
+    if (m == CEU_NULL) {
         ceu_die_with_retv("ERR 12 -- Cannot allocate memory", 12);
     }
     return m;
 }
 
-void* ceu_srealloc(void* m, size_t size)
+void* ceu_srealloc(void* m, ceu_size_t size)
 {
     void* retm = realloc(m, size);
-    if (retm == NULL) {
+    if (retm == CEU_NULL) {
         ceu_free_non_null(m);
         ceu_die_with_retv("ERR 12 -- Cannot allocate memory", 12);
     }
     return retm;
 }
 
-void* ceu_sreallocarray(void* m, size_t count, size_t size)
+void* ceu_sreallocarray(void* m, ceu_size_t count, ceu_size_t size)
 {
     void* retm = realloc(m, size * count);
-    if (retm == NULL) {
+    if (retm == CEU_NULL) {
         ceu_free_non_null(m);
         ceu_die_with_retv("ERR 12 -- Cannot allocate memory", 12);
     }
@@ -53,15 +54,15 @@ void* ceu_sreallocarray(void* m, size_t count, size_t size)
 
 void ceu_free_non_null(void* m)
 {
-    if (m != NULL) {
+    if (m != CEU_NULL) {
         free(m);
     }
 #ifndef CEU_ON_WINDOWS
-    m = NULL;
+    m = CEU_NULL;
 #endif
 }
 
-noreturn void ceu_die_with_retv(char* reason, int retv)
+noreturn void ceu_die_with_retv(const char* reason, int retv)
 {
     printf("Error occured! reason:\t%s\n", reason);
 #if (defined CEU_CM_IS_DEBUG && CEU_CM_IS_DEBUG == 1)
@@ -73,18 +74,9 @@ noreturn void ceu_die_with_retv(char* reason, int retv)
 #endif
 }
 
-noreturn void ceu_die(char* reason)
+noreturn void ceu_die(const char* reason)
 {
-    ceu_die_with_retv(reason, 1);
-}
-
-void ceu_ensure_not_none(char* vname, char* file_name, int lineno)
-{
-    char lineno_s[20] = "";
-    ceu_snprintf(lineno_s, 20, "%d", lineno);
-    //	ceu_die(ceu_str_join_with_sep("", CEU_STR_JOIN_REGARD_AS_EMPTY_STR, 6, file_name, ":", lineno_s, "\t", vname,
-    //			" is NULL!"));
-    ceu_die(""); // TODO
+    ceu_die_with_retv(reason, EXIT_FAILURE);
 }
 
 noreturn void ceu_press_any_key_to_exit(void)

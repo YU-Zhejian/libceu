@@ -1,4 +1,4 @@
-/**
+/*!
  * @file ceu_stdnoreturn.h
  * @author YU Zhejian
  * @brief Compatible file of <stdnoreturn.h>, providing definition of noreturn macro/keyword.
@@ -9,7 +9,7 @@
  * And it should correctly handle scenarios like being included in a C++ compilation unit.
  */
 
-/**
+/*!
  * @def noreturn
  * @brief A macro that indicates that the function never returns.
  *
@@ -23,19 +23,23 @@
  * - Nothing as fallback.
  */
 
+#ifndef CEU_STDNORETURN_H
+#define CEU_STDNORETURN_H
+
 #ifdef __cplusplus
 // FIXME: Temporary solution for C++ 11.
 #define noreturn [[noreturn]]
 #else
-#ifndef CEU_STDNORETURN_H
-#define CEU_STDNORETURN_H
 
 #include "ceu_check/ceu_check_cc.h"
 
-#ifdef CEU_CM_UNDER_CMAKE
+#if defined(CEU_CM_UNDER_CMAKE)
 #include "ceu_basic/libceu_stddef_cmake.h"
+#elif defined(CEU_CM_UNDER_XMAKE)
+#include "ceu_basic/libceu_stddef_xmake.h"
 #endif
-#if (CEU_HAVE_INCLUDE_STDNORETURN_H == 1 && CEU_CM_HAVE_WORKING_C_NORETURN_RUN_STATIC * CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED == 0)
+
+#if (defined(CEU_HAVE_INCLUDE_STDNORETURN_H) && CEU_HAVE_INCLUDE_STDNORETURN_H == 1 && CEU_CM_HAVE_WORKING_C_NORETURN_RUN_STATIC * CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED == 0)
 #include <stdnoreturn.h> // This file should define noreturn
 #elif (CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC * CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC == 0)
 // Normal condition where _Noreturn is supported
@@ -46,6 +50,7 @@
 #else
 // Have nothing!
 #define noreturn // NOLINT
+#warn "Noreturn not supported by the compiler."
 #endif
 #endif
 #endif

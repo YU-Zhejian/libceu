@@ -16,7 +16,7 @@ void ceu_ystr_to_cstr_cpy(const ceu_ystr_t* ystr, char* dest)
     dest[ystr->consumed_length + 1] = CEU_STRING_ENDING;
 }
 
-void ceu_ystr_to_cstr_ncpy(const ceu_ystr_t* ystr, char* dest, size_t n)
+void ceu_ystr_to_cstr_ncpy(const ceu_ystr_t* ystr, char* dest, ceu_size_t n)
 {
     if (ystr->consumed_length < n) {
         n = ystr->consumed_length;

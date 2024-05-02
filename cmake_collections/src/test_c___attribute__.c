@@ -1,4 +1,4 @@
-/**
+/*!
  * @file test_c___attribute__.c
  * @author YU Zhejian
  * @brief Test whether __attribute__ is supported. Will test __attribute__((noreturn)) and __attribute__((unused)).

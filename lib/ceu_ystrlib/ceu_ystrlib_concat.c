@@ -7,10 +7,10 @@
 typedef struct
 {
     const char* buff;
-    size_t consumed_length;
+    ceu_size_t consumed_length;
 } ceu_ystr_view_t;
 
-/**
+/*!
  * Create view for C String to reduce copying.
  * @warning This function is dangerous since it produces a ceu_ystr_t that needs to be freed by specific methods!
  * @param cstr Source C String.
@@ -19,7 +19,7 @@ typedef struct
 ceu_ystr_view_t* ceu_ystr_view_create_from_cstr(const char* cstr)
 {
     ceu_ystr_view_t* ceu_ystr = (ceu_ystr_view_t*)ceu_smalloc(sizeof(ceu_ystr_view_t));
-    size_t sl = ceu_strlen(cstr);
+    ceu_size_t sl = ceu_strlen(cstr);
     ceu_ystr->buff = cstr;
     ceu_ystr->consumed_length = sl;
     return ceu_ystr;
@@ -33,22 +33,22 @@ ceu_ystr_view_t* ceu_ystr_view_create_from_ystr(const ceu_ystr_t* ystr)
     return ceu_ystr;
 }
 
-/**
+/*!
  * Destroy the peoxy.
  * @param ystr_view The view to some C string.
  */
 void ceu_ystr_view_destroy(ceu_ystr_view_t* ystr_view)
 {
-    ystr_view->buff = NULL;
+    ystr_view->buff = CEU_NULL;
     ystr_view->consumed_length = 0;
     ceu_free_non_null(ystr_view);
 }
 
 void ceu_ystr_ystrview_concat_inplace(ceu_ystr_t* ystr, const ceu_ystr_view_t* ystr2)
 {
-    size_t new_consumed_length = ystr2->consumed_length + ystr->consumed_length;
+    ceu_size_t new_consumed_length = ystr2->consumed_length + ystr->consumed_length;
     ceu_ystr_guarantee(ystr, new_consumed_length + 1);
-    for (size_t i = 0; i < ystr2->consumed_length; ++i) {
+    for (ceu_size_t i = 0; i < ystr2->consumed_length; ++i) {
         ystr->buff[i + ystr->consumed_length] = ystr2->buff[i];
     }
     ystr->consumed_length = new_consumed_length;
@@ -57,10 +57,10 @@ void ceu_ystr_ystrview_concat_inplace(ceu_ystr_t* ystr, const ceu_ystr_view_t* y
 
 ceu_ystr_t* ceu_ystr_ystrview_concat_const(const ceu_ystr_t* ystr, ceu_ystr_view_t* ystr2)
 {
-    size_t new_consumed_length = ystr2->consumed_length + ystr->consumed_length;
+    ceu_size_t new_consumed_length = ystr2->consumed_length + ystr->consumed_length;
     ceu_ystr_t* ystr_ret = ceu_ystr_create_from_cstr_guarantee(ystr->buff, new_consumed_length + 1);
 
-    for (size_t i = 0; i < ystr2->consumed_length; ++i) {
+    for (ceu_size_t i = 0; i < ystr2->consumed_length; ++i) {
         ystr_ret->buff[i + ystr->consumed_length] = ystr2->buff[i];
     }
     ystr_ret->consumed_length = new_consumed_length;

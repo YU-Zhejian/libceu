@@ -16,7 +16,7 @@ char* ceu_check_interpret_compilation_date_time(void)
 #endif
     if (retv < 0) {
         ceu_free_non_null(buff);
-        return NULL;
+        return CEU_NULL;
     }
     return buff;
 }
@@ -27,13 +27,13 @@ char* ceu_check_get_compiler_info(void)
     char* buff = (char*)ceu_scalloc(1024, sizeof(char));
     int retv;
     char* date_time_buff = ceu_check_interpret_compilation_date_time();
-    if (date_time_buff == NULL) {
-        return NULL;
+    if (date_time_buff == CEU_NULL) {
+        return CEU_NULL;
     }
     compiler_version_buff = interpret_compiler_version_number();
-    if (compiler_version_buff == NULL) {
+    if (compiler_version_buff == CEU_NULL) {
         ceu_free_non_null(date_time_buff);
-        return NULL;
+        return CEU_NULL;
     }
 
     retv = ceu_snprintf(buff, 1024, "Compiled at %s with compiler '%s'\n\t%s", date_time_buff, CEU_COMPILER_NAME,
@@ -41,7 +41,7 @@ char* ceu_check_get_compiler_info(void)
     ceu_free_non_null(date_time_buff);
     ceu_free_non_null(compiler_version_buff);
     if (retv < 0) {
-        return NULL;
+        return CEU_NULL;
     }
     return buff;
 }
@@ -58,7 +58,7 @@ char* interpret_icc_compiler_version_number()
 #endif
     if (retv < 0) {
         ceu_free_non_null(buff);
-        return NULL;
+        return CEU_NULL;
     }
     return buff;
 }
@@ -66,7 +66,7 @@ char* interpret_icc_compiler_version_number()
 
 char* interpret_icc_compiler_version_number(void)
 {
-    return NULL;
+    return CEU_NULL;
 }
 
 #endif
@@ -77,20 +77,28 @@ char* interpret_msvc_compiler_version_number(void)
     int retv;
     int msv_major_version = CEU_COMPILER_VERSION / 100;
     int msc_minor_version = CEU_COMPILER_VERSION % 100;
-#ifdef _MSC_FULL_VER
+#if (defined _MSC_FULL_VER) && (defined _MSC_BUILD)
     retv = ceu_snprintf(buff, 256,
+        // Here ceu_snprintf contains bugs.
         "MSVC compatible version number: %d.%d\n\t\twith "
-        "Visual Studio ver. %s (_MSC_VER=%d, _MSC_FULL_VER=%d)",
-        msv_major_version, msc_minor_version, VISUAL_STUDIO_VER, _MSC_VER, _MSC_FULL_VER);
+        "Visual Studio ver. %s (%d.%d.%d.%d)",
+        msv_major_version, msc_minor_version, VISUAL_STUDIO_VER, _MSC_VER / 100, _MSC_VER % 100, _MSC_FULL_VER % 100000, _MSC_BUILD);
+#elif defined _MSC_FULL_VER
+    retv = ceu_snprintf(buff, 256,
+        // Here ceu_snprintf contains bugs.
+        "MSVC compatible version number: %d.%d\n\t\twith "
+        "Visual Studio ver. %s (%d.%d.%d)",
+        msv_major_version, msc_minor_version, VISUAL_STUDIO_VER, _MSC_VER / 100, _MSC_VER % 100, _MSC_FULL_VER % 100000);
 #else
     retv = ceu_snprintf(buff, 256,
-        "MSVC compatible version number: %d.%d\n\t\twith Visual "
-        "Studio ver. %s (_MSC_VER=%d, _MSC_FULL_VER=UNKNOWN)",
-        msv_major_version, msc_minor_version, VISUAL_STUDIO_VER, _MSC_VER);
+        // Here ceu_snprintf contains bugs.
+        "MSVC compatible version number: %d.%d\n\t\twith "
+        "Visual Studio ver. %s (%d.%d)",
+        msv_major_version, msc_minor_version, VISUAL_STUDIO_VER, _MSC_VER / 100, _MSC_VER % 100);
 #endif
     if (retv < 0) {
         ceu_free_non_null(buff);
-        return NULL;
+        return CEU_NULL;
     }
     return buff;
 }
@@ -98,7 +106,7 @@ char* interpret_msvc_compiler_version_number(void)
 
 char* interpret_msvc_compiler_version_number(void)
 {
-    return NULL;
+    return CEU_NULL;
 }
 
 #endif
@@ -111,7 +119,7 @@ char* interpret_nvhpc_compiler_version_number()
         __NVCOMPILER_MINOR__, __NVCOMPILER_PATCHLEVEL__);
     if (retv < 0) {
         ceu_free_non_null(buff);
-        return NULL;
+        return CEU_NULL;
     }
     return buff;
 }
@@ -119,7 +127,7 @@ char* interpret_nvhpc_compiler_version_number()
 
 char* interpret_nvhpc_compiler_version_number(void)
 {
-    return NULL;
+    return CEU_NULL;
 }
 
 #endif
@@ -134,7 +142,7 @@ char* interpret_tcc_compiler_version_number(void)
     retv = ceu_snprintf(buff, 256, "TCC compatible version number: %d.%d.%d", major, minor, patchlevel);
     if (retv < 0) {
         ceu_free_non_null(buff);
-        return NULL;
+        return CEU_NULL;
     }
     return buff;
 }
@@ -142,7 +150,7 @@ char* interpret_tcc_compiler_version_number(void)
 
 char* interpret_tcc_compiler_version_number(void)
 {
-    return NULL;
+    return CEU_NULL;
 }
 
 #endif
@@ -157,7 +165,7 @@ char* interpret_broadland_compiler_version_number(void)
     retv = ceu_snprintf(buff, 256, "Broadland compatible version number: %d.%d", major, revision);
     if (retv < 0) {
         ceu_free_non_null(buff);
-        return NULL;
+        return CEU_NULL;
     }
     return buff;
 }
@@ -165,7 +173,7 @@ char* interpret_broadland_compiler_version_number(void)
 
 char* interpret_broadland_compiler_version_number(void)
 {
-    return NULL;
+    return CEU_NULL;
 }
 
 #endif
@@ -183,7 +191,7 @@ char* interpret_clang_compiler_version_number(void)
 #endif
     if (retv < 0) {
         ceu_free_non_null(buff);
-        return NULL;
+        return CEU_NULL;
     }
     return buff;
 }
@@ -192,7 +200,7 @@ char* interpret_clang_compiler_version_number(void)
 
 char* interpret_clang_compiler_version_number(void)
 {
-    return NULL;
+    return CEU_NULL;
 }
 
 #endif
@@ -210,7 +218,7 @@ char* interpret_gcc_compiler_version_number(void)
 #endif
     if (retv < 0) {
         ceu_free_non_null(buff);
-        return NULL;
+        return CEU_NULL;
     }
     return buff;
 }
@@ -219,7 +227,7 @@ char* interpret_gcc_compiler_version_number(void)
 
 char* interpret_gcc_compiler_version_number(void)
 {
-    return NULL;
+    return CEU_NULL;
 }
 
 #endif
@@ -233,7 +241,7 @@ char* interpret_compiler_macro_version_number(void)
     retv = ceu_snprintf(buff, 256, "__VERSION__ version number: %s", __VERSION__);
     if (retv < 0) {
         ceu_free_non_null(buff);
-        return NULL;
+        return CEU_NULL;
     }
     return buff;
 }
@@ -242,7 +250,7 @@ char* interpret_compiler_macro_version_number(void)
 
 char* interpret_compiler_macro_version_number(void)
 {
-    return NULL;
+    return CEU_NULL;
 }
 
 #endif

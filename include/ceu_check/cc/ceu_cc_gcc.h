@@ -1,5 +1,6 @@
 /*!
- * @brief GNU GCC and G++
+ * @file ceu_cc_gcc.h
+ * @brief Detect whether the compiler is GNU GCC and G++
  */
 #if defined(__GNUC__)
 #define CEU_COMPILER_IS_GCC

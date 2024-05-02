@@ -71,7 +71,7 @@ Latest supported C++ Standard Verison.
 #ifdef __cplusplus
 extern "C" {
 #endif
-/**
+/*!
  * Get compile-time C standard version number.
  */
 char* ceu_interpret_c_std_version(void);

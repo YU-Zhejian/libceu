@@ -26,7 +26,7 @@ void ceu_ystr_clean(ceu_ystr_t* ystr)
     ceu_memset(ystr->buff, 0, ystr->consumed_length);
     ystr->consumed_length = 0;
 }
-void ceu_ystr_shrink(ceu_ystr_t* ystr, size_t new_buffer_size)
+void ceu_ystr_shrink(ceu_ystr_t* ystr, ceu_size_t new_buffer_size)
 {
     if (ystr->buff_length <= new_buffer_size) {
         return; // Do nothing if the buffer is short enough.
