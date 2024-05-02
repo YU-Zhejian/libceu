@@ -9,7 +9,7 @@
 /**
  * @def __attribute__
  * @brief Defines GNU-compatuble __attribute__ macro for platforms that does not provide this macro to empty.
-*/
+ */
 
 #ifdef CEU_CM_UNDER_CMAKE
 #include "ceu_basic/libceu_stddef_cmake.h"

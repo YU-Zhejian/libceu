@@ -160,68 +160,90 @@
 
 #if defined(CEU_CM_TYPE_SC_SIZE) && (CEU_CM_TYPE_SC_SIZE == CEU_INT8_SIZE) && defined(SCHAR_MIN) && (SCHAR_MIN == INT8_MIN) && defined(SCHAR_MAX) && (SCHAR_MAX == INT8_MAX)
 typedef signed char int8_t;
+#define CEU_INT8_PRINTF_MODIFIER "hhd"
 #elif defined(CEU_CM_TYPE_C_SIZE) && (CEU_CM_TYPE_C_SIZE == CEU_INT8_SIZE) && defined(CHAR_MIN) && (CHAR_MIN == INT8_MIN) && defined(CHAR_MAX) && (CHAR_MAX == INT8_MAX)
 typedef char int8_t;
+#define CEU_INT8_PRINTF_MODIFIER "hhd"
 #else
 #error "Failed to define int8_t! Checked: signed char, char"
 #endif
 
 #if defined(CEU_CM_TYPE_UC_SIZE) && (CEU_CM_TYPE_UC_SIZE == CEU_INT8_SIZE) && defined(UCHAR_MAX) && (UCHAR_MAX == UINT8_MAX)
 typedef unsigned char uint8_t;
+#define CEU_UINT8_PRINTF_MODIFIER "hhu"
 #else
 #error "Failed to define uint8_t! Checked: unsigned char"
 #endif
 
 #if defined(CEU_CM_TYPE_SSH_SIZE) && (CEU_CM_TYPE_SSH_SIZE == CEU_INT16_SIZE) && defined(SHRT_MIN) && (SHRT_MIN == INT16_MIN) && defined(SHRT_MAX) && (SHRT_MAX == INT16_MAX)
 typedef signed short int16_t;
+#define CEU_INT16_PRINTF_MODIFIER "hd"
 #elif defined(CEU_CM_TYPE_SH_SIZE) && (CEU_CM_TYPE_SH_SIZE == CEU_INT16_SIZE) && defined(SHRT_MIN) && (SHRT_MIN == INT16_MIN) && defined(SHRT_MAX) && (SHRT_MAX == INT16_MAX)
 typedef short int16_t;
+#define CEU_INT16_PRINTF_MODIFIER "hd"
 #elif defined(CEU_CM_TYPE_SSHI_SIZE) && (CEU_CM_TYPE_SSHI_SIZE == CEU_INT16_SIZE) && defined(SHRT_MIN) && (SHRT_MIN == INT16_MIN) && defined(SHRT_MAX) && (SHRT_MAX == INT16_MAX)
 typedef signed short int int16_t;
+#define CEU_INT16_PRINTF_MODIFIER "hd"
 #elif defined(CEU_CM_TYPE_SHI_SIZE) && (CEU_CM_TYPE_SHI_SIZE == CEU_INT16_SIZE) && defined(SHRT_MIN) && (SHRT_MIN == INT16_MIN) && defined(SHRT_MAX) && (SHRT_MAX == INT16_MAX)
 typedef short int int16_t;
+#define CEU_INT16_PRINTF_MODIFIER "hd"
 #elif defined(CEU_CM_TYPE_SI_SIZE) && (CEU_CM_TYPE_SI_SIZE == CEU_INT16_SIZE) && defined(INT_MIN) && (INT_MIN == INT16_MIN) && defined(INT_MAX) && (INT_MAX == INT16_MAX)
 typedef signed int int16_t;
+#define CEU_INT16_PRINTF_MODIFIER "d"
 #elif defined(CEU_CM_TYPE_I_SIZE) && (CEU_CM_TYPE_I_SIZE == CEU_INT16_SIZE) && defined(INT_MIN) && (INT_MIN == INT16_MIN) && defined(INT_MAX) && (INT_MAX == INT16_MAX)
 typedef int int16_t;
+#define CEU_INT16_PRINTF_MODIFIER "d"
 #else
 #error "Failed to define int16_t! Checked: signed short, short, signed short int, short int, signed int, int"
 #endif
 
 #if defined(CEU_CM_TYPE_USH_SIZE) && (CEU_CM_TYPE_USH_SIZE == CEU_INT16_SIZE) && defined(USHRT_MAX) && (USHRT_MAX == UINT16_MAX)
 typedef unsigned short uint16_t;
+#define CEU_UINT16_PRINTF_MODIFIER "hu"
 #elif defined(CEU_CM_TYPE_USHI_SIZE) && (CEU_CM_TYPE_USHI_SIZE == CEU_INT16_SIZE) && defined(USHRT_MAX) && (USHRT_MAX == UINT16_MAX)
 typedef unsigned short int uint16_t;
+#define CEU_UINT16_PRINTF_MODIFIER "hu"
 #elif defined(CEU_CM_TYPE_UI_SIZE) && (CEU_CM_TYPE_UI_SIZE == CEU_INT16_SIZE) && defined(UINT_MAX) && (UINT_MAX == UINT16_MAX)
 typedef unsigned int uint16_t;
+#define CEU_UINT16_PRINTF_MODIFIER "u"
 #elif defined(CEU_CM_TYPE_U_SIZE) && (CEU_CM_TYPE_U_SIZE == CEU_INT16_SIZE) && defined(UINT_MAX) && (UINT_MAX == UINT16_MAX)
 typedef unsigned uint16_t;
+#define CEU_UINT16_PRINTF_MODIFIER "u"
 #else
 #error "Failed to define uint16_t! Checked: unsigned short, unsigned short int, unsigned int, unsigned"
 #endif
 
 #if defined(CEU_CM_TYPE_SI_SIZE) && (CEU_CM_TYPE_SI_SIZE == CEU_INT32_SIZE) && defined(INT_MIN) && (INT_MIN == INT32_MIN) && defined(INT_MAX) && (INT_MAX == INT32_MAX)
 typedef signed int int32_t;
+#define CEU_INT32_PRINTF_MODIFIER "d"
 #elif defined(CEU_CM_TYPE_I_SIZE) && (CEU_CM_TYPE_I_SIZE == CEU_INT32_SIZE) && defined(INT_MIN) && (INT_MIN == INT32_MIN) && defined(INT_MAX) && (INT_MAX == INT32_MAX)
 typedef int int32_t;
+#define CEU_INT32_PRINTF_MODIFIER "d"
 #elif defined(CEU_CM_TYPE_SL_SIZE) && (CEU_CM_TYPE_SL_SIZE == CEU_INT32_SIZE) && defined(INT_MIN) && (INT_MIN == INT32_MIN) && defined(INT_MAX) && (INT_MAX == INT32_MAX)
 typedef signed long int32_t;
+#define CEU_INT32_PRINTF_MODIFIER "ld"
 #elif defined(CEU_CM_TYPE_L_SIZE) && (CEU_CM_TYPE_L_SIZE == CEU_INT32_SIZE) && defined(LONG_MIN) && (LONG_MIN == INT32_MIN) && defined(LONG_MAX) && (LONG_MAX == INT32_MAX)
 typedef long int32_t;
+#define CEU_INT32_PRINTF_MODIFIER "ld"
 #elif defined(CEU_CM_TYPE_SLI_SIZE) && (CEU_CM_TYPE_SLI_SIZE == CEU_INT32_SIZE) && defined(LONG_MIN) && (LONG_MIN == INT32_MIN) && defined(LONG_MAX) && (LONG_MAX == INT32_MAX)
 typedef signed long int int32_t;
+#define CEU_INT32_PRINTF_MODIFIER "ld"
 #elif defined(CEU_CM_TYPE_LI_SIZE) && (CEU_CM_TYPE_LI_SIZE == CEU_INT32_SIZE) && defined(LONG_MIN) && (LONG_MIN == INT32_MIN) && defined(LONG_MAX) && (LONG_MAX == INT32_MAX)
 typedef long int int32_t;
+#define CEU_INT32_PRINTF_MODIFIER "ld"
 #else
 #error "Failed to define int32_t! Checked: signed int, int, signed long, long, signed long int, long int"
 #endif
 
 #if defined(CEU_CM_TYPE_UI_SIZE) && (CEU_CM_TYPE_UI_SIZE == CEU_INT32_SIZE) && defined(UINT_MAX) && (UINT_MAX == UINT32_MAX)
 typedef unsigned int uint32_t;
+#define CEU_UINT32_PRINTF_MODIFIER "u"
 #elif defined(CEU_CM_TYPE_UL_SIZE) && (CEU_CM_TYPE_UL_SIZE == CEU_INT32_SIZE) && defined(ULONG_MAX) && (ULONG_MAX == UINT32_MAX)
 typedef unsigned long uint32_t;
+#define CEU_UINT32_PRINTF_MODIFIER "lu"
 #elif defined(CEU_CM_TYPE_ULI_SIZE) && (CEU_CM_TYPE_ULI_SIZE == CEU_INT32_SIZE) && defined(ULONG_MAX) && (ULONG_MAX == UINT32_MAX)
 typedef unsigned long int uint32_t;
+#define CEU_UINT32_PRINTF_MODIFIER "lu"
 #else
 #error "Failed to define uint32_t! Checked: unsigned int, unsigned long, unsigned long int"
 #endif
@@ -231,20 +253,28 @@ typedef unsigned long int uint32_t;
 
 #if defined(CEU_CM_TYPE_SL_SIZE) && (CEU_CM_TYPE_SL_SIZE == CEU_INT64_SIZE) && defined(LONG_MIN) && (LONG_MIN == INT64_MIN) && defined(LONG_MAX) && (LONG_MAX == INT64_MAX)
 typedef signed long int64_t;
+#define CEU_INT64_PRINTF_MODIFIER "ld"
 #elif defined(CEU_CM_TYPE_L_SIZE) && (CEU_CM_TYPE_L_SIZE == CEU_INT64_SIZE) && defined(LONG_MIN) && (LONG_MIN == INT64_MIN) && defined(LONG_MAX) && (LONG_MAX == INT64_MAX)
 typedef long int64_t;
+#define CEU_INT64_PRINTF_MODIFIER "ld"
 #elif defined(CEU_CM_TYPE_SLI_SIZE) && (CEU_CM_TYPE_SLI_SIZE == CEU_INT64_SIZE) && defined(LONG_MIN) && (LONG_MIN == INT64_MIN) && defined(LONG_MAX) && (LONG_MAX == INT64_MAX)
 typedef signed long int int64_t;
+#define CEU_INT64_PRINTF_MODIFIER "ld"
 #elif defined(CEU_CM_TYPE_LI_SIZE) && (CEU_CM_TYPE_LI_SIZE == CEU_INT64_SIZE) && defined(LONG_MIN) && (LONG_MIN == INT64_MIN) && defined(LONG_MAX) && (LONG_MAX == INT64_MAX)
 typedef long int int64_t;
+#define CEU_INT64_PRINTF_MODIFIER "ld"
 #elif defined(CEU_CM_TYPE_SLL_SIZE) && (CEU_CM_TYPE_SLL_SIZE == CEU_INT64_SIZE) && defined(LLONG_MIN) && (LLONG_MIN == INT64_MIN) && defined(LLONG_MAX) && (LLONG_MAX == INT64_MAX)
 typedef signed long long int64_t;
+#define CEU_INT64_PRINTF_MODIFIER "lld"
 #elif defined(CEU_CM_TYPE_LL_SIZE) && (CEU_CM_TYPE_LL_SIZE == CEU_INT64_SIZE) && defined(LLONG_MIN) && (LLONG_MIN == INT64_MIN) && defined(LLONG_MAX) && (LLONG_MAX == INT64_MAX)
 typedef long long int64_t;
+#define CEU_INT64_PRINTF_MODIFIER "lld"
 #elif defined(CEU_CM_TYPE_SLLI_SIZE) && (CEU_CM_TYPE_SLLI_SIZE == CEU_INT64_SIZE) && defined(LLONG_MIN) && (LLONG_MIN == INT64_MIN) && defined(LLONG_MAX) && (LLONG_MAX == INT64_MAX)
 typedef signed long long int int64_t;
+#define CEU_INT64_PRINTF_MODIFIER "lld"
 #elif defined(CEU_CM_TYPE_LLI_SIZE) && (CEU_CM_TYPE_LI_SIZE == CEU_INT64_SIZE) && defined(LLONG_MIN) && (LLONG_MIN == INT64_MIN) && defined(LLONG_MAX) && (LLONG_MAX == INT64_MAX)
 typedef long long int int64_t;
+#define CEU_INT64_PRINTF_MODIFIER "lld"
 #else
 #undef CEU_HAVE_INT64
 #warning "Failed to define int64_t! Checked: signed long, long, signed long int, long int, signed long long, long long, signed long long int, long long int"
@@ -253,12 +283,16 @@ typedef long long int int64_t;
 #define CEU_HAVE_UINT64 1
 #if defined(CEU_CM_TYPE_UL_SIZE) && (CEU_CM_TYPE_UL_SIZE == CEU_INT64_SIZE) && defined(ULONG_MAX) && (ULONG_MAX == UINT64_MAX)
 typedef unsigned long uint64_t;
+#define CEU_UINT64_PRINTF_MODIFIER "lu"
 #elif defined(CEU_CM_TYPE_ULI_SIZE) && (CEU_CM_TYPE_ULI_SIZE == CEU_INT64_SIZE) && defined(ULONG_MAX) && (ULONG_MAX == UINT64_MAX)
 typedef unsigned long int uint64_t;
+#define CEU_UINT64_PRINTF_MODIFIER "lu"
 #elif defined(CEU_CM_TYPE_ULL_SIZE) && (CEU_CM_TYPE_ULL_SIZE == CEU_INT64_SIZE) && defined(ULLONG_MAX) && (ULLONG_MAX == UINT64_MAX)
 typedef unsigned long long uint64_t;
+#define CEU_UINT64_PRINTF_MODIFIER "llu"
 #elif defined(CEU_CM_TYPE_ULLI_SIZE) && (CEU_CM_TYPE_ULLI_SIZE == CEU_INT64_SIZE) && defined(ULLONG_MAX) && (ULLONG_MAX == UINT64_MAX)
 typedef unsigned long long int uint64_t;
+#define CEU_UINT64_PRINTF_MODIFIER "llu"
 #else
 #undef CEU_HAVE_UINT64
 #error "Failed to define uint64_t! Checked: unsigned long, unsigned long int, unsigned long long, unsigned long long int"
@@ -299,4 +333,4 @@ typedef uint_least32_t uint_fast32_t;
 typedef int64_t int_fast64_t;
 typedef uint64_t uint_fast64_t;
 
-#endif //CEU_STDINT_H
+#endif // CEU_STDINT_H

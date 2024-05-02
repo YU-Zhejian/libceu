@@ -12,16 +12,16 @@
 /**
  * @def noreturn
  * @brief A macro that indicates that the function never returns.
- * 
+ *
  * @todo Deal with noreturn in C++.
  * @todo Check for `[[noreturn]]` in C++ 23.
- * 
+ *
  * Would be expanded to:
- * 
+ *
  * - `_Noreturn`, if exists.
  * - `__attribute__((noreturn))`, if supports.
  * - Nothing as fallback.
-*/
+ */
 
 #ifdef __cplusplus
 // FIXME: Temporary solution for C++ 11.

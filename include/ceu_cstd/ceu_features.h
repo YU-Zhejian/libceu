@@ -4,7 +4,7 @@
  * @brief Defines "inline" macro. Will do nothing if inline macro or keyword had already been defined.
  * @version 0.1
  * @date 2024-04-28
- * 
+ *
  * @todo Check whether inline works. Also check for behaviour under C++.
  */
 

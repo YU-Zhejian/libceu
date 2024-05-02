@@ -1,7 +1,7 @@
 /**
  * @file ceu_string.h
  * @brief POSIX-2008 compiliant string \& memory manipulation functions from <string.h>.
- * 
+ *
  * Pure-C functions, portable but slow.
  * @todo void    *memccpy(void *restrict, const void *restrict, int, size_t);
  * @todo void    *memchr(const void *, int, size_t);
@@ -32,7 +32,7 @@
  * @todo char    *strtok_r(char *restrict, const char *restrict, char **restrict);
  * @todo size_t   strxfrm(char *restrict, const char *restrict, size_t);
  * @todo size_t   strxfrm_l(char *restrict, const char *restrict, size_t, locale_t);
-*/
+ */
 #ifndef CEU_STRING_H
 #define CEU_STRING_H
 
@@ -40,7 +40,7 @@
 #include "ceu_basic/libceu_stddef_cmake.h"
 #endif
 
-#include <stddef.h>
+#include <ceu_cstd/ceu_stddef.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,12 +48,12 @@ extern "C" {
 
 /**
  * @brief Copy characters from `src` to `dst` until encountered `\0` or reached `n`.
- * 
+ *
  * The `strncpy` definition provided by GNU.
  *
  * If `\0` encountered without reaching `n`, additional `\0` would be padded
  * to the end of `dst` until reached `n`.
- * 
+ *
  * However, if `n` is reached first, no `\0` will be added.
  *
  * @warning This function does not guarantee that destination string is ended with `\0`!

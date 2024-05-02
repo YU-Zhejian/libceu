@@ -16,32 +16,32 @@
  *
  * - If `_Bool` is defined, will expand to `_Bool`.
  * - Otherwise, will fall back to `int`.
- * 
+ *
  */
 
 /**
  * @def true
  * @brief The boolean value `true`.
- * 
+ *
  * Expand to integer constant 1.
-*/
+ */
 
 /**
  * @def false
  * @brief The boolean value `false`.
- * 
+ *
  * Expand to integer constant 0.
-*/
+ */
 
 /**
  * @def __bool_true_false_are_defined
  * @brief To keep it POSIX-compiliant.
-*/
+ */
 
 /**
  * @def _STDBOOL
  * @brief To keep it POSIX-compiliant.
-*/
+ */
 
 #ifndef CEU_STDBOOL_H
 #define CEU_STDBOOL_H

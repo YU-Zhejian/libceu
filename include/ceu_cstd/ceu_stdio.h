@@ -1,7 +1,7 @@
 #ifndef CEU_STDIO_H
 #define CEU_STDIO_H
 
-#include <stddef.h>
+#include <ceu_cstd/ceu_stddef.h>
 
 #ifdef __cplusplus
 extern "C" {

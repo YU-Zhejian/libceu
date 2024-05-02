@@ -1,7 +1,7 @@
 #ifndef LIBCEU_CEU_YSTRLIB_H
 #define LIBCEU_CEU_YSTRLIB_H
 
-#include <stddef.h>
+#include <ceu_cstd/ceu_stddef.h>
 #define DEFAULT_CEU_YSTR_SIZE 16
 
 #ifdef __cplusplus

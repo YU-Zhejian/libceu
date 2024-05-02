@@ -3,7 +3,7 @@
 
 #include "ceu_cstd/ceu_stdnoreturn.h"
 
-#include <stddef.h> // size_t
+#include <ceu_cstd/ceu_stddef.h>
 
 #define CEU_ENSURE_NOT_NONE(X)                           \
     {                                                    \

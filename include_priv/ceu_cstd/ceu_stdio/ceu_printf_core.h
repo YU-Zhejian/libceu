@@ -2,8 +2,8 @@
 #define CEU_CSTD_STDIO_PRINTF_CORE_H
 
 #include "ceu_cstd/ceu_stdbool.h"
+#include <ceu_cstd/ceu_stddef.h>
 #include <stdarg.h>
-#include <stddef.h>
 
 #ifdef __cplusplus
 extern "C" {
