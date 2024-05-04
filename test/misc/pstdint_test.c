@@ -31,7 +31,7 @@
 
 #define X_SIZE_MAX ((size_t) - 1)
 
-int main()
+int main(void)
 {
     int err_n = 0;
     int err_first = 0;

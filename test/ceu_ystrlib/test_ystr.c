@@ -59,8 +59,8 @@ MU_TEST(ystr_create_from_cstr3)
 
 MU_TEST(ystr_create_from_cstr4)
 {
-    ceu_ystr_t* ystr1 = ceu_ystr_create_from_cstr_guarantee("10", 10);
-    mu_assert_int_eq(10, ystr1->buff_length);
+    ceu_ystr_t* ystr1 = ceu_ystr_create_from_cstr_guarantee("10", 128);
+    mu_assert_int_eq(128, ystr1->buff_length);
     mu_assert_int_eq(2, ystr1->consumed_length);
     mu_assert_string_eq("10", ystr1->buff);
     ceu_ystr_destroy(ystr1);
@@ -270,7 +270,6 @@ MU_TEST(ystr_int)
     mu_assert_string_eq("18446744073709551615", ystr1->buff);
     ceu_ystr_destroy(ystr1);
 }
-
 
 MU_TEST(ystr_join)
 {

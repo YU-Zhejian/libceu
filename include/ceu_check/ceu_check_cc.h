@@ -31,7 +31,6 @@
 #include "cc/ceu_cc_unknown.h" // NOLINT
 // clang-format on
 
-
 #include "ceu_ystrlib/ceu_ystrlib.h"
 
 #ifdef __cplusplus

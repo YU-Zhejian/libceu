@@ -1,32 +1,38 @@
 #include "ceu_check/ceu_check_cc.h"
 #include "ceu_check/ceu_check_helpers.h"
-
-#include "ceu_basic/ceu_c_utils.h"
 #include "ceu_ystrlib/ceu_ystrlib_all.h"
 
 ceu_ystr_t* ceu_check_interpret_compilation_date_time(void)
 {
 #if defined(__DATE__)
-    ceu_ystr_t* date_str = ceu_ystr_create_from_cstr(__DATE__);
+    char* date_str = __DATE__;
 #else
-    ceu_ystr_t* date_str = ceu_ystr_create_from_cstr("unknown date");
+    char* date_str = "unknown date";
 #endif
 #if defined(__TIME__)
-    ceu_ystr_t* time_str = ceu_ystr_create_from_cstr(__TIME__);
+    char* time_str = __TIME__;
 #else
-    ceu_ystr_t* time_str = ceu_ystr_create_from_cstr("unknown time");
+    char* time_str = "unknown time";
 #endif
-    ceu_ystr_t* sep = ceu_ystr_create_from_cstr(", ");
-    ceu_ystr_t* rets = ceu_ystr_join(sep, true, 2, date_str, time_str);
-    ceu_ystr_destroy(date_str);
-    ceu_ystr_destroy(time_str);
-    ceu_ystr_destroy(sep);
+    ceu_ystr_t* rets = ceu_ystr_cstr_join(", ", true, 2, date_str, time_str);
     return rets;
+}
+
+ceu_ystr_t* interpret_intel_clang_compiler_version_number(void)
+{
+#if defined(CEU_COMPILER_IS_INTEL_CLANG)
+    ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("Intel Clang compatible version number: ", 128);
+    ceu_ystr_t* clang_ver = convert_version_to_ystr3(__INTEL_CLANG_COMPILER / 10000, __INTEL_CLANG_COMPILER % 10000 / 100, __INTEL_CLANG_COMPILER % 100);
+    ceu_ystr_concat_inplace(rets, clang_ver);
+    ceu_ystr_destroy(clang_ver);
+    return rets;
+#else
+    return CEU_NULL;
+#endif
 }
 
 ceu_ystr_t* interpret_icc_compiler_version_number(void)
 {
-
 #if defined(CEU_COMPILER_IS_ICC)
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("ICC compatible version number: ", 128);
     ceu_ystr_t* icc_ver = ceu_ystr_from_uint(10, __ICC);
@@ -89,7 +95,7 @@ ceu_ystr_t* interpret_nvhpc_compiler_version_number(void)
 {
 #if defined(CEU_COMPILER_IS_NVHPC)
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("NVHPC compatible version number: ", 128);
-    ceu_ystr_t* nvhpc_ver = convert_version_to_ystr(3, __NVCOMPILER_MAJOR__, __NVCOMPILER_MINOR__, __NVCOMPILER_PATCHLEVEL__);
+    ceu_ystr_t* nvhpc_ver = convert_version_to_ystr3(__NVCOMPILER_MAJOR__, __NVCOMPILER_MINOR__, __NVCOMPILER_PATCHLEVEL__);
     ceu_ystr_concat_inplace(rets, nvhpc_ver);
     ceu_ystr_destroy(nvhpc_ver);
     return rets;
@@ -106,7 +112,7 @@ ceu_ystr_t* interpret_tcc_compiler_version_number(void)
     int patchlevel = __TINYC__ % 100;
 
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("TCC compatible version number: ", 128);
-    ceu_ystr_t* tcc_ver = convert_version_to_ystr(3, major, minor, patchlevel);
+    ceu_ystr_t* tcc_ver = convert_version_to_ystr3(major, minor, patchlevel);
     ceu_ystr_concat_inplace(rets, tcc_ver);
     ceu_ystr_destroy(tcc_ver);
     return rets;
@@ -122,7 +128,7 @@ ceu_ystr_t* interpret_broadland_compiler_version_number(void)
     int revision = (__BORLANDC__ - 256 * major) / 16 + __BORLANDC__ % 16;
 
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("Broadland compatible version number: ", 128);
-    ceu_ystr_t* turboc_ver = convert_version_to_ystr(2, major, revision);
+    ceu_ystr_t* turboc_ver = convert_version_to_ystr2(major, revision);
     ceu_ystr_concat_inplace(rets, turboc_ver);
     ceu_ystr_destroy(turboc_ver);
     ceu_ystr_cstr_concat_inplace(rets, ", with ");
@@ -138,11 +144,17 @@ ceu_ystr_t* interpret_clang_compiler_version_number(void)
 #if defined(CEU_COMPILER_IS_CLANG)
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("Clang compatible version number: ", 128);
 #ifdef __clang_major__
-    ceu_ystr_t* clang_ver = convert_version_to_ystr(3, __clang_major__, __clang_minor__, __clang_patchlevel__);
+    ceu_ystr_t* clang_ver = convert_version_to_ystr3(__clang_major__, __clang_minor__, __clang_patchlevel__);
 #else
     ceu_ystr_t* clang_ver = ceu_ystr_create_from_cstr("UNKNOWN");
 #endif
     ceu_ystr_concat_inplace(rets, clang_ver);
+#ifdef __clang_version__
+    ceu_ystr_cstr_concat_inplace(rets, " (");
+    ceu_ystr_cstr_concat_inplace(rets, __clang_version__);
+    ceu_ystr_cstr_concat_inplace(rets, ")");
+#endif
+
     ceu_ystr_destroy(clang_ver);
     return rets;
 
@@ -156,9 +168,9 @@ ceu_ystr_t* interpret_gcc_compiler_version_number(void)
 #if defined(CEU_COMPILER_IS_GCC)
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("GCC compatible version number: ", 128);
 #ifdef __GNUC_PATCHLEVEL__
-    ceu_ystr_t* gcc_ver = convert_version_to_ystr(3, __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__);
+    ceu_ystr_t* gcc_ver = convert_version_to_ystr3(__GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__);
 #else
-    ceu_ystr_t* gcc_ver = convert_version_to_ystr(2, __GNUC__, __GNUC_MINOR__);
+    ceu_ystr_t* gcc_ver = convert_version_to_ystr2(__GNUC__, __GNUC_MINOR__);
 #endif
     ceu_ystr_concat_inplace(rets, gcc_ver);
     ceu_ystr_destroy(gcc_ver);
@@ -172,7 +184,7 @@ ceu_ystr_t* interpret_compiler_macro_version_number(void)
 {
 #if defined(__VERSION__)
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("__VERSION__: ", 128);
-    ceu_ystr_concat_inplace(rets, __VERSION__);
+    ceu_ystr_cstr_concat_inplace(rets, __VERSION__);
     return rets;
 #else
     return CEU_NULL;
@@ -184,6 +196,7 @@ ceu_ystr_t* ceu_check_interpret_compiler_version_number(void)
     ceu_ystr_t* tcc_comp_version = interpret_tcc_compiler_version_number();
     ceu_ystr_t* gcc_comp_version = interpret_gcc_compiler_version_number();
     ceu_ystr_t* icc_comp_version = interpret_icc_compiler_version_number();
+    ceu_ystr_t* intel_clang_comp_version = interpret_intel_clang_compiler_version_number();
     ceu_ystr_t* clang_comp_version = interpret_clang_compiler_version_number();
     ceu_ystr_t* msvc_comp_version = interpret_msvc_compiler_version_number();
     ceu_ystr_t* nvhpc_comp_version = interpret_nvhpc_compiler_version_number();
@@ -191,13 +204,14 @@ ceu_ystr_t* ceu_check_interpret_compiler_version_number(void)
     ceu_ystr_t* version_macro_version = interpret_compiler_macro_version_number();
     ceu_ystr_t* sep = ceu_ystr_create_from_cstr("\n\t");
 
-    ceu_ystr_t* final_buff = ceu_ystr_join(sep, true, 8, tcc_comp_version, gcc_comp_version,
+    ceu_ystr_t* final_buff = ceu_ystr_join(sep, true, 9, tcc_comp_version, gcc_comp_version,
         icc_comp_version, clang_comp_version, msvc_comp_version,
-        nvhpc_comp_version, broadland_comp_version, version_macro_version);
+        nvhpc_comp_version, broadland_comp_version, intel_clang_comp_version, version_macro_version);
     ceu_ystr_destroy(sep);
     ceu_ystr_destroy(tcc_comp_version);
     ceu_ystr_destroy(gcc_comp_version);
     ceu_ystr_destroy(icc_comp_version);
+    ceu_ystr_destroy(intel_clang_comp_version);
     ceu_ystr_destroy(clang_comp_version);
     ceu_ystr_destroy(msvc_comp_version);
     ceu_ystr_destroy(nvhpc_comp_version);

@@ -3,9 +3,6 @@
 #include <stdlib.h> // malloc, calloc, free, realloc
 
 #include "ceu_basic/ceu_c_utils.h"
-#include "ceu_basic/ceu_fast_macros.h"
-#include "ceu_check/ceu_check_os.h"
-#include "ceu_cstd/ceu_stdio.h"
 #include "ceu_cstd/ceu_string.h"
 
 void* ceu_smalloc(ceu_size_t size)
@@ -21,7 +18,6 @@ void* ceu_smalloc(ceu_size_t size)
 
 void* ceu_scalloc(ceu_size_t count, ceu_size_t size)
 {
-    // a > numeric_limits<unsigned int>::max() / b;
     if (count != 0 && size != 0 && count > SIZE_MAX / size) {
         ceu_die_with_retv("Overflow detected!", 12);
     }
@@ -82,6 +78,6 @@ noreturn void ceu_die(const char* reason)
 noreturn void ceu_press_any_key_to_exit(void)
 {
     puts("Press any key to exit...");
-    char ignored = getchar();
+    putchar(getchar());
     exit(0);
 }

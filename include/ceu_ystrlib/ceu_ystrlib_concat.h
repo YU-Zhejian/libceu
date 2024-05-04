@@ -16,6 +16,7 @@ ceu_ystr_t* ceu_ystr_cstr_concat_const(const ceu_ystr_t* ystr, const char* cstr)
 ceu_ystr_t* ceu_ystr_concat_const(const ceu_ystr_t* ystr, const ceu_ystr_t* ystr2);
 
 ceu_ystr_t* ceu_ystr_join(const ceu_ystr_t* sep, bool skip_null, ceu_size_t count, ...);
+ceu_ystr_t* ceu_ystr_cstr_join(const char* sep, bool skip_null, ceu_size_t count, ...);
 
 #ifdef __cplusplus
 }

@@ -2,6 +2,6 @@
 
 int main(void)
 {
-    volatile int s = sqrt(5);
-    return 0;
+    volatile int s = (int)sqrt(1);
+    return s - 1;
 }

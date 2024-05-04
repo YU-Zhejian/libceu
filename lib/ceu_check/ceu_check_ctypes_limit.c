@@ -1,10 +1,9 @@
 #include "ceu_check/ceu_check_ctypes_limit.h"
 #include "ceu_basic/ceu_c_utils.h"
 #include "ceu_cstd/ceu_stdint.h"
-#include <ceu_cstd/ceu_stdbool.h>
-#include <ceu_cstd/ceu_stddef.h>
-#include <stdio.h>
 #include "ceu_ystrlib/ceu_ystrlib_all.h"
+#include <ceu_cstd/ceu_stdbool.h>
+#include <stdio.h>
 
 ceu_ystr_t* ceu_check_get_ctypes_limit_info(void)
 {
@@ -34,14 +33,13 @@ ceu_ystr_t* ceu_check_get_ctypes_limit_info(void)
     snprintf(schar_info, buff_len, "schar     (%zu size):              %+21d -> %+21d",
         sizeof(signed char), SCHAR_MIN, SCHAR_MAX);
     ceu_ystr_cstr_concat_inplace(rets, schar_info);
-    ceu_free_non_null(char_info);
+    ceu_free_non_null(schar_info);
 
     ceu_ystr_cstr_concat_inplace(rets, "\n\t");
     snprintf(uchar_info, buff_len, "uchar     (%zu size):              %+21d -> %+21d",
         sizeof(unsigned char), 0, UCHAR_MAX);
     ceu_ystr_cstr_concat_inplace(rets, uchar_info);
     ceu_free_non_null(uchar_info);
-
 
     ceu_ystr_cstr_concat_inplace(rets, "\n\t");
     snprintf(size_t_info, buff_len, "ceu_size_t    (%zu size):              %+21d -> %21llu",
@@ -90,7 +88,6 @@ ceu_ystr_t* ceu_check_get_ctypes_limit_info(void)
         sizeof(long long), LLONG_MIN, LLONG_MAX);
     ceu_ystr_cstr_concat_inplace(rets, llong_info);
     ceu_free_non_null(llong_info);
-
 
     ceu_ystr_cstr_concat_inplace(rets, "\n\t");
     snprintf(ullong_info, buff_len, "ullong    (%zu size):              %+21d -> %21llu",

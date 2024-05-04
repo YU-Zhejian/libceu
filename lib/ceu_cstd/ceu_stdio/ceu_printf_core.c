@@ -31,7 +31,7 @@ static void clear_ceu_printf_flags_t(ceu_printf_flags_t pf)
  * @param pos Position to peek.
  * @return As described.
  */
-static char ceu_buff_peek(const char* buff, int pos)
+static char ceu_buff_peek(const char* buff, ceu_size_t pos)
 {
     ceu_size_t buff_len = ceu_strlen(buff);
     if (pos >= buff_len) {

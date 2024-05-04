@@ -13,6 +13,7 @@
 *.dll
 *.lib
 *.o
+*.log
 
 /cmake_vars.cmake
 /doxygen.out.d/

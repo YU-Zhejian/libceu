@@ -25,3 +25,4 @@ ceu_add_test("ceu_cstd_stdio_printf_core" "${CMAKE_CURRENT_LIST_DIR}/ceu_cstd/ce
 ceu_add_test("ceu_ystr" "${CMAKE_CURRENT_LIST_DIR}/ceu_ystrlib/test_ystr.c")
 ceu_add_test("pstdint" "${CMAKE_CURRENT_LIST_DIR}/misc/pstdint_test.c")
 ceu_add_test("stdint" "${CMAKE_CURRENT_LIST_DIR}/misc/stdint_test.c")
+ceu_add_test("log_test" "${CMAKE_CURRENT_LIST_DIR}/misc/log_test.c")

@@ -116,8 +116,7 @@ ceu_ystr_t* ceu_ystr_join(const ceu_ystr_t* sep, bool skip_null, ceu_size_t coun
             if (skip_null) {
                 continue;
             } else {
-                if(!is_first_item)
-                {
+                if (!is_first_item) {
                     ceu_ystr_concat_inplace(rets, sep);
                 }
                 is_first_item = false;
@@ -125,12 +124,45 @@ ceu_ystr_t* ceu_ystr_join(const ceu_ystr_t* sep, bool skip_null, ceu_size_t coun
             }
 
         } else {
-            if (!is_first_item)
-            {
+            if (!is_first_item) {
                 ceu_ystr_concat_inplace(rets, sep);
             }
             is_first_item = false;
             ceu_ystr_concat_inplace(rets, new_item);
+        }
+    }
+    va_end(args);
+    return rets;
+}
+
+ceu_ystr_t* ceu_ystr_cstr_join(const char* sep, bool skip_null, ceu_size_t count, ...)
+{
+    ceu_ystr_t* rets = ceu_ystr_create_empty();
+    va_list(args);
+    bool is_first_item = true;
+    if (sep == CEU_NULL) {
+        return CEU_NULL;
+    }
+    va_start(args, count);
+    for (ceu_size_t i = 0; i < count; ++i) {
+        char* new_item = va_arg(args, char*);
+        if (new_item == CEU_NULL) {
+            if (skip_null) {
+                continue;
+            } else {
+                if (!is_first_item) {
+                    ceu_ystr_cstr_concat_inplace(rets, sep);
+                }
+                is_first_item = false;
+                ceu_ystr_cstr_concat_inplace(rets, "<nullptr>");
+            }
+
+        } else {
+            if (!is_first_item) {
+                ceu_ystr_cstr_concat_inplace(rets, sep);
+            }
+            is_first_item = false;
+            ceu_ystr_cstr_concat_inplace(rets, new_item);
         }
     }
     va_end(args);

@@ -1,7 +1,5 @@
 #include "ceu_ystrlib/ceu_ystrlib_int.h"
 #include "ceu_basic/ceu_c_utils.h"
-#include "ceu_basic/ceu_fast_macros.h"
-#include "ceu_ystrlib/ceu_ystrlib.h"
 #include "ceu_ystrlib/ceu_ystrlib_create.h"
 
 static const char BIN_NUMBERS[] = { "01" };
@@ -25,6 +23,10 @@ ceu_ystr_t* ceu_ystr_from_uint(int raidx, ceu_uint64_t src_int)
     }
     char immc[64] = { 0 };
     int current_position = 0;
+    if (src_int == 0) {
+        immc[current_position] = '0';
+        current_position += 1;
+    }
     while (src_int > 0) {
         immc[current_position] = numbers[src_int % raidx];
         current_position += 1;

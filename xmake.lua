@@ -11,6 +11,8 @@ set_version("0.0.1")
 
 add_includedirs("include")
 add_includedirs("include_priv")
+add_includedirs("xmake-build/build")  -- FIXME: Non-portable code here
+
 add_defines("CEU_CM_IS_DEBUG=1")
 add_defines("CEU_CM_UNDER_XMAKE=1")
 add_configfiles("include/ceu_basic/libceu_stddef_xmake.h.in", { filename = "ceu_basic/libceu_stddef_xmake.h" })
@@ -59,16 +61,27 @@ configvar_check_cincludes("CEU_HAVE_INCLUDE_CYGWIN_VERSION_H", "cygwin/version.h
 configvar_check_cincludes("CEU_HAVE_INCLUDE_SYS_UTSNAME_H", "sys/utsname.h")
 
 set_languages("c++11")
-add_includedirs("build")
 
 target("ceu_shared")
 set_kind("shared")
-add_files("lib/*.c", "lib/*.c", "lib/*/*.c", "lib/*/*/*.c")
+add_files("lib/*/*.c", "lib/*/*/*.c")
 target_end()
 
-target("ceu_exe")
+-- FIXME: Not fully static, contains links to libc.
+target("ceu_static")
+set_kind("static")
+add_files("lib/*/*.c", "lib/*/*/*.c")
+target_end()
+
+target("ceu_exe_shared")
 set_kind("binary")
 add_files("bin/*.c")
 add_deps("ceu_shared")
+target_end()
+
+target("ceu_exe_static")
+set_kind("binary")
+add_files("bin/*.c")
+add_deps("ceu_static")
 target_end()
 

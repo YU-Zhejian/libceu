@@ -2,12 +2,10 @@
 #include "ceu_basic/ceu_c_utils.h"
 #include "ceu_basic/ceu_fast_macros.h"
 #include "ceu_cstd/ceu_string.h"
-#include "ceu_ystrlib/ceu_ystrlib_convert.h"
 
 void ceu_ystr_destroy(ceu_ystr_t* ystr)
 {
-    if (ystr == CEU_NULL)
-    {
+    if (ystr == CEU_NULL) {
         return;
     }
     ceu_free_non_null(ystr->buff);

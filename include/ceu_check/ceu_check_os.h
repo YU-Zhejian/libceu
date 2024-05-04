@@ -10,7 +10,6 @@
 #include "os/ceu_os_windows.h" // NOLINT
 // clang-format on
 
-
 /**
  *@def CEU_ON_HAIKU
  *@brief Indicating CEU is compiled on Haiku.
@@ -71,12 +70,9 @@
 #endif
 #endif
 
-
 #if defined(__unix__) || defined(__unix) || defined(unix) || defined(_unix) || defined(_unix_) || defined(CEU_ON_MACH) || defined(CEU_ON_GNU_LINUX) || defined(CEU_ON_BSD) || defined(CEU_ON_SOLARIS) || defined(CEU_ON_HP_UX) || defined(CEU_ON_AIX)
 #define CEU_ON_UNIX
 #endif
-
-
 
 #if defined(CEU_ON_UNIX) || defined(CEU_ON_CYGWIN_LIKE)
 #define CEU_ON_POSIX

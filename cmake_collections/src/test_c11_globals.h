@@ -58,7 +58,7 @@ struct anonymous {
     int m;
 } v1;
 
-int c11main()
+int c11main(void)
 {
     int ok = 0;
     _Static_assert((offsetof(struct anonymous, i)
