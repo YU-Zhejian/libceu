@@ -5,97 +5,117 @@
  * @see https://learn.microsoft.com/en-us/cpp/preprocessor/predefined-macros?view=msvc-170
  * @see https://devblogs.microsoft.com/cppblog/visual-c-compiler-version/
  */
-#if defined(_MSC_VER) && !defined(CEU_COMPILER_NAME)
+
+/**
+ *@def CEU_COMPILER_IS_MSVC
+ *@brief If this macro is defined, the compiler should support MSVC features.
+ */
+
+/**
+ * @def CEU_VISUAL_STUDIO_VER
+ * @brief Human-readable Microsoft Visual Studio version.
+ */
+#ifndef CEU_CC_MSVC_H
+#define CEU_CC_MSVC_H
+
+#ifndef CEU_CHECK_CC_H
+#error "Do not include this file, include <ceu_check/ceu_check_cc.h> instead!"
+#endif
+
+#if defined(_MSC_VER)
 #define CEU_COMPILER_IS_MSVC
+#ifndef CEU_COMPILER_NAME
 #define CEU_COMPILER_NAME "MSVC"
-#define CEU_COMPILER_VERSION _MSC_VER
-#if CEU_COMPILER_VERSION < 800
-#define VISUAL_STUDIO_VER "unknown before 1"
-#elif CEU_COMPILER_VERSION == 800
-#define VISUAL_STUDIO_VER "1"
-#elif CEU_COMPILER_VERSION == 900
-#define VISUAL_STUDIO_VER "3"
-#elif CEU_COMPILER_VERSION == 1000
-#define VISUAL_STUDIO_VER "4"
-#elif CEU_COMPILER_VERSION == 1100
-#define VISUAL_STUDIO_VER "5"
-#elif CEU_COMPILER_VERSION == 1200
-#define VISUAL_STUDIO_VER "6"
-#elif CEU_COMPILER_VERSION == 1300
-#define VISUAL_STUDIO_VER "7"
-#elif CEU_COMPILER_VERSION == 1310
-#define VISUAL_STUDIO_VER "7.1 (2003)"
-#elif CEU_COMPILER_VERSION == 1400
-#define VISUAL_STUDIO_VER "8 (2005)"
-#elif CEU_COMPILER_VERSION == 1500
-#define VISUAL_STUDIO_VER "9 (2008)"
-#elif CEU_COMPILER_VERSION == 1600
-#define VISUAL_STUDIO_VER "10 (2010)"
-#elif CEU_COMPILER_VERSION == 1700
-#define VISUAL_STUDIO_VER "11 (2012)"
-#elif CEU_COMPILER_VERSION == 1800
-#define VISUAL_STUDIO_VER "12 (2013)"
-#elif CEU_COMPILER_VERSION == 1900
-#define VISUAL_STUDIO_VER "14 (2015)"
-#elif CEU_COMPILER_VERSION == 1910
-#define VISUAL_STUDIO_VER "15 (2017 Update 1 & 2)"
-#elif CEU_COMPILER_VERSION == 1911
-#define VISUAL_STUDIO_VER "15 (2017 Update 3 & 4)"
-#elif CEU_COMPILER_VERSION == 1912
-#define VISUAL_STUDIO_VER "15 (2017 Update 5)"
-#elif CEU_COMPILER_VERSION == 1913
-#define VISUAL_STUDIO_VER "15 (2017 Update 6)"
-#elif CEU_COMPILER_VERSION == 1914
-#define VISUAL_STUDIO_VER "15 (2017 Update 7)"
-#elif CEU_COMPILER_VERSION == 1915
-#define VISUAL_STUDIO_VER "15 (2017 Update 8)"
-#elif CEU_COMPILER_VERSION == 1916
-#define VISUAL_STUDIO_VER "15 (2017 Update 9)"
-#elif CEU_COMPILER_VERSION == 1920
-#define VISUAL_STUDIO_VER "16 (2019 RTW)"
-#elif CEU_COMPILER_VERSION == 1921
-#define VISUAL_STUDIO_VER "16 (2019 Update 1)"
-#elif CEU_COMPILER_VERSION == 1922
-#define VISUAL_STUDIO_VER "16 (2019 Update 2)"
-#elif CEU_COMPILER_VERSION == 1923
-#define VISUAL_STUDIO_VER "16 (2019 Update 3)"
-#elif CEU_COMPILER_VERSION == 1924
-#define VISUAL_STUDIO_VER "16 (2019 Update 4)"
-#elif CEU_COMPILER_VERSION == 1925
-#define VISUAL_STUDIO_VER "16 (2019 Update 5)"
-#elif CEU_COMPILER_VERSION == 1926
-#define VISUAL_STUDIO_VER "16 (2019 Update 6)"
-#elif CEU_COMPILER_VERSION == 1927
-#define VISUAL_STUDIO_VER "16 (2019 Update 7)"
-#elif CEU_COMPILER_VERSION == 1928
-#define VISUAL_STUDIO_VER "16 (2019 Update 8 & 9)"
-#elif CEU_COMPILER_VERSION == 1929
-#define VISUAL_STUDIO_VER "16 (2019 Update 10 & 11)"
-#elif CEU_COMPILER_VERSION == 1930
-#define VISUAL_STUDIO_VER "17 (2022 RTW)"
-#elif CEU_COMPILER_VERSION == 1931
-#define VISUAL_STUDIO_VER "17.1 (2022)"
-#elif CEU_COMPILER_VERSION == 1932
-#define VISUAL_STUDIO_VER "17.2 (2022)"
-#elif CEU_COMPILER_VERSION == 1933
-#define VISUAL_STUDIO_VER "17.3 (2022)"
-#elif CEU_COMPILER_VERSION == 1934
-#define VISUAL_STUDIO_VER "17.4 (2022)"
-#elif CEU_COMPILER_VERSION == 1935
-#define VISUAL_STUDIO_VER "17.5 (2022)"
-#elif CEU_COMPILER_VERSION == 1936
-#define VISUAL_STUDIO_VER "17.6 (2022)"
-#elif CEU_COMPILER_VERSION == 1937
-#define VISUAL_STUDIO_VER "17.7 (2022)"
-#elif CEU_COMPILER_VERSION == 1938
-#define VISUAL_STUDIO_VER "17.8 (2022)"
-#elif CEU_COMPILER_VERSION == 1939
-#define VISUAL_STUDIO_VER "17.9 (2022)"
-#elif CEU_COMPILER_VERSION == 1940
-#define VISUAL_STUDIO_VER "17.10 (2022)"
-#elif CEU_COMPILER_VERSION > 1940
-#define VISUAL_STUDIO_VER "unknown later than 17.10 (1940)"
+#endif
+#undef CEU_VISUAL_STUDIO_VER
+#if _MSC_VER < 800
+#define CEU_VISUAL_STUDIO_VER "unknown before 1"
+#elif _MSC_VER == 800
+#define CEU_VISUAL_STUDIO_VER "1"
+#elif _MSC_VER == 900
+#define CEU_VISUAL_STUDIO_VER "3"
+#elif _MSC_VER == 1000
+#define CEU_VISUAL_STUDIO_VER "4"
+#elif _MSC_VER == 1100
+#define CEU_VISUAL_STUDIO_VER "5"
+#elif _MSC_VER == 1200
+#define CEU_VISUAL_STUDIO_VER "6"
+#elif _MSC_VER == 1300
+#define CEU_VISUAL_STUDIO_VER "7"
+#elif _MSC_VER == 1310
+#define CEU_VISUAL_STUDIO_VER "7.1 (2003)"
+#elif _MSC_VER == 1400
+#define CEU_VISUAL_STUDIO_VER "8 (2005)"
+#elif _MSC_VER == 1500
+#define CEU_VISUAL_STUDIO_VER "9 (2008)"
+#elif _MSC_VER == 1600
+#define CEU_VISUAL_STUDIO_VER "10 (2010)"
+#elif _MSC_VER == 1700
+#define CEU_VISUAL_STUDIO_VER "11 (2012)"
+#elif _MSC_VER == 1800
+#define CEU_VISUAL_STUDIO_VER "12 (2013)"
+#elif _MSC_VER == 1900
+#define CEU_VISUAL_STUDIO_VER "14 (2015)"
+#elif _MSC_VER == 1910
+#define CEU_VISUAL_STUDIO_VER "15 (2017 Update 1 & 2)"
+#elif _MSC_VER == 1911
+#define CEU_VISUAL_STUDIO_VER "15 (2017 Update 3 & 4)"
+#elif _MSC_VER == 1912
+#define CEU_VISUAL_STUDIO_VER "15 (2017 Update 5)"
+#elif _MSC_VER == 1913
+#define CEU_VISUAL_STUDIO_VER "15 (2017 Update 6)"
+#elif _MSC_VER == 1914
+#define CEU_VISUAL_STUDIO_VER "15 (2017 Update 7)"
+#elif _MSC_VER == 1915
+#define CEU_VISUAL_STUDIO_VER "15 (2017 Update 8)"
+#elif _MSC_VER == 1916
+#define CEU_VISUAL_STUDIO_VER "15 (2017 Update 9)"
+#elif _MSC_VER == 1920
+#define CEU_VISUAL_STUDIO_VER "16 (2019 RTW)"
+#elif _MSC_VER == 1921
+#define CEU_VISUAL_STUDIO_VER "16 (2019 Update 1)"
+#elif _MSC_VER == 1922
+#define CEU_VISUAL_STUDIO_VER "16 (2019 Update 2)"
+#elif _MSC_VER == 1923
+#define CEU_VISUAL_STUDIO_VER "16 (2019 Update 3)"
+#elif _MSC_VER == 1924
+#define CEU_VISUAL_STUDIO_VER "16 (2019 Update 4)"
+#elif _MSC_VER == 1925
+#define CEU_VISUAL_STUDIO_VER "16 (2019 Update 5)"
+#elif _MSC_VER == 1926
+#define CEU_VISUAL_STUDIO_VER "16 (2019 Update 6)"
+#elif _MSC_VER == 1927
+#define CEU_VISUAL_STUDIO_VER "16 (2019 Update 7)"
+#elif _MSC_VER == 1928
+#define CEU_VISUAL_STUDIO_VER "16 (2019 Update 8 & 9)"
+#elif _MSC_VER == 1929
+#define CEU_VISUAL_STUDIO_VER "16 (2019 Update 10 & 11)"
+#elif _MSC_VER == 1930
+#define CEU_VISUAL_STUDIO_VER "17 (2022 RTW)"
+#elif _MSC_VER == 1931
+#define CEU_VISUAL_STUDIO_VER "17.1 (2022)"
+#elif _MSC_VER == 1932
+#define CEU_VISUAL_STUDIO_VER "17.2 (2022)"
+#elif _MSC_VER == 1933
+#define CEU_VISUAL_STUDIO_VER "17.3 (2022)"
+#elif _MSC_VER == 1934
+#define CEU_VISUAL_STUDIO_VER "17.4 (2022)"
+#elif _MSC_VER == 1935
+#define CEU_VISUAL_STUDIO_VER "17.5 (2022)"
+#elif _MSC_VER == 1936
+#define CEU_VISUAL_STUDIO_VER "17.6 (2022)"
+#elif _MSC_VER == 1937
+#define CEU_VISUAL_STUDIO_VER "17.7 (2022)"
+#elif _MSC_VER == 1938
+#define CEU_VISUAL_STUDIO_VER "17.8 (2022)"
+#elif _MSC_VER == 1939
+#define CEU_VISUAL_STUDIO_VER "17.9 (2022)"
+#elif _MSC_VER == 1940
+#define CEU_VISUAL_STUDIO_VER "17.10 (2022)"
+#elif _MSC_VER > 1940
+#define CEU_VISUAL_STUDIO_VER "unknown later than 17.10 (1940)"
 #else
-#define VISUAL_STUDIO_VER "unknown"
+#define CEU_VISUAL_STUDIO_VER "unknown"
+#endif
 #endif
 #endif

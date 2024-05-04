@@ -6,6 +6,10 @@
 
 void ceu_ystr_destroy(ceu_ystr_t* ystr)
 {
+    if (ystr == CEU_NULL)
+    {
+        return;
+    }
     ceu_free_non_null(ystr->buff);
     ystr->consumed_length = 0;
     ystr->buff_length = 0;

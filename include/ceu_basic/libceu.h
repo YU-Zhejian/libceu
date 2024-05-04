@@ -24,13 +24,14 @@
 extern "C" {
 #endif
 
+#include <ceu_ystrlib/ceu_ystrlib.h>
+
 /*!
  * @brief Get runtime LiBCEU version.
  * @param  Not accepting any parameters.
  * @return A string with the runtime version. User should free it after use.
  */
-char* ceu_lib_rtime_version(void);
-
+ceu_ystr_t* ceu_lib_rtime_version(void);
 #ifdef __cplusplus
 }
 #endif

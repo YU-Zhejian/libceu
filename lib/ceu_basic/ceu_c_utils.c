@@ -82,6 +82,6 @@ noreturn void ceu_die(const char* reason)
 noreturn void ceu_press_any_key_to_exit(void)
 {
     puts("Press any key to exit...");
-    getchar();
+    char ignored = getchar();
     exit(0);
 }

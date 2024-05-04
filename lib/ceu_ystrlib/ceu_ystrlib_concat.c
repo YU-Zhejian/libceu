@@ -1,4 +1,7 @@
 #include "ceu_ystrlib/ceu_ystrlib_concat.h"
+
+#include <stdarg.h>
+
 #include "ceu_basic/ceu_c_utils.h"
 #include "ceu_basic/ceu_fast_macros.h"
 #include "ceu_cstd/ceu_string.h"
@@ -96,4 +99,40 @@ ceu_ystr_t* ceu_ystr_concat_const(const ceu_ystr_t* ystr, const ceu_ystr_t* ystr
     ceu_ystr_t* ystr_ret = ceu_ystr_ystrview_concat_const(ystr, ystr2_view);
     ceu_ystr_view_destroy(ystr2_view);
     return ystr_ret;
+}
+
+ceu_ystr_t* ceu_ystr_join(const ceu_ystr_t* sep, bool skip_null, ceu_size_t count, ...)
+{
+    ceu_ystr_t* rets = ceu_ystr_create_empty();
+    va_list(args);
+    bool is_first_item = true;
+    if (sep == CEU_NULL) {
+        return CEU_NULL;
+    }
+    va_start(args, count);
+    for (ceu_size_t i = 0; i < count; ++i) {
+        ceu_ystr_t* new_item = va_arg(args, ceu_ystr_t*);
+        if (new_item == CEU_NULL) {
+            if (skip_null) {
+                continue;
+            } else {
+                if(!is_first_item)
+                {
+                    ceu_ystr_concat_inplace(rets, sep);
+                }
+                is_first_item = false;
+                ceu_ystr_cstr_concat_inplace(rets, "<nullptr>");
+            }
+
+        } else {
+            if (!is_first_item)
+            {
+                ceu_ystr_concat_inplace(rets, sep);
+            }
+            is_first_item = false;
+            ceu_ystr_concat_inplace(rets, new_item);
+        }
+    }
+    va_end(args);
+    return rets;
 }

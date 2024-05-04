@@ -2,13 +2,26 @@
  * @file ceu_cc_clang.h
  * @brief Original LLVM Clang
  */
-#if (defined(__clang__) || defined(__llvm__))
+
+#ifndef CEU_CC_CLANG_H
+#define CEU_CC_CLANG_H
+
+#ifndef CEU_CHECK_CC_H
+#error "Do not include this file, include <ceu_check/ceu_check_cc.h> instead!"
+#endif
+
+/**
+ * @def CEU_COMPILER_IS_CLANG
+ * @brief If this macro is defined, the compiler should support Clang features.
+ */
+#undef CEU_COMPILER_IS_CLANG
+#if (defined(__clang__))
 #define CEU_COMPILER_IS_CLANG
+#endif
+
+#if (defined(__clang__) || defined(__llvm__))
 #if !defined(CEU_COMPILER_NAME)
-#if defined(__INTEL_CLANG_COMPILER) || defined(__INTEL_LLVM_COMPILER)
-#define CEU_COMPILER_NAME "Intel Clang"
-#else
 #define CEU_COMPILER_NAME "Clang"
 #endif
 #endif
-#endif
+#endif // CEU_CC_CLANG_H

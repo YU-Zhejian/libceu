@@ -3,8 +3,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#include "ceu_ystrlib/ceu_ystrlib.h"
 
-char* ceu_check_get_ctypes_limit_info(void);
+ceu_ystr_t* ceu_check_get_ctypes_limit_info(void);
 
 #ifdef __cplusplus
 }

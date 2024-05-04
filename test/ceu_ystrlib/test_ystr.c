@@ -271,6 +271,29 @@ MU_TEST(ystr_int)
     ceu_ystr_destroy(ystr1);
 }
 
+
+MU_TEST(ystr_join)
+{
+    ceu_ystr_t* sep = ceu_ystr_create_from_cstr(".");
+    ceu_ystr_t* ystr1 = ceu_ystr_from_uint(10, 120);
+    ceu_ystr_t* ystr2 = ceu_ystr_from_uint(10, 25);
+    ceu_ystr_t* ystr3 = CEU_NULL;
+    ceu_ystr_t* jstr1 = ceu_ystr_join(sep, true, 3, ystr1, ystr2, ystr3);
+    ceu_ystr_t* jstr2 = ceu_ystr_join(sep, false, 3, ystr1, ystr2, ystr3);
+    ceu_ystr_t* jstr3 = ceu_ystr_join(sep, true, 4, ystr3, ystr1, ystr2, ystr3);
+
+    mu_assert_string_eq("120.25", jstr1->buff);
+    mu_assert_string_eq("120.25.<nullptr>", jstr2->buff);
+    mu_assert_string_eq("120.25", jstr3->buff);
+    ceu_ystr_destroy(sep);
+    ceu_ystr_destroy(ystr1);
+    ceu_ystr_destroy(ystr2);
+    ceu_ystr_destroy(ystr3);
+    ceu_ystr_destroy(jstr1);
+    ceu_ystr_destroy(jstr2);
+    ceu_ystr_destroy(jstr3);
+}
+
 MU_TEST_SUITE(test_suite)
 {
     MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
@@ -297,6 +320,7 @@ MU_TEST_SUITE(test_suite)
     MU_RUN_TEST(ystr_concat_const3);
     MU_RUN_TEST(ystr_shrink);
     MU_RUN_TEST(ystr_int);
+    MU_RUN_TEST(ystr_join);
 }
 
 int main(void)

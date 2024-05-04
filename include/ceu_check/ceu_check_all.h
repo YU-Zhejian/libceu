@@ -1,12 +1,18 @@
-#ifndef CPPTETGS_EXPERIMENTAL_UTILS_H
-#define CPPTETGS_EXPERIMENTAL_UTILS_H
+#ifndef CEU_CHECK_ALL_H
+#define CEU_CHECK_ALL_H
+
+#include "ceu_ystrlib/ceu_ystrlib.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-char* ceu_check_get_full_info(void);
+/**
+ *
+ * @brief Get all environment information.
+ */
+ceu_ystr_t* ceu_check_get_full_info(void);
 
 #ifdef __cplusplus
 }
 #endif
-#endif // CPPTETGS_EXPERIMENTAL_UTILS_H
+#endif // CEU_CHECK_ALL_H
