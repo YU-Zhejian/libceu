@@ -57,7 +57,7 @@ void* ceu_scalloc(ceu_size_t count, ceu_size_t size);
 void* ceu_srealloc(void* m, ceu_size_t size);
 
 /*!
- * @brief A simple wrapper to realloc() that allows program exit with retv=12
+ * @brief A simple wrapper to ::realloc() that allows program exit with retv=12
  * if failed.
  *
  * In this implementation, the newly allocated memory will NOT be initialized with 0.
@@ -78,6 +78,7 @@ void ceu_free_non_null(void* m);
 
 /*!
  * @brief Wait for a keystroke and then exit the program with #EXIT_SUCCESS.
+ * @note This function will not return.
  */
 noreturn void ceu_press_any_key_to_exit(void);
 

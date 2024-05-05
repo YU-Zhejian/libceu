@@ -1,11 +1,11 @@
 /*!
- *@file ceu_cc_intel_clang.h
- * @brief For Intel OneAPI Clang
+ * @file ceu_cc_intel_clang.h
+ * @brief For Intel Clang-based OneAPI compilers.
  */
 #ifndef CEU_CC_INTEL_CLANG_H
 #define CEU_CC_INTEL_CLANG_H
 
-/**
+/*!
  *@def CEU_COMPILER_IS_INTEL_CLANG
  *@brief If this macro is defined, the compiler should support Intel Clang features.
  */

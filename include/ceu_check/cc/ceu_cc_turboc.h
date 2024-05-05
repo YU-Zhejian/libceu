@@ -2,10 +2,6 @@
  * @file ceu_cc_turboc.h
  * @brief Feature detection macros to Borland (now acquired by Embarcadero) C/C++ compiler.
  *
- * Version: 0xVRR : V = Version, RR = Revision
- *
- * Example: 0x551 = Borland C++ 5.51
- *
  * @see https://docwiki.embarcadero.com/RADStudio/Alexandria/en/Compiler_Versions
  * @see https://docwiki.embarcadero.com/RADStudio/Alexandria/en/Predefined_Macros
  */

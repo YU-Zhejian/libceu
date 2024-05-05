@@ -6,8 +6,8 @@ ceu_ystr_t* ceu_interpret_c_std_version(void)
 
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("Compile-time C std.: ver. ", 128);
     ceu_ystr_cstr_concat_inplace(rets, CEU_C_STD);
-#ifdef CEU_C_STD_MACRO
-    ceu_ystr_t* cstd_macro = ceu_ystr_from_uint(10, CEU_C_STD_MACRO);
+#ifdef CEU_C_STD_VERSION_MACRO
+    ceu_ystr_t* cstd_macro = ceu_ystr_from_uint(10, CEU_C_STD_VERSION_MACRO);
 #else
     ceu_ystr_t* cstd_macro = ceu_ystr_create_from_cstr("__STDC_VERSION__ undefined");
 #endif

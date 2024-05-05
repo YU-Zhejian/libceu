@@ -23,7 +23,7 @@ void ceu_ystr_clear(ceu_ystr_t* ystr)
 
 void ceu_ystr_clean(ceu_ystr_t* ystr)
 {
-    ystr->buff_length = DEFAULT_CEU_YSTR_SIZE + 1;
+    ystr->buff_length = CEU_YSTR_DEFAULT_SIZE + 1;
     ystr->buff = (char*)ceu_sreallocarray(ystr->buff, ystr->buff_length, sizeof(char));
     ceu_memset(ystr->buff, 0, ystr->consumed_length);
     ystr->consumed_length = 0;

@@ -130,9 +130,6 @@ if(NOT DEFINED CEU_CM_ENABLE_DEBUG_CMAKE_WAS_ALREADY_INCLUDED)
         add_compile_options("-D__STDC_WANT_LIB_EXT1__=1")
     endif()
     if(MSVC)
-        set(CMAKE_GENERATOR_PLATFORM
-            x64
-            CACHE INTERNAL "")
         ceu_cm_global_enhanced_check_compiler_flag(-options:strict) # Error on unrecognized arguments
         ceu_cm_global_enhanced_check_compiler_flag(/utf-8)
         ceu_cm_global_enhanced_check_compiler_flag(/Qspectre) # Stop spectre memory issues

@@ -1,10 +1,10 @@
-/*****************************************************************/ /**
-                                                                     * @file   ceu_os_mainframe_unix.h
-                                                                     * @brief  Check whether CEU is compiled on Mainframe UNIX including Solaris, AIX and HU-UX.
-                                                                     *
-                                                                     * @author YU Zhejian
-                                                                     * @date   May 2024
-                                                                     *********************************************************************/
+/*!
+ * @file   ceu_os_mainframe_unix.h
+ * @brief  Check whether CEU is compiled on Mainframe UNIX including Solaris, AIX and HU-UX.
+ *
+ * @author YU Zhejian
+ * @date   May 2024
+ */
 
 #ifndef CEU_OS_MAINFRAME_UNIX_H
 #define CEU_OS_MAINFRAME_UNIX_H
@@ -13,7 +13,7 @@
 #error "Do not include this file, include <ceu_check/ceu_check_os.h> instead!"
 #endif
 
-/**
+/*!
  *@def CEU_ON_SOLARIS
  *@brief Indicating CEU is compiled on Solaris.
  */
@@ -24,7 +24,7 @@
 #endif
 #endif
 
-/**
+/*!
  *@def CEU_ON_HP_UX
  *@brief Indicating CEU is compiled on HP-UX.
  */
@@ -36,7 +36,7 @@
 #endif
 #endif
 
-/**
+/*!
  *@def CEU_ON_AIX
  *@brief Indicating CEU is compiled on IBM AIX.
  */

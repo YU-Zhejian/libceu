@@ -1,10 +1,8 @@
-/*****************************************************************/ /**
-                                                                     * @file   ceu_os_winsows.h
-                                                                     * @brief  Check whether CEU is compiled on some Microsoft Windows, including CYGWin/MSYS2/MinGW.
-                                                                     *
-                                                                     * @author YU Zhejian
-                                                                     * @date   May 2024
-                                                                     *********************************************************************/
+/*!
+ * @file ceu_os_windows.h
+ * @brief  Check whether CEU is compiled on some Microsoft Windows, including CYGWin/MSYS2/MinGW.
+ * @author YU Zhejian
+ */
 
 #ifndef CEU_OS_WINDOWS_H
 #define CEU_OS_WINDOWS_H
@@ -13,7 +11,7 @@
 #error "Do not include this file, include <ceu_check/ceu_check_os.h> instead!"
 #endif
 
-/**
+/*!
  *@def CEU_ON_MSYS
  *@brief Indicating CEU is compiled on MSYS
  */
@@ -23,7 +21,7 @@
 #define CEU_ON_MSYS
 #endif
 
-/**
+/*!
  *@def CEU_ON_CYGWIN
  *@brief Indicating CEU is compiled on CYGWin.
  */
@@ -35,7 +33,7 @@
 #define CEU_ON_CYGWIN
 #endif
 
-/**
+/*!
  *@def CEU_ON_MINGW32
  *@brief Indicating CEU is compiled on MinGW 32.
  */
@@ -47,7 +45,7 @@
 #define CEU_ON_MINGW32
 #endif
 
-/**
+/*!
  *@def CEU_ON_CYGWIN_LIKE
  *@brief Indicating CEU is compiled on CygWin/MSYS/MinGW or friends.
  */
@@ -56,11 +54,11 @@
 #define CEU_ON_CYGWIN_LIKE
 #endif
 
-/**
+/*!
  *@def CEU_ON_WINDOWS_64
  *@brief Indicating CEU is compiled on 64-bit Microsoft Windows.
  */
-/**
+/*!
  *@def CEU_ON_WINDOWS_32
  *@brief Indicating CEU is compiled on 32-bit Microsoft Windows.
  */
@@ -77,7 +75,7 @@
 #endif
 #endif
 
-/**
+/*!
  *@def CEU_ON_WINDOWS
  *@brief Indicating CEU is compiled on Microsoft Windows.
  */

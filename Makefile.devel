@@ -2,9 +2,13 @@
 fmt:
 	bash fmt.sh
 
+
+.PHONY: html
+html:
+	doxygen Doxyfile.ini
+
 .PHONY: doc
-doc:
-	doxygen Doxyfile
+doc: html
 	$(MAKE) -C doxygen.out.d/latex
 
 .PHONY: autotools

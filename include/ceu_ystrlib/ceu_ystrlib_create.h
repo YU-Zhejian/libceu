@@ -1,7 +1,12 @@
-//
-// Created by yuzj on 24-4-28.
-//
-
+/**
+ * @file ceu_ystrlib_create.h
+ * @author YU Zhejian
+ * @brief Function related to creation and elongation of yStr.
+ * @version 0.1
+ * @date 2024-05-06
+ *
+ *
+ */
 #ifndef CEU_YSTRLIB_CREATE_H
 #define CEU_YSTRLIB_CREATE_H
 #include <ceu_ystrlib/ceu_ystrlib.h>
@@ -22,32 +27,6 @@ ceu_ystr_t* ceu_ystr_create_empty(void);
  * @return ceu_ystr_t* The created string.
  */
 ceu_ystr_t* ceu_ystr_create_sized(ceu_size_t reserved_length);
-
-/*!
- * @brief Convert a C string to a yStr.
- *
- * @param cstr The source CEU_NULL-terminated cStr.
- * @return ceu_ystr_t* The converted string.
- */
-ceu_ystr_t* ceu_ystr_create_from_cstr(const char* cstr);
-
-/*!
- * @brief Convert a C string to a yStr.
- *
- * @param cstr The source CEU_NULL-terminated cStr.
- * @param reserved_length Number of characters to reserve.
- * @return ceu_ystr_t* The converted string. The final buffer length will be string length + reserved length.
- */
-ceu_ystr_t* ceu_ystr_create_from_cstr_reserve(const char* cstr, ceu_size_t reserved_length);
-
-/*!
- * @brief Convert a C string to a yStr.
- *
- * @param cstr The source CEU_NULL-terminated cStr.
- * @param guarantee_buffer_length The buffer length should be at least this long.
- * @return ceu_ystr_t* The converted string.
- */
-ceu_ystr_t* ceu_ystr_create_from_cstr_guarantee(const char* cstr, ceu_size_t guarantee_buffer_length);
 
 /*!
  * @brief Produce a duplication.

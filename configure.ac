@@ -45,14 +45,9 @@ AC_PROG_CC
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdint.h unistd.h])
-AC_LANG_PUSH([C])
-CEU_CHECK_FILE_COMPILATION_FILEPATH="${srcdir}/cmake_collections/src/test_c___inline.c"
-CEU_CHECK_FILE_COMPILATION
-AC_LANG_POP([C])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
-AC_C_INLINE
 AC_C_VOLATILE
 AC_TYPE_INT16_T
 AC_TYPE_INT32_T

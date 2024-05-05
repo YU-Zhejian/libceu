@@ -25,18 +25,41 @@
 
 #ifndef CEU_STDNORETURN_H
 #define CEU_STDNORETURN_H
+#include "ceu_check/ceu_check_cc.h"
 
 #ifdef __cplusplus
 // FIXME: Temporary solution for C++ 11.
 #define noreturn [[noreturn]]
+#elif defined(CEU_COMPILER_IS_INTEL_CLANG) && defined(CEU_COMPILER_IS_MSVC)
+// FIXME: Error on Windows Intel Clang-based compilers.
+#define noreturn // NOLINT
 #else
-
-#include "ceu_check/ceu_check_cc.h"
 
 #if defined(CEU_CM_UNDER_CMAKE)
 #include "ceu_basic/libceu_stddef_cmake.h"
 #elif defined(CEU_CM_UNDER_XMAKE)
 #include "ceu_basic/libceu_stddef_xmake.h"
+#endif
+
+#ifndef CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED
+#define CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED 127
+#endif
+#ifndef CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED
+#define CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED 127
+#endif
+
+#ifndef CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC
+#define CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC 127
+#endif
+#ifndef CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC
+#define CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC 127
+#endif
+
+#ifndef CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_SHARED
+#define CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_SHARED 127
+#endif
+#ifndef CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_STATIC
+#define CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_STATIC 127
 #endif
 
 #if (defined(CEU_HAVE_INCLUDE_STDNORETURN_H) && CEU_HAVE_INCLUDE_STDNORETURN_H == 1 && CEU_CM_HAVE_WORKING_C_NORETURN_RUN_STATIC * CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED == 0)

@@ -6,7 +6,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/**
+/*!
  *
  * @brief Get all environment information.
  */

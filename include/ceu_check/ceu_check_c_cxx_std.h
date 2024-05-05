@@ -1,27 +1,27 @@
 /*!
-@file ceu_check_c_cxx_std.h
-@brief Check Compile-Time C/C++ standard.
-*/
+ * @file ceu_check_c_cxx_std.h
+ * @brief Check Compile-Time C/C++ standard.
+ */
 
 /*!
-@def CEU_CXX_STD
-@brief The C++ Standard in a human-readable way.
-*/
+ * @def CEU_CXX_STD
+ * @brief The C++ Standard in a human-readable way.
+ */
 
 /*!
-@def CEU_CXX_STD_VERSION_MACRO
-@brief The C++ Standard version macro, should be equal to `_MSVC_LANG` or `__cplusplus__` or undefined.
-*/
+ * @def CEU_CXX_STD_VERSION_MACRO
+ * @brief The C++ Standard version macro, should be equal to `_MSVC_LANG` or `__cplusplus__` or undefined.
+ */
 
 /*!
-@def CEU_C_STD
-@brief The C Standard in a human-readable way.
-*/
+ * @def CEU_C_STD
+ * @brief The C Standard in a human-readable way.
+ */
 
 /*!
-@def CEU_C_STD_VERSION_MACRO
-@brief The C Standard version macro, should be equal to `__STDC_VERSION__` or undefined.
-*/
+ * @def CEU_C_STD_VERSION_MACRO
+ * @brief The C Standard version macro, should be equal to `__STDC_VERSION__` or undefined.
+ */
 
 #ifndef CEU_CHECK_C_CXX_STD_H
 #define CEU_CHECK_C_CXX_STD_H
@@ -56,25 +56,24 @@
 #define CEU_CXX_STD "98"
 #endif
 
-#undef CEU_C_STD_MACRO
-#if (!defined __STDC_VERSION__)
-#else
-#define CEU_C_STD_MACRO __STDC_VERSION__
+#undef CEU_C_STD_VERSION_MACRO
+#if defined(__STDC_VERSION__)
+#define CEU_C_STD_VERSION_MACRO __STDC_VERSION__
 #endif
 
-#ifndef CEU_C_STD_MACRO
+#ifndef CEU_C_STD_VERSION_MACRO
 #define CEU_C_STD "UNDEFINED"
-#elif CEU_C_STD_MACRO < 199409L
+#elif CEU_C_STD_VERSION_MACRO < 199409L
 #define CEU_C_STD "pre-94"
-#elif CEU_C_STD_MACRO == 199409L
+#elif CEU_C_STD_VERSION_MACRO == 199409L
 #define CEU_C_STD "94"
-#elif CEU_C_STD_MACRO == 199901L
+#elif CEU_C_STD_VERSION_MACRO == 199901L
 #define CEU_C_STD "99"
-#elif CEU_C_STD_MACRO == 201112L
+#elif CEU_C_STD_VERSION_MACRO == 201112L
 #define CEU_C_STD "11"
-#elif CEU_C_STD_MACRO == 201710L
+#elif CEU_C_STD_VERSION_MACRO == 201710L
 #define CEU_C_STD "17"
-#elif CEU_C_STD_MACRO > 201710L
+#elif CEU_C_STD_VERSION_MACRO > 201710L
 #define CEU_C_STD "post-17"
 #else
 #define CEU_C_STD "unknown"

@@ -17,6 +17,12 @@
 #include "ceu_check/ceu_check_cc.h"
 #include <limits.h>
 
+#if defined(CEU_CM_TYPE_C_SIZE) && defined(CEU_CM_TYPE_SH_SIZE) && defined(CEU_CM_TYPE_I_SIZE) && defined(CEU_CM_TYPE_L_SIZE) && defined(CEU_CM_TYPE_LL_SIZE)
+// Comfort C minimum std
+#else
+#error "Requires definition of CEU_CM_TYPE_C_SIZE, CEU_CM_TYPE_SH_SIZE, CEU_CM_TYPE_I_SIZE, CEU_CM_TYPE_L_SIZE, CEU_CM_TYPE_LL_SIZE cmake/xmake/autotools systems."
+#endif
+
 #if (CEU_CM_TYPE_C_SIZE <= CEU_CM_TYPE_SH_SIZE && CEU_CM_TYPE_SH_SIZE <= CEU_CM_TYPE_I_SIZE && CEU_CM_TYPE_I_SIZE <= CEU_CM_TYPE_L_SIZE && CEU_CM_TYPE_L_SIZE <= CEU_CM_TYPE_LL_SIZE)
 // Comfort C minimum std
 #else
@@ -129,10 +135,6 @@
 #ifndef UINT64_MAX
 #define UINT64_MAX 18446744073709551615ULL
 #endif
-#define UINT_FAST8_MAX UINT8_MAX
-#define UINT_FAST16_MAX UINT16_MAX
-#define UINT_FAST32_MAX UINT32_MAX
-#define UINT_FAST64_MAX UINT64_MAX
 
 #if defined(CEU_CM_TYPE_SC_SIZE) && (CEU_CM_TYPE_SC_SIZE == CEU_INT8_SIZE) && defined(SCHAR_MIN) && (SCHAR_MIN == INT8_MIN) && defined(SCHAR_MAX) && (SCHAR_MAX == INT8_MAX)
 typedef signed char ceu_int8_t;

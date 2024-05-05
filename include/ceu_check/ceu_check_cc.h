@@ -22,9 +22,9 @@
 // clang-format off
 #include "cc/ceu_cc_turboc.h" // NOLINT
 #include "cc/ceu_cc_icc.h" // NOLINT
+#include "cc/ceu_cc_intel_clang.h" // NOLINT
 #include "cc/ceu_cc_msvc.h" // NOLINT
 #include "cc/ceu_cc_nvhpc.h" // NOLINT
-#include "cc/ceu_cc_intel_clang.h" // NOLINT
 #include "cc/ceu_cc_tcc.h" // NOLINT
 #include "cc/ceu_cc_clang.h" // NOLINT
 #include "cc/ceu_cc_gcc.h" // NOLINT

@@ -5,9 +5,13 @@
  * @version 0.1
  * @date 2024-04-28
  *
- * This file will be supressed under C++.
- *
- * This file is POSIX-compiliant. It defines:
+ * @warning This file will be supressed under C++ since in C++ #bool, #true and #false are supported by builtin types.
+ * @see [cppreference definition of C++ types](https://en.cppreference.com/w/cpp/language/types).
+ * @see [cppreference description of `cstdbool` header](https://en.cppreference.com/w/cpp/header/cstdbool).
+ * @see [cppreference description of C types](https://en.cppreference.com/w/c/types).
+ * @see [cppreference description of C arithmetic types](https://en.cppreference.com/w/c/language/arithmetic_types).
+ * @see [POSIX.1 2018 definition of `stdbool.h` header](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/stdbool.h.html).
+ * @see [`bool` type in _GNU C Language Manual_](https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Boolean-Type.html).
  */
 
 /*!
@@ -17,6 +21,7 @@
  * - If `_Bool` is defined, will expand to `_Bool`.
  * - Otherwise, will fall back to `int`.
  *
+ * @warning Only convert 0/1 to boolean values. Result from other integers (e.g., 4, -4, etc.) are unknown.
  */
 
 /*!
@@ -54,6 +59,20 @@
 #include "ceu_basic/libceu_stddef_xmake.h"
 #endif
 
+#ifndef CEU_CM_HAVE_WORKING_C__BOOL_RUN_STATIC
+#define CEU_CM_HAVE_WORKING_C__BOOL_RUN_STATIC 127
+#endif
+#ifndef CEU_CM_HAVE_WORKING_C__BOOL_RUN_SHARED
+#define CEU_CM_HAVE_WORKING_C__BOOL_RUN_SHARED 127
+#endif
+
+#ifndef CEU_CM_HAVE_WORKING_C_BOOL_RUN_STATIC
+#define CEU_CM_HAVE_WORKING_C_BOOL_RUN_STATIC 127
+#endif
+#ifndef CEU_CM_HAVE_WORKING_C_BOOL_RUN_SHARED
+#define CEU_CM_HAVE_WORKING_C_BOOL_RUN_SHARED 127
+#endif
+
 #if (defined(CEU_HAVE_INCLUDE_STDBOOL_H) && CEU_HAVE_INCLUDE_STDBOOL_H == 1 && CEU_CM_HAVE_WORKING_C_BOOL_RUN_STATIC * CEU_CM_HAVE_WORKING_C_BOOL_RUN_SHARED == 0)
 // Normal condition where stdbool.h is available and compatible
 #include <stdbool.h>
@@ -66,7 +85,6 @@
 #ifndef __bool_true_false_are_defined
 
 #define __bool_true_false_are_defined 1
-
 #if (CEU_CM_HAVE_WORKING_C__BOOL_RUN_STATIC * CEU_CM_HAVE_WORKING_C__BOOL_RUN_SHARED == 0)
 // If _Bool is available.
 #define bool _Bool

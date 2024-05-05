@@ -36,12 +36,6 @@
 #ifndef CEU_STRING_H
 #define CEU_STRING_H
 
-#if defined(CEU_CM_UNDER_CMAKE)
-#include "ceu_basic/libceu_stddef_cmake.h"
-#elif defined(CEU_CM_UNDER_XMAKE)
-#include "ceu_basic/libceu_stddef_xmake.h"
-#endif
-
 #include <ceu_cstd/ceu_stddef.h> // ceu_size_t
 
 #ifdef __cplusplus

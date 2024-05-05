@@ -1,8 +1,8 @@
 #include "ceu_thirdparty/log.h"
 #include <stdio.h>
 
-
-int main(void){
+int main(void)
+{
     log_set_level(LOG_TRACE);
     log_trace("%d", LOG_TRACE);
     log_debug("%d", LOG_DEBUG);

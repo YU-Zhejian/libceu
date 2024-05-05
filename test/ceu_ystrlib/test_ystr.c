@@ -15,7 +15,7 @@ void test_teardown(void)
 MU_TEST(ystr_create_empty)
 {
     ceu_ystr_t* ystr1 = ceu_ystr_create_empty();
-    mu_assert_int_eq(DEFAULT_CEU_YSTR_SIZE + 1, ystr1->buff_length);
+    mu_assert_int_eq(CEU_YSTR_DEFAULT_SIZE + 1, ystr1->buff_length);
     mu_assert_int_eq(0, ystr1->consumed_length);
     mu_assert_string_eq("", ystr1->buff);
     ceu_ystr_destroy(ystr1);
@@ -80,7 +80,7 @@ MU_TEST(ystr_clean)
 {
     ceu_ystr_t* ystr1 = ceu_ystr_create_from_cstr_reserve("10\0SomeOtherContent", 10);
     ceu_ystr_clean(ystr1);
-    mu_assert_int_eq(DEFAULT_CEU_YSTR_SIZE + 1, ystr1->buff_length);
+    mu_assert_int_eq(CEU_YSTR_DEFAULT_SIZE + 1, ystr1->buff_length);
     mu_assert_int_eq(0, ystr1->consumed_length);
     mu_assert_string_eq("", ystr1->buff);
     ceu_ystr_destroy(ystr1);

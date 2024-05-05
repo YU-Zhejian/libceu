@@ -1,9 +1,10 @@
 /*!
+ * @file ceu_cc_icc.h
  * @brief Old Intel C/C++ compiler called ICC/ICPC
  * @warning Include this file before "ceu_cc_clang.h"!
  */
 
-/**
+/*!
  *@def CEU_COMPILER_IS_ICC
  *@brief If this macro is defined, the compiler should support ICC features.
  */

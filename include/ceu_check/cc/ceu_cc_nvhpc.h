@@ -5,7 +5,7 @@
 #ifndef CEU_CC_NVHPC_H
 #define CEU_CC_NVHPC_H
 
-/**
+/*!
  * @def CEU_COMPILER_IS_NVHPC
  * @brief If this macro is defined, the compiler should support NVHPC features.
  */
