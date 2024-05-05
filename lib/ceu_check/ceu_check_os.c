@@ -14,6 +14,10 @@
 #include <cygwin/version.h>
 #endif
 
+#if defined(CEU_ON_WINDOWS)
+#include <windows.h>
+#endif
+
 ceu_ystr_t* get_compile_time_cygwin_version(void)
 {
 #if defined(CEU_ON_CYGWIN_LIKE)
@@ -45,6 +49,76 @@ ceu_ystr_t* get_run_time_haiku_version(void)
 ceu_ystr_t* get_run_time_windows_version(void)
 {
     return CEU_NULL; // TODO
+}
+
+ceu_ystr_t* get_compile_time_windows_version(void)
+{
+    ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("Windows ver. ", 128);
+    OSVERSIONINFOEX osvi;
+    ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
+    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+    if (!GetVersionEx((OSVERSIONINFO*)&osvi)) {
+        // GetVersionEx Failed!
+        return CEU_NULL;
+    }
+
+    ceu_ystr_t* readable_version_number;
+
+    switch (osvi.dwPlatformId) {
+    case VER_PLATFORM_WIN32_WINDOWS:
+        readable_version_number = ceu_ystr_create_from_cstr("Windows 95 / 98 / Me");
+        break;
+    case VER_PLATFORM_WIN32_NT:
+        if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0) {
+            readable_version_number = ceu_ystr_create_from_cstr("Windows 2000");
+        }
+        else if (osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 1) {
+            readable_version_number = ceu_ystr_create_from_cstr("Windows XP");
+        }
+        else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 0) {
+            readable_version_number = ceu_ystr_create_from_cstr(osvi.wProductType == VER_NT_WORKSTATION?"Windows Vista":"Windows Server 2008");
+        }
+        else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 1) {
+            readable_version_number = ceu_ystr_create_from_cstr(osvi.wProductType == VER_NT_WORKSTATION ? "Windows 7" : "Windows Server 2008 R2");
+        }
+        else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 2) {
+            readable_version_number = ceu_ystr_create_from_cstr(osvi.wProductType == VER_NT_WORKSTATION ? "Windows 8" : "Windows Server 2012");
+        }
+        else if (osvi.dwMajorVersion == 6 && osvi.dwMinorVersion == 3) {
+            readable_version_number = ceu_ystr_create_from_cstr(osvi.wProductType == VER_NT_WORKSTATION ? "Windows 8.1" : "Windows Server 2012 R2");
+        }
+        else if (osvi.dwMajorVersion == 10 && osvi.dwMinorVersion == 0) {
+            readable_version_number = ceu_ystr_create_from_cstr(osvi.wProductType == VER_NT_WORKSTATION ? "Windows 10" : "Windows Server 2016 or later");
+        }
+        break;
+    default:
+        readable_version_number = ceu_ystr_create_from_cstr("Windows unknown");
+        break;
+    }
+
+    ceu_ystr_t* win_ver = convert_version_to_ystr3(osvi.dwMajorVersion, osvi.dwMinorVersion, osvi.dwBuildNumber);
+    ceu_ystr_concat_inplace(rets, win_ver);
+    ceu_ystr_cstr_concat_inplace(rets, " (");
+    ceu_ystr_concat_inplace(rets, readable_version_number);
+    ceu_ystr_cstr_concat_inplace(rets, ")");
+
+    ceu_ystr_t* win_spver = ceu_ystr_create_from_cstr_guarantee(" Service Pack ", 128);
+    if (osvi.wServicePackMajor != 0 || osvi.wServicePackMinor != 0 || osvi.szCSDVersion[0] != '\0') {
+        ceu_ystr_t* win_spver_s = convert_version_to_ystr2(osvi.wServicePackMajor, osvi.wServicePackMinor);
+        ceu_ystr_concat_const(win_spver, win_spver_s);
+        ceu_ystr_cstr_concat_const(win_spver, " (");
+        ceu_ystr_cstr_concat_const(win_spver, osvi.szCSDVersion);
+        ceu_ystr_cstr_concat_const(win_spver, ")");
+        ceu_ystr_destroy(win_spver_s);
+    }
+    else {
+        ceu_ystr_cstr_concat_inplace(win_spver, "unknown");
+    }
+    ceu_ystr_concat_inplace(rets, win_spver);
+    ceu_ystr_destroy(win_spver);
+    ceu_ystr_destroy(win_ver);
+    ceu_ystr_destroy(readable_version_number);
+    return rets;
 }
 
 ceu_ystr_t* get_run_time_posix_uts_info(void)
@@ -117,15 +191,17 @@ ceu_ystr_t* ceu_check_get_compile_time_os_info(void)
     ceu_ystr_t* haiku_version_buff = get_run_time_haiku_version();
     ceu_ystr_t* cygwin_version_buff = get_compile_time_cygwin_version();
     ceu_ystr_t* posix_version_buff = get_compile_time_posix_standard();
+    ceu_ystr_t* win_version_buff = get_compile_time_windows_version();
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("Compile-time OS info: '", 128);
     ceu_ystr_cstr_concat_inplace(rets, CEU_PRIMARY_OS_TYPE);
     ceu_ystr_cstr_concat_inplace(rets, "'\n\t");
     ceu_ystr_t* sep = ceu_ystr_create_from_cstr("\n\t");
-    ceu_ystr_t* info = ceu_ystr_join(sep, true, 3, haiku_version_buff, cygwin_version_buff, posix_version_buff);
+    ceu_ystr_t* info = ceu_ystr_join(sep, true, 4, haiku_version_buff, cygwin_version_buff, posix_version_buff, win_version_buff);
     ceu_ystr_concat_inplace(rets, info);
     ceu_ystr_destroy(cygwin_version_buff);
     ceu_ystr_destroy(haiku_version_buff);
     ceu_ystr_destroy(posix_version_buff);
+    ceu_ystr_destroy(win_version_buff);
     ceu_ystr_destroy(sep);
     ceu_ystr_destroy(info);
     return rets;
