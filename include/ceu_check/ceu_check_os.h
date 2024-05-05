@@ -10,7 +10,7 @@
 #include "os/ceu_os_windows.h" // NOLINT
 // clang-format on
 
-/**
+/*!
  *@def CEU_ON_HAIKU
  *@brief Indicating CEU is compiled on Haiku.
  */
@@ -19,7 +19,7 @@
 #define CEU_PRIMARY_OS_TYPE "Haiku"
 #endif
 
-/**
+/*!
  *@def __ANDROID__
  *@brief Indicating CEU is compiled on Android.
  */
@@ -28,20 +28,20 @@
 #define CEU_PRIMARY_OS_TYPE "Android"
 #endif
 
-/**
+/*!
  *@def CEU_PRIMARY_OS_TYPE
  *@brief A human-readable operating system name.
  */
 
-/**
+/*!
  *@def CEU_ON_MACH
  *@brief Indicating CEU is compiled on MACH macro kernel.
  */
-/**
+/*!
  *@def CEU_ON_APPLE
  *@brief Indicating CEU is compiled on Apple.
  */
-/**
+/*!
  *@def CEU_ON_GNU_HURD
  *@brief Indicating CEU is compiled on GNU Hurd.
  */
@@ -58,7 +58,7 @@
 #endif
 #endif
 
-/**
+/*!
  *@def CEU_ON_GNU_LINUX
  *@brief Indicating CEU is compiled on GNU/Linux.
  */

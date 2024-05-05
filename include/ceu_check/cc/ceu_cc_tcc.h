@@ -5,7 +5,7 @@
 #ifndef CEU_CC_TCC_H
 #define CEU_CC_TCC_H
 
-/**
+/*!
  * @def CEU_COMPILER_IS_TCC
  * @brief If this macro is defined, the compiler should support TCC features.
  */

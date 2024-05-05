@@ -52,7 +52,6 @@ if(CMAKE_CXX_COMPILER)
 endif()
 
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c_bool.cmake")
-include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c_inline.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c_noreturn.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake_collections/test_c___attribute__.cmake")
 

@@ -23,3 +23,30 @@ void ceu_ystr_to_cstr_ncpy(const ceu_ystr_t* ystr, char* dest, ceu_size_t n)
     }
     ceu_strncpy(dest, ystr->buff, n);
 }
+
+ceu_ystr_t* ceu_ystr_create_from_cstr(const char* cstr)
+{
+    return ceu_ystr_create_from_cstr_reserve(cstr, 0);
+}
+
+ceu_ystr_t* ceu_ystr_create_from_cstr_guarantee(const char* cstr, ceu_size_t guarantee_buffer_length)
+{
+    ceu_ystr_t* ceu_ystr = (ceu_ystr_t*)ceu_smalloc(sizeof(ceu_ystr_t));
+    ceu_size_t sl = ceu_strlen(cstr);
+    ceu_ystr->buff_length = CEU_MAX(guarantee_buffer_length, sl + 1);
+    ceu_ystr->buff = (char*)ceu_scalloc(ceu_ystr->buff_length, sizeof(char));
+    ceu_ystr->consumed_length = sl;
+    ceu_strncpy(ceu_ystr->buff, cstr, sl);
+    return ceu_ystr;
+}
+
+ceu_ystr_t* ceu_ystr_create_from_cstr_reserve(const char* cstr, ceu_size_t reserved_length)
+{
+    ceu_ystr_t* ceu_ystr = (ceu_ystr_t*)ceu_smalloc(sizeof(ceu_ystr_t));
+    ceu_size_t sl = ceu_strlen(cstr);
+    ceu_ystr->buff_length = sl + reserved_length + 1;
+    ceu_ystr->buff = (char*)ceu_scalloc(ceu_ystr->buff_length, sizeof(char));
+    ceu_ystr->consumed_length = sl;
+    ceu_strncpy(ceu_ystr->buff, cstr, sl);
+    return ceu_ystr;
+}

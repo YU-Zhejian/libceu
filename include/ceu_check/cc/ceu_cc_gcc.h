@@ -3,7 +3,7 @@
  * @brief Detect whether the compiler is GNU GCC and G++
  */
 
-/**
+/*!
  * @def CEU_COMPILER_IS_GCC
  * @brief If this macro is defined, the compiler should support GCC/G++ features.
  */

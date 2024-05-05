@@ -137,7 +137,7 @@ ceu_ystr_t* ceu_check_get_run_time_os_info(void)
     ceu_ystr_t* windows_buff = get_run_time_windows_version();
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("Run-time OS info: '", 128);
     ceu_ystr_cstr_concat_inplace(rets, CEU_PRIMARY_OS_TYPE);
-    ceu_ystr_cstr_concat_inplace(rets, ")\n\t");
+    ceu_ystr_cstr_concat_inplace(rets, "'\n\t");
     ceu_ystr_t* sep = ceu_ystr_create_from_cstr("\n\t");
     ceu_ystr_t* info = ceu_ystr_join(sep, true, 2, posix_uts_buff, windows_buff);
     ceu_ystr_concat_inplace(rets, info);
