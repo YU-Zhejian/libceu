@@ -19,7 +19,6 @@
 /doxygen.out.d/
 *.core
 *.kdev4
-*.cmd
 *.bat
 /CMakeLists.txt.user
 CMakeSettings.json
@@ -54,3 +53,4 @@ a.out
 xmake-build
 xmake-build-*
 /Folder.DotSettings
+build*

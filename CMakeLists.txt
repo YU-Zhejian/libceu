@@ -11,6 +11,7 @@ include(CheckIncludeFileCXX)
 include(CheckSymbolExists)
 include(GNUInstallDirs)
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_LIBDIR}")
+file(REMOVE_RECURSE "${CMAKE_BUILD_RPATH}/compile_logs")
 
 if(CMAKE_VERSION GREATER_EQUAL 3.12)
     add_compile_definitions(CEU_CM_UNDER_CMAKE)
@@ -59,6 +60,7 @@ check_include_file("stdbool.h" CEU_HAVE_INCLUDE_STDBOOL_H)
 check_include_file("stdnoreturn.h" CEU_HAVE_INCLUDE_STDNORETURN_H)
 check_include_file("cygwin/version.h" CEU_HAVE_INCLUDE_CYGWIN_VERSION_H)
 check_include_file("sys/utsname.h" CEU_HAVE_INCLUDE_SYS_UTSNAME_H)
+check_include_file("_mingw.h" CEU_HAVE_INCLUDE__MINGW_H)
 
 configure_file("include/ceu_basic/libceu_stddef_cmake.h.in" "include/ceu_basic/libceu_stddef_cmake.h")
 

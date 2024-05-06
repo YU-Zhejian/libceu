@@ -3,7 +3,7 @@ if(NOT DEFINED CEU_CM_TRY_COMP_LINK_STATIC)
         COMMAND
             ctest --verbose --stop-on-failure --build-and-test "${CMAKE_CURRENT_LIST_DIR}/test_link_proj_static"
             "${CMAKE_BINARY_DIR}/test_link_proj_static" --build-generator "${CMAKE_GENERATOR}" --test-command ctest -C
-            Debug
+            Debug --build-options -DCMAKE_C_COMPILER="${CMAKE_C_COMPILER}" -DCMAKE_CXX_COMPILER="${CMAKE_CXX_COMPILER}"
         RESULT_VARIABLE CEU_CM_TRY_COMP_LINK_STATIC_RETV
         OUTPUT_FILE "${CMAKE_BINARY_DIR}/compile_logs/test_link_proj_static_compile.log"
         ERROR_FILE "${CMAKE_BINARY_DIR}/compile_logs/test_link_proj_static_compile.err")
@@ -23,7 +23,7 @@ if(NOT DEFINED CEU_CM_TRY_COMP_LINK_SHARED)
         COMMAND
             ctest --verbose --stop-on-failure --build-and-test "${CMAKE_CURRENT_LIST_DIR}/test_link_proj_shared"
             "${CMAKE_BINARY_DIR}/test_link_proj_shared" --build-generator "${CMAKE_GENERATOR}" --test-command ctest -C
-            Debug
+            Debug -DCMAKE_C_COMPILER="${CMAKE_C_COMPILER}" -DCMAKE_CXX_COMPILER="${CMAKE_CXX_COMPILER}"
         RESULT_VARIABLE CEU_CM_TRY_COMP_LINK_SHARED_RETV
         OUTPUT_FILE "${CMAKE_BINARY_DIR}/compile_logs/test_link_proj_shared_compile.log"
         ERROR_FILE "${CMAKE_BINARY_DIR}/compile_logs/test_link_proj_shared_compile.err")

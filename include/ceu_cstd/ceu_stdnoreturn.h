@@ -55,6 +55,13 @@
 #define CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC 127
 #endif
 
+#ifndef CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_STATIC
+#define CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC 127
+#endif
+#ifndef CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_SHARED
+#define CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC 127
+#endif
+
 #ifndef CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_SHARED
 #define CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_SHARED 127
 #endif
@@ -64,10 +71,13 @@
 
 #if (defined(CEU_HAVE_INCLUDE_STDNORETURN_H) && CEU_HAVE_INCLUDE_STDNORETURN_H == 1 && CEU_CM_HAVE_WORKING_C_NORETURN_RUN_STATIC * CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED == 0)
 #include <stdnoreturn.h> // This file should define noreturn
+#elif (CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_STATIC * CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_SHARED == 0)
+// FIXME: No idea whether this works.
+#define noreturn [[noreturn]]
 #elif (CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC * CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC == 0)
 // Normal condition where _Noreturn is supported
 #define noreturn _Noreturn
-#elif (CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_STATIC * #define CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_SHARED == 0)
+#elif (CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_STATIC * CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_SHARED == 0)
 // Normal condition where __attribute__((noreturn)) is supported
 #define noreturn __attribute__((noreturn))
 #else

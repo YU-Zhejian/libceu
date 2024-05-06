@@ -22,6 +22,9 @@
 
 #include "ceu_thirdparty/log.h"
 
+#include "ceu_basic/ceu_fast_macros.h"
+#include "ceu_cstd/ceu_stddef.h"
+
 #define MAX_CALLBACKS 32
 
 typedef struct {
@@ -50,7 +53,7 @@ static const char* level_colors[] = {
 
 static void stdout_callback(log_Event* ev)
 {
-    char buf[16];
+    char buf[16] = { CEU_STRING_ENDING };
     buf[strftime(buf, sizeof(buf), "%H:%M:%S", ev->time)] = '\0';
 #ifdef LOG_USE_COLOR
     fprintf(
@@ -69,7 +72,7 @@ static void stdout_callback(log_Event* ev)
 
 static void file_callback(log_Event* ev)
 {
-    char buf[64];
+    char buf[64] = { CEU_STRING_ENDING };
     buf[strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", ev->time)] = '\0';
     fprintf(
         ev->udata, "%s %-5s %s:%d: ",

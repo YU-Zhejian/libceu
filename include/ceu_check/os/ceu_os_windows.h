@@ -34,6 +34,18 @@
 #endif
 
 /*!
+ *@def CEU_ON_MINGW64
+ *@brief Indicating CEU is compiled on MinGW 64.
+ */
+
+#if defined(__MINGW64__)
+#ifndef CEU_PRIMARY_OS_TYPE
+#define CEU_PRIMARY_OS_TYPE "MINGW64"
+#endif
+#define CEU_ON_MINGW64
+#endif
+
+/*!
  *@def CEU_ON_MINGW32
  *@brief Indicating CEU is compiled on MinGW 32.
  */
@@ -50,7 +62,7 @@
  *@brief Indicating CEU is compiled on CygWin/MSYS/MinGW or friends.
  */
 
-#if defined(CEU_ON_CYGWIN) || defined(CEU_ON_MINGW32) || defined(CEU_ON_MSYS)
+#if defined(CEU_ON_CYGWIN) || defined(CEU_ON_MINGW64) || defined(CEU_ON_MINGW32) || defined(CEU_ON_MSYS)
 #define CEU_ON_CYGWIN_LIKE
 #endif
 

@@ -5,7 +5,7 @@
 
 /*!
  * @def CEU_CXX_STD
- * @brief The C++ Standard in a human-readable way.
+ * @brief The C++ Standard in a human-readable way. This macro is always defined.
  */
 
 /*!
@@ -15,7 +15,7 @@
 
 /*!
  * @def CEU_C_STD
- * @brief The C Standard in a human-readable way.
+ * @brief The C Standard in a human-readable way. This macro is always defined.
  */
 
 /*!
@@ -73,8 +73,10 @@
 #define CEU_C_STD "11"
 #elif CEU_C_STD_VERSION_MACRO == 201710L
 #define CEU_C_STD "17"
-#elif CEU_C_STD_VERSION_MACRO > 201710L
-#define CEU_C_STD "post-17"
+#elif CEU_C_STD_VERSION_MACRO == 202311L
+#define CEU_C_STD "23"
+#elif CEU_C_STD_VERSION_MACRO > 202311L
+#define CEU_C_STD "post-23"
 #else
 #define CEU_C_STD "unknown"
 #endif
