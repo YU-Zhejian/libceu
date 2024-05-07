@@ -8,9 +8,9 @@
 #ifndef CEU_CHECK_CC_H
 #define CEU_CHECK_CC_H
 
+#include <ceu_basic/ceu_fast_macros.h>
 #include <ceu_check/ceu_check_cc_macro.h>
 #include <ceu_ystrlib/ceu_ystrlib.h>
-#include <ceu_basic/ceu_fast_macros.h>
 
 CEU_BEGIN_C_DECLS
 

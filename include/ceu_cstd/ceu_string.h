@@ -36,8 +36,8 @@
 #ifndef CEU_STRING_H
 #define CEU_STRING_H
 
-#include <ceu_cstd/ceu_stddef.h>
 #include <ceu_basic/ceu_fast_macros.h>
+#include <ceu_cstd/ceu_stddef.h>
 
 CEU_BEGIN_C_DECLS
 

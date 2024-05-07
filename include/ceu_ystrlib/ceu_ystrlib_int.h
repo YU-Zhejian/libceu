@@ -9,9 +9,9 @@
  */
 #ifndef CEU_YSTRLIB_INT_H
 #define CEU_YSTRLIB_INT_H
+#include <ceu_basic/ceu_fast_macros.h>
 #include <ceu_cstd/ceu_stdint.h>
 #include <ceu_ystrlib/ceu_ystrlib.h>
-#include <ceu_basic/ceu_fast_macros.h>
 
 CEU_BEGIN_C_DECLS
 

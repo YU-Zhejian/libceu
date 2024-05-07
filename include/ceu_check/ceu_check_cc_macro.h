@@ -32,5 +32,4 @@
 #include "cc/ceu_cc_unknown.h" // NOLINT
 // clang-format on
 
-
 #endif // CEU_CHECK_CC_MACRO_H

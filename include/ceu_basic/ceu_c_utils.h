@@ -9,8 +9,8 @@
 #define CEU_C_UTILS_H
 
 #include <ceu_basic/ceu_fast_macros.h>
-#include <ceu_cstd/ceu_stdnoreturn.h>
 #include <ceu_cstd/ceu_stddef.h>
+#include <ceu_cstd/ceu_stdnoreturn.h>
 
 CEU_BEGIN_C_DECLS
 

@@ -1,8 +1,8 @@
 #ifndef CEU_CSTD_STDIO_PRINTF_CORE_H
 #define CEU_CSTD_STDIO_PRINTF_CORE_H
 
-#include <ceu_cstd/ceu_stdbool.h>
 #include <ceu_basic/ceu_fast_macros.h>
+#include <ceu_cstd/ceu_stdbool.h>
 #include <ceu_cstd/ceu_stddef.h> // ceu_size_t
 #include <stdarg.h>
 

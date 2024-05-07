@@ -8,8 +8,8 @@
  */
 #ifndef CEU_YSTRLIB_CONVERT_H
 #define CEU_YSTRLIB_CONVERT_H
-#include <ceu_ystrlib/ceu_ystrlib.h>
 #include <ceu_basic/ceu_fast_macros.h>
+#include <ceu_ystrlib/ceu_ystrlib.h>
 
 CEU_BEGIN_C_DECLS
 

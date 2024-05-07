@@ -16,8 +16,8 @@
 #undef CEU_LIB_CTIME_VERSION
 #endif
 #define CEU_LIB_CTIME_VERSION "0.1"
-#include <ceu_ystrlib/ceu_ystrlib.h>
 #include <ceu_basic/ceu_fast_macros.h>
+#include <ceu_ystrlib/ceu_ystrlib.h>
 
 CEU_BEGIN_C_DECLS
 

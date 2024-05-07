@@ -9,8 +9,8 @@
  */
 #ifndef CEU_YSTRLIB_CREATE_H
 #define CEU_YSTRLIB_CREATE_H
-#include <ceu_ystrlib/ceu_ystrlib.h>
 #include <ceu_basic/ceu_fast_macros.h>
+#include <ceu_ystrlib/ceu_ystrlib.h>
 
 CEU_BEGIN_C_DECLS
 
@@ -44,7 +44,7 @@ ceu_ystr_t* ceu_ystr_copy CEU_PARAMS((const ceu_ystr_t* ystr));
  * @param ystr yStr to examine (and expand).
  * @param new_buffer_size Target buffer size.
  */
-void ceu_ystr_guarantee CEU_PARAMS((ceu_ystr_t* ystr, ceu_size_t new_buffer_size));
+void ceu_ystr_guarantee CEU_PARAMS((ceu_ystr_t * ystr, ceu_size_t new_buffer_size));
 
 CEU_END_C_DECLS
 

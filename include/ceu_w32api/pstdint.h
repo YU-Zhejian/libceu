@@ -358,7 +358,7 @@
 #define _PSTDINT_H_INCLUDED
 
 #ifndef SIZE_MAX
-#define SIZE_MAX ((size_t)-1)
+#define SIZE_MAX ((size_t) - 1)
 #endif
 
 /*
@@ -728,7 +728,7 @@ typedef uint_least64_t uint_fast64_t;
 #define WCHAR_MIN 0
 #endif
 #ifndef WCHAR_MAX
-#define WCHAR_MAX ((wchar_t)-1)
+#define WCHAR_MAX ((wchar_t) - 1)
 #endif
 #endif
 
