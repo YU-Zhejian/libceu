@@ -94,4 +94,7 @@
 #define CEU_PARAMS(protos) ()
 #endif
 
+#define CEU_STR(x) CEU_VAL(x)
+#define CEU_VAL(x) #x
+
 #endif // CEU_FAST_MACROS_H

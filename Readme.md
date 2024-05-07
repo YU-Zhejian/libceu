@@ -6,7 +6,7 @@ This is a small C/C++ library designed for the following purposes:
 2. String manipulation functions and basic data structures like [GLib](https://docs.gtk.org/glib/);
 3. A build system that supports [CMake](https://cmake.org/) for modularized integration to other projects and [GNU Autotools](https://www.gnu.org/software/autoconf/) that allows execution over diverse machines.
 4. Other tasks related to portability: Perform platform detection.
-5. Other miscelanrous tasks: Inclusion of loggings, `malloc` wrappers, etc., from third-parties.
+5. Other miscellaneous tasks: Inclusion of loggings, `malloc` wrappers, etc., from third-parties.
 6. CMake modules for creation of portable software.
 
 It is still under development. Do not use.
@@ -23,6 +23,22 @@ It is still under development. Do not use.
 For Visual Studio Users:
 
 Tested under MS Visual Studio 2019 (Windows 7) and 2022 (Windows 10/11). A Windows 10 SDK should be needed.
+
+## Supported Compilers
+
+Now supporting:
+
+- GCC and Clang-based compilers.
+- MSVC.
+- Intel C++ compiler, old (`icc`/`dpcpp`) and new (`icx`/`icpx`).
+- AMD Optimizing C/C++ and Fortran Compilers (AOCC).
+
+Porting to:
+
+- Embarcadero Free C/C++ compilers (`bcc32c`).
+- OpenWatcom 2 compilers (`wcc`).
+- Digital Mars compilers.
+- NVidia High-Performance Compilers (`nvhpc`).
 
 ## Building libceu
 
