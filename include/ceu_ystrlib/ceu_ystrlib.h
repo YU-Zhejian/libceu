@@ -16,9 +16,6 @@
  */
 #define CEU_YSTR_DEFAULT_SIZE 16
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 /*!
  * @brief The yStr type.
  *
@@ -41,9 +38,5 @@ typedef struct
      */
     ceu_size_t consumed_length;
 } ceu_ystr_t;
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif // LIBCEU_CEU_YSTRLIB_H

@@ -25,7 +25,7 @@
 
 #ifndef CEU_STDNORETURN_H
 #define CEU_STDNORETURN_H
-#include "ceu_check/ceu_check_cc.h"
+#include "ceu_check/ceu_check_cc_macro.h"
 
 #ifdef __cplusplus
 // FIXME: Temporary solution for C++ 11.

@@ -12,8 +12,8 @@
 #ifndef CEU_CC_ICC_H
 #define CEU_CC_ICC_H
 
-#ifndef CEU_CHECK_CC_H
-#error "Do not include this file, include <ceu_check/ceu_check_cc.h> instead!"
+#ifndef CEU_CHECK_CC_MACRO_H
+#error "Do not include this file, include <ceu_check/ceu_check_cc_macro.h> instead!"
 #endif
 
 #if defined(__ICC) || defined(__INTEL_COMPILER)

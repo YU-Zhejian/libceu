@@ -10,15 +10,16 @@
 #ifndef CEU_YSTRLIB_CREATE_H
 #define CEU_YSTRLIB_CREATE_H
 #include <ceu_ystrlib/ceu_ystrlib.h>
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <ceu_basic/ceu_fast_macros.h>
+
+CEU_BEGIN_C_DECLS
+
 /*!
  * @brief Create an empty string.
  *
  * @return ceu_ystr_t* The created string.
  */
-ceu_ystr_t* ceu_ystr_create_empty(void);
+ceu_ystr_t* ceu_ystr_create_empty CEU_PARAMS((void));
 
 /*!
  * @brief Create an empty string with reserved length.
@@ -26,7 +27,7 @@ ceu_ystr_t* ceu_ystr_create_empty(void);
  * @param reserved_length Number of characters tor eserve.
  * @return ceu_ystr_t* The created string.
  */
-ceu_ystr_t* ceu_ystr_create_sized(ceu_size_t reserved_length);
+ceu_ystr_t* ceu_ystr_create_sized CEU_PARAMS((ceu_size_t reserved_length));
 
 /*!
  * @brief Produce a duplication.
@@ -34,7 +35,7 @@ ceu_ystr_t* ceu_ystr_create_sized(ceu_size_t reserved_length);
  * @param ystr yStr to duplicate.
  * @return ceu_ystr_t* Duplicated string.
  */
-ceu_ystr_t* ceu_ystr_copy(const ceu_ystr_t* ystr);
+ceu_ystr_t* ceu_ystr_copy CEU_PARAMS((const ceu_ystr_t* ystr));
 
 /*!
  * @brief Ensure the buffer length of yStr will be equal or larger than new_buffer_size.
@@ -43,10 +44,8 @@ ceu_ystr_t* ceu_ystr_copy(const ceu_ystr_t* ystr);
  * @param ystr yStr to examine (and expand).
  * @param new_buffer_size Target buffer size.
  */
-void ceu_ystr_guarantee(ceu_ystr_t* ystr, ceu_size_t new_buffer_size);
+void ceu_ystr_guarantee CEU_PARAMS((ceu_ystr_t* ystr, ceu_size_t new_buffer_size));
 
-#ifdef __cplusplus
-}
-#endif
+CEU_END_C_DECLS
 
 #endif // CEU_YSTRLIB_CREATE_H

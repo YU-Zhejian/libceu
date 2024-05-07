@@ -8,13 +8,11 @@
 #ifndef CEU_C_UTILS_H
 #define CEU_C_UTILS_H
 
-#include "ceu_cstd/ceu_stdnoreturn.h"
+#include <ceu_basic/ceu_fast_macros.h>
+#include <ceu_cstd/ceu_stdnoreturn.h>
+#include <ceu_cstd/ceu_stddef.h>
 
-#include <ceu_cstd/ceu_stddef.h> // ceu_size_t
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+CEU_BEGIN_C_DECLS
 
 /*!
  * @brief Exit with exit value.
@@ -23,12 +21,12 @@ extern "C" {
  * @return No return.
  * @note If debug is allowed (i.e., `defined CEU_CM_IS_DEBUG && CEU_CM_IS_DEBUG == 1`), will use ::abort to allow debuggers to investigate
  */
-noreturn void ceu_die_with_retv(const char* reason, int retv);
+noreturn void ceu_die_with_retv CEU_PARAMS((const char* reason, int retv));
 
 /*!
  * @brief ::ceu_die_with_retv with #EXIT_FAILURE as return value.
  */
-noreturn void ceu_die(const char* reason);
+noreturn void ceu_die CEU_PARAMS((const char* reason));
 
 /*!
  * @brief A simple wrapper to ::malloc() that allows program exit with retv=12
@@ -37,7 +35,7 @@ noreturn void ceu_die(const char* reason);
  * @param size Number of bytes to allocate.
  * @return Allocated memory.
  */
-void* ceu_smalloc(ceu_size_t size);
+void* ceu_smalloc CEU_PARAMS((ceu_size_t size));
 
 /*!
  * @brief A simple wrapper to ::calloc() that allows program exit with retv=12
@@ -45,7 +43,7 @@ void* ceu_smalloc(ceu_size_t size);
  * In this implementation, the allocated memory will be initialized with 0.
  * @return Allocated memory
  */
-void* ceu_scalloc(ceu_size_t count, ceu_size_t size);
+void* ceu_scalloc CEU_PARAMS((ceu_size_t count, ceu_size_t size));
 
 /*!
  * @brief A simple wrapper to ::realloc() that allows program exit with retv=12
@@ -54,7 +52,7 @@ void* ceu_scalloc(ceu_size_t count, ceu_size_t size);
  * @param size Number of bytes to allocate.
  * @return Allocated memory
  */
-void* ceu_srealloc(void* m, ceu_size_t size);
+void* ceu_srealloc CEU_PARAMS((void* m, ceu_size_t size));
 
 /*!
  * @brief A simple wrapper to ::realloc() that allows program exit with retv=12
@@ -67,23 +65,21 @@ void* ceu_srealloc(void* m, ceu_size_t size);
  * @param size Number of bytes to allocate.
  * @return Allocated memory
  */
-void* ceu_sreallocarray(void* m, ceu_size_t count, ceu_size_t size);
+void* ceu_sreallocarray CEU_PARAMS((void* m, ceu_size_t count, ceu_size_t size));
 
 /*!
  * @brief Free a piece of memory if it is not CEU_NULL. The piece of memory will be set to CEU_NULL afterwards.
  *
  * @param m The memory to be freed.
  */
-void ceu_free_non_null(void* m);
+void ceu_free_non_null CEU_PARAMS((void* m));
 
 /*!
  * @brief Wait for a keystroke and then exit the program with #EXIT_SUCCESS.
  * @note This function will not return.
  */
-noreturn void ceu_press_any_key_to_exit(void);
+noreturn void ceu_press_any_key_to_exit CEU_PARAMS((void));
 
-#ifdef __cplusplus
-}
-#endif
+CEU_END_C_DECLS
 
 #endif // CEU_C_UTILS_H

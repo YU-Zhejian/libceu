@@ -57,4 +57,41 @@
 #define EXIT_SUCCESS 0
 #endif
 
+#undef CEU_BEGIN_C_DECLS
+#undef CEU_END_C_DECLS
+
+/*!
+ * @def CEU_BEGIN_C_DECLS
+ * @brief This macro should be used at the beginning of your declarations,
+   so that C++ compilers don't mangle their names.
+ */
+/*!
+ * @def CEU_END_C_DECLS
+ * @brief This macro should be used at the end of your declarations,
+ * so that C++ compilers don't mangle their names.
+ */
+
+#ifdef __cplusplus
+#define CEU_BEGIN_C_DECLS extern "C" {
+#define CEU_END_C_DECLS }
+#else
+#define CEU_BEGIN_C_DECLS /* empty */
+#define CEU_END_C_DECLS /* empty */
+#endif
+
+/*!
+ * @def CEU_PARAMS
+ * @brief A macro used to wrap function prototypes.
+ * So that compilers that don't understand ANSI C prototypes still work,
+ * and ANSI C compilers can issue warnings about type mismatches.
+ */
+#undef CEU_PARAMS
+#if defined __STDC__ || defined _AIX             \
+    || (defined __mips && defined _SYSTYPE_SVR4) \
+    || defined WIN32 || defined __cplusplus
+#define CEU_PARAMS(protos) protos
+#else
+#define CEU_PARAMS(protos) ()
+#endif
+
 #endif // CEU_FAST_MACROS_H

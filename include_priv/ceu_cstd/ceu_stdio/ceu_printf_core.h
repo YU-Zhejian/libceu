@@ -1,13 +1,10 @@
 #ifndef CEU_CSTD_STDIO_PRINTF_CORE_H
 #define CEU_CSTD_STDIO_PRINTF_CORE_H
 
-#include "ceu_cstd/ceu_stdbool.h"
+#include <ceu_cstd/ceu_stdbool.h>
+#include <ceu_basic/ceu_fast_macros.h>
 #include <ceu_cstd/ceu_stddef.h> // ceu_size_t
 #include <stdarg.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 enum CEU_PRINTF_STATE_MACHINE {
     CEU_PRINTF_PARSING_COMMON_CHAR = 0,
@@ -61,11 +58,11 @@ typedef struct
     ceu_size_t current_fmt_position;
 } ceu_printf_ret_t;
 
+CEU_BEGIN_C_DECLS
 ceu_printf_ret_t ceu_vsnprintf_core(char* buff, ceu_size_t max_print_n_char, const char* fmt, va_list* args);
 
 ceu_printf_ret_t ceu_snprintf_core(char* buff, ceu_size_t max_print_n_char, const char* fmt, ...);
 
-#ifdef __cplusplus
-}
-#endif
+CEU_END_C_DECLS
+
 #endif // CEU_CSTD_STDIO_PRINTF_CORE_H

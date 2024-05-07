@@ -17,18 +17,18 @@
 #endif
 #define CEU_LIB_CTIME_VERSION "0.1"
 #include <ceu_ystrlib/ceu_ystrlib.h>
+#include <ceu_basic/ceu_fast_macros.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+CEU_BEGIN_C_DECLS
+
 /*!
  * @brief Get runtime LiBCEU version.
  * @param  Not accepting any parameters.
  * @return A string with the runtime version.
  * @warning This function will allocate memory inside. Users should free it after use.
  */
-ceu_ystr_t* ceu_lib_rtime_version(void);
-#ifdef __cplusplus
-}
-#endif
+ceu_ystr_t* ceu_lib_rtime_version CEU_PARAMS((void));
+
+CEU_END_C_DECLS
+
 #endif // LIBCEU_CEU_H

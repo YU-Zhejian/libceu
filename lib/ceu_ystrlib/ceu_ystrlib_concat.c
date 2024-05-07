@@ -112,7 +112,7 @@ ceu_ystr_t* ceu_ystr_join(const ceu_ystr_t* sep, bool skip_null, ceu_size_t coun
     }
     va_start(args, count);
     for (ceu_size_t i = 0; i < count; ++i) {
-        ceu_ystr_t* new_item = va_arg(args, ceu_ystr_t*);
+        const ceu_ystr_t* new_item = va_arg(args, ceu_ystr_t*);
         if (new_item == CEU_NULL) {
             if (skip_null) {
                 continue;
@@ -146,7 +146,7 @@ ceu_ystr_t* ceu_ystr_cstr_join(const char* sep, bool skip_null, ceu_size_t count
     }
     va_start(args, count);
     for (ceu_size_t i = 0; i < count; ++i) {
-        char* new_item = va_arg(args, char*);
+        const char* new_item = va_arg(args, char*);
         if (new_item == CEU_NULL) {
             if (skip_null) {
                 continue;

@@ -14,7 +14,7 @@
 #include "ceu_basic/libceu_stddef_xmake.h"
 #endif
 
-#include "ceu_check/ceu_check_cc.h"
+#include "ceu_check/ceu_check_cc_macro.h"
 #include <limits.h>
 
 #if defined(CEU_CM_TYPE_C_SIZE) && defined(CEU_CM_TYPE_SH_SIZE) && defined(CEU_CM_TYPE_I_SIZE) && defined(CEU_CM_TYPE_L_SIZE) && defined(CEU_CM_TYPE_LL_SIZE)

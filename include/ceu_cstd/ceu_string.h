@@ -36,11 +36,10 @@
 #ifndef CEU_STRING_H
 #define CEU_STRING_H
 
-#include <ceu_cstd/ceu_stddef.h> // ceu_size_t
+#include <ceu_cstd/ceu_stddef.h>
+#include <ceu_basic/ceu_fast_macros.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+CEU_BEGIN_C_DECLS
 
 /*!
  * @brief Copy characters from `src` to `dst` until encountered `\0` or reached `n`.
@@ -59,9 +58,9 @@ extern "C" {
  * @param n Number of character to copy.
  * @return Destination buffer.
  */
-char* ceu_strncpy(char* dest, const char* src, ceu_size_t n);
+char* ceu_strncpy CEU_PARAMS((char* dest, const char* src, ceu_size_t n));
 
-int ceu_strcmp(const char* str1, const char* str2);
+int ceu_strcmp CEU_PARAMS((const char* str1, const char* str2));
 
 /*!
  * Determine string length by searching for `\0`.
@@ -70,7 +69,7 @@ int ceu_strcmp(const char* str1, const char* str2);
  *
  * @param instr Input string.
  */
-ceu_size_t ceu_strlen(const char* instr);
+ceu_size_t ceu_strlen CEU_PARAMS((const char* instr));
 
 /*!
  * @brief Copy memory content.
@@ -81,7 +80,7 @@ ceu_size_t ceu_strlen(const char* instr);
  * @param n Number of unsigned chars to copy.
  * @return void* The destination buffer modified.
  */
-void* ceu_memcpy(void* dest, const void* src, ceu_size_t n);
+void* ceu_memcpy CEU_PARAMS((void* dest, const void* src, ceu_size_t n));
 
 /*!
  * @brief Set c to the first len unsigned chars of s.
@@ -93,9 +92,7 @@ void* ceu_memcpy(void* dest, const void* src, ceu_size_t n);
  * @warning Ensure that the destination buffer is large enough.
  * @warning The code were not optimized to 4- or 8-byte alignments so are slow.
  */
-void* ceu_memset(void* s, int c, ceu_size_t n);
-#ifdef __cplusplus
-}
-#endif
+void* ceu_memset CEU_PARAMS((void* s, int c, ceu_size_t n));
+CEU_END_C_DECLS
 
 #endif // CEU_STRING_H

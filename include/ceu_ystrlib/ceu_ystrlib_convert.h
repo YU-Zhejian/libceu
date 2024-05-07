@@ -9,9 +9,10 @@
 #ifndef CEU_YSTRLIB_CONVERT_H
 #define CEU_YSTRLIB_CONVERT_H
 #include <ceu_ystrlib/ceu_ystrlib.h>
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <ceu_basic/ceu_fast_macros.h>
+
+CEU_BEGIN_C_DECLS
+
 /*!
  * @brief Convert yStr to C string.
  * @warning Performs memory allocation inside. Use ceu_ystr_to_cstr_ncpy() if you want to avoid memory allocation.
@@ -19,7 +20,7 @@ extern "C" {
  * @param ystr yStr to convert.
  * @return char* Resulting C String.
  */
-char* ceu_ystr_to_cstr(const ceu_ystr_t* ystr);
+char* ceu_ystr_to_cstr CEU_PARAMS((const ceu_ystr_t* ystr));
 
 /*!
  * @brief Convert yStr to C string in a way that mimics strcpy.
@@ -28,7 +29,7 @@ char* ceu_ystr_to_cstr(const ceu_ystr_t* ystr);
  * @param ystr yStr to convert.
  * @param dest Destination buffer. The resulting buffer will be CEU_NULL-terminated.
  */
-void ceu_ystr_to_cstr_cpy(const ceu_ystr_t* ystr, char* dest);
+void ceu_ystr_to_cstr_cpy CEU_PARAMS((const ceu_ystr_t* ystr, char* dest));
 
 /*!
  * @brief Convert yStr to C string in a way that mimics strncpy.
@@ -38,7 +39,7 @@ void ceu_ystr_to_cstr_cpy(const ceu_ystr_t* ystr, char* dest);
  * @param ystr yStr to convert.
  * @param dest Destination buffer.
  */
-void ceu_ystr_to_cstr_ncpy(const ceu_ystr_t* ystr, char* dest, ceu_size_t n);
+void ceu_ystr_to_cstr_ncpy CEU_PARAMS((const ceu_ystr_t* ystr, char* dest, ceu_size_t n));
 
 /*!
  * @brief Convert a C string to a yStr.
@@ -46,7 +47,7 @@ void ceu_ystr_to_cstr_ncpy(const ceu_ystr_t* ystr, char* dest, ceu_size_t n);
  * @param cstr The source CEU_NULL-terminated cStr.
  * @return ceu_ystr_t* The converted string.
  */
-ceu_ystr_t* ceu_ystr_create_from_cstr(const char* cstr);
+ceu_ystr_t* ceu_ystr_create_from_cstr CEU_PARAMS((const char* cstr));
 
 /*!
  * @brief Convert a C string to a yStr.
@@ -55,7 +56,7 @@ ceu_ystr_t* ceu_ystr_create_from_cstr(const char* cstr);
  * @param reserved_length Number of characters to reserve.
  * @return ceu_ystr_t* The converted string. The final buffer length will be string length + reserved length.
  */
-ceu_ystr_t* ceu_ystr_create_from_cstr_reserve(const char* cstr, ceu_size_t reserved_length);
+ceu_ystr_t* ceu_ystr_create_from_cstr_reserve CEU_PARAMS((const char* cstr, ceu_size_t reserved_length));
 
 /*!
  * @brief Convert a C string to a yStr.
@@ -64,10 +65,8 @@ ceu_ystr_t* ceu_ystr_create_from_cstr_reserve(const char* cstr, ceu_size_t reser
  * @param guarantee_buffer_length The buffer length should be at least this long.
  * @return ceu_ystr_t* The converted string.
  */
-ceu_ystr_t* ceu_ystr_create_from_cstr_guarantee(const char* cstr, ceu_size_t guarantee_buffer_length);
+ceu_ystr_t* ceu_ystr_create_from_cstr_guarantee CEU_PARAMS((const char* cstr, ceu_size_t guarantee_buffer_length));
 
-#ifdef __cplusplus
-}
-#endif
+CEU_END_C_DECLS
 
 #endif // CEU_YSTRLIB_CONVERT_H

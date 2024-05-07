@@ -1,18 +1,15 @@
 #ifndef CEU_CHECK_ALL_H
 #define CEU_CHECK_ALL_H
 
-#include "ceu_ystrlib/ceu_ystrlib.h"
+#include <ceu_ystrlib/ceu_ystrlib.h>
+#include <ceu_basic/ceu_fast_macros.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+CEU_BEGIN_C_DECLS
 /*!
  *
  * @brief Get all environment information.
  */
-ceu_ystr_t* ceu_check_get_full_info(void);
+ceu_ystr_t* ceu_check_get_full_info CEU_PARAMS((void));
 
-#ifdef __cplusplus
-}
-#endif
+CEU_END_C_DECLS
 #endif // CEU_CHECK_ALL_H

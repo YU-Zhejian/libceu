@@ -11,8 +11,8 @@
 #ifndef CEU_CC_CLANG_H
 #define CEU_CC_CLANG_H
 
-#ifndef CEU_CHECK_CC_H
-#error "Do not include this file, include <ceu_check/ceu_check_cc.h> instead!"
+#ifndef CEU_CHECK_CC_MACRO_H
+#error "Do not include this file, include <ceu_check/ceu_check_cc_macro.h> instead!"
 #endif
 #undef CEU_COMPILER_IS_CLANG
 #if (defined(__clang__))
