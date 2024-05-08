@@ -1,7 +1,5 @@
 ---
-Checks: 'clang-diagnostic-*,clang-analyzer-*,-clang-analyzer-cplusplus*'
+Checks: 'clang-diagnostic-*,clang-analyzer-*,-clang-analyzer-cplusplus*,-bugprone-reserved-identifier'
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
-AnalyzeTemporaryDtors: false
 ...
-
