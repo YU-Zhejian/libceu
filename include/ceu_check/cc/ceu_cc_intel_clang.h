@@ -1,13 +1,13 @@
 /*!
  * @file ceu_cc_intel_clang.h
- * @brief For Intel Clang-based OneAPI compilers.
+ * @brief For Intel(R) oneAPI DPC++/C++ Compiler (ICX).
  */
 #ifndef CEU_CC_INTEL_CLANG_H
 #define CEU_CC_INTEL_CLANG_H
 
 /*!
  *@def CEU_COMPILER_IS_INTEL_CLANG
- *@brief If this macro is defined, the compiler should support Intel Clang features.
+ *@brief If this macro is defined, the compiler should support Intel(R) oneAPI DPC++/C++ Compiler (ICX) features.
  */
 
 #ifndef CEU_CHECK_CC_MACRO_H
@@ -15,6 +15,6 @@
 #endif
 #if defined(__INTEL_CLANG_COMPILER) || defined(__INTEL_LLVM_COMPILER)
 #define CEU_COMPILER_IS_INTEL_CLANG
-#define CEU_COMPILER_NAME "Intel OneAPI Clang"
+#define CEU_COMPILER_NAME "Intel(R) oneAPI DPC++/C++ Compiler (ICX)"
 #endif
 #endif

@@ -31,6 +31,23 @@ ceu_ystr_t* interpret_intel_clang_compiler_version_number(void)
 #endif
 }
 
+ceu_ystr_t* interpret_amd_clang_compiler_version_number(void)
+{
+#if defined(CEU_COMPILER_IS_AOCC)
+    ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("AOCC compatible version number: ", 128);
+#ifdef __aocc_major__
+    ceu_ystr_t* clang_ver = convert_version_to_ystr3(__aocc_major__, __aocc_minor__, __aocc_patchlevel__);
+#else
+    ceu_ystr_t* clang_ver = ceu_ystr_create_from_cstr("unknown");
+#endif
+    ceu_ystr_concat_inplace(rets, clang_ver);
+    ceu_ystr_destroy(clang_ver);
+    return rets;
+#else
+    return CEU_NULL;
+#endif
+}
+
 ceu_ystr_t* interpret_icc_compiler_version_number(void)
 {
 #if defined(CEU_COMPILER_IS_ICC)
@@ -104,6 +121,19 @@ ceu_ystr_t* interpret_nvhpc_compiler_version_number(void)
 #endif
 }
 
+ceu_ystr_t* interpret_pgi_compiler_version_number(void)
+{
+#if defined(CEU_COMPILER_IS_PGIC)
+    ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("PGI compatible version number: ", 128);
+    ceu_ystr_t* pgic_ver = convert_version_to_ystr3(__PGIC__, __PGIC_MINOR__, __PGIC_PATCHLEVEL__);
+    ceu_ystr_concat_inplace(rets, pgic_ver);
+    ceu_ystr_destroy(pgic_ver);
+    return rets;
+#else
+    return CEU_NULL;
+#endif
+}
+
 ceu_ystr_t* interpret_tcc_compiler_version_number(void)
 {
 #if defined(CEU_COMPILER_IS_TCC)
@@ -115,6 +145,22 @@ ceu_ystr_t* interpret_tcc_compiler_version_number(void)
     ceu_ystr_t* tcc_ver = convert_version_to_ystr3(major, minor, patchlevel);
     ceu_ystr_concat_inplace(rets, tcc_ver);
     ceu_ystr_destroy(tcc_ver);
+    return rets;
+#else
+    return CEU_NULL;
+#endif
+}
+
+ceu_ystr_t* interpret_edg_compiler_version_number(void)
+{
+#if defined(CEU_COMPILER_IS_EDG)
+    int major = __EDG_VERSION__ / 100;
+    int minor = (__EDG_VERSION__ - major * 100);
+
+    ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("EDG compatible version number: ", 128);
+    ceu_ystr_t* edg_ver = convert_version_to_ystr2(major, minor);
+    ceu_ystr_concat_inplace(rets, edg_ver);
+    ceu_ystr_destroy(edg_ver);
     return rets;
 #else
     return CEU_NULL;
@@ -154,10 +200,8 @@ ceu_ystr_t* interpret_clang_compiler_version_number(void)
     ceu_ystr_cstr_concat_inplace(rets, __clang_version__);
     ceu_ystr_cstr_concat_inplace(rets, ")");
 #endif
-
     ceu_ystr_destroy(clang_ver);
     return rets;
-
 #else
     return CEU_NULL;
 #endif
@@ -194,28 +238,34 @@ ceu_ystr_t* interpret_compiler_macro_version_number(void)
 ceu_ystr_t* ceu_check_interpret_compiler_version_number(void)
 {
     ceu_ystr_t* tcc_comp_version = interpret_tcc_compiler_version_number();
+    ceu_ystr_t* edg_comp_version = interpret_edg_compiler_version_number();
     ceu_ystr_t* gcc_comp_version = interpret_gcc_compiler_version_number();
     ceu_ystr_t* icc_comp_version = interpret_icc_compiler_version_number();
     ceu_ystr_t* intel_clang_comp_version = interpret_intel_clang_compiler_version_number();
+    ceu_ystr_t* amd_clang_comp_version = interpret_amd_clang_compiler_version_number();
     ceu_ystr_t* clang_comp_version = interpret_clang_compiler_version_number();
     ceu_ystr_t* msvc_comp_version = interpret_msvc_compiler_version_number();
     ceu_ystr_t* nvhpc_comp_version = interpret_nvhpc_compiler_version_number();
+    ceu_ystr_t* pgi_comp_version = interpret_pgi_compiler_version_number();
     ceu_ystr_t* broadland_comp_version = interpret_broadland_compiler_version_number();
     ceu_ystr_t* version_macro_version = interpret_compiler_macro_version_number();
     ceu_ystr_t* sep = ceu_ystr_create_from_cstr("\n\t");
 
-    ceu_ystr_t* final_buff = ceu_ystr_join(sep, true, 9, tcc_comp_version, gcc_comp_version,
-        icc_comp_version, clang_comp_version, msvc_comp_version,
-        nvhpc_comp_version, broadland_comp_version, intel_clang_comp_version, version_macro_version);
+    ceu_ystr_t* final_buff = ceu_ystr_join(sep, true, 12, tcc_comp_version, edg_comp_version, gcc_comp_version,
+        icc_comp_version, clang_comp_version, msvc_comp_version, pgi_comp_version,
+        nvhpc_comp_version, broadland_comp_version, intel_clang_comp_version, amd_clang_comp_version, version_macro_version);
     ceu_ystr_destroy(sep);
     ceu_ystr_destroy(tcc_comp_version);
+    ceu_ystr_destroy(edg_comp_version);
     ceu_ystr_destroy(gcc_comp_version);
     ceu_ystr_destroy(icc_comp_version);
     ceu_ystr_destroy(intel_clang_comp_version);
     ceu_ystr_destroy(clang_comp_version);
     ceu_ystr_destroy(msvc_comp_version);
+    ceu_ystr_destroy(pgi_comp_version);
     ceu_ystr_destroy(nvhpc_comp_version);
     ceu_ystr_destroy(broadland_comp_version);
+    ceu_ystr_destroy(amd_clang_comp_version);
     ceu_ystr_destroy(version_macro_version);
     return final_buff;
 }

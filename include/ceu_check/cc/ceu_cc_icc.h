@@ -1,12 +1,12 @@
 /*!
  * @file ceu_cc_icc.h
- * @brief Old Intel C/C++ compiler called ICC/ICPC
+ * @brief Old Intel(R) C++ Compiler Classic (ICC).
  * @warning Include this file before "ceu_cc_clang.h"!
  */
 
 /*!
  *@def CEU_COMPILER_IS_ICC
- *@brief If this macro is defined, the compiler should support ICC features.
+ *@brief If this macro is defined, the compiler should support Intel(R) C++ Compiler Classic (ICC) features.
  */
 
 #ifndef CEU_CC_ICC_H
@@ -19,9 +19,9 @@
 #if defined(__ICC) || defined(__INTEL_COMPILER)
 #define CEU_COMPILER_IS_ICC
 #ifdef __llvm__
-#define CEU_COMPILER_NAME "ICC with LLVM features"
+#define CEU_COMPILER_NAME "Intel(R) C++ Compiler Classic (ICC) with LLVM features"
 #else
-#define CEU_COMPILER_NAME "ICC"
+#define CEU_COMPILER_NAME "Intel(R) C++ Compiler Classic (ICC)"
 #endif
 #endif
 #endif
