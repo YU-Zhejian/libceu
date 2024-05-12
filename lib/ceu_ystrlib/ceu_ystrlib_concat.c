@@ -51,8 +51,9 @@ void ceu_ystr_view_destroy(ceu_ystr_view_t* ystr_view)
 void ceu_ystr_ystrview_concat_inplace(ceu_ystr_t* ystr, const ceu_ystr_view_t* ystr2)
 {
     ceu_size_t new_consumed_length = ystr2->consumed_length + ystr->consumed_length;
+    ceu_size_t i;
     ceu_ystr_guarantee(ystr, new_consumed_length + 1);
-    for (ceu_size_t i = 0; i < ystr2->consumed_length; ++i) {
+    for (i = 0; i < ystr2->consumed_length; ++i) {
         ystr->buff[i + ystr->consumed_length] = ystr2->buff[i];
     }
     ystr->consumed_length = new_consumed_length;
@@ -63,8 +64,9 @@ ceu_ystr_t* ceu_ystr_ystrview_concat_const(const ceu_ystr_t* ystr, ceu_ystr_view
 {
     ceu_size_t new_consumed_length = ystr2->consumed_length + ystr->consumed_length;
     ceu_ystr_t* ystr_ret = ceu_ystr_create_from_cstr_guarantee(ystr->buff, new_consumed_length + 1);
+    ceu_size_t i;
 
-    for (ceu_size_t i = 0; i < ystr2->consumed_length; ++i) {
+    for (i = 0; i < ystr2->consumed_length; ++i) {
         ystr_ret->buff[i + ystr->consumed_length] = ystr2->buff[i];
     }
     ystr_ret->consumed_length = new_consumed_length;
@@ -105,13 +107,14 @@ ceu_ystr_t* ceu_ystr_concat_const(const ceu_ystr_t* ystr, const ceu_ystr_t* ystr
 ceu_ystr_t* ceu_ystr_join(const ceu_ystr_t* sep, bool skip_null, ceu_size_t count, ...)
 {
     ceu_ystr_t* rets = ceu_ystr_create_empty();
+    ceu_size_t i;
     va_list(args);
     bool is_first_item = true;
     if (sep == CEU_NULL) {
         return CEU_NULL;
     }
     va_start(args, count);
-    for (ceu_size_t i = 0; i < count; ++i) {
+    for (i = 0; i < count; ++i) {
         const ceu_ystr_t* new_item = va_arg(args, ceu_ystr_t*);
         if (new_item == CEU_NULL) {
             if (skip_null) {
@@ -139,13 +142,14 @@ ceu_ystr_t* ceu_ystr_join(const ceu_ystr_t* sep, bool skip_null, ceu_size_t coun
 ceu_ystr_t* ceu_ystr_cstr_join(const char* sep, bool skip_null, ceu_size_t count, ...)
 {
     ceu_ystr_t* rets = ceu_ystr_create_empty();
+    ceu_size_t i;
     va_list(args);
     bool is_first_item = true;
     if (sep == CEU_NULL) {
         return CEU_NULL;
     }
     va_start(args, count);
-    for (ceu_size_t i = 0; i < count; ++i) {
+    for (i = 0; i < count; ++i) {
         const char* new_item = va_arg(args, char*);
         if (new_item == CEU_NULL) {
             if (skip_null) {

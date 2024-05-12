@@ -119,9 +119,10 @@ void log_set_quiet(bool enable)
 
 int log_add_callback(log_LogFn fn, void* udata, int level)
 {
-    for (int i = 0; i < MAX_CALLBACKS; i++) {
+	int i;
+    for (i = 0; i < MAX_CALLBACKS; i++) {
         if (!L.callbacks[i].fn) {
-            L.callbacks[i] = (Callback) { fn, udata, level };
+            // L.callbacks[i] = (Callback) { fn, udata, level }; // FIXME: Microsoft Visual Studio 2010 raised C2059 here.
             return 0;
         }
     }
@@ -144,12 +145,19 @@ static void init_event(log_Event* ev, void* udata)
 
 void log_log(int level, const char* file, int line, const char* fmt, ...)
 {
-    log_Event ev = {
-        .fmt = fmt,
-        .file = file,
-        .line = line,
-        .level = level,
-    };
+	int i;
+    log_Event ev;
+    ev.fmt = fmt;
+    ev.file = file;
+    ev.line = line;
+    ev.level = level;
+    // Original code:
+    // = {
+    //    .fmt = fmt,
+    //    .file = file,
+    //    .line = line,
+    //    .level = level,
+    //}; // Microsoft Visual Studio 2010 raised C2059 here.
 
     lock();
 
@@ -160,7 +168,7 @@ void log_log(int level, const char* file, int line, const char* fmt, ...)
         va_end(ev.ap);
     }
 
-    for (int i = 0; i < MAX_CALLBACKS && L.callbacks[i].fn; i++) {
+    for (i = 0; i < MAX_CALLBACKS && L.callbacks[i].fn; i++) {
         Callback* cb = &L.callbacks[i];
         if (level >= cb->level) {
             init_event(&ev, cb->udata);

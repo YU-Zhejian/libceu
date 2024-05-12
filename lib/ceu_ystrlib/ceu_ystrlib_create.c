@@ -19,13 +19,14 @@ ceu_ystr_t* ceu_ystr_create_sized(ceu_size_t reserved_length)
 
 void ceu_ystr_guarantee(ceu_ystr_t* ystr, ceu_size_t new_buffer_size)
 {
+	ceu_size_t i;
     if (ystr->buff_length >= new_buffer_size) {
         return; // Do nothing if the buffer is long enough.
     }
     ystr->buff_length = new_buffer_size;
 
     ystr->buff = (char*)ceu_sreallocarray(ystr->buff, ystr->buff_length, sizeof(char));
-    for (ceu_size_t i = ystr->consumed_length; i < ystr->buff_length; i++) {
+    for (i = ystr->consumed_length; i < ystr->buff_length; i++) {
         ystr->buff[i] = CEU_STRING_ENDING;
     }
 }

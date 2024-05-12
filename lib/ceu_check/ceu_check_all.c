@@ -9,9 +9,9 @@
 ceu_ystr_t* ceu_lib_ver()
 {
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("LibCEU: ", 128);
+    ceu_ystr_t* libceu_rtime_version_buff = ceu_lib_rtime_version();
     ceu_ystr_cstr_concat_inplace(rets, CEU_LIB_CTIME_VERSION);
     ceu_ystr_cstr_concat_inplace(rets, " (compile time) ");
-    ceu_ystr_t* libceu_rtime_version_buff = ceu_lib_rtime_version();
     ceu_ystr_concat_inplace(rets, libceu_rtime_version_buff);
     ceu_ystr_destroy(libceu_rtime_version_buff);
     ceu_ystr_cstr_concat_inplace(rets, " (run time)");

@@ -18,10 +18,11 @@ void* ceu_smalloc(ceu_size_t size)
 
 void* ceu_scalloc(ceu_size_t count, ceu_size_t size)
 {
+    void* m;
     if (count != 0 && size != 0 && count > SIZE_MAX / size) {
         ceu_die_with_retv("Overflow detected!", 12);
     }
-    void* m = calloc(count, size);
+    m = calloc(count, size);
     if (m == CEU_NULL) {
         ceu_die_with_retv("ERR 12 -- Cannot allocate memory", 12);
     }

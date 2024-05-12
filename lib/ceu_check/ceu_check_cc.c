@@ -89,7 +89,6 @@ ceu_ystr_t* interpret_msvc_compiler_version_number(void)
     ceu_ystr_t* msc_major_ver = ceu_ystr_create_from_cstr("unknown");
     ceu_ystr_t* msc_minor_ver = ceu_ystr_create_from_cstr("unknown");
 #endif
-
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("MSVC compatible version number: ", 128);
     ceu_ystr_t* sep = ceu_ystr_create_from_cstr(".");
     ceu_ystr_t* msvc_ver = ceu_ystr_join(sep, false, 4, msc_major_ver, msc_minor_ver, msc_internal_ver, msc_build_ver);

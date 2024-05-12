@@ -44,9 +44,11 @@ configvar_check_sizeof("CEU_CM_TYPE_SLLI_SIZE", "signed long long int")
 configvar_check_sizeof("CEU_CM_TYPE_ULL_SIZE", "unsigned long long")
 configvar_check_sizeof("CEU_CM_TYPE_ULLI_SIZE", "unsigned long long int")
 -- Following two methods are from https://en.cppreference.com/w/c/types/ptrdiff_t and https://en.cppreference.com/w/c/types/size_t
+-- The correct implementation should use '%zu',
+-- but it seems that Visual Studio 2010 does not support such.
 configvar_check_csnippets(
 	"CEU_CM_TYPE_SIZE_T_SIZE",
-	'printf("%zu", sizeof(sizeof(int))); return 0;',
+	'printf("%d", sizeof(sizeof(int))); return 0;',
 	{ output = true, number = true, includes = {"stdio.h"} }
 )
 -- configvar_check_csnippets(

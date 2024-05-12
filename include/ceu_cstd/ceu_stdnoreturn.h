@@ -29,7 +29,8 @@
 
 #ifdef __cplusplus
 // FIXME: Temporary solution for C++ 11.
-#define noreturn [[noreturn]]
+// FIXME: Error of previous FIXME: This won't work on Microsoft Visual Studio 2010 which does not support C++ 11.
+#define noreturn // [[noreturn]]
 #elif defined(CEU_COMPILER_IS_INTEL_CLANG) && defined(CEU_COMPILER_IS_MSVC)
 // FIXME: Error on Windows Intel Clang-based compilers.
 #define noreturn // NOLINT
@@ -56,10 +57,10 @@
 #endif
 
 #ifndef CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_STATIC
-#define CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC 127
+#define CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_STATIC 127
 #endif
 #ifndef CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_SHARED
-#define CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC 127
+#define CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_SHARED 127
 #endif
 
 #ifndef CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_SHARED
@@ -83,7 +84,8 @@
 #else
 // Have nothing!
 #define noreturn // NOLINT
-#warn "Noreturn not supported by the compiler."
+// FIXME: Visual Studio 2010 does not support this preprocessor derivitive.
+// #warning "Noreturn not supported by the compiler."
 #endif
 #endif
 #endif

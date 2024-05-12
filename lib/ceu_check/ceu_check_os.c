@@ -92,6 +92,10 @@ ceu_ystr_t* get_run_time_haiku_version(void)
 ceu_ystr_t* get_run_time_windows_version(void)
 {
 #if defined(CEU_ON_WINDOWS) && !defined(CEU_ON_CYGWIN)
+    ceu_ystr_t* readable_version_number; /// Human-readable Windows version like Microsoft Windows 10.
+    ceu_ystr_t* win_ver; /// Windows version like 10.0.0.
+    ceu_ystr_t* win_spver; /// Windows service pack version.
+
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("Windows ver. ", 128);
     OSVERSIONINFOEX osvi;
     ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
@@ -100,8 +104,6 @@ ceu_ystr_t* get_run_time_windows_version(void)
         // GetVersionEx Failed!
         return CEU_NULL;
     }
-
-    ceu_ystr_t* readable_version_number;
 
     switch (osvi.dwPlatformId) {
     case VER_PLATFORM_WIN32_WINDOWS:
@@ -131,13 +133,13 @@ ceu_ystr_t* get_run_time_windows_version(void)
         break;
     }
 
-    ceu_ystr_t* win_ver = convert_version_to_ystr3(osvi.dwMajorVersion, osvi.dwMinorVersion, osvi.dwBuildNumber);
+    win_ver = convert_version_to_ystr3(osvi.dwMajorVersion, osvi.dwMinorVersion, osvi.dwBuildNumber);
     ceu_ystr_concat_inplace(rets, win_ver);
     ceu_ystr_cstr_concat_inplace(rets, " (");
     ceu_ystr_concat_inplace(rets, readable_version_number);
     ceu_ystr_cstr_concat_inplace(rets, ")");
 
-    ceu_ystr_t* win_spver = ceu_ystr_create_from_cstr_guarantee(" Service Pack ", 128);
+    win_spver = ceu_ystr_create_from_cstr_guarantee(" Service Pack ", 128);
     if (osvi.wServicePackMajor != 0 || osvi.wServicePackMinor != 0 || osvi.szCSDVersion[0] != '\0') {
         ceu_ystr_t* win_spver_s = convert_version_to_ystr2(osvi.wServicePackMajor, osvi.wServicePackMinor);
         ceu_ystr_concat_const(win_spver, win_spver_s);
@@ -230,10 +232,11 @@ ceu_ystr_t* ceu_check_get_compile_time_os_info(void)
     ceu_ystr_t* cygwin_version_buff = get_compile_time_cygwin_version();
     ceu_ystr_t* posix_version_buff = get_compile_time_posix_standard();
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("Compile-time OS info: '", 128);
+    ceu_ystr_t* sep = ceu_ystr_create_from_cstr("\n\t");
+    ceu_ystr_t* info;
     ceu_ystr_cstr_concat_inplace(rets, CEU_PRIMARY_OS_TYPE);
     ceu_ystr_cstr_concat_inplace(rets, "'\n\t");
-    ceu_ystr_t* sep = ceu_ystr_create_from_cstr("\n\t");
-    ceu_ystr_t* info = ceu_ystr_join(sep, true, 4, haiku_version_buff, mingw_version_buff, cygwin_version_buff, posix_version_buff);
+    info = ceu_ystr_join(sep, true, 4, haiku_version_buff, mingw_version_buff, cygwin_version_buff, posix_version_buff);
     ceu_ystr_concat_inplace(rets, info);
     ceu_ystr_destroy(cygwin_version_buff);
     ceu_ystr_destroy(mingw_version_buff);
@@ -249,10 +252,11 @@ ceu_ystr_t* ceu_check_get_run_time_os_info(void)
     ceu_ystr_t* posix_uts_buff = get_run_time_posix_uts_info();
     ceu_ystr_t* windows_buff = get_run_time_windows_version();
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("Run-time OS info: '", 128);
+    ceu_ystr_t* sep = ceu_ystr_create_from_cstr("\n\t");
+    ceu_ystr_t* info;
     ceu_ystr_cstr_concat_inplace(rets, CEU_PRIMARY_OS_TYPE);
     ceu_ystr_cstr_concat_inplace(rets, "'\n\t");
-    ceu_ystr_t* sep = ceu_ystr_create_from_cstr("\n\t");
-    ceu_ystr_t* info = ceu_ystr_join(sep, true, 2, posix_uts_buff, windows_buff);
+    info = ceu_ystr_join(sep, true, 2, posix_uts_buff, windows_buff);
     ceu_ystr_concat_inplace(rets, info);
     ceu_ystr_destroy(windows_buff);
     ceu_ystr_destroy(posix_uts_buff);

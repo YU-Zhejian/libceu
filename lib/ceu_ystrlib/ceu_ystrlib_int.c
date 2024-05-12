@@ -10,6 +10,10 @@ static const char HEX_NUMBERS[] = { "0123456789ABCDEF" };
 ceu_ystr_t* ceu_ystr_from_uint(int base, ceu_uint64_t src_int)
 {
     const char* numbers;
+    char immc[64] = { 0 };
+    int current_position = 0;
+    char* retc;
+    int i;
     if (base == 2) {
         numbers = BIN_NUMBERS;
     } else if (base == 8) {
@@ -21,8 +25,6 @@ ceu_ystr_t* ceu_ystr_from_uint(int base, ceu_uint64_t src_int)
     } else {
         ceu_die_with_retv("Illegal raidx", 1);
     }
-    char immc[64] = { 0 };
-    int current_position = 0;
     if (src_int == 0) {
         immc[current_position] = '0';
         current_position += 1;
@@ -32,8 +34,8 @@ ceu_ystr_t* ceu_ystr_from_uint(int base, ceu_uint64_t src_int)
         current_position += 1;
         src_int /= base;
     }
-    char* retc = (char*)ceu_scalloc(current_position + 1, sizeof(char));
-    for (int i = 0; i < current_position; i++) {
+    retc = (char*)ceu_scalloc(current_position + 1, sizeof(char));
+    for (i = 0; i < current_position; i++) {
         retc[i] = immc[current_position - i - 1];
     }
     return ceu_ystr_create_from_cstr_reserve(retc, 0);
