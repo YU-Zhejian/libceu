@@ -1,5 +1,4 @@
 #define CEU_IS_TESTING_WHETHER_ASSERT_WORKS
-#include <assert.h>
 #include <ceu_cstd/ceu_assert.h>
 #include <minunit.h>
 
@@ -15,7 +14,7 @@ void test_teardown(void)
 MU_TEST(test_nop)
 {
 #define CEU_NDEBUG // NOLINT
-#include <ceu_cstd/ceu_assert.h> // NOLINT
+#include <ceu_cstd/ceu_assert.h> // NOLINT // NOSONAR
     ceu_assert(0); // Nothing should happen
     ceu_assert(1); // Nothing should happen
     ceu_assert((1)); // Nothing should happen

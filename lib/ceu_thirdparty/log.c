@@ -23,7 +23,6 @@
 #include "ceu_thirdparty/log.h"
 
 #include "ceu_basic/ceu_fast_macros.h"
-#include "ceu_cstd/ceu_stddef.h"
 
 #define MAX_CALLBACKS 32
 
@@ -122,7 +121,12 @@ int log_add_callback(log_LogFn fn, void* udata, int level)
     int i;
     for (i = 0; i < MAX_CALLBACKS; i++) {
         if (!L.callbacks[i].fn) {
-            // L.callbacks[i] = (Callback) { fn, udata, level }; // FIXME: Microsoft Visual Studio 2010 raised C2059 here.
+            L.callbacks[i].fn = fn;
+            L.callbacks[i].udata = udata;
+            L.callbacks[i].level = level;
+            // Original code:
+            // = (Callback) { fn, udata, level };
+            // Microsoft Visual Studio 2010 raised C2059 here.
             return 0;
         }
     }
@@ -136,10 +140,8 @@ int log_add_fp(FILE* fp, int level)
 
 static void init_event(log_Event* ev, void* udata)
 {
-    if (!ev->time) {
-        time_t t = time(NULL);
-        ev->time = localtime(&t);
-    }
+    time_t t = time(NULL);
+    ev->time = localtime(&t);
     ev->udata = udata;
 }
 

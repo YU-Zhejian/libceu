@@ -116,7 +116,7 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, ceu_size_t max_print_n_char, con
     char* converted_str; // Value of string that is converted from integer
     char* converted_padded_str;
     char arg_numeric_sign_char; // Sign of the numeric, should be ' ' (see flags),
-                                // '+', '-' or CEU_STRING_ENDING (disabled)
+        // '+', '-' or CEU_STRING_ENDING (disabled)
     char padding_char; // Padding char, should be ' ' or '0'
     bool arg_int_is_negative;
     ceu_ystr_t* converted_ystr; // Temporary stage for integers.
@@ -358,7 +358,7 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, ceu_size_t max_print_n_char, con
                 arg_str = va_arg(*args, char*);
                 switch (length) {
                 case CEU_PRINTF_LENGTH_l: // Default wchar_t
-                                          // TODO: not implemented, so fallthrough
+                    // TODO: not implemented, so fallthrough
                 case -1: // Default char
                     rett.current_buffer_position = ceu_printf_append_str_to_buff(buff, rett.current_buffer_position, arg_str);
                     break;

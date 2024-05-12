@@ -1,7 +1,6 @@
 #include "ceu_cstd/ceu_stdio.h"
 #include "ceu_cstd/ceu_stdio/ceu_printf_core.h"
 
-// FIXME: This definition is incorrect.
 ceu_size_t ceu_snprintf(char* buff, ceu_size_t max_print_n_char, const char* fmt, ...)
 {
     ceu_printf_ret_t retv;

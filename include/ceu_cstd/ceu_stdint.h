@@ -17,28 +17,13 @@
 #include "ceu_check/ceu_check_cc_macro.h"
 #include <limits.h>
 
-#if defined(CEU_CM_TYPE_C_SIZE) && defined(CEU_CM_TYPE_SH_SIZE) && defined(CEU_CM_TYPE_I_SIZE) && defined(CEU_CM_TYPE_L_SIZE) && defined(CEU_CM_TYPE_LL_SIZE)
-// Comfort C minimum std
-#else
-#error "Requires definition of CEU_CM_TYPE_C_SIZE, CEU_CM_TYPE_SH_SIZE, CEU_CM_TYPE_I_SIZE, CEU_CM_TYPE_L_SIZE, CEU_CM_TYPE_LL_SIZE cmake/xmake/autotools systems."
-#endif
+// Before performing any operation,
+// we would check whether the environment satisfies C minumun standards.
 
-#if (CEU_CM_TYPE_C_SIZE <= CEU_CM_TYPE_SH_SIZE && CEU_CM_TYPE_SH_SIZE <= CEU_CM_TYPE_I_SIZE && CEU_CM_TYPE_I_SIZE <= CEU_CM_TYPE_L_SIZE && CEU_CM_TYPE_L_SIZE <= CEU_CM_TYPE_LL_SIZE)
-// Comfort C minimum std
-#else
-#error "The current C/C++ compiler does not follow basic C standard! Requrie: sizeof(char) <= sizeof(short) <= sizeof(int) <= sizeof(long) <= sizeof(long long)"
-#endif
+#include <ceu_cstd/ceu_stdint/c_minimum_std.h>
 
-#if (1 <= CEU_CM_TYPE_C_SIZE && 2 <= CEU_CM_TYPE_SH_SIZE && 2 <= CEU_CM_TYPE_I_SIZE && 4 <= CEU_CM_TYPE_L_SIZE && 8 <= CEU_CM_TYPE_LL_SIZE)
-// Comfort C minimum std
-#else
-#error "The current C/C++ compiler does not follow basic C standard! Requrie: 1 <= sizeof(char); 2 <= sizeof(short); 2 <= sizeof(int); 4 <= sizeof(long); 8 <= sizeof(long long)"
-#endif
-
-#define CEU_INT8_SIZE 1
-#define CEU_INT16_SIZE 2
-#define CEU_INT32_SIZE 4
-#define CEU_INT64_SIZE 8
+// Now we define basic sizes that is always constant.
+#include <ceu_cstd/ceu_stdint/c_basic_sizes.h>
 
 #if defined(_I8_MIN) && !defined(INT8_MIN)
 #define INT8_MIN _I8_MIN

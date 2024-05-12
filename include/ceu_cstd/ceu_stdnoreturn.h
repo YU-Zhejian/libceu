@@ -29,7 +29,7 @@
 
 #ifdef __cplusplus
 // FIXME: Temporary solution for C++ 11.
-// FIXME: Error of previous FIXME: This won't work on Microsoft Visual Studio 2010 which does not support C++ 11.
+// This won't work on Microsoft Visual Studio 2010 which does not support C++ 11.
 #define noreturn // [[noreturn]]
 #elif defined(CEU_COMPILER_IS_INTEL_CLANG) && defined(CEU_COMPILER_IS_MSVC)
 // FIXME: Error on Windows Intel Clang-based compilers.

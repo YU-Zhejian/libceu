@@ -12,6 +12,22 @@ int main(void)
 #error "__bool_true_false_are_defined should have been defined to 1!"
 #endif
 
+#define BOOL_ASSERTS             \
+    mu_assert_int_eq(1, t);      \
+    mu_assert_int_eq(0, f);      \
+    mu_assert_int_eq(0, t&& f);  \
+    mu_assert_int_eq(1, t || f); \
+    mu_assert_int_eq(0, !t);     \
+    mu_assert_int_eq(1, !f);     \
+    mu_assert_int_eq(1, t&& t);  \
+    mu_assert_int_eq(1, t || t); \
+    mu_assert_int_eq(0, f&& f);  \
+    mu_assert_int_eq(0, f || f); \
+    mu_assert_int_eq(0, t ^ t);  \
+    mu_assert_int_eq(0, f ^ f);  \
+    mu_assert_int_eq(1, t ^ f);  \
+    mu_assert_int_eq(1, f ^ t);
+
 void test_setup(void)
 {
     // Empty
@@ -25,64 +41,28 @@ MU_TEST(basic_true_false)
 {
     bool t = true;
     bool f = false;
-    mu_assert_int_eq(1, t);
-    mu_assert_int_eq(0, f);
-    mu_assert_int_eq(0, t && f);
-    mu_assert_int_eq(1, t || f);
-    mu_assert_int_eq(0, !t);
-    mu_assert_int_eq(1, !f);
-    mu_assert_int_eq(1, t && t);
-    mu_assert_int_eq(1, t || t);
-    mu_assert_int_eq(0, f && f);
-    mu_assert_int_eq(0, f || f);
+    BOOL_ASSERTS
 }
 
 MU_TEST(bool_from_int)
 {
     bool t = 1;
     bool f = 0;
-    mu_assert_int_eq(1, t);
-    mu_assert_int_eq(0, f);
-    mu_assert_int_eq(0, t && f);
-    mu_assert_int_eq(1, t || f);
-    mu_assert_int_eq(0, !t);
-    mu_assert_int_eq(1, !f);
-    mu_assert_int_eq(1, t && t);
-    mu_assert_int_eq(1, t || t);
-    mu_assert_int_eq(0, f && f);
-    mu_assert_int_eq(0, f || f);
+    BOOL_ASSERTS
 }
 
 MU_TEST(bool_from_int_unstandard)
 {
     bool t = 4;
     bool f = 0;
-    mu_assert_int_eq(1, t);
-    mu_assert_int_eq(0, f);
-    mu_assert_int_eq(0, t && f);
-    mu_assert_int_eq(1, t || f);
-    mu_assert_int_eq(0, !t);
-    mu_assert_int_eq(1, !f);
-    mu_assert_int_eq(1, t && t);
-    mu_assert_int_eq(1, t || t);
-    mu_assert_int_eq(0, f && f);
-    mu_assert_int_eq(0, f || f);
+    BOOL_ASSERTS
 }
 
 MU_TEST(bool_from_int_unstandard2)
 {
     bool t = -125;
     bool f = 0;
-    mu_assert_int_eq(1, t);
-    mu_assert_int_eq(0, f);
-    mu_assert_int_eq(0, t && f);
-    mu_assert_int_eq(1, t || f);
-    mu_assert_int_eq(0, !t);
-    mu_assert_int_eq(1, !f);
-    mu_assert_int_eq(1, t && t);
-    mu_assert_int_eq(1, t || t);
-    mu_assert_int_eq(0, f && f);
-    mu_assert_int_eq(0, f || f);
+    BOOL_ASSERTS
 }
 
 MU_TEST_SUITE(bool_tests)
