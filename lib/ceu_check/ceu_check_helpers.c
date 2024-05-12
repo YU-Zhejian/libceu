@@ -7,7 +7,7 @@ ceu_ystr_t* convert_version_to_ystr(ceu_size_t count, ...)
     ceu_ystr_t* rets = ceu_ystr_create_empty();
     bool is_first_item;
     ceu_uint64_t new_item;
-	ceu_ystr_t* new_item_str;
+    ceu_ystr_t* new_item_str;
     ceu_size_t i; /// Temporary variable used in loops
 
     va_list(args);

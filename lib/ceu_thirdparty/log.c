@@ -119,7 +119,7 @@ void log_set_quiet(bool enable)
 
 int log_add_callback(log_LogFn fn, void* udata, int level)
 {
-	int i;
+    int i;
     for (i = 0; i < MAX_CALLBACKS; i++) {
         if (!L.callbacks[i].fn) {
             // L.callbacks[i] = (Callback) { fn, udata, level }; // FIXME: Microsoft Visual Studio 2010 raised C2059 here.
@@ -145,7 +145,7 @@ static void init_event(log_Event* ev, void* udata)
 
 void log_log(int level, const char* file, int line, const char* fmt, ...)
 {
-	int i;
+    int i;
     log_Event ev;
     ev.fmt = fmt;
     ev.file = file;

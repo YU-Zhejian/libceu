@@ -89,7 +89,7 @@ static char* ceu_printf_pad_blanks(const char* converted_str, char arg_numeric_s
             return_str[current_length] = padding_char;
         }
     } else {
-    	ceu_size_t i;
+        ceu_size_t i;
         for (i = 0; i < dest_length - current_length; i++) {
             return_str[i] = padding_char;
         }
@@ -110,13 +110,13 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, ceu_size_t max_print_n_char, con
     ceu_printf_flags_t pf;
     ceu_uint64_t arg_uint; // Value of the argument if it is unsigned int.
     ceu_int64_t arg_int; // Value of the argument if it is signed int.
-    long double arg_dbl;  // Value of the argument if it is float or double.
+    long double arg_dbl; // Value of the argument if it is float or double.
     void* arg_pointer; // Value of the argument if it is a pointer.
     char* arg_str; // Value of the argument if it is a string.
     char* converted_str; // Value of string that is converted from integer
     char* converted_padded_str;
     char arg_numeric_sign_char; // Sign of the numeric, should be ' ' (see flags),
-                                                    // '+', '-' or CEU_STRING_ENDING (disabled)
+                                // '+', '-' or CEU_STRING_ENDING (disabled)
     char padding_char; // Padding char, should be ' ' or '0'
     bool arg_int_is_negative;
     ceu_ystr_t* converted_ystr; // Temporary stage for integers.
@@ -132,7 +132,7 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, ceu_size_t max_print_n_char, con
     next_char = ceu_buff_peek(fmt, rett.current_fmt_position);
 
     arg_uint = 0;
-    arg_int = 0; 
+    arg_int = 0;
     arg_dbl = 0.0;
     arg_pointer = CEU_NULL;
     arg_str = CEU_NULL;
@@ -385,7 +385,7 @@ overflow:
 
 ceu_printf_ret_t ceu_snprintf_core(char* buff, ceu_size_t max_print_n_char, const char* fmt, ...)
 {
-	ceu_printf_ret_t retv;
+    ceu_printf_ret_t retv;
     va_list(args);
     va_start(args, fmt);
     retv = ceu_vsnprintf_core(buff, max_print_n_char, fmt, &args);

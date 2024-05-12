@@ -6,8 +6,7 @@
 #include <stdio.h>
 
 // FIXME: Temporary fix for Microsoft Visual Studio 2010.
-
-#define snprintf _snprintf
+// #define snprintf _snprintf
 
 ceu_ystr_t* ceu_check_get_ctypes_limit_info(void)
 {
