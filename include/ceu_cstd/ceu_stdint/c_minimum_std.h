@@ -23,4 +23,4 @@
 #error "The current C/C++ compiler does not follow basic C standard! Requrie: 1 <= sizeof(char); 2 <= sizeof(short); 2 <= sizeof(int); 4 <= sizeof(long); 8 <= sizeof(long long)"
 #endif
 
-#endif //CEU_C_MINIMUM_STD_H
+#endif // CEU_C_MINIMUM_STD_H

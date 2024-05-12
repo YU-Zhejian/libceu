@@ -25,4 +25,4 @@
  */
 #define CEU_INT64_SIZE 8
 
-#endif //CEU_C_BASIC_SIZES_H
+#endif // CEU_C_BASIC_SIZES_H

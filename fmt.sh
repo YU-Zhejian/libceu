@@ -22,7 +22,7 @@ which shfmt &>/dev/null &&
             if [ -e "${line}" ]; then
                 {
                     echo SHFMT "${line}"
-                    shfmt -i 4 --write "${line}"
+                    shfmt -i 4 -w "${line}"
                 } &
             fi
         done

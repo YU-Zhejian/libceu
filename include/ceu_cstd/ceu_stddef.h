@@ -8,7 +8,9 @@
 #endif
 
 #ifdef CEU_CM_TYPE_SIZE_T_SIZE
-#if defined(CEU_CM_TYPE_USH_SIZE) && (CEU_CM_TYPE_USH_SIZE == CEU_CM_TYPE_SIZE_T_SIZE)
+#ifdef __SIZE_TYPE__ // Shortcut for GCC-based compilers
+typedef __SIZE_TYPE__ ceu_size_t;
+#elif defined(CEU_CM_TYPE_USH_SIZE) && (CEU_CM_TYPE_USH_SIZE == CEU_CM_TYPE_SIZE_T_SIZE)
 typedef unsigned short ceu_size_t;
 #elif defined(CEU_CM_TYPE_USHI_SIZE) && (CEU_CM_TYPE_USHI_SIZE == CEU_CM_TYPE_SIZE_T_SIZE)
 typedef unsigned short int ceu_size_t;
