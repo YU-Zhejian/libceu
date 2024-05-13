@@ -45,8 +45,6 @@
 
 #ifndef CEU_CXX_STD_VERSION_MACRO
 #define CEU_CXX_STD "UNDEFINED"
-#elif CEU_CXX_STD_VERSION_MACRO == -2
-#define CEU_CXX_STD "UNKNOWN"
 #elif CEU_CXX_STD_VERSION_MACRO < 199711L
 #define CEU_CXX_STD "pre-98"
 #elif CEU_CXX_STD_VERSION_MACRO >= 202100L
@@ -74,7 +72,11 @@
 #endif
 
 #ifndef CEU_C_STD_VERSION_MACRO
+#ifdef __STDC__
+#define CEU_C_STD "unknown ISO C"
+#else
 #define CEU_C_STD "UNDEFINED"
+#endif
 #elif CEU_C_STD_VERSION_MACRO < 199409L
 #define CEU_C_STD "pre-94"
 #elif CEU_C_STD_VERSION_MACRO == 199409L

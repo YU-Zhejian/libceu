@@ -4,6 +4,9 @@
  * @brief Macro functions and constants defined for convenience.
  * @version 0.1
  * @date 2024-05-02
+ *
+ * The macros defined here are compiler independent.
+ * i.e., it only requires a C preprocessor to function correctly.
  */
 #ifndef CEU_FAST_MACROS_H
 #define CEU_FAST_MACROS_H
@@ -67,6 +70,8 @@
  *
  * You may pre-define this macro if you know your compiler well.
  * Otherwise its definition will be based on testing of compiler-specific pre-defined macros.
+ *
+ * Example:
  *
  * Without libCEU, you may:
  *
@@ -166,7 +171,35 @@
 #endif
 #endif
 
+/*!
+ * @def CEU_STR
+ * @brief Stringizing with Argument Prescan. i.e., convert macro value to string.
+ *
+ * Example:
+ *
+ * ```c
+ * #define foo 4
+ * #CEU_STR(foo) // evaluates to CEU_VAL(4) -> "4"
+ * ```
+ *
+ * @see Description in [GNU CPP](https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html).
+ * @see Description in [MSVC](https://learn.microsoft.com/en-us/cpp/preprocessor/stringizing-operator-hash?view=msvc-170).
+ */
 #define CEU_STR(x) CEU_VAL(x)
+
+/*!
+ * @def CEU_VAL
+ * @brief Stringizing. i.e., convert token to string.
+ *
+ * Example:
+ *
+ * ```c
+ * #CEU_VAL(foo) // evaluates to "foo"
+ * ```
+ *
+ * @see Description in [GNU CPP](https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html).
+ * @see Description in [MSVC](https://learn.microsoft.com/en-us/cpp/preprocessor/stringizing-operator-hash?view=msvc-170).
+ */
 #define CEU_VAL(x) #x
 
 #endif // CEU_FAST_MACROS_H

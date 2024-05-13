@@ -26,10 +26,17 @@ void test4()
     TEST_BOOL_F(bool, -4, 0);
 }
 
+void test5()
+{
+    TEST_BOOL_F(bool, 0.5, 0);
+}
+
 int main(void)
 {
     test1();
     test2();
     test3();
     test4();
+    test5();
+    return 0;
 }

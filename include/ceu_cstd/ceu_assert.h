@@ -24,6 +24,6 @@ CEU_END_C_DECLS
     (test) == 0 ? (void)0 : _ceu_assert_impl("Assertion failed on " __FILE__ ":" CEU_STR(__LINE__) " " CEU_VAL(test))
 #else
 #define ceu_assert(test) \
-    (test) == 0 ? "" : "Assertion failed on TEST_FILE:" CEU_STR(0) " " CEU_VAL(test)
+    (test) == 0 ? "" : "Assertion failed on TEST_FILE:" CEU_VAL(0) " " CEU_VAL(test)
 #endif
 #endif

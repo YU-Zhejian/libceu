@@ -1,4 +1,5 @@
 #include "ceu_thirdparty/log.h"
+#include <ceu_basic/ceu_fast_macros.h>
 #include <stdio.h>
 
 int main(void)
@@ -11,4 +12,5 @@ int main(void)
     log_error("%d", LOG_ERROR);
     log_fatal("%d", LOG_FATAL);
     printf("Version: %s\n", LOG_VERSION);
+    return EXIT_SUCCESS;
 }
