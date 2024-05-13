@@ -4,7 +4,7 @@
  * @brief Defines basic sizes of `intN_t` and `uintN_t`.
  * @version 0.1
  * @date 2024-05-13
- * 
+ *
  */
 #ifndef CEU_C_BASIC_SIZES_H
 #define CEU_C_BASIC_SIZES_H

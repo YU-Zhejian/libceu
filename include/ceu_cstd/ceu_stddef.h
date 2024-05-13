@@ -1,16 +1,12 @@
 #ifndef CEU_STDDEF_H
 #define CEU_STDDEF_H
 
-#if defined(CEU_CM_UNDER_CMAKE)
-#include "ceu_basic/libceu_stddef_cmake.h"
-#elif defined(CEU_CM_UNDER_XMAKE)
-#include "ceu_basic/libceu_stddef_xmake.h"
-#endif
+#include <ceu_basic/libceu_stddef_dispatcher.h>
 
-#ifdef CEU_CM_TYPE_SIZE_T_SIZE
 #ifdef __SIZE_TYPE__ // Shortcut for GCC-based compilers
 typedef __SIZE_TYPE__ ceu_size_t;
-#elif defined(CEU_CM_TYPE_USH_SIZE) && (CEU_CM_TYPE_USH_SIZE == CEU_CM_TYPE_SIZE_T_SIZE)
+#elif defined(CEU_CM_TYPE_SIZE_T_SIZE)
+#if defined(CEU_CM_TYPE_USH_SIZE) && (CEU_CM_TYPE_USH_SIZE == CEU_CM_TYPE_SIZE_T_SIZE)
 typedef unsigned short ceu_size_t;
 #elif defined(CEU_CM_TYPE_USHI_SIZE) && (CEU_CM_TYPE_USHI_SIZE == CEU_CM_TYPE_SIZE_T_SIZE)
 typedef unsigned short int ceu_size_t;
@@ -37,6 +33,12 @@ typedef unsigned long long int ceu_size_t;
 #endif
 #else
 #error "Failed to define ceu_size_t! ceu_size_t seems not supported by the environhment."
+#endif
+
+#ifdef __PTRDIFF_TYPE__
+typedef __PTRDIFF_TYPE__ ceu_ptrdiff_t;
+#else
+#error "Failed to define ceu_ptrdiff_t! ceu_ptrdiff_t seems not supported by the environhment."
 #endif
 
 // FIXME: Still requires revison here

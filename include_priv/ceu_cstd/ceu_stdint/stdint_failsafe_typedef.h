@@ -4,9 +4,9 @@
  * @brief Failsafe definition to `ceu_intN_t` and `ceu_uintN_t`.
  * @version 0.1
  * @date 2024-05-13
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 #ifndef CEU_STDINT_TYPEDEF_FAILSAFE_H
 #define CEU_STDINT_TYPEDEF_FAILSAFE_H

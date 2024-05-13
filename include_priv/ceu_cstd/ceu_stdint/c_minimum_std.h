@@ -4,13 +4,13 @@
  * @brief Check whether the current environment satisfies C minumun standard.
  * @version 0.1
  * @date 2024-05-13
- * 
+ *
  * This header will confirm the following:
- * 
+ *
  * - `char`, `short`, `integer`, `long` and `long long` are defined.
  * - For types in `char`, `short`, `integer`, `long` and `long long`, size of the former is not smaller than the latter.
  * - Check for basic size limitations: `1 <= sizeof(char)`; `2 <= sizeof(short)`; `2 <= sizeof(int)`; `4 <= sizeof(long)`; `8 <= sizeof(long long)`.
- * 
+ *
  * If failed, will raise an error.
  */
 #ifndef CEU_C_MINIMUM_STD_H

@@ -23,7 +23,6 @@ CEU_BEGIN_C_DECLS
 
 /*!
  * @brief Get runtime LiBCEU version.
- * @param  Not accepting any parameters.
  * @return A string with the runtime version.
  * @warning This function will allocate memory inside. Users should free it after use.
  */

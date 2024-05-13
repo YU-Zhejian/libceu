@@ -1,21 +1,3 @@
-/*!
- * @file ceu_cc_msvc.h
- * @brief Microsoft MSVC. That is, what is bundled in Visual Studio.
- *
- * @see https://learn.microsoft.com/en-us/cpp/overview/compiler-versions?view=msvc-170
- * @see https://learn.microsoft.com/en-us/cpp/preprocessor/predefined-macros?view=msvc-170
- * @see https://devblogs.microsoft.com/cppblog/visual-c-compiler-version/
- */
-
-/*!
- *@def CEU_COMPILER_IS_MSVC
- *@brief If this macro is defined, the compiler should support MSVC features.
- */
-
-/*!
- * @def CEU_VISUAL_STUDIO_VER
- * @brief Human-readable Microsoft Visual Studio version.
- */
 #ifndef CEU_CC_MSVC_H
 #define CEU_CC_MSVC_H
 

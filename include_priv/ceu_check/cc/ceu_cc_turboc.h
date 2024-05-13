@@ -1,16 +1,3 @@
-/*!
- * @file ceu_cc_turboc.h
- * @brief Feature detection macros to Borland (now acquired by Embarcadero) C/C++ compiler.
- *
- * @see https://docwiki.embarcadero.com/RADStudio/Alexandria/en/Compiler_Versions
- * @see https://docwiki.embarcadero.com/RADStudio/Alexandria/en/Predefined_Macros
- */
-
-/*!
- * @def CEU_COMPILER_IS_BORLAND
- * @brief Indicator for Borland C/C++ compilers.
- *
- */
 #ifndef CEU_CC_TURBOC_H
 #define CEU_CC_TURBOC_H
 

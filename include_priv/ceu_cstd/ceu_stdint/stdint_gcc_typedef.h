@@ -1,3 +1,13 @@
+/*!
+ * @file stdint_gcc_typedef.h
+ * @author YU Zhejian
+ * @brief Convert GCC macros like `__INT8_TYPE__` to `typedef`s.
+ * @version 0.1
+ * @date 2024-05-13
+ *
+ * This file is supressed under Doxygen.
+ *
+ */
 #ifndef CEU_STDINT_GCC_TYPEDEF_H
 #define CEU_STDINT_GCC_TYPEDEF_H
 

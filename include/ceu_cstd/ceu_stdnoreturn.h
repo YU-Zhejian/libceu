@@ -36,11 +36,7 @@
 #define noreturn // NOLINT
 #else
 
-#if defined(CEU_CM_UNDER_CMAKE)
-#include "ceu_basic/libceu_stddef_cmake.h"
-#elif defined(CEU_CM_UNDER_XMAKE)
-#include "ceu_basic/libceu_stddef_xmake.h"
-#endif
+#include <ceu_basic/libceu_stddef_dispatcher.h>
 
 #ifndef CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED
 #define CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED 127
@@ -73,7 +69,8 @@
 #if (defined(CEU_HAVE_INCLUDE_STDNORETURN_H) && CEU_HAVE_INCLUDE_STDNORETURN_H == 1 && CEU_CM_HAVE_WORKING_C_NORETURN_RUN_STATIC * CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED == 0)
 #include <stdnoreturn.h> // This file should define noreturn
 #elif (CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_STATIC * CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_SHARED == 0)
-// FIXME: No idea whether this works.
+// C23 standard where [[noreturn]] is supported.
+// No idea whether this works.
 #define noreturn [[noreturn]]
 #elif (CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC * CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC == 0)
 // Normal condition where _Noreturn is supported
@@ -84,8 +81,7 @@
 #else
 // Have nothing!
 #define noreturn // NOLINT
-// FIXME: Visual Studio 2010 does not support this preprocessor derivitive.
-// #warning "Noreturn not supported by the compiler."
-#endif
-#endif
-#endif
+
+#endif /* CEU_HAVE_INCLUDE_STDNORETURN_H */
+#endif /* __cplusplus */
+#endif /* CEU_STDNORETURN_H */

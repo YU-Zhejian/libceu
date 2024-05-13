@@ -14,6 +14,11 @@
  * @see [`bool` type in _GNU C Language Manual_](https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Boolean-Type.html).
  */
 
+#ifndef CEU_STDBOOL_H
+#define CEU_STDBOOL_H
+
+#if defined(CEU_UNDER_DOXYGEN)
+
 /*!
  * @def bool
  * @brief The boolean type.
@@ -23,6 +28,7 @@
  *
  * @warning Only convert 0/1 to boolean values. Result from other integers (e.g., 4, -4, etc.) are unknown.
  */
+#define bool /* implementation-defined */
 
 /*!
  * @def true
@@ -30,6 +36,7 @@
  *
  * Expand to integer constant 1.
  */
+#define true 1
 
 /*!
  * @def false
@@ -37,27 +44,24 @@
  *
  * Expand to integer constant 0.
  */
+#define false 0
 
 /*!
  * @def __bool_true_false_are_defined
  * @brief To keep it POSIX-compiliant.
  */
+#define __bool_true_false_are_defined 1
 
 /*!
  * @def _STDBOOL
  * @brief To keep it POSIX-compiliant.
  */
-
-#ifndef CEU_STDBOOL_H
-#define CEU_STDBOOL_H
+#define _STDBOOL
+#elif defined(__cplusplus)
 // Supress definition of bool under C++.
-#ifndef __cplusplus
+#else
 
-#if defined(CEU_CM_UNDER_CMAKE)
-#include "ceu_basic/libceu_stddef_cmake.h"
-#elif defined(CEU_CM_UNDER_XMAKE)
-#include "ceu_basic/libceu_stddef_xmake.h"
-#endif
+#include <ceu_basic/libceu_stddef_dispatcher.h>
 
 #ifndef CEU_CM_HAVE_WORKING_C__BOOL_RUN_STATIC
 #define CEU_CM_HAVE_WORKING_C__BOOL_RUN_STATIC 127
@@ -98,6 +102,6 @@
 #endif // !__bool_true_false_are_defined
 
 #endif /* _STDBOOL */
-#endif
-#endif /* __cplusplus */
-#endif
+#endif /* have working stdbool.h */
+#endif /* CEU_UNDER_DOXYGEN */
+#endif /* CEU_STDBOOL_H */

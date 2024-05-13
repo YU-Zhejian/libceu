@@ -3,26 +3,6 @@
  * @brief Check Compile-Time C/C++ standard.
  */
 
-/*!
- * @def CEU_CXX_STD
- * @brief The C++ Standard in a human-readable way. This macro is always defined.
- */
-
-/*!
- * @def CEU_CXX_STD_VERSION_MACRO
- * @brief The C++ Standard version macro, should be equal to `_MSVC_LANG` or `__cplusplus__` or undefined.
- */
-
-/*!
- * @def CEU_C_STD
- * @brief The C Standard in a human-readable way. This macro is always defined.
- */
-
-/*!
- * @def CEU_C_STD_VERSION_MACRO
- * @brief The C Standard version macro, should be equal to `__STDC_VERSION__` or undefined.
- */
-
 #ifndef CEU_CHECK_C_CXX_STD_H
 #define CEU_CHECK_C_CXX_STD_H
 #include <ceu_basic/ceu_fast_macros.h>

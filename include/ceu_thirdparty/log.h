@@ -26,10 +26,7 @@
  * 20:18:26 TRACE src/main.c:11: Hello world
  * ```
  *
- * @subsection LOG_USE_COLOR
- * If the library is compiled with `-DLOG_USE_COLOR` ANSI color escape codes will be used when printing.
- *
- * @subsection YuZJ's Alteration to the Original Library
+ * **Alteration to the Original Library**
  *
  * - Inclusion of the `stdbool.h` were replaced by `ceu_cstd/ceu_stdbool.h`.
  * - Documentations added from the Readme file of the sourcing repository.
@@ -48,15 +45,43 @@
 #include <stdio.h>
 #include <time.h>
 
+#if defined(CEU_UNDER_DOXYGEN)
+/*!
+ * @def LOG_USE_COLOR
+ * @brief If the library is compiled with `-DLOG_USE_COLOR` ANSI color escape codes will be used when printing.
+ */
+#define LOG_USE_COLOR
+#endif
+
 #define LOG_VERSION "0.1.0"
 
+#define MAX_CALLBACKS 32
+
 typedef struct {
+    /*!
+     * @brief `printf`-compatible variadic arguments.
+     */
     va_list ap;
+    /*!
+     * @brief `printf`-compatible format string.
+     */
     const char* fmt;
+    /*!
+     * @brief File name where the logging event is triggered.
+     */
     const char* file;
+    /*!
+     * @brief Time when the logging event is triggered.
+     */
     struct tm* time;
     void* udata;
+    /*!
+     * @brief Line number where the logging event is triggered.
+     */
     int line;
+    /*!
+     * @brief Log level. See #LOG_LEVEL for more details.
+     */
     int level;
 } log_Event;
 
@@ -66,7 +91,7 @@ typedef void (*log_LockFn)(bool lock, void* udata);
 /*!
  * @brief Log levels.
  */
-enum {
+enum LOG_LEVEL {
     /*!
      * @brief Trace level.
      */
@@ -94,27 +119,27 @@ enum {
 };
 
 /*!
- * @brief A #printf()-compatible logging function. See Usage for more details.
+ * @brief A `printf`-compatible logging function. See Usage for more details.
  */
 #define log_trace(...) log_log(LOG_TRACE, __FILE__, __LINE__, __VA_ARGS__)
 /*!
- * @brief A #printf()-compatible logging function. See Usage for more details.
+ * @brief A `printf`-compatible logging function. See Usage for more details.
  */
 #define log_debug(...) log_log(LOG_DEBUG, __FILE__, __LINE__, __VA_ARGS__)
 /*!
- * @brief A #printf()-compatible logging function. See Usage for more details.
+ * @brief A `printf`-compatible logging function. See Usage for more details.
  */
 #define log_info(...) log_log(LOG_INFO, __FILE__, __LINE__, __VA_ARGS__)
 /*!
- * @brief A #printf()-compatible logging function. See Usage for more details.
+ * @brief A `printf`-compatible logging function. See Usage for more details.
  */
 #define log_warn(...) log_log(LOG_WARN, __FILE__, __LINE__, __VA_ARGS__)
 /*!
- * @brief A #printf()-compatible logging function. See Usage for more details.
+ * @brief A `printf`-compatible logging function. See Usage for more details.
  */
 #define log_error(...) log_log(LOG_ERROR, __FILE__, __LINE__, __VA_ARGS__)
 /*!
- * @brief A #printf()-compatible logging function. See Usage for more details.
+ * @brief A `printf`-compatible logging function. See Usage for more details.
  */
 #define log_fatal(...) log_log(LOG_FATAL, __FILE__, __LINE__, __VA_ARGS__)
 

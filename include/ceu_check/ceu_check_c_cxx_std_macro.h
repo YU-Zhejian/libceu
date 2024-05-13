@@ -4,28 +4,35 @@
  * This function defines macros only.
  */
 
+#ifndef CEU_CHECK_C_CXX_STD_MACRO_H
+#define CEU_CHECK_C_CXX_STD_MACRO_H
+
+#ifdef CEU_UNDER_DOXYGEN
 /*!
  * @def CEU_CXX_STD
  * @brief The C++ Standard in a human-readable way. This macro is always defined.
  */
+#define CEU_CXX_STD /* implementation-defined */
 
 /*!
  * @def CEU_CXX_STD_VERSION_MACRO
  * @brief The C++ Standard version macro, should be equal to `_MSVC_LANG` or `__cplusplus__` or undefined.
  */
+#define CEU_CXX_STD_VERSION_MACRO /* implementation-defined */
 
 /*!
  * @def CEU_C_STD
  * @brief The C Standard in a human-readable way. This macro is always defined.
  */
+#define CEU_C_STD /* implementation-defined */
 
 /*!
  * @def CEU_C_STD_VERSION_MACRO
  * @brief The C Standard version macro, should be equal to `__STDC_VERSION__` or undefined.
  */
+#define CEU_C_STD_VERSION_MACRO /* implementation-defined */
 
-#ifndef CEU_CHECK_C_CXX_STD_MACRO_H
-#define CEU_CHECK_C_CXX_STD_MACRO_H
+#else
 
 #ifdef CEU_CXX_STD_VERSION_MACRO
 #undef CEU_CXX_STD_VERSION_MACRO
@@ -86,4 +93,5 @@
 #define CEU_C_STD "unknown"
 #endif
 
+#endif
 #endif // CEU_CHECK_C_CXX_STD_MACRO_H

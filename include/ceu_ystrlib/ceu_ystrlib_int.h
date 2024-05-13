@@ -1,7 +1,7 @@
 /*!
  * @file ceu_ystrlib_int.h
  * @author YU Zhejian
- * @brief Integer-related functions. Providing implementations similiar to #strtol or #snprintf.
+ * @brief Integer-related functions. Providing implementations similiar to `strtol` or `snprintf`.
  * @version 0.1
  * @date 2024-05-06
  *
@@ -16,7 +16,7 @@
 CEU_BEGIN_C_DECLS
 
 /*!
- * @brief Convert an unsigned integer to yStr. Supplements the basic functionality of #printf series.
+ * @brief Convert an unsigned integer to yStr. Supplements the basic functionality of `printf` series.
  *
  * @param base 2, 8, 10, or 16.
  * @param src_int The source unsigned integer.

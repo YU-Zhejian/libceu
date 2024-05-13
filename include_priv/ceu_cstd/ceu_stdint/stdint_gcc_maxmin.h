@@ -1,5 +1,5 @@
 /*!
- * @file stdint_gcc_mxmin.h
+ * @file stdint_gcc_maxmin.h
  * @brief Process pre-defined macros like `__INT16_MAX__`.
  *
  * @see https://gcc.gnu.org/onlinedocs/cpp/Common-Predefined-Macros.html

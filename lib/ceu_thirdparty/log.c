@@ -24,8 +24,6 @@
 
 #include "ceu_basic/ceu_fast_macros.h"
 
-#define MAX_CALLBACKS 32
-
 typedef struct {
     log_LogFn fn;
     void* udata;

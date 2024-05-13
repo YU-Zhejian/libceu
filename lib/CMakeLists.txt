@@ -19,7 +19,7 @@ endif()
 
 if(LIBCEU_BUILD_SHARED_CXX)
     add_library(${CEU_LIBRARY_SHARED_CXX} SHARED ${CEU_LIBRARY_SOURCES_CXX}
-                                                 ../include/ceu_cstd/ceu_stdint/stdint_msvc_maxmin.h)
+                                                 ../include_priv/ceu_cstd/ceu_stdint/stdint_msvc_maxmin.h)
     install(TARGETS ${CEU_LIBRARY_SHARED_CXX} TYPE LIBRARY)
 endif()
 

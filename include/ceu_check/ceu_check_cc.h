@@ -31,7 +31,7 @@ ceu_ystr_t* ceu_check_interpret_compilation_date_time CEU_PARAMS((void));
 /*!
  * @brief Get compiler information.
  *
- * @param Returned buffer, should be freed manually.
+ * @return Returned buffer, should be freed manually.
  */
 ceu_ystr_t* ceu_check_get_compiler_info CEU_PARAMS((void));
 
