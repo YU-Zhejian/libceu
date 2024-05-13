@@ -38,6 +38,7 @@ void ceu_ystr_to_cstr_cpy CEU_PARAMS((const ceu_ystr_t* ystr, char* dest));
  *
  * @param ystr yStr to convert.
  * @param dest Destination buffer.
+ * @param n Number of `char`s to copy.
  */
 void ceu_ystr_to_cstr_ncpy CEU_PARAMS((const ceu_ystr_t* ystr, char* dest, ceu_size_t n));
 

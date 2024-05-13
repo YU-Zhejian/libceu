@@ -1,9 +1,8 @@
 /*!
- * @file stdint_gcc_predefs.h
- * @brief Process pre-defined macros like __INT16_MAX__
+ * @file stdint_gcc_mxmin.h
+ * @brief Process pre-defined macros like `__INT16_MAX__`.
  *
  * @see https://gcc.gnu.org/onlinedocs/cpp/Common-Predefined-Macros.html
- *
  */
 #ifndef LIBCEU_STDINT_GCC_MAXMIN_H
 #define LIBCEU_STDINT_GCC_MAXMIN_H

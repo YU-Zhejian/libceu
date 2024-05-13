@@ -5,6 +5,11 @@
  * @todo Needs to further test on different 32- and 64-bit, LE and BE platforms.
  */
 
+/*!
+ * @typedef ceu_int8_t
+ * @brief Signed integer that is of 8 byte length.
+ */
+
 #ifndef CEU_STDINT_H
 #define CEU_STDINT_H
 
@@ -15,7 +20,9 @@
 #endif
 #include <limits.h>
 
-#include "ceu_check/ceu_check_cc_macro.h"
+
+
+#include <ceu_check/ceu_check_cc_macro.h>
 
 // Before performing any operation,
 // we would check whether the environment satisfies C minumun standards.
@@ -29,8 +36,8 @@
 #include <ceu_cstd/ceu_stdint/stdint_gcc_maxmin.h>
 #include <ceu_cstd/ceu_stdint/stdint_msvc_maxmin.h>
 
-#include <ceu_cstd/ceu_stdint/stdint_failsafe_typedef.h>
 #include <ceu_cstd/ceu_stdint/stdint_gcc_typedef.h>
+#include <ceu_cstd/ceu_stdint/stdint_failsafe_typedef.h>
 
 #include <ceu_cstd/ceu_stdint/stdint_printf_conversion.h>
 

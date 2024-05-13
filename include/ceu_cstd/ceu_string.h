@@ -83,11 +83,11 @@ ceu_size_t ceu_strlen CEU_PARAMS((const char* instr));
 void* ceu_memcpy CEU_PARAMS((void* dest, const void* src, ceu_size_t n));
 
 /*!
- * @brief Set c to the first len unsigned chars of s.
+ * @brief Set `c` to the first `n` unsigned chars of `s`.
  *
  * @param s The buffer to set.
  * @param c Unsigned char.
- * @param len Length to set.
+ * @param n Length to set.
  * @return void* The destination buffer modified.
  * @warning Ensure that the destination buffer is large enough.
  * @warning The code were not optimized to 4- or 8-byte alignments so are slow.

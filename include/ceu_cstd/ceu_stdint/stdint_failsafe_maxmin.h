@@ -1,5 +1,5 @@
 /*!
- * @file stdint_failsafe_predefs.h
+ * @file stdint_failsafe_maxmin.h
  * @brief Define max and min in fail-safe mode.
  */
 #ifndef LIBCEU_STDINT_FAILSAFE_MAXMIN_H

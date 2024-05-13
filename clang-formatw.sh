@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-clang-format -i -style=webkit "${@}"
+clang-format -i "${@}"
