@@ -1,10 +1,3 @@
-/*!
- * @file stdint_msvc_maxmin.h
- * @brief Process pre-defined macros like _I8_MIN
- *
- * @see https://learn.microsoft.com/en-us/cpp/c-runtime-library/data-type-constants?view=msvc-170
- *
- */
 #ifndef LIBCEU_STDINT_MSVC_MAXMIN_H
 #define LIBCEU_STDINT_MSVC_MAXMIN_H
 

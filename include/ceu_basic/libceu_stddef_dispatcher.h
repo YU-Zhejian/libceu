@@ -15,6 +15,8 @@
 #include "ceu_basic/libceu_stddef_cmake.h"
 #elif defined(CEU_CM_UNDER_XMAKE)
 #include "ceu_basic/libceu_stddef_xmake.h"
+#else
+#error "No build-system-specific macros detected!"
 #endif
 
 #endif // CEU_STDDEF_DISPATCHER_H

@@ -35,11 +35,12 @@ typedef unsigned long long int ceu_size_t;
 #error "Failed to define ceu_size_t! ceu_size_t seems not supported by the environhment."
 #endif
 
-#ifdef __PTRDIFF_TYPE__
-typedef __PTRDIFF_TYPE__ ceu_ptrdiff_t;
-#else
-#error "Failed to define ceu_ptrdiff_t! ceu_ptrdiff_t seems not supported by the environhment."
-#endif
+// FIXME: not implemented
+//#ifdef __PTRDIFF_TYPE__
+//typedef __PTRDIFF_TYPE__ ceu_ptrdiff_t;
+//#else
+//#error "Failed to define ceu_ptrdiff_t! ceu_ptrdiff_t seems not supported by the environhment."
+//#endif
 
 // FIXME: Still requires revison here
 #ifndef CEU_NULL
