@@ -4,6 +4,8 @@
  * @author YU Zhejian
  * @version 0.1
  * @date 2024-05-02
+ *
+ * This file assists standard functions defined in `stdlib.h`.
  */
 #ifndef CEU_C_UTILS_H
 #define CEU_C_UTILS_H
@@ -30,7 +32,9 @@ noreturn void ceu_die CEU_PARAMS((const char* reason));
 /*!
  * @brief A simple wrapper to `malloc` that allows program exit with retv=12
  * if failed.
+ *
  * In this implementation, the allocated memory will be initialized with 0.
+ *
  * @param size Number of bytes to allocate.
  * @return Allocated memory.
  */
@@ -39,7 +43,12 @@ void* ceu_smalloc CEU_PARAMS((ceu_size_t size));
 /*!
  * @brief A simple wrapper to `calloc` that allows program exit with retv=12
  * if failed.
+ *
  * In this implementation, the allocated memory will be initialized with 0.
+ *
+ * @param count Number of blocks sized `size` bytes to allocate.
+ * @param size Number of bytes in each allocated blocks.
+ *
  * @return Allocated memory
  */
 void* ceu_scalloc CEU_PARAMS((ceu_size_t count, ceu_size_t size));
@@ -47,7 +56,10 @@ void* ceu_scalloc CEU_PARAMS((ceu_size_t count, ceu_size_t size));
 /*!
  * @brief A simple wrapper to `realloc` that allows program exit with retv=12
  * if failed.
+ *
  * In this implementation, the newly allocated memory will NOT be initialized with 0.
+ *
+ * @param m Old allocated memory.
  * @param size Number of bytes to allocate.
  * @return Allocated memory
  */
@@ -59,9 +71,11 @@ void* ceu_srealloc CEU_PARAMS((void* m, ceu_size_t size));
  *
  * In this implementation, the newly allocated memory will NOT be initialized with 0.
  *
- * @note This is a simple wrapper of ceu_srealloc since reallocarray is not POSIX compliant.
+ * @note This is a simple wrapper of #ceu_srealloc since `reallocarray` is not POSIX compliant.
  *
- * @param size Number of bytes to allocate.
+ * @param m Old allocated memory.
+ * @param count Number of blocks sized `size` bytes to allocate.
+ * @param size Number of bytes in each allocated blocks.
  * @return Allocated memory
  */
 void* ceu_sreallocarray CEU_PARAMS((void* m, ceu_size_t count, ceu_size_t size));

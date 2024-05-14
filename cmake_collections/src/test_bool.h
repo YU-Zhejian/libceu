@@ -5,6 +5,7 @@
     }
 
 #define TEST_BOOL_F(BOOL_TYPE, INIT_TRUE, INIT_FALSE) \
+    TB_ASSERT(sizeof(BOOL_TYPE) == 1)                 \
     BOOL_TYPE t = INIT_TRUE;                          \
     BOOL_TYPE f = INIT_FALSE;                         \
     TB_ASSERT(t);                                     \

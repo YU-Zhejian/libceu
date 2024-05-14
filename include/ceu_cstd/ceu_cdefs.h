@@ -1,7 +1,7 @@
 /*!
  * @file ceu_cdefs.h
  * @author YU Zhejian
- * @brief Defines some macros, see below for details.
+ * @brief Defines some compiler-dependent macros, see below for details.
  * @version 0.1
  * @date 2024-04-28
  */
@@ -10,8 +10,8 @@
 #if defined(CEU_UNDER_DOXYGEN)
 
 /*!
- * @def __attribute__
- * @brief Defines GNU-compatuble __attribute__ macro for platforms that does not provide this macro to empty.
+ * @def \_\_attribute\_\_
+ * @brief Defines GNU-compatuble `__attribute__` macro for platforms that does not provide this macro to empty.
  * @see [GCC definition](https://gcc.gnu.org/onlinedocs/gcc/Attribute-Syntax.html).
  */
 #define __attribute__(x) /* implementation-defined */

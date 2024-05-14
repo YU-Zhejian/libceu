@@ -13,9 +13,16 @@ void test4()
     TEST_BOOL_F(_Bool, -4, 0);
 }
 
+void test5()
+{
+    TEST_BOOL_F(_Bool, 0.5, 0);
+}
+
 int main(void)
 {
     test2();
     test3();
     test4();
+    test5();
+    return 0;
 }
