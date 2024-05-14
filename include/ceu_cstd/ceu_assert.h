@@ -1,5 +1,23 @@
+/*!
+ * @file ceu_assert.h
+ * @brief Provides definition of #ceu_assert.
+ */
 #ifndef CEU_ASSERT_H
 #define CEU_ASSERT_H
+
+#ifdef CEU_UNDER_DOXYGEN
+
+/*!
+ * @def CEU_NDEBUG
+ * @brief TODO
+ */
+#define CEU_NDEBUG /* defined externally */
+/*!
+ * @def ceu_assert
+ * @brief TODO
+ */
+#define ceu_assert(test) /* behaviour defined by CEU_NDEBUG */
+#endif
 
 #include <ceu_basic/ceu_fast_macros.h>
 #include <ceu_cstd/ceu_stdnoreturn.h>
