@@ -100,14 +100,14 @@ static char* ceu_printf_pad_blanks(const char* converted_str, char arg_numeric_s
 }
 ceu_printf_ret_t ceu_vsnprintf_core(char* buff, ceu_size_t max_print_n_char, const char* fmt, va_list* args)
 {
-    ceu_printf_ret_t rett;
+    ceu_printf_ret_t rett = { 0, 0 };
     int current_state;
     int minimum_field_width;
     int precision;
     int length;
     char current_char;
     char next_char;
-    ceu_printf_flags_t pf;
+    ceu_printf_flags_t pf = { false, false, false, false, false };
     ceu_uint64_t arg_uint; // Value of the argument if it is unsigned int.
     ceu_int64_t arg_int; // Value of the argument if it is signed int.
     long double arg_dbl; // Value of the argument if it is float or double.
@@ -124,7 +124,7 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, ceu_size_t max_print_n_char, con
     rett.current_buffer_position = 0;
     rett.current_fmt_position = 0;
     current_state = CEU_PRINTF_PARSING_COMMON_CHAR;
-    // pf = {0}; // FIXME: { 0 } have error on Microoft Visual Studio 2010.
+    // pf = {0}; // FIXME: { 0 } have error on Microsoft Visual Studio 2010.
     minimum_field_width = 0;
     precision = 0;
     length = -1;

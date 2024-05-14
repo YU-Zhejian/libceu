@@ -90,18 +90,6 @@ This project uses code from the following projects:
 
 ---
 
-- **Paul Hsieh `pstdint.h` Project**
-
-  Available from <http://www.azillionmonkeys.com/qed/pstdint.h>
-
-  Affected files:
-
-  - `include/ceu_w32api/pstdint.h`
-
-  With BSD License.
-
----
-
 - **David Pastor's `minunit` Project**
 
   Available from <https://github.com/siu/minunit> revision `a058656`.

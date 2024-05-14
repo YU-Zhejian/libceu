@@ -23,7 +23,6 @@ endmacro()
 
 ceu_add_test("stdio_printf_core" "${CMAKE_CURRENT_LIST_DIR}/ceu_cstd/ceu_stdio/test_printf_core.c")
 ceu_add_test("ystr" "${CMAKE_CURRENT_LIST_DIR}/ceu_ystrlib/test_ystr.c")
-ceu_add_test("pstdint" "${CMAKE_CURRENT_LIST_DIR}/misc/pstdint_test.c")
 ceu_add_test("stdint" "${CMAKE_CURRENT_LIST_DIR}/ceu_cstd/stdint_test.c")
 ceu_add_test("iso646" "${CMAKE_CURRENT_LIST_DIR}/ceu_cstd/iso646_test.c")
 ceu_add_test("stdbool" "${CMAKE_CURRENT_LIST_DIR}/ceu_cstd/stdbool_test.c")

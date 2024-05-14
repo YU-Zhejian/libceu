@@ -5,7 +5,6 @@
  * @version 0.1
  * @date 2024-05-14
  *
- * @todo nullptr_t (Since C23)
  * @see ceu_stdbool.h for definition of #bool, #true and #false (which does not comfort C standards).
  * @see [cppreference](https://en.cppreference.com/w/c/types) description of what should be defined in `stddef.h`.
  * @see ceu_stdnoreturn.h for #noreturn.
@@ -15,13 +14,25 @@
 
 #include <ceu_basic/libceu_stddef_dispatcher.h>
 
-#if defined(CEU_UNDER_DOXYGEN)
-
 /*!
  * @def CEU_NULL
- * @brief NULL.
+ * @brief The NULL pointer. By default, expand to `0` cast to `(void*)` under C and literal 0 under C++.
+ *
+ * As-is defined in POSIX.1 standard. You may also define your own if you know your compiler well.
+ *
+ * @see [POSIX.1-2008](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/stddef.h.html) description of `NULL`.
+ * @see [cppreference](https://en.cppreference.com/w/c/types/NULL) description of `NULL`.
+ * @warning Do not use #CEU_NULL under C++ 11 or above. Use `nullptr`/`std:nullptr_t` instead.
  */
-#define CEU_NULL /* implementation-defined */
+#ifndef CEU_NULL
+#if defined(__cplusplus)
+#define CEU_NULL 0
+#else
+#define CEU_NULL ((void*)0)
+#endif
+#endif
+
+#if defined(CEU_UNDER_DOXYGEN)
 
 /*!
  * @typedef ceu_size_t
@@ -34,7 +45,7 @@ typedef /* implementation-defined */ ceu_size_t;
  * @brief TODO
  */
 typedef /* implementation-defined */ ceu_ptrdiff_t;
-#endif
+#else
 
 #ifdef __SIZE_TYPE__ // Shortcut for GCC-based compilers
 typedef __SIZE_TYPE__ ceu_size_t;
@@ -69,19 +80,10 @@ typedef unsigned long long int ceu_size_t;
 #endif
 
 // FIXME: not implemented
-//#ifdef __PTRDIFF_TYPE__
-//typedef __PTRDIFF_TYPE__ ceu_ptrdiff_t;
-//#else
-//#error "Failed to define ceu_ptrdiff_t! ceu_ptrdiff_t seems not supported by the environhment."
-//#endif
-
-// FIXME: Still requires revison here
-#ifndef CEU_NULL
-#ifndef __cplusplus
-#define CEU_NULL ((void*)0)
-#else
-#define CEU_NULL 0
+// #ifdef __PTRDIFF_TYPE__
+// typedef __PTRDIFF_TYPE__ ceu_ptrdiff_t;
+// #else
+// #error "Failed to define ceu_ptrdiff_t! ceu_ptrdiff_t seems not supported by the environhment."
+// #endif
 #endif
-#endif
-
 #endif // CEU_STDDEF_H

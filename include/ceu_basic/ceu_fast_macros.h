@@ -39,12 +39,13 @@
 /*!
  * @def CEU_STRING_ENDING
  * @brief Defines `NULL` for `NULL`-terminated strings.
+ * @note This have nothing to do with pointers. For null pointers, see #CEU_NULL.
  */
 #define CEU_STRING_ENDING '\0'
 
 /*!
  * @def EXIT_FAILURE
- * @brief POSIX.1 compiliant exit status indicating program failure. Defined as 1 if not defined.
+ * @brief POSIX.1 compliant exit status indicating program failure. Defined as 1 if not defined.
  *
  * You may pre-define this macro if you know your compiler well.
  *
@@ -56,7 +57,7 @@
 
 /*!
  * @def EXIT_SUCCESS
- * @brief POSIX.1 compiliant exit status indicating program success. Defined as 0 if not defined. See #EXIT_FAILURE for more details.
+ * @brief POSIX.1 compliant exit status indicating program success. Defined as 0 if not defined. See #EXIT_FAILURE for more details.
  */
 #ifndef EXIT_SUCCESS
 #define EXIT_SUCCESS 0
@@ -69,7 +70,7 @@
    so that C++ compilers don't mangle their names.
  *
  * You may pre-define this macro if you know your compiler well.
- * Otherwise its definition will be based on testing of compiler-specific pre-defined macros.
+ * Otherwise, its definition will be based on testing of compiler-specific pre-defined macros.
  *
  * Example:
  *

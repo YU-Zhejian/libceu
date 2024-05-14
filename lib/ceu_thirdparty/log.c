@@ -23,6 +23,7 @@
 #include "ceu_thirdparty/log.h"
 
 #include "ceu_basic/ceu_fast_macros.h"
+#include "ceu_cstd/ceu_stddef.h"
 
 typedef struct {
     log_LogFn fn;
@@ -146,19 +147,7 @@ static void init_event(log_Event* ev, void* udata)
 void log_log(int level, const char* file, int line, const char* fmt, ...)
 {
     int i;
-    log_Event ev;
-    ev.fmt = fmt;
-    ev.file = file;
-    ev.line = line;
-    ev.level = level;
-    // Original code:
-    // = {
-    //    .fmt = fmt,
-    //    .file = file,
-    //    .line = line,
-    //    .level = level,
-    //}; // Microsoft Visual Studio 2010 raised C2059 here.
-
+    log_Event ev = { CEU_NULL, fmt, file, CEU_NULL, CEU_NULL, line, level };
     lock();
 
     if (!L.quiet && level >= L.level) {

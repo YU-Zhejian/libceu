@@ -19,6 +19,14 @@ else()
     add_compile_options("-DCEU_CM_UNDER_CMAKE")
 endif()
 
+if(MSVC)
+    if(CMAKE_VERSION GREATER_EQUAL 3.12)
+        add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+    else()
+        add_compile_options("-D_CRT_SECURE_NO_WARNINGS")
+    endif()
+endif()
+
 # Inclusion of custom variables
 if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/cmake_vars.cmake")
     message(STATUS "Including cmake_vars.cmake")

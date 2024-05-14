@@ -15,7 +15,7 @@
 *.o
 *.log
 *.out.d/
-
+*.exe
 
 /cmake_vars.cmake
 /doxygen.out.d/

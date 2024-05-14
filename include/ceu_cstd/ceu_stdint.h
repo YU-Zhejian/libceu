@@ -100,86 +100,87 @@ typedef /* inplementation-defined */ ceu_uint64_t;
 
 /*!
  * @def INT8_MIN
- * @brief A literal representing minimun of #ceu_int8_t, should be equal to -128.
+ * @brief A literal representing minimum of #ceu_int8_t, should be equal to -128.
  */
 #define INT8_MIN /* implementation-defined */
 
 /*!
  * @def INT8_MAX
- * @brief A literal representing maximun of #ceu_int8_t, should be equal to 127.
+ * @brief A literal representing maximum of #ceu_int8_t, should be equal to 127.
  */
 #define INT8_MAX /* implementation-defined */
 
 /*!
  * @def UINT8_MAX
- * @brief A literal representing maximun of #ceu_uint8_t, should be equal to 255.
+ * @brief A literal representing maximum of #ceu_uint8_t, should be equal to 255.
  */
 #define UINT8_MAX /* implementation-defined */
 
 /*!
  * @def INT16_MIN
- * @brief A literal representing minimun of #ceu_int16_t, should be equal to -32,768.
+ * @brief A literal representing minimum of #ceu_int16_t, should be equal to -32,768.
  */
 #define INT16_MIN /* implementation-defined */
 
 /*!
  * @def INT16_MAX
- * @brief A literal representing maximun of #ceu_int16_t, should be equal to 32,767.
+ * @brief A literal representing maximum of #ceu_int16_t, should be equal to 32,767.
  */
 #define INT16_MAX /* implementation-defined */
 
 /*!
  * @def UINT16_MAX
- * @brief A literal representing maximun of #ceu_uint16_t, should be equal to 65,535.
+ * @brief A literal representing maximum of #ceu_uint16_t, should be equal to 65,535.
  */
 #define UINT16_MAX /* implementation-defined */
 
 /*!
  * @def INT32_MIN
- * @brief A literal representing minimun of #ceu_int32_t, should be equal to -2,147,483,648.
+ * @brief A literal representing minimum of #ceu_int32_t, should be equal to -2,147,483,648.
  */
 #define INT32_MIN /* implementation-defined */
 
 /*!
  * @def INT32_MAX
- * @brief A literal representing maximun of #ceu_int32_t, should be equal to 2,147,483,647.
+ * @brief A literal representing maximum of #ceu_int32_t, should be equal to 2,147,483,647.
  */
 #define INT32_MAX /* implementation-defined */
 
 /*!
  * @def UINT32_MAX
- * @brief A literal representing maximun of #ceu_uint32_t, should be equal to 4,294,967,295.
+ * @brief A literal representing maximum of #ceu_uint32_t, should be equal to 4,294,967,295.
  */
 #define UINT32_MAX /* implementation-defined */
 
 /*!
  * @def INT64_MIN
- * @brief A literal representing minimun of #ceu_int64_t, should be equal to -9,223,372,036,854,775,808.
+ * @brief A literal representing minimum of #ceu_int64_t, should be equal to -9,223,372,036,854,775,808.
  */
 #define INT64_MIN /* implementation-defined */
 
 /*!
  * @def INT64_MAX
- * @brief A literal representing maximun of #ceu_int64_t, should be equal to 9,223,372,036,854,775,807.
+ * @brief A literal representing maximum of #ceu_int64_t, should be equal to 9,223,372,036,854,775,807.
  */
 #define INT64_MAX /* implementation-defined */
 
 /*!
  * @def UINT64_MAX
- * @brief A literal representing maximun of #ceu_uint64_t, should be equal to 18,446,744,073,709,551,615.
+ * @brief A literal representing maximum of #ceu_uint64_t, should be equal to 18,446,744,073,709,551,615.
  */
 #define UINT64_MAX /* implementation-defined */
 
 #else
 
 #include <ceu_basic/libceu_stddef_dispatcher.h>
+#define __STDC_WANT_SECURE_LIB__ 1
 #include <limits.h>
 
 // clang-format off
 #include <ceu_check/ceu_check_cc_macro.h>
 
 // Before performing any operation,
-// we would check whether the environment satisfies C minumun standards.
+// we would check whether the environment satisfies C minimum standards.
 
 #include <ceu_cstd/ceu_stdint/c_minimum_std.h> // NOLINT
 
