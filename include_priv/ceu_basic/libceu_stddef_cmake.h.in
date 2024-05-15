@@ -1,5 +1,9 @@
-#ifndef LIBCEU_STDDEF_H
-#define LIBCEU_STDDEF_H
+#ifndef LIBCEU_STDDEF_CMAKE_H
+#define LIBCEU_STDDEF_CMAKE_H
+
+#ifndef CEU_STDDEF_DISPATCHER_H
+#error "Do not include this file directly, include <ceu_basic/libceu_stddef_dispatcher.h> instead!"
+#endif
 
 // On following code 1 indicates success.
 #cmakedefine01 CEU_HAVE_INCLUDE_STDBOOL_H

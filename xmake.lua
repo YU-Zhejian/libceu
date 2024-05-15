@@ -15,7 +15,7 @@ add_includedirs("xmake-build/build")  -- FIXME: Non-portable code here
 
 add_defines("CEU_CM_IS_DEBUG=1")
 add_defines("CEU_CM_UNDER_XMAKE=1")
-add_configfiles("include/ceu_basic/libceu_stddef_xmake.h.in", { filename = "ceu_basic/libceu_stddef_xmake.h" })
+add_configfiles("include_priv/ceu_basic/libceu_stddef_xmake.h.in", { filename = "ceu_basic/libceu_stddef_xmake.h" })
 
 configvar_check_sizeof("CEU_CM_TYPE_C_SIZE", "char")
 configvar_check_sizeof("CEU_CM_TYPE_UC_SIZE", "unsigned char")
