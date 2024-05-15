@@ -35,7 +35,7 @@ endif()
 
 # Enable C++ compiler if possible
 if(NOT DEFINED CMAKE_C_STANDARD)
-    set(CMAKE_C_STANDARD 90)
+    set(CMAKE_C_STANDARD 99)
 endif()
 set(CMAKE_C_STANDARD_REQUIRED TRUE)
 check_language(CXX)

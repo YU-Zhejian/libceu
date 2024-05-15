@@ -57,7 +57,7 @@
 
 #define MAX_CALLBACKS 32
 
-typedef struct {
+typedef struct log_Event {
     /*!
      * @brief `printf`-compatible variadic arguments.
      */
@@ -83,9 +83,9 @@ typedef struct {
      * @brief Log level. See #LOG_LEVEL for more details.
      */
     int level;
-} log_Event;
+} log_event_t;
 
-typedef void (*log_LogFn)(log_Event* ev);
+typedef void (*log_LogFn)(log_event_t* ev);
 typedef void (*log_LockFn)(bool lock, void* udata);
 
 /*!
@@ -173,7 +173,7 @@ void log_set_quiet(bool enable);
 /*!
 * @brief Add one or more callback functions which are called with the log data.
 
-* A callback function is passed a `log_Event` structure containing the `line` number, `filename`, `fmt` string, `va` printf va\_list, `level` and the given `udata`.
+* A callback function is passed a `log_event_t` structure containing the `line` number, `filename`, `fmt` string, `va` printf va\_list, `level` and the given `udata`.
 */
 int log_add_callback(log_LogFn fn, void* udata, int level);
 

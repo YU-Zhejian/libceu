@@ -55,4 +55,5 @@ a.out
 xmake-build
 xmake-build-*
 /Folder.DotSettings
+/Folder.DotSettings.user
 build*

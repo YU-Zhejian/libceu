@@ -8,7 +8,7 @@
 
 void* ceu_smalloc(ceu_size_t size)
 {
-    if (size == 0 ){
+    if (size == 0) {
         log_warn("malloc with size 0 is undefined behaviour. Use at risk.");
     }
     void* m = malloc(size);
@@ -22,7 +22,7 @@ void* ceu_smalloc(ceu_size_t size)
 
 void* ceu_scalloc(ceu_size_t count, ceu_size_t size)
 {
-    if (count == 0 || size == 0){
+    if (count == 0 || size == 0) {
         log_warn("calloc with size or count 0 is undefined behaviour. Use at risk.");
     }
     void* m;
@@ -38,10 +38,10 @@ void* ceu_scalloc(ceu_size_t count, ceu_size_t size)
 
 void* ceu_srealloc(void* m, ceu_size_t size)
 {
-    if(m == CEU_NULL){
+    if (m == CEU_NULL) {
         return ceu_smalloc(size);
     }
-    if (size == 0 ){
+    if (size == 0) {
         log_warn("realloc with size 0 is undefined behaviour. Use at risk.");
     }
     void* retm = realloc(m, size);
@@ -78,7 +78,7 @@ void ceu_free_non_null(void* m)
 
 noreturn void ceu_die_with_retv(const char* reason, int retv)
 {
-    if (retv == EXIT_SUCCESS){
+    if (retv == EXIT_SUCCESS) {
         retv = EXIT_FAILURE;
     }
     printf("Error occurred! reason:\t%s\n", reason);

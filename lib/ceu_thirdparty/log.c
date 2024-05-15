@@ -1,25 +1,3 @@
-/*
- * Copyright (c) 2020 rxi
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to
- * deal in the Software without restriction, including without limitation the
- * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
- * sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- * IN THE SOFTWARE.
- */
-
 #include "ceu_thirdparty/log.h"
 
 #include "ceu_basic/ceu_fast_macros.h"
@@ -49,7 +27,7 @@ static const char* level_colors[] = {
 };
 #endif
 
-static void stdout_callback(log_Event* ev)
+static void stdout_callback(log_event_t* ev)
 {
     char buf[16] = { CEU_STRING_ENDING };
     buf[strftime(buf, sizeof(buf), "%H:%M:%S", ev->time)] = '\0';
@@ -68,7 +46,7 @@ static void stdout_callback(log_Event* ev)
     fflush(ev->udata);
 }
 
-static void file_callback(log_Event* ev)
+static void file_callback(log_event_t* ev)
 {
     char buf[64] = { CEU_STRING_ENDING };
     buf[strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", ev->time)] = '\0';
@@ -137,7 +115,7 @@ int log_add_fp(FILE* fp, int level)
     return log_add_callback(file_callback, fp, level);
 }
 
-static void init_event(log_Event* ev, void* udata)
+static void init_event(log_event_t* ev, void* udata)
 {
     time_t t = time(NULL);
     ev->time = localtime(&t);
@@ -147,7 +125,67 @@ static void init_event(log_Event* ev, void* udata)
 void log_log(int level, const char* file, int line, const char* fmt, ...)
 {
     int i;
-    log_Event ev = { CEU_NULL, fmt, file, CEU_NULL, CEU_NULL, line, level };
+    log_event_t ev = { CEU_NULL, fmt, file, CEU_NULL, CEU_NULL, line, level };
+    /*
+     * FIXME: Following issue is observed under GCC5:
+     *
+     * /mnt/f/home/Documents/libceu/cmake/../include/ceu_cstd/ceu_stddef.h:31:18: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+     *  #define CEU_NULL ((void*)0)
+     *              ^
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:23: note: in expansion of macro ‘CEU_NULL’
+     * log_event_t ev = {CEU_NULL, fmt, file, CEU_NULL, CEU_NULL, line, level }
+     *
+     * /mnt/f/home/Documents/libceu/cmake/../include/ceu_cstd/ceu_stddef.h:31:18: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+     *  #define CEU_NULL ((void*)0)
+     *                   ^
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:23: note: in expansion of macro ‘CEU_NULL’
+     *      log_event_t ev = {CEU_NULL, fmt, file, CEU_NULL, CEU_NULL, line, level };
+     *                        ^
+     * /mnt/f/home/Documents/libceu/cmake/../include/ceu_cstd/ceu_stddef.h:31:18: note: (near initialization for ‘ev.ap[0].gp_offset’)
+     * #define CEU_NULL ((void*)0)
+     *                   ^
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:23: note: in expansion of macro ‘CEU_NULL’
+     *      log_event_t ev = {CEU_NULL, fmt, file, CEU_NULL, CEU_NULL, line, level };
+     *                        ^
+     * /mnt/f/home/Documents/libceu/cmake/../include/ceu_cstd/ceu_stddef.h:31:18: note: (near initialization for ‘ev.ap[0].gp_offset’)
+     *  #define CEU_NULL ((void*)0)
+     *                   ^
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:23: note: in expansion of macro ‘CEU_NULL’
+     *      log_event_t ev = {CEU_NULL, fmt, file, CEU_NULL, CEU_NULL, line, level };
+     *                        ^
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:33: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+     *      log_event_t ev = {CEU_NULL, fmt, file, CEU_NULL, CEU_NULL, line, level };
+     *                                  ^
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:33: warning: initialization makes integer from pointer without a cast [-Wint-conversion]
+     *      log_event_t ev = {CEU_NULL, fmt, file, CEU_NULL, CEU_NULL, line, level };
+     *                                  ^
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:33: note: (near initialization for ‘ev.ap[0].fp_offset’)
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:33: note: (near initialization for ‘ev.ap[0].fp_offset’)
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:38: warning: initialization discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+     *      log_event_t ev = {CEU_NULL, fmt, file, CEU_NULL, CEU_NULL, line, level };
+     *                                       ^
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:38: warning: initialization discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+     *      log_event_t ev = {CEU_NULL, fmt, file, CEU_NULL, CEU_NULL, line, level };
+     *                                       ^
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:64: warning: initialization makes pointer from integer without a cast [-Wint-conversion]
+     *      log_event_t ev = {CEU_NULL, fmt, file, CEU_NULL, CEU_NULL, line, level };
+     *                                                                 ^
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:64: warning: initialization makes pointer from integer without a cast [-Wint-conversion]
+     *      log_event_t ev = {CEU_NULL, fmt, file, CEU_NULL, CEU_NULL, line, level };
+     *                                                                 ^
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:64: note: (near initialization for ‘ev.file’)
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:64: note: (near initialization for ‘ev.file’)
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:70: warning: initialization makes pointer from integer without a cast [-Wint-conversion]
+     *      log_event_t ev = {CEU_NULL, fmt, file, CEU_NULL, CEU_NULL, line, level };
+     *                                                                       ^
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:70: warning: initialization makes pointer from integer without a cast [-Wint-conversion]
+     *      log_event_t ev = {CEU_NULL, fmt, file, CEU_NULL, CEU_NULL, line, level };
+     *                                                                       ^
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:70: note: (near initialization for ‘ev.time’)
+     * /mnt/f/home/Documents/libceu/lib/ceu_thirdparty/log.c:150:70: note: (near initialization for ‘ev.time’)
+     *
+     * And a SegFault would be generated.
+     */
     lock();
 
     if (!L.quiet && level >= L.level) {
