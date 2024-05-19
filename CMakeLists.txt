@@ -71,15 +71,18 @@ check_include_file("sys/utsname.h" CEU_HAVE_INCLUDE_SYS_UTSNAME_H)
 check_include_file("_mingw.h" CEU_HAVE_INCLUDE__MINGW_H)
 
 configure_file("${CMAKE_CURRENT_LIST_DIR}/include_priv/ceu_basic/libceu_stddef_cmake.h.in"
-               "${CMAKE_CURRENT_BINARY_DIR}/include_priv/ceu_basic/libceu_stddef_cmake.h")
+               "${CMAKE_CURRENT_BINARY_DIR}/include/ceu_basic/libceu_stddef_cmake.h")
 
 include("${CMAKE_CURRENT_LIST_DIR}/cmake/libceu.cmake")
 
 file(GLOB CEU_INCLUSIONS "${CMAKE_CURRENT_LIST_DIR}/include/ceu_*")
 install(DIRECTORY ${CEU_INCLUSIONS} TYPE INCLUDE)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/ceu_basic/libceu_stddef_cmake.h"
+        DESTINATION "${CMAKE_INSTALL_PREFIX}/include/ceu_basic/")
 
+include_directories("${CMAKE_CURRENT_LIST_DIR}/include/")
 include_directories("${CMAKE_CURRENT_LIST_DIR}/include_priv/")
-include_directories("${CMAKE_CURRENT_BINARY_DIR}/include_priv/")
+include_directories("${CMAKE_CURRENT_BINARY_DIR}/include/")
 
 if("${CEU_CM_HAVE_WORKING_C_HELLOWORLD_RUN_SHARED}" EQUAL 0 AND CEU_CM_TRY_COMP_LINK_SHARED)
     set(LIBCEU_BUILD_SHARED

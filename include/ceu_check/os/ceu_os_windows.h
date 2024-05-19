@@ -1,8 +1,8 @@
 #ifndef CEU_OS_WINDOWS_H
 #define CEU_OS_WINDOWS_H
 
-#ifndef CEU_CHECK_OS_H
-#error "Do not include this file, include <ceu_check/ceu_check_os.h> instead!"
+#ifndef CEU_CHECK_OS_MACRO_H
+#error "Do not include this file, include <ceu_check/ceu_check_os_macro.h> instead!"
 #endif
 #if defined(__MSYS__)
 #define CEU_PRIMARY_OS_TYPE "MSYS"

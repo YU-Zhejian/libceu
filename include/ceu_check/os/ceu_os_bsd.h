@@ -1,8 +1,8 @@
 #ifndef CEU_OS_BSD_H
 #define CEU_OS_BSD_H
 
-#ifndef CEU_CHECK_OS_H
-#error "Do not include this file, include <ceu_check/ceu_check_os.h> instead!"
+#ifndef CEU_CHECK_OS_MACRO_H
+#error "Do not include this file, include <ceu_check/ceu_check_os_macro.h> instead!"
 #endif
 #if defined(__FreeBSD__)
 #define CEU_ON_FreeBSD

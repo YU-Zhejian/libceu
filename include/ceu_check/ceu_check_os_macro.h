@@ -163,9 +163,9 @@
 
 // Inclusion order of following lines should be preserved
 // clang-format off
-#include "ceu_check/os/ceu_os_mainframe_unix.h" // NOLINT
-#include "ceu_check/os/ceu_os_bsd.h" // NOLINT
-#include "ceu_check/os/ceu_os_windows.h" // NOLINT
+#include <ceu_check/os/ceu_os_mainframe_unix.h> // NOLINT
+#include <ceu_check/os/ceu_os_bsd.h> // NOLINT
+#include <ceu_check/os/ceu_os_windows.h> // NOLINT
 
 // clang-format on
 #if defined(__HAIKU__)
