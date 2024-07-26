@@ -18,8 +18,7 @@ if(LIBCEU_BUILD_STATIC)
 endif()
 
 if(LIBCEU_BUILD_SHARED_CXX)
-    add_library(${CEU_LIBRARY_SHARED_CXX} SHARED ${CEU_LIBRARY_SOURCES_CXX}
-                                                 ../include_priv/ceu_cstd/ceu_stdint/stdint_msvc_maxmin.h)
+    add_library(${CEU_LIBRARY_SHARED_CXX} SHARED ${CEU_LIBRARY_SOURCES_CXX})
     install(TARGETS ${CEU_LIBRARY_SHARED_CXX} TYPE LIBRARY)
 endif()
 
