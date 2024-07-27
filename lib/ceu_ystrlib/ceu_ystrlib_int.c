@@ -14,7 +14,7 @@ ceu_ystr_t* ceu_ystr_from_uint(int base, ceu_uint64_t src_int)
     char immc[64] = { 0 };
     ceu_size_t current_position = 0;
     char* retc;
-    int i;
+    ceu_size_t i;
     if (base == 2) {
         numbers = BIN_NUMBERS;
     } else if (base == 8) {

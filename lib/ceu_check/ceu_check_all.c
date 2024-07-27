@@ -6,7 +6,7 @@
 #include "ceu_check/ceu_check_os.h"
 #include "ceu_ystrlib/ceu_ystrlib_all.h"
 
-ceu_ystr_t* ceu_lib_ver()
+ceu_ystr_t* ceu_lib_ver(void)
 {
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("LibCEU: ", 128);
     ceu_ystr_t* libceu_rtime_version_buff = ceu_lib_rtime_version();
