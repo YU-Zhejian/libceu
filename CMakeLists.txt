@@ -10,8 +10,10 @@ include(CheckIncludeFile)
 include(CheckIncludeFileCXX)
 include(CheckSymbolExists)
 include(GNUInstallDirs)
-set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_LIBDIR}")
-file(REMOVE_RECURSE "${CMAKE_BUILD_RPATH}/compile_logs")
+
+set(CMAKE_INSTALL_RPATH "\$ORIGIN/../lib:${CMAKE_INSTALL_FULL_LIBDIR}")
+
+file(REMOVE_RECURSE "${CMAKE_BINARY_DIR}/compile_logs")
 
 if(CMAKE_VERSION GREATER_EQUAL 3.12)
     add_compile_definitions(CEU_CM_UNDER_CMAKE)
