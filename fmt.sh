@@ -76,4 +76,3 @@ which cmake-format &>/dev/null &&
             fi
         done
 wait
-sudo
