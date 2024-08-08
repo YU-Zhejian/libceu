@@ -5,9 +5,9 @@
  * @version 0.1
  * @date 2024-05-14
  *
- * @see ceu_stdbool.h for definition of #bool, #true and #false (which does not comfort C standards).
+ * @see ceu_stdbool.h for definition of #ceu_bool, #ceu_true and #ceu_false (which does not comfort C standards).
  * @see [cppreference](https://en.cppreference.com/w/c/types) description of what should be defined in `stddef.h`.
- * @see ceu_stdnoreturn.h for #noreturn.
+ * @see ceu_stdnoreturn.h for #ceu_noreturn.
  */
 #ifndef CEU_STDDEF_H
 #define CEU_STDDEF_H

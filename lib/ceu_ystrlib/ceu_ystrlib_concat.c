@@ -104,12 +104,12 @@ ceu_ystr_t* ceu_ystr_concat_const(const ceu_ystr_t* ystr, const ceu_ystr_t* ystr
     return ystr_ret;
 }
 
-ceu_ystr_t* ceu_ystr_join(const ceu_ystr_t* sep, bool skip_null, ceu_size_t count, ...)
+ceu_ystr_t* ceu_ystr_join(const ceu_ystr_t* sep, ceu_bool skip_null, ceu_size_t count, ...)
 {
     ceu_ystr_t* rets = ceu_ystr_create_empty();
     ceu_size_t i;
     va_list(args);
-    bool is_first_item = true;
+    ceu_bool is_first_item = ceu_true;
     if (sep == CEU_NULL) {
         return CEU_NULL;
     }
@@ -123,7 +123,7 @@ ceu_ystr_t* ceu_ystr_join(const ceu_ystr_t* sep, bool skip_null, ceu_size_t coun
                 if (!is_first_item) {
                     ceu_ystr_concat_inplace(rets, sep);
                 }
-                is_first_item = false;
+                is_first_item = ceu_false;
                 ceu_ystr_cstr_concat_inplace(rets, "<nullptr>");
             }
 
@@ -131,7 +131,7 @@ ceu_ystr_t* ceu_ystr_join(const ceu_ystr_t* sep, bool skip_null, ceu_size_t coun
             if (!is_first_item) {
                 ceu_ystr_concat_inplace(rets, sep);
             }
-            is_first_item = false;
+            is_first_item = ceu_false;
             ceu_ystr_concat_inplace(rets, new_item);
         }
     }
@@ -139,12 +139,12 @@ ceu_ystr_t* ceu_ystr_join(const ceu_ystr_t* sep, bool skip_null, ceu_size_t coun
     return rets;
 }
 
-ceu_ystr_t* ceu_ystr_cstr_join(const char* sep, bool skip_null, ceu_size_t count, ...)
+ceu_ystr_t* ceu_ystr_cstr_join(const char* sep, ceu_bool skip_null, ceu_size_t count, ...)
 {
     ceu_ystr_t* rets = ceu_ystr_create_empty();
     ceu_size_t i;
     va_list(args);
-    bool is_first_item = true;
+    ceu_bool is_first_item = ceu_true;
     if (sep == CEU_NULL) {
         return CEU_NULL;
     }
@@ -158,7 +158,7 @@ ceu_ystr_t* ceu_ystr_cstr_join(const char* sep, bool skip_null, ceu_size_t count
                 if (!is_first_item) {
                     ceu_ystr_cstr_concat_inplace(rets, sep);
                 }
-                is_first_item = false;
+                is_first_item = ceu_false;
                 ceu_ystr_cstr_concat_inplace(rets, "<nullptr>");
             }
 
@@ -166,7 +166,7 @@ ceu_ystr_t* ceu_ystr_cstr_join(const char* sep, bool skip_null, ceu_size_t count
             if (!is_first_item) {
                 ceu_ystr_cstr_concat_inplace(rets, sep);
             }
-            is_first_item = false;
+            is_first_item = ceu_false;
             ceu_ystr_cstr_concat_inplace(rets, new_item);
         }
     }

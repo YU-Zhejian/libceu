@@ -5,14 +5,14 @@
 ceu_ystr_t* convert_version_to_ystr(ceu_size_t count, ...)
 {
     ceu_ystr_t* rets = ceu_ystr_create_empty();
-    bool is_first_item;
+    ceu_bool is_first_item;
     ceu_uint64_t new_item;
     ceu_ystr_t* new_item_str;
     ceu_size_t i; /// Temporary variable used in loops
 
     va_list(args);
     va_start(args, count);
-    is_first_item = true;
+    is_first_item = ceu_true;
     for (i = 0; i < count; ++i) {
         new_item = va_arg(args, ceu_uint64_t);
         if (!is_first_item) {
@@ -21,7 +21,7 @@ ceu_ystr_t* convert_version_to_ystr(ceu_size_t count, ...)
         new_item_str = ceu_ystr_from_uint(10, new_item);
         ceu_ystr_concat_inplace(rets, new_item_str);
         ceu_ystr_destroy(new_item_str);
-        is_first_item = false;
+        is_first_item = ceu_false;
     }
     va_end(args);
     return rets;

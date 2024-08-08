@@ -1,7 +1,7 @@
 /*!
  * @file ceu_stdnoreturn.h
  * @author YU Zhejian
- * @brief Compatible file of <stdnoreturn.h>, providing definition of noreturn macro/keyword.
+ * @brief Compatible file of <stdnoreturn.h>, providing definition of #ceu_noreturn macro/keyword.
  * @version 0.1
  * @date 2024-04-28
  *
@@ -12,19 +12,18 @@
 #ifndef CEU_STDNORETURN_H
 #define CEU_STDNORETURN_H
 
-#if defined(noreturn)
-// Do nothing since noreturn had already been defined elsewhere
-#elif defined(CEU_UNDER_DOXYGEN)
+#if defined(CEU_UNDER_DOXYGEN)
 /*!
- * @def noreturn
+ * @def ceu_noreturn
  * @brief A macro that indicates that the function never returns.
  *
  * Would be expanded to:
  *
  * - `_Noreturn`, if exists.
  * - `__attribute__((noreturn))`, if supports.
+ * - Nothing, as final fail-safe. You compiler may generate warnings under such circumstances.
  */
-#define noreturn /* implementation-defined */
+#define ceu_noreturn /* implementation-defined */
 
 #else
 #include "ceu_check/ceu_check_c_cxx_std_macro.h"
@@ -34,22 +33,16 @@
 #if defined(__cplusplus)
 // FIXME: Temporary solution for C++ 11.
 // This won't work on Microsoft Visual Studio 2010 which does not support C++ 11.
-#define noreturn // [[noreturn]]
+#define ceu_noreturn // [[noreturn]]
 #elif defined(CEU_COMPILER_IS_INTEL_CLANG) && defined(CEU_COMPILER_IS_MSVC)
 // FIXME: Error on Windows Intel Clang-based compilers.
-#define noreturn // NOLINT
+#define ceu_noreturn // NOLINT
 #elif !defined(CEU_C_STD_VERSION_MACRO) || CEU_C_STD_VERSION_MACRO < 201112L
-#define noreturn __attribute__((noreturn))
+#define ceu_noreturn __attribute__((noreturn))
 #else
 
 #include <ceu_basic/libceu_stddef_dispatcher.h>
-
-#ifndef CEU_CM_HAVE_WORKING_C_NORETURN_RUN_STATIC
-#define CEU_CM_HAVE_WORKING_C_NORETURN_RUN_STATIC 127
-#endif
-#ifndef CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED
-#define CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED 127
-#endif
+// TODO: Support noreturn keyword
 
 #ifndef CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC
 #define CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC 127
@@ -65,19 +58,17 @@
 #define CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_SHARED 127
 #endif
 
-#if (defined(CEU_HAVE_INCLUDE_STDNORETURN_H) && CEU_HAVE_INCLUDE_STDNORETURN_H == 1 && CEU_CM_HAVE_WORKING_C_NORETURN_RUN_STATIC * CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED == 0)
-#include <stdnoreturn.h> // This file should define noreturn
-#elif (CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_STATIC * CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_SHARED == 0)
+#if (CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_STATIC * CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_SHARED == 0)
 // C23 standard where [[noreturn]] is supported.
 // No idea whether this works.
-#define noreturn [[noreturn]]
+#define ceu_noreturn [[noreturn]]
 #elif (CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC * CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC == 0)
 // Normal condition where _Noreturn is supported
-#define noreturn _Noreturn
-##else
+#define ceu_noreturn _Noreturn
+#else
 // Have nothing!
 // __attribute__ should have been defined in <ceu_cstd/ceu_cdefs.h> or supported by the compiler.
-#define noreturn __attribute__((noreturn))
+#define ceu_noreturn __attribute__((noreturn))
 
 #endif /* CEU_HAVE_INCLUDE_STDNORETURN_H */
 #endif /* __cplusplus */

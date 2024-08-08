@@ -23,12 +23,12 @@ CEU_BEGIN_C_DECLS
  * @warning Do not use this as a replacement of #ceu_assert. Always set `retv` to a non-zero value. If `retv` is #EXIT_SUCCESS, it will be set to #EXIT_FAILURE.
  * @note If debug is allowed (i.e., `defined CEU_CM_IS_DEBUG && CEU_CM_IS_DEBUG == 1`), will use `abort` to allow debuggers to investigate
  */
-noreturn void ceu_die_with_retv CEU_PARAMS((const char* reason, int retv));
+ceu_noreturn void ceu_die_with_retv CEU_PARAMS((const char* reason, int retv));
 
 /*!
  * @brief ::ceu_die_with_retv with #EXIT_FAILURE as return value.
  */
-noreturn void ceu_die CEU_PARAMS((const char* reason));
+ceu_noreturn void ceu_die CEU_PARAMS((const char* reason));
 
 /*!
  * @brief A simple wrapper to `malloc` that allows program exit with retv=12
@@ -103,7 +103,7 @@ void ceu_free_non_null CEU_PARAMS((void* m));
 /*!
  * @brief Wait for a keystroke and then exit the program with #EXIT_SUCCESS.
  */
-noreturn void ceu_press_any_key_to_exit CEU_PARAMS((void));
+ceu_noreturn void ceu_press_any_key_to_exit CEU_PARAMS((void));
 
 CEU_END_C_DECLS
 

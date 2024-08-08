@@ -199,15 +199,15 @@ MU_TEST(working_if)
 
 MU_TEST(basic_true_false)
 {
-    bool t = true;
-    bool f = false;
+    ceu_bool t = ceu_true;
+    ceu_bool f = ceu_false;
     BOOL_ASSERTS
 }
 
 MU_TEST(bool_from_int)
 {
-    bool t = 1;
-    bool f = 0;
+    ceu_bool t = 1;
+    ceu_bool f = 0;
     BOOL_ASSERTS
 }
 

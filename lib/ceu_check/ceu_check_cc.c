@@ -14,7 +14,7 @@ ceu_ystr_t* ceu_check_interpret_compilation_date_time(void)
 #else
     char* time_str = "unknown time";
 #endif
-    ceu_ystr_t* rets = ceu_ystr_cstr_join(", ", true, 2, date_str, time_str);
+    ceu_ystr_t* rets = ceu_ystr_cstr_join(", ", ceu_true, 2, date_str, time_str);
     return rets;
 }
 
@@ -91,7 +91,7 @@ ceu_ystr_t* interpret_msvc_compiler_version_number(void)
 #endif
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("MSVC compatible version number: ", 128);
     ceu_ystr_t* sep = ceu_ystr_create_from_cstr(".");
-    ceu_ystr_t* msvc_ver = ceu_ystr_join(sep, false, 4, msc_major_ver, msc_minor_ver, msc_internal_ver, msc_build_ver);
+    ceu_ystr_t* msvc_ver = ceu_ystr_join(sep, ceu_false, 4, msc_major_ver, msc_minor_ver, msc_internal_ver, msc_build_ver);
     ceu_ystr_concat_inplace(rets, msvc_ver);
     ceu_ystr_destroy(msvc_ver);
     ceu_ystr_destroy(sep);
@@ -250,7 +250,7 @@ ceu_ystr_t* ceu_check_interpret_compiler_version_number(void)
     ceu_ystr_t* version_macro_version = interpret_compiler_macro_version_number();
     ceu_ystr_t* sep = ceu_ystr_create_from_cstr("\n\t");
 
-    ceu_ystr_t* final_buff = ceu_ystr_join(sep, true, 12, tcc_comp_version, edg_comp_version, gcc_comp_version,
+    ceu_ystr_t* final_buff = ceu_ystr_join(sep, ceu_true, 12, tcc_comp_version, edg_comp_version, gcc_comp_version,
         icc_comp_version, clang_comp_version, msvc_comp_version, pgi_comp_version,
         nvhpc_comp_version, broadland_comp_version, intel_clang_comp_version, amd_clang_comp_version, version_macro_version);
     ceu_ystr_destroy(sep);

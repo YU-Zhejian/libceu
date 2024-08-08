@@ -1,8 +1,6 @@
 #include "minunit.h"
 
-#include "ceu_basic/ceu_c_utils.h"
 #include "ceu_cstd/ceu_stdio/ceu_printf_core.h"
-#include "ceu_cstd/ceu_string.h"
 
 static char buff[120] = { "" };
 void test_setup(void)

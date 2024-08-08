@@ -24,7 +24,7 @@
 
 CEU_BEGIN_C_DECLS
 
-noreturn void _ceu_assert_impl CEU_PARAMS((const char* message));
+ceu_noreturn void _ceu_assert_impl CEU_PARAMS((const char* message));
 
 CEU_END_C_DECLS
 

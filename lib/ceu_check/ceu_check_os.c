@@ -167,7 +167,7 @@ ceu_ystr_t* get_run_time_posix_uts_info(void)
     struct utsname ceu_utsname;
     uname(&ceu_utsname);
     ceu_ystr_t* rets = ceu_ystr_create_from_cstr_guarantee("POSIX UTSINFO='", 128);
-    ceu_ystr_t* utsname = ceu_ystr_cstr_join(" ", false, 5, ceu_utsname.sysname, ceu_utsname.nodename,
+    ceu_ystr_t* utsname = ceu_ystr_cstr_join(" ", ceu_false, 5, ceu_utsname.sysname, ceu_utsname.nodename,
         ceu_utsname.release, ceu_utsname.version, ceu_utsname.machine);
     ceu_ystr_concat_inplace(rets, utsname);
     ceu_ystr_destroy(utsname);
@@ -214,7 +214,7 @@ ceu_ystr_t* get_compile_time_posix_standard(void)
     ceu_ystr_destroy(sus_ver_s);
 
     ceu_ystr_t* sep = ceu_ystr_create_from_cstr("\n\t");
-    ceu_ystr_t* rets = ceu_ystr_join(sep, false, 3, posix1_ver, posix2_ver, sus_ver);
+    ceu_ystr_t* rets = ceu_ystr_join(sep, ceu_false, 3, posix1_ver, posix2_ver, sus_ver);
     ceu_ystr_destroy(sep);
     ceu_ystr_destroy(posix1_ver);
     ceu_ystr_destroy(posix2_ver);
@@ -236,7 +236,7 @@ ceu_ystr_t* ceu_check_get_compile_time_os_info(void)
     ceu_ystr_t* info;
     ceu_ystr_cstr_concat_inplace(rets, CEU_PRIMARY_OS_TYPE);
     ceu_ystr_cstr_concat_inplace(rets, "'\n\t");
-    info = ceu_ystr_join(sep, true, 4, haiku_version_buff, mingw_version_buff, cygwin_version_buff, posix_version_buff);
+    info = ceu_ystr_join(sep, ceu_true, 4, haiku_version_buff, mingw_version_buff, cygwin_version_buff, posix_version_buff);
     ceu_ystr_concat_inplace(rets, info);
     ceu_ystr_destroy(cygwin_version_buff);
     ceu_ystr_destroy(mingw_version_buff);
@@ -256,7 +256,7 @@ ceu_ystr_t* ceu_check_get_run_time_os_info(void)
     ceu_ystr_t* info;
     ceu_ystr_cstr_concat_inplace(rets, CEU_PRIMARY_OS_TYPE);
     ceu_ystr_cstr_concat_inplace(rets, "'\n\t");
-    info = ceu_ystr_join(sep, true, 2, posix_uts_buff, windows_buff);
+    info = ceu_ystr_join(sep, ceu_true, 2, posix_uts_buff, windows_buff);
     ceu_ystr_concat_inplace(rets, info);
     ceu_ystr_destroy(windows_buff);
     ceu_ystr_destroy(posix_uts_buff);

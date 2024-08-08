@@ -15,11 +15,11 @@
 // TODO: Here warns a -Wunused-but-set-parameter.
 static void clear_ceu_printf_flags_t(ceu_printf_flags_t pf)
 {
-    pf.CEU_PRINTF_FLAG_MINUS = false;
-    pf.CEU_PRINTF_FLAG_PLUS = false;
-    pf.CEU_PRINTF_FLAG_SHARP = false;
-    pf.CEU_PRINTF_FLAG_SPACE = false;
-    pf.CEU_PRINTF_FLAG_ZERO = false;
+    pf.CEU_PRINTF_FLAG_MINUS = ceu_false;
+    pf.CEU_PRINTF_FLAG_PLUS = ceu_false;
+    pf.CEU_PRINTF_FLAG_SHARP = ceu_false;
+    pf.CEU_PRINTF_FLAG_SPACE = ceu_false;
+    pf.CEU_PRINTF_FLAG_ZERO = ceu_false;
 }
 
 /*!
@@ -56,12 +56,12 @@ static ceu_size_t ceu_printf_append_str_to_buff(char* buff, ceu_size_t current_b
  * @param converted_str
  * @param arg_numeric_sign_char
  * @param dest_length Length of the string after being padded.
- * @param ceu_printf_flag_minus If this is set to true, the result of the conversion is left-justified
+ * @param ceu_printf_flag_minus If this is set to #ceu_true, the result of the conversion is left-justified
  * within the field (by default it is right-justified)
  * @param padding_char
  */
 static char* ceu_printf_pad_blanks(const char* converted_str, char arg_numeric_sign_char, ceu_size_t dest_length,
-    bool ceu_printf_flag_minus, char padding_char)
+    ceu_bool ceu_printf_flag_minus, char padding_char)
 {
     ceu_size_t current_length = ceu_strlen(converted_str);
     char* imm_str = CEU_NULL;
@@ -107,7 +107,7 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, ceu_size_t max_print_n_char, con
     int length;
     char current_char;
     char next_char;
-    ceu_printf_flags_t pf = { false, false, false, false, false };
+    ceu_printf_flags_t pf = { ceu_false, ceu_false, ceu_false, ceu_false, ceu_false };
     ceu_uint64_t arg_uint; // Value of the argument if it is unsigned int.
     ceu_int64_t arg_int; // Value of the argument if it is signed int.
     long double arg_dbl; // Value of the argument if it is float or double.
@@ -118,7 +118,7 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, ceu_size_t max_print_n_char, con
     char arg_numeric_sign_char; // Sign of the numeric, should be ' ' (see flags),
                                 // '+', '-' or CEU_STRING_ENDING (disabled)
     char padding_char; // Padding char, should be ' ' or '0'
-    bool arg_int_is_negative;
+    ceu_bool arg_int_is_negative;
     ceu_ystr_t* converted_ystr; // Temporary stage for integers.
 
     rett.current_buffer_position = 0;
@@ -140,7 +140,7 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, ceu_size_t max_print_n_char, con
     converted_padded_str = CEU_NULL;
     arg_numeric_sign_char = CEU_STRING_ENDING;
     padding_char = ' ';
-    arg_int_is_negative = false;
+    arg_int_is_negative = ceu_false;
 
     while (current_char != CEU_STRING_ENDING) {
         switch (current_state) {
@@ -162,7 +162,7 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, ceu_size_t max_print_n_char, con
                     minimum_field_width = 0;
                     precision = 0;
                     length = -1;
-                    arg_int_is_negative = false;
+                    arg_int_is_negative = ceu_false;
                     arg_uint = 0;
                     arg_int = 0;
                     arg_dbl = 0.0;
@@ -186,19 +186,19 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, ceu_size_t max_print_n_char, con
         case CEU_PRINTF_PARSING_FLAGS:
             switch (current_char) {
             case '-':
-                pf.CEU_PRINTF_FLAG_MINUS = true;
+                pf.CEU_PRINTF_FLAG_MINUS = ceu_true;
                 break;
             case '+':
-                pf.CEU_PRINTF_FLAG_PLUS = true;
+                pf.CEU_PRINTF_FLAG_PLUS = ceu_true;
                 break;
             case ' ':
-                pf.CEU_PRINTF_FLAG_SPACE = true;
+                pf.CEU_PRINTF_FLAG_SPACE = ceu_true;
                 break;
             case '#':
-                pf.CEU_PRINTF_FLAG_SHARP = true;
+                pf.CEU_PRINTF_FLAG_SHARP = ceu_true;
                 break;
             case '0':
-                pf.CEU_PRINTF_FLAG_ZERO = true;
+                pf.CEU_PRINTF_FLAG_ZERO = ceu_true;
                 break;
             default:
                 current_state = CEU_PRINTF_PARSING_MINIMUM_FIELD_WIDTH;
@@ -321,7 +321,7 @@ ceu_printf_ret_t ceu_vsnprintf_core(char* buff, ceu_size_t max_print_n_char, con
                 }
                 // Requires precision and min_field_width!
                 if (arg_int < 0) {
-                    arg_int_is_negative = true;
+                    arg_int_is_negative = ceu_true;
                     arg_int = -arg_int;
                 }
 

@@ -31,25 +31,25 @@ typedef struct
 {
     /// -: the result of the conversion is left-justified within the field (by
     /// default it is right-justified)
-    bool CEU_PRINTF_FLAG_MINUS;
+    ceu_bool CEU_PRINTF_FLAG_MINUS;
     /// +: the sign of signed conversions is always prepended to the result of
     /// the conversion (by default the result is preceded by minus only when it
     /// is negative)
-    bool CEU_PRINTF_FLAG_PLUS;
+    ceu_bool CEU_PRINTF_FLAG_PLUS;
     /// space: if the result of a signed conversion does not start with a sign
     /// character, or is empty, space is prepended to the result. It is ignored
     /// if + flag is present.
-    bool CEU_PRINTF_FLAG_SPACE;
+    ceu_bool CEU_PRINTF_FLAG_SPACE;
     /// # : alternative form of the conversion is performed.
     /// See the table below for exact effects otherwise the behavior is
     /// undefined.
-    bool CEU_PRINTF_FLAG_SHARP;
+    ceu_bool CEU_PRINTF_FLAG_SHARP;
     /// 0 : for integer and floating point number conversions,
     /// leading zeros are used to pad the field instead of space characters.
     /// For integer numbers it is ignored if the precision is explicitly
     /// specified. For other conversions using this flag results in undefined
     /// behavior. It is ignored if - flag is present.
-    bool CEU_PRINTF_FLAG_ZERO;
+    ceu_bool CEU_PRINTF_FLAG_ZERO;
 } ceu_printf_flags_t;
 
 typedef struct

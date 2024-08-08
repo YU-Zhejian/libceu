@@ -1,7 +1,3 @@
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "ceu_basic/ceu_c_utils.h"
 #include "ceu_check/ceu_check_all.h"
 
@@ -19,6 +15,3 @@ int main(void)
     return 0; // NOLINT
 }
 
-#ifdef __cplusplus
-}
-#endif

@@ -76,7 +76,7 @@ void ceu_free_non_null(void* m)
 #endif
 }
 
-noreturn void ceu_die_with_retv(const char* reason, int retv)
+ceu_noreturn void ceu_die_with_retv(const char* reason, int retv)
 {
     if (retv == EXIT_SUCCESS) {
         retv = EXIT_FAILURE;
@@ -91,12 +91,12 @@ noreturn void ceu_die_with_retv(const char* reason, int retv)
 #endif
 }
 
-noreturn void ceu_die(const char* reason)
+ceu_noreturn void ceu_die(const char* reason)
 {
     ceu_die_with_retv(reason, EXIT_FAILURE);
 }
 
-noreturn void ceu_press_any_key_to_exit(void)
+ceu_noreturn void ceu_press_any_key_to_exit(void)
 {
     puts("Press any key to exit...");
     putchar(getchar());

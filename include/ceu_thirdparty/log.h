@@ -86,7 +86,7 @@ typedef struct log_Event {
 } log_event_t;
 
 typedef void (*log_LogFn)(log_event_t* ev);
-typedef void (*log_LockFn)(bool lock, void* udata);
+typedef void (*log_LockFn)(ceu_bool lock, void* udata);
 
 /*!
  * @brief Log levels.
@@ -151,7 +151,7 @@ const char* log_level_string(int level);
 /*!
  * @brief If the log will be written to from multiple threads a lock function can be set.
  *
- * The function is passed the boolean #true if the lock should be acquired or #false if the lock should be released and the given `udata` value.
+ * The function is passed the boolean #ceu_true if the lock should be acquired or #ceu_false if the lock should be released and the given `udata` value.
  */
 void log_set_lock(log_LockFn fn, void* udata);
 /*!
@@ -169,7 +169,7 @@ void log_set_level(int level);
  * will continue to write to files and callbacks if any are set.
  * @param enable
  */
-void log_set_quiet(bool enable);
+void log_set_quiet(ceu_bool enable);
 /*!
 * @brief Add one or more callback functions which are called with the log data.
 

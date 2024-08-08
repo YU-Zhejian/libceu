@@ -6,12 +6,8 @@ int main(void)
 }
 #else
 #include "minunit.h"
-#include <ceu_cstd/ceu_iso646.h>
 #include <ceu_cstd/ceu_stdbool.h>
-
-#if !defined(__bool_true_false_are_defined) || __bool_true_false_are_defined != 1
-#error "__bool_true_false_are_defined should have been defined to 1!"
-#endif
+#include <ceu_cstd/ceu_iso646.h>
 
 void test_setup(void)
 {
@@ -24,8 +20,8 @@ void test_teardown(void)
 
 MU_TEST(basic_true_false)
 {
-    bool t = true;
-    bool f = false;
+    ceu_bool t = ceu_true;
+    ceu_bool f = ceu_false;
     mu_assert_int_eq(1, t);
     mu_assert_int_eq(0, f);
     mu_assert_int_eq(0, t and f);
@@ -48,7 +44,7 @@ MU_TEST(basic_true_false)
     mu_assert_int_eq(1, t);
     t and_eq f;
     mu_assert_int_eq(0, t);
-    t = true;
+    t = ceu_true;
     f and_eq t;
     mu_assert_int_eq(0, f);
 }

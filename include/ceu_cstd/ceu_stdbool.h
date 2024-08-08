@@ -7,10 +7,10 @@
  *
  * ## Rule of Thumb
  *
- * - This file ensures the existance of #bool, #true and #false. It ensure that #true are equal to 1 and #false are equal to 0.
+ * - This file ensures the existance of #ceu_bool, #ceu_true and #ceu_false. It ensure that #ceu_true are equal to 1 and #ceu_false are equal to 0.
  * - However, it cannot ensure `sizeof(bool) == 1` or `bool x = 4; x == 1` (Converting any nonzero value to `bool` results in 1.), which should be true in standard C99 `_Bool`.
  * - On any `if` statement, 0 is evaluated to false while any other thing (including NAN) is evaluated to true.
- * - C99 `stdbool.h` defines #true and #false as macros that expands to `1` and `0`, which are **integer literals**.
+ * - C99 `stdbool.h` defines #ceu_true and #ceu_false as macros that expands to `1` and `0`, which are **integer literals**.
  * - Some people implement boolean type using `char`, either signed or unsigned. We will use signed integer as fallback for fastest speed.
  *
  * ## The Evolution of Boolean
@@ -22,8 +22,7 @@
  *
  * ## How this File Works
  *
- * - `bool`, `true` and `false` were defined as C++98 keywords and kept afterwards. So if `__cplusplus` macro is detected, will supress the entire file.
- * - Will check whether `stdbool.h` present and work as expected.
+ * - `bool`, `true` and `false` were defined as C++98 keywords and kept afterwards. So if `__cplusplus` macro is detected, `ceu_bool`, `ceu_true` and `ceu_false` will be defined as `bool`, `true` and `false`.
  * - Will check whether `_Bool` whatever present and work as expected.
  * - Fallback to `int`, which is signed integer.
  *
@@ -40,89 +39,61 @@
 
 #ifndef CEU_STDBOOL_H
 #define CEU_STDBOOL_H
+// TODO: Check bool keyword for C23.
 
 #if defined(CEU_UNDER_DOXYGEN)
 
 /*!
- * @def bool
+ * @def ceu_bool
  * @brief The boolean type.
  *
  * @warning Only convert 0/1 to boolean values. Result from other values (e.g., 4, -4, 0.5, etc.) are implementation-defined.
  */
-#define bool /* implementation-defined */
+#define ceu_bool /* implementation-defined */
 
 /*!
- * @def true
+ * @def ceu_true
  * @brief The boolean value `true`.
  *
  * Expand to integer constant 1.
  */
-#define true 1
+#define ceu_true 1
 
 /*!
- * @def false
+ * @def ceu_false
  * @brief The boolean value `false`.
  *
  * Expand to integer constant 0.
  */
-#define false 0
+#define ceu_false 0
 
-/*!
- * @def __bool_true_false_are_defined
- * @brief To keep it POSIX-compiliant.
- */
-#define __bool_true_false_are_defined 1
-
-/*!
- * @def _STDBOOL
- * @brief To keep it POSIX-compiliant.
- */
-#define _STDBOOL
 #elif defined(__cplusplus)
 // Supress definition of bool under C++.
-#else
+#define ceu_bool bool
+#define ceu_true true
+#define ceu_false false
 
+#else
 #include <ceu_basic/libceu_stddef_dispatcher.h>
 
-#ifndef CEU_CM_HAVE_WORKING_C__BOOL_RUN_STATIC
-#define CEU_CM_HAVE_WORKING_C__BOOL_RUN_STATIC 127
+#ifndef CEU_CM_HAVE_WORKING_C_UNDERLINE_BOOL_KEYWORD_RUN_STATIC
+#define CEU_CM_HAVE_WORKING_C_UNDERLINE_BOOL_KEYWORD_RUN_STATIC 127
 #endif
-#ifndef CEU_CM_HAVE_WORKING_C__BOOL_RUN_SHARED
-#define CEU_CM_HAVE_WORKING_C__BOOL_RUN_SHARED 127
-#endif
-
-#ifndef CEU_CM_HAVE_WORKING_C_BOOL_RUN_STATIC
-#define CEU_CM_HAVE_WORKING_C_BOOL_RUN_STATIC 127
-#endif
-#ifndef CEU_CM_HAVE_WORKING_C_BOOL_RUN_SHARED
-#define CEU_CM_HAVE_WORKING_C_BOOL_RUN_SHARED 127
+#ifndef CEU_CM_HAVE_WORKING_C_UNDERLINE_BOOL_KEYWORD_RUN_SHARED
+#define CEU_CM_HAVE_WORKING_C_UNDERLINE_BOOL_KEYWORD_RUN_SHARED 127
 #endif
 
-#if (defined(CEU_HAVE_INCLUDE_STDBOOL_H) && CEU_HAVE_INCLUDE_STDBOOL_H == 1 && CEU_CM_HAVE_WORKING_C_BOOL_RUN_STATIC * CEU_CM_HAVE_WORKING_C_BOOL_RUN_SHARED == 0)
-// Normal condition where stdbool.h is available and compatible
-#include <stdbool.h>
-
-#else
 // Define our own stdbool.h
-#ifndef _STDBOOL
-#define _STDBOOL
-
-#ifndef __bool_true_false_are_defined
-
-#define __bool_true_false_are_defined 1
-#if (CEU_CM_HAVE_WORKING_C__BOOL_RUN_STATIC * CEU_CM_HAVE_WORKING_C__BOOL_RUN_SHARED == 0)
+#if (CEU_CM_HAVE_WORKING_C_UNDERLINE_BOOL_KEYWORD_RUN_STATIC * CEU_CM_HAVE_WORKING_C_UNDERLINE_BOOL_KEYWORD_RUN_SHARED == 0)
 // If _Bool is available.
-#define bool _Bool
+#define ceu_bool _Bool
 // Fallback to int.
 #else
-#define bool int
+#define ceu_bool int
 #endif
 
-#define false 0
-#define true 1
-#endif // !__bool_true_false_are_defined
+#define ceu_false ((ceu_bool) 0)
+#define ceu_true ((ceu_bool) 1)
 
-#endif /* _STDBOOL */
-#endif /* have working stdbool.h */
-#endif /* CEU_UNDER_DOXYGEN */
+#endif /* __cplusplus */
 #endif /* CEU_STDBOOL_H */

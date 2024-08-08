@@ -6,25 +6,45 @@
 #endif
 
 // On following code 1 indicates success.
-#cmakedefine01 CEU_HAVE_INCLUDE_STDBOOL_H // Whether <stdbool.h> is available
-#cmakedefine01 CEU_HAVE_INCLUDE_STDNORETURN_H // Whether <stdnoreturn.h> is available
-#cmakedefine01 CEU_HAVE_INCLUDE_CYGWIN_VERSION_H // Whether <cygwin/version.h> is available
-#cmakedefine01 CEU_HAVE_INCLUDE_SYS_UTSNAME_H // Whether <sys/utsname.h> is available
-#cmakedefine01 CEU_HAVE_INCLUDE__MINGW_H // Whether <_mingw.h> is available
-#cmakedefine CEU_CM_IS_DEBUG @CEU_CM_IS_DEBUG@ // Debug definitions provided by CMake.
+
+// Whether <stdnoreturn.h> is available
+#cmakedefine01 CEU_HAVE_INCLUDE_STDNORETURN_H
+
+// Whether <cygwin/version.h> is available
+#cmakedefine01 CEU_HAVE_INCLUDE_CYGWIN_VERSION_H
+
+// Whether <sys/utsname.h> is available
+#cmakedefine01 CEU_HAVE_INCLUDE_SYS_UTSNAME_H
+
+// Whether <_mingw.h> is available
+#cmakedefine01 CEU_HAVE_INCLUDE__MINGW_H
+
+// Debug definitions provided by CMake.
+#cmakedefine CEU_CM_IS_DEBUG @CEU_CM_IS_DEBUG@
 
 // On following code 0 indicates success.
-#cmakedefine01 CEU_CM_HAVE_WORKING_C_BOOL_RUN_STATIC // Whether bool is supported with the presense of <stdbool.h>
-#cmakedefine01 CEU_CM_HAVE_WORKING_C_BOOL_RUN_SHARED
-#cmakedefine01 CEU_CM_HAVE_WORKING_C__BOOL_RUN_STATIC // Whether _Bool is supported without the presense of <stdbool.h>
-#cmakedefine01 CEU_CM_HAVE_WORKING_C__BOOL_RUN_SHARED
-#cmakedefine01 CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC // Whether _Noreturn is supported without the presense of <stdnoreturn.h>
+// Whether bool is supported with the presence of <stdbool.h>
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_STDBOOL_RUN_STATIC
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_STDBOOL_RUN_SHARED
+
+// Whether _Bool is supported without the presence of <stdbool.h>
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_UNDERLINE_BOOL_KEYWORD_RUN_STATIC
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_UNDERLINE_BOOL_KEYWORD_RUN_SHARED
+
+// Whether _Noreturn is supported without the presence of <stdnoreturn.h>
+#cmakedefine01 CEU_CM_HAVE_WORKING_C__NORETURN_RUN_STATIC
 #cmakedefine01 CEU_CM_HAVE_WORKING_C__NORETURN_RUN_SHARED
-#cmakedefine01 CEU_CM_HAVE_WORKING_C_NORETURN_RUN_STATIC // Whether noreturn is supported with the presense of <stdnoreturn.h>
+
+// Whether noreturn is supported with the presence of <stdnoreturn.h>
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_NORETURN_RUN_STATIC
 #cmakedefine01 CEU_CM_HAVE_WORKING_C_NORETURN_RUN_SHARED
-#cmakedefine01 CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_STATIC // Whether [[noreturn]] is supported without the presense of <stdnoreturn.h>
+
+// Whether [[noreturn]] is supported without the presence of <stdnoreturn.h>
+#cmakedefine01 CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_STATIC
 #cmakedefine01 CEU_CM_HAVE_WORKING_C_NORETURN_ATTRIBUTE_RUN_SHARED
-#cmakedefine01 CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_STATIC // Whether __attribute__ is supported
+
+// Whether __attribute__ is supported
+#cmakedefine01 CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_STATIC
 #cmakedefine01 CEU_CM_HAVE_WORKING_C___ATTRIBUTE___RUN_SHARED
 
 // Types and lengths

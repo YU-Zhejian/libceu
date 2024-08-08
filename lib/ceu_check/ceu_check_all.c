@@ -29,7 +29,7 @@ ceu_ystr_t* ceu_check_get_full_info(void)
     ceu_ystr_t* compile_time_ctypes_info = ceu_check_get_ctypes_limit_info();
     ceu_ystr_t* sep = ceu_ystr_create_from_cstr("\n");
 
-    ceu_ystr_t* retbuff = ceu_ystr_join(sep, true, 7, libceu_version_buff, compiler_info_buff, c_info_buff,
+    ceu_ystr_t* retbuff = ceu_ystr_join(sep, ceu_true, 7, libceu_version_buff, compiler_info_buff, c_info_buff,
         cxx_info_buff, compile_time_os_info, run_time_os_info, compile_time_ctypes_info);
     ceu_ystr_destroy(libceu_version_buff);
     ceu_ystr_destroy(compiler_info_buff);

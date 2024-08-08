@@ -277,9 +277,9 @@ MU_TEST(ystr_join)
     ceu_ystr_t* ystr1 = ceu_ystr_from_uint(10, 120);
     ceu_ystr_t* ystr2 = ceu_ystr_from_uint(10, 25);
     ceu_ystr_t* ystr3 = CEU_NULL;
-    ceu_ystr_t* jstr1 = ceu_ystr_join(sep, true, 3, ystr1, ystr2, ystr3);
-    ceu_ystr_t* jstr2 = ceu_ystr_join(sep, false, 3, ystr1, ystr2, ystr3);
-    ceu_ystr_t* jstr3 = ceu_ystr_join(sep, true, 4, ystr3, ystr1, ystr2, ystr3);
+    ceu_ystr_t* jstr1 = ceu_ystr_join(sep, ceu_true, 3, ystr1, ystr2, ystr3);
+    ceu_ystr_t* jstr2 = ceu_ystr_join(sep, ceu_false, 3, ystr1, ystr2, ystr3);
+    ceu_ystr_t* jstr3 = ceu_ystr_join(sep, ceu_true, 4, ystr3, ystr1, ystr2, ystr3);
 
     mu_assert_string_eq("120.25", jstr1->buff);
     mu_assert_string_eq("120.25.<nullptr>", jstr2->buff);

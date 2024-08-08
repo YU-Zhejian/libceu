@@ -14,8 +14,8 @@ ceu_ystr_t* ceu_ystr_cstr_concat_const CEU_PARAMS((const ceu_ystr_t* ystr, const
 
 ceu_ystr_t* ceu_ystr_concat_const CEU_PARAMS((const ceu_ystr_t* ystr, const ceu_ystr_t* ystr2));
 
-ceu_ystr_t* ceu_ystr_join CEU_PARAMS((const ceu_ystr_t* sep, bool skip_null, ceu_size_t count, ...));
-ceu_ystr_t* ceu_ystr_cstr_join CEU_PARAMS((const char* sep, bool skip_null, ceu_size_t count, ...));
+ceu_ystr_t* ceu_ystr_join CEU_PARAMS((const ceu_ystr_t* sep, ceu_bool skip_null, ceu_size_t count, ...));
+ceu_ystr_t* ceu_ystr_cstr_join CEU_PARAMS((const char* sep, ceu_bool skip_null, ceu_size_t count, ...));
 
 CEU_END_C_DECLS
 
