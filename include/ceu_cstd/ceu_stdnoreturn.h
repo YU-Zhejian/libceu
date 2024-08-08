@@ -11,6 +11,9 @@
 
 #ifndef CEU_STDNORETURN_H
 #define CEU_STDNORETURN_H
+
+#ifdef noreturn
+#else
 #include "ceu_check/ceu_check_c_cxx_std_macro.h"
 #include "ceu_check/ceu_check_cc_macro.h"
 #include "ceu_cstd/ceu_cdefs.h"
@@ -78,6 +81,7 @@
 #define noreturn __attribute__((noreturn))
 
 #endif /* CEU_HAVE_INCLUDE_STDNORETURN_H */
+#endif /* noreturn */
 #endif /* __cplusplus */
 #endif /* CEU_UNDER_DOXYGEN */
 #endif /* CEU_STDNORETURN_H */
