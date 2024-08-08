@@ -48,7 +48,6 @@ configure
 /install-sh
 /missing
 /Makefile.in
-/Makefile.am
 a.out
 /aclocal.m4
 .*/
@@ -57,3 +56,9 @@ xmake-build-*
 /Folder.DotSettings
 /Folder.DotSettings.user
 build*
+!Makefile.am
+ar-lib
+ltmain.sh
+/*-build
+/compile
+/*-install

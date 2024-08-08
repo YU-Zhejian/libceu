@@ -10,8 +10,13 @@ include(CheckIncludeFile)
 include(CheckIncludeFileCXX)
 include(CheckSymbolExists)
 include(GNUInstallDirs)
-set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_LIBDIR}")
-file(REMOVE_RECURSE "${CMAKE_BUILD_RPATH}/compile_logs")
+include(CPack)
+
+set(CMAKE_INSTALL_RPATH "\$ORIGIN/../lib:${CMAKE_INSTALL_FULL_LIBDIR}")
+set(CPACK_PACKAGE_NAME "${PROJECT_NAME}")
+set(CPACK_PACKAGE_VENDOR "YU ZJ")
+
+file(REMOVE_RECURSE "${CMAKE_BINARY_DIR}/compile_logs")
 
 if(CMAKE_VERSION GREATER_EQUAL 3.12)
     add_compile_definitions(CEU_CM_UNDER_CMAKE)
@@ -79,6 +84,8 @@ file(GLOB CEU_INCLUSIONS "${CMAKE_CURRENT_LIST_DIR}/include/ceu_*")
 install(DIRECTORY ${CEU_INCLUSIONS} TYPE INCLUDE)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/include/ceu_basic/libceu_stddef_cmake.h"
         DESTINATION "${CMAKE_INSTALL_PREFIX}/include/ceu_basic/")
+install(DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/cmake_collections"
+        DESTINATION "${CMAKE_INSTALL_FULL_DATAROOTDIR}/libceu-${PROJECT_VERSION}")
 
 include_directories("${CMAKE_CURRENT_LIST_DIR}/include/")
 include_directories("${CMAKE_CURRENT_LIST_DIR}/include_priv/")

@@ -3,9 +3,14 @@
 
 AC_PREREQ([2.71])
 AC_INIT([libceu], [0.1], [Zhejian.23@intl.zju.edu.cn])
-AC_CONFIG_SRCDIR([lib/ceu_c_utils.c])
-# AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_SRCDIR()
 AC_CONFIG_HEADERS([config.h])
+# Initialize automake
+AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
+AC_CONFIG_FILES([Makefile])
+# Initialize GNU Libtool
+AM_PROG_AR
+LT_INIT
 
 # Definition of functions
 AC_DEFUN([CEU_CHECK_FILE_COMPILATION],
@@ -65,5 +70,4 @@ AC_FUNC_ERROR_AT_LINE
 AC_FUNC_MALLOC
 AC_CHECK_FUNCS([memset sqrt uname])
 
-AC_CONFIG_FILES([])
 AC_OUTPUT

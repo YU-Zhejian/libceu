@@ -56,3 +56,7 @@ Call Stack (most recent call first):
 See also "D:/Work/cpptetgs_experimental/dist/libceu/cmake-build-broadland/CMakeFiles/CMakeOutput.log".
 See also "D:/Work/cpptetgs_experimental/dist/libceu/cmake-build-broadland/CMakeFiles/CMakeError.log".
 ```
+
+Make CMake modules installable.
+
+Generate `.pc` file.
