@@ -12,14 +12,9 @@
 #ifndef CEU_STDNORETURN_H
 #define CEU_STDNORETURN_H
 
-#ifdef noreturn
-#else
-#include "ceu_check/ceu_check_c_cxx_std_macro.h"
-#include "ceu_check/ceu_check_cc_macro.h"
-#include "ceu_cstd/ceu_cdefs.h"
-
-#ifdef CEU_UNDER_DOXYGEN
-
+#if defined(noreturn)
+// Do nothing since noreturn had already been defined elsewhere
+#elif defined(CEU_UNDER_DOXYGEN)
 /*!
  * @def noreturn
  * @brief A macro that indicates that the function never returns.
@@ -30,7 +25,11 @@
  * - `__attribute__((noreturn))`, if supports.
  */
 #define noreturn /* implementation-defined */
+
 #else
+#include "ceu_check/ceu_check_c_cxx_std_macro.h"
+#include "ceu_check/ceu_check_cc_macro.h"
+#include "ceu_cstd/ceu_cdefs.h"
 
 #if defined(__cplusplus)
 // FIXME: Temporary solution for C++ 11.
@@ -81,7 +80,6 @@
 #define noreturn __attribute__((noreturn))
 
 #endif /* CEU_HAVE_INCLUDE_STDNORETURN_H */
-#endif /* noreturn */
 #endif /* __cplusplus */
-#endif /* CEU_UNDER_DOXYGEN */
+#endif /* noreturn */
 #endif /* CEU_STDNORETURN_H */
