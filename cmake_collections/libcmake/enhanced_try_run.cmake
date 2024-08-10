@@ -76,14 +76,26 @@ function(ceu_cm_enhanced_try_run)
         set(CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}
             127
             CACHE INTERNAL "Default to fail.")
+
+        # Finding whether all dependencies are defined.
         if(DEFINED CEU_CM_ENHANCED_TRY_RUN_DEPENDS)
             foreach(DEPENDENT_VARNAME ${CEU_CM_ENHANCED_TRY_RUN_DEPENDS})
+
+                # Assess compiling result first.
+                if(DEFINED CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_COMPILE_${TARGET_POSTFIX})
+                    if(NOT ${CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_COMPILE_${TARGET_POSTFIX}})
+                        set(CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX}
+                                FALSE
+                                CACHE INTERNAL
+                                "Dependency CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_COMPILE_${TARGET_POSTFIX} failed.")
+                    endif()
+                else()
+                    message(FATAL_ERROR "Dependency CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_COMPILE_${TARGET_POSTFIX} is not undefined")
+                endif()
+
+                # Assess running result.
                 if(DEFINED CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX})
                     if(NOT ${CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX}} EQUAL 0)
-                        set(CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX}
-                            FALSE
-                            CACHE INTERNAL
-                                  "Dependency CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX} failed.")
                         set(CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}
                             127
                             CACHE INTERNAL
@@ -95,20 +107,16 @@ function(ceu_cm_enhanced_try_run)
                         FALSE
                         CACHE INTERNAL
                               "Dependency CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX} undefined.")
-                    set(CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_RUN_${TARGET_POSTFIX}
-                        127
-                        CACHE INTERNAL
-                              "Dependency CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX} undefined.")
-                    return()
+                    message(FATAL_ERROR "Dependency CEU_CM_HAVE_WORKING_${DEPENDENT_VARNAME}_RUN_${TARGET_POSTFIX} is not undefined")
                 endif()
             endforeach()
         endif()
 
         if(DEFINED CEU_CM_ENHANCED_TRY_RUN_LINK_LIBRARIES)
             foreach(CEU_CM_ENHANCED_TRY_RUN_LINK_LIBRARY ${CEU_CM_ENHANCED_TRY_RUN_LINK_LIBRARIES})
-                if(CEU_CM_ENHANCED_TRY_RUN_LINK_LIBRARY EQUAL "")
+                if(CEU_CM_ENHANCED_TRY_RUN_LINK_LIBRARY EQUAL "") # If the library is empty
                     continue()
-                elseif(NOT CEU_CM_ENHANCED_TRY_RUN_LINK_LIBRARY)
+                elseif(NOT CEU_CM_ENHANCED_TRY_RUN_LINK_LIBRARY) # If the library is not found
                     set(CEU_CM_HAVE_WORKING_${CEU_CM_ENHANCED_TRY_RUN_VARNAME}_COMPILE_${TARGET_POSTFIX}
                         FALSE
                         CACHE INTERNAL "Dependency ${CEU_CM_ENHANCED_TRY_RUN_LINK_LIBRARY} not found.")

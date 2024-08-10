@@ -13,12 +13,7 @@ ceu_cm_enhanced_try_run(
     "${CMAKE_CURRENT_LIST_DIR}/src/test_libm.c"
     DEPENDS
     C_HELLOWORLD)
-if(NOT DEFINED "${CMAKE_CURRENT_LIST_FILE}_INCLUDED")
-    set("${CMAKE_CURRENT_LIST_FILE}_INCLUDED"
-        TRUE
-        CACHE INTERNAL "This file was included")
-    ceu_cm_print_test_status("libm: no -lm (c)" C_NO_LIBM)
-endif()
+
 if(NOT DEFINED LIBM_LIBRARY_SHARED)
     ceu_cm_enhanced_find_library(OUTPUT_VARIABLE LIBM_LIBRARY_SHARED LINKER_FLAG m)
 endif()
@@ -50,9 +45,10 @@ if(NOT DEFINED "${CMAKE_CURRENT_LIST_FILE}_INCLUDED")
     set("${CMAKE_CURRENT_LIST_FILE}_INCLUDED"
         TRUE
         CACHE INTERNAL "This file was included")
+    ceu_cm_print_test_status("libm: without -lm (c)" C_NO_LIBM)
     ceu_cm_print_test_status("libm: with -lm (c)" C_WITH_LIBM)
 endif()
-if(CEU_CM_HAVE_WORKING_C_NO_LIBM_RUN_SHARED EQUAL 0)
+if(CEU_CM_HAVE_WORKING_C_NO_LIBM_RUN_SHARED EQUAL 0 AND NOT CEU_CM_HAVE_WORKING_C_WITH_LIBM_RUN_SHARED EQUAL 0)
     set(CEU_CM_LIBM_SHARED
         ""
         CACHE INTERNAL "mathematical functions work without libm")
@@ -66,7 +62,7 @@ else()
         CACHE INTERNAL "mathematical functions not working")
 endif()
 
-if(CEU_CM_HAVE_WORKING_C_NO_LIBM_RUN_STATIC EQUAL 0)
+if(CEU_CM_HAVE_WORKING_C_NO_LIBM_RUN_STATIC EQUAL 0 AND NOT CEU_CM_HAVE_WORKING_C_WITH_LIBM_RUN_STATIC EQUAL 0)
     set(CEU_CM_LIBM_STATIC
         ""
         CACHE INTERNAL "mathematical functions work without libm")
